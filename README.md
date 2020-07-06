@@ -1,10 +1,8 @@
 # YJSwiftKit
 
-
+![image](https://github.com/MemoryKing/YJSwiftKit/blob/master/YJSwiftKitDemo/YJSwiftKit/WeChat3556455bf38095cbe613225dde493bb5.png)
 
 ##   1.0.0
-
-
 #### UIView                   位置,渐变色,跳转,layer,手势
 #### UIColor                  进制颜色
 #### Data                       获取时间,转换,计算,检测
@@ -17,7 +15,3 @@
 #### HUD                       
 #### BaseTableView    
 #### BaseCollectionView
-
-
-![image](https://github.com/MemoryKing/YJSwiftKit/blob/master/YJSwiftKitDemo/YJSwiftKit/WeChat3556455bf38095cbe613225dde493bb5.png)
-
