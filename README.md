@@ -19,5 +19,5 @@
 #### BaseCollectionView
 
 
-![image](https://github.com/MemoryKing/YJSwiftKit/YJSwiftKit/YJSwiftKitDemo/YJSwiftKit/WeChat3556455bf38095cbe613225dde493bb5.png)
+![image](https://github.com/MemoryKing/YJSwiftKit/YJSwiftKitDemo/YJSwiftKit/WeChat3556455bf38095cbe613225dde493bb5.png)
 
