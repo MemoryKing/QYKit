@@ -14,101 +14,112 @@ import CoreTelephony
 import CoreLocation
 import AVFoundation
 
-class QYPowerDetection {
+class QYPermissionsDetection {
     // MARK: - 开启媒体资料库/Apple Music 服务
     /// 开启媒体资料库/Apple Music 服务
     @available(iOS 9.3, *)
-    public func yi_openMediaPlayerServiceWithBlock(action :@escaping ((Bool)->())) {
+    public class func yi_openMediaPlayerServiceWithBlock(action :@escaping ((Bool)->())) {
+        var isOpen = false
         let authStatus = MPMediaLibrary.authorizationStatus()
         if authStatus == MPMediaLibraryAuthorizationStatus.notDetermined {
             MPMediaLibrary.requestAuthorization { (status) in
                 if (status == MPMediaLibraryAuthorizationStatus.authorized) {
-                    DispatchQueue.main.async {
-                        action(true)
-                    }
-                }else{
-                    DispatchQueue.main.async {
-                        action(false)
-                    }
+                    isOpen = true
                 }
             }
         } else if authStatus == MPMediaLibraryAuthorizationStatus.authorized {
-            action(true)
+                isOpen = true
         } else {
-            action(false)
+            isOpen = false
+        }
+        DispatchQueue.main.async {
+            action(isOpen)
         }
     }
 
     // MARK: - 检测是否开启联网
     /// 检测是否开启联网
-    public func yi_openEventServiceWithBolck(action :@escaping ((Bool)->())) {
+    public class func yi_openEventServiceWithBolck(action :@escaping ((Bool)->())) {
         let cellularData = CTCellularData()
+        var isOpen = false
         cellularData.cellularDataRestrictionDidUpdateNotifier = { (state) in
-            if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
-                action(false)
-            } else {
-                action(true)
+            if !(state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted) {
+                isOpen = true
             }
         }
         let state = cellularData.restrictedState
-        if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
-            action(false)
-        } else {
-            action(true)
+        if !(state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted) {
+            isOpen = true
+        }
+        DispatchQueue.main.async {
+            action(isOpen)
         }
     }
 
     // MARK: - 检测是否开启定位
     /// 检测是否开启定位
-    public func yi_openLocationServiceWithBlock(action :@escaping ((Bool)->())) {
+    public class func yi_openLocationServiceWithBlock(action :@escaping ((Bool)->())) {
         var isOpen = false
         if CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() != .denied {
             isOpen = true
         }
-        action(isOpen)
+        DispatchQueue.main.async {
+            action(isOpen)
+        }
     }
 
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
-    public func yi_openCaptureDeviceServiceWithBlock(action :@escaping ((Bool)->())) {
+    public class func yi_openCaptureDeviceServiceWithBlock(action :@escaping ((Bool)->())) {
+        var isOpen = false
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if authStatus == AVAuthorizationStatus.notDetermined {
             AVCaptureDevice.requestAccess(for: AVMediaType.video) { (granted) in
-                action(granted)
+                isOpen = granted
             }
         } else if authStatus == AVAuthorizationStatus.restricted || authStatus == AVAuthorizationStatus.denied {
-            action(false)
+            isOpen = false
         } else {
-            action(true)
+            isOpen = true
+        }
+        DispatchQueue.main.async {
+            action(isOpen)
         }
     }
     // MARK: - 检测是否开启相册
     /// 检测是否开启相册
-    public func yi_openAlbumServiceWithBlock(action :@escaping ((Bool)->())) {
+    public class func yi_openAlbumServiceWithBlock(action :@escaping ((Bool)->())) {
         var isOpen = true
         let authStatus = PHPhotoLibrary.authorizationStatus()
         if authStatus == PHAuthorizationStatus.restricted || authStatus == PHAuthorizationStatus.denied {
             isOpen = false;
         }
-        action(isOpen)
+        DispatchQueue.main.async {
+            action(isOpen)
+        }
     }
 
     // MARK: - 检测是否开启麦克风
     /// 检测是否开启麦克风
-    public func yi_openRecordServiceWithBlock(action :@escaping ((Bool)->())) {
+    public class func yi_openRecordServiceWithBlock(action :@escaping ((Bool)->())) {
+        var isOpen = false
         let permissionStatus = AVAudioSession.sharedInstance().recordPermission
         if permissionStatus == AVAudioSession.RecordPermission.undetermined {
             AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
-                action(granted)
+                isOpen = granted
             }
         } else if permissionStatus == AVAudioSession.RecordPermission.denied || permissionStatus == AVAudioSession.RecordPermission.undetermined{
-            action(false)
+            isOpen = false
         } else {
-            action(true)
+            isOpen = true
+        }
+        DispatchQueue.main.async {
+            action(isOpen)
         }
     }
     // MARK: - 跳转系统设置界面
-    public func yi_OpenURL() {
+    ///跳转系统设置界面
+    public class func yi_OpenPermissionsSetting() {
         let url = URL(string: UIApplication.openSettingsURLString)
         let alertController = UIAlertController(title: "访问受限",
                                                 message: "点击“设置”，允许访问权限",

@@ -50,7 +50,10 @@ class ViewController: UIViewController {
     }()
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        QYHUD.showSuccess("sdafghj")
+//        QYHUD.showSuccess("sdafghj")
+        QYSystemInfo.yi_invokeCameraPhoto { (image) in
+            
+        }
     }
 }
 

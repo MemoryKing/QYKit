@@ -68,3 +68,11 @@ extension Array where Element == UInt8 {
         }
     }
 }
+
+extension Array {
+    ///去掉重复的元素
+    func yi_removeDuplicate() -> [Any] {
+        let set = NSSet.init(array: self)
+        return set.allObjects
+    }
+}
