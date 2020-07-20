@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-QYKit/Pods-QYKit-frameworks.sh
+${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework
+${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
+${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework
