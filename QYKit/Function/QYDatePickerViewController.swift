@@ -8,33 +8,25 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-struct QYScreenInfo {
-    static let Frame = UIScreen.main.bounds
-    static let Height = Frame.height
-    static let Width = Frame.width
-    static let navigationHeight:CGFloat = navBarHeight()
-
-    static func isIphoneX() -> Bool {
-        return UIScreen.main.bounds.equalTo(CGRect(x: 0, y: 0, width: 375, height: 812))
-    }
-    static private func navBarHeight() -> CGFloat {
-        return isIphoneX() ? 88 : 64
-    }
-}
 
 class QYDatePickerViewController: UIViewController {
-
-    var backDate: ((String) -> Void)?
-    let startTime = 2016
-    var picker: UIPickerView!
+    public enum QYComponentsType : Int {
+        case year = 0
+        case month = 1
+        case day = 2
+    }
+    private var type : QYComponentsType?
+    private var backDate: ((String) -> Void)?
+    private var startTime = 2016
+    public var picker: UIPickerView!
     ///获取当前日期
-    private var currentDateCom: DateComponents = Calendar.current.dateComponents([.year, .month, .day],   from: Date())    //日期类型
-    var containV:UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: QYScreenInfo.Height-240, width: QYScreenInfo.Width, height: 240))
+    private var currentDateCom: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())    //日期类型
+    public var containV:UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: QYScreenInfo.height - QYScreenInfo.ratio(240), width: QYScreenInfo.width, height: QYScreenInfo.ratio(240)))
         view.backgroundColor = UIColor.white
         return view
     }()
-    var backgroundView:UIView = {
+    public var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         return view
@@ -44,19 +36,14 @@ class QYDatePickerViewController: UIViewController {
         super.viewDidLoad()
         
     }
-    
-    func showDatePicker(backDate : @escaping ((String) -> Void)) {
-        self.backDate = backDate
-        self.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        self.drawMyView()
-    }
     // MARK: - Func
+    private var cancel: UIButton!
+    private var sure: UIButton!
     private func drawMyView() {
         self.view.insertSubview(self.backgroundView, at: 0)
-        //viewcontroller弹出后之前控制器页面不隐藏 .custom代表自定义
         self.modalPresentationStyle = .custom
-        let cancel = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-        let sure = UIButton(frame: CGRect(x: QYScreenInfo.Width - 70, y: 0, width: 70, height: 30))
+        cancel = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
+        sure = UIButton(frame: CGRect(x: QYScreenInfo.width - QYScreenInfo.ratio(70), y: 0, width: QYScreenInfo.ratio(70), height: QYScreenInfo.ratio(30)))
         cancel.setTitle("取消", for: .normal)
         sure.setTitle("确认", for: .normal)
         cancel.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -65,7 +52,7 @@ class QYDatePickerViewController: UIViewController {
         sure.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
         cancel.addTarget(self, action: #selector(self.onClickCancel), for: .touchUpInside)
         sure.addTarget(self, action: #selector(self.onClickSure), for: .touchUpInside)
-        picker = UIPickerView(frame: CGRect(x: 0, y: 30, width: QYScreenInfo.Width, height: 210))
+        picker = UIPickerView(frame: CGRect(x: 0, y: QYScreenInfo.ratio(30), width: QYScreenInfo.width, height: QYScreenInfo.ratio(210)))
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = UIColor.clear
@@ -81,30 +68,26 @@ class QYDatePickerViewController: UIViewController {
     }
     // MARK: on Sure Click
     @objc func onClickSure() {
-        let dateString = String(format: "%02ld-%02ld", self.picker.selectedRow(inComponent: 0) + startTime, self.picker.selectedRow(inComponent: 1) + 1)
-        /// 直接回调显示
+        var dateString = ""
+        switch self.type {
+        case .year:
+            dateString = String(format: "%02ld",
+                                self.picker.selectedRow(inComponent: 0) + startTime)
+        case .month:
+            dateString = String(format: "%02ld-%02ld",
+                                self.picker.selectedRow(inComponent: 0) + startTime,
+                                self.picker.selectedRow(inComponent: 1) + 1)
+        case .day:
+            dateString = String(format: "%02ld-%02ld-%02ld",
+                                self.picker.selectedRow(inComponent: 0) + startTime,
+                                self.picker.selectedRow(inComponent: 1) + 1,
+                                self.picker.selectedRow(inComponent: 2) + 1)
+        case .none:
+            break
+        }
         if self.backDate != nil {
             self.backDate!(dateString)
         }
-        /*** 如果需求需要不能选择已经过去的日期
-         let dateSelect = dateFormatter.date(from: dateString)
-         let date = Date()
-         let calendar = Calendar.current
-         let dateNowString = String(format: "%02ld-%02ld-%02ld", calendar.component(.year, from: date) , calendar.component(.month, from: date), calendar.component(.day, from: date))
-
-        /// 判断选择日期与当前日期关系
-        let result:ComparisonResult = (dateSelect?.compare(dateFormatter.date(from: dateNowString)!))!
-
-        if result == ComparisonResult.orderedAscending {
-            /// 选择日期在当前日期之前,可以选择使用toast提示用户.
-            return
-            }else{
-            /// 选择日期在当前日期之后. 正常调用
-            if self.backDate != nil{
-                self.backDate!(dateFormatter.date(from: dateString) ?? Date())
-            }
-        }
-         */
         self.dismiss(animated: true, completion: nil)
     }
     ///点击任意位置view消失
@@ -115,6 +98,7 @@ class QYDatePickerViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -128,7 +112,15 @@ class QYDatePickerViewController: UIViewController {
 // MARK: - PickerViewDelegate
 extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        switch self.type {
+        case .year:
+            return 1
+        case .month:
+            return 2
+        default:
+            break
+        }
+        return 3
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
@@ -161,7 +153,15 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
         return 29
     }
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return QYScreenInfo.Width / 2
+        switch self.type {
+        case .year:
+            return QYScreenInfo.width
+        case .month:
+            return QYScreenInfo.width / 2
+        default:
+            break
+        }
+        return QYScreenInfo.width / 3
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
@@ -176,13 +176,25 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
         }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        if component == 1 {
-//            pickerView.reloadComponent(2)
-//        }
+        switch self.type {
+        case .year:break
+        case .month:
+            if component == 0 {
+                pickerView.reloadComponent(1)
+            }
+        case .day:
+            if component == 1 {
+                pickerView.reloadComponent(2)
+            }
+        default:
+            break
+        }
     }
-    
 }
-
+enum DatePickerPresentAnimateType {
+    case present//被推出时
+    case dismiss//取消时
+}
 // MARK: - 转场动画delegate
 extension QYDatePickerViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -194,16 +206,8 @@ extension QYDatePickerViewController: UIViewControllerTransitioningDelegate {
         return animated
     }
 }
-
-
-
-enum DatePickerPresentAnimateType {
-    case present//被推出时
-    case dismiss//取消时
-}
-
 //DatePickerViewController的推出和取消动画
-class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnimatedTransitioning {
+private class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnimatedTransitioning {
 
     var type: DatePickerPresentAnimateType = .present
 
@@ -222,7 +226,6 @@ class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnimatedTrans
             guard let toVC = transitionContext.viewController(forKey: .to) as? QYDatePickerViewController else {
                 return
             }
-//            let toVC : DatePickerViewController = transitionContext.viewController(forKey: .to) as? DatePickerViewController
             let toView = toVC.view
 
             let containerView = transitionContext.containerView
@@ -255,5 +258,48 @@ class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnimatedTrans
                 transitionContext.completeTransition(true)
             }
         }
+    }
+}
+
+//MARK: -------   调用方法
+extension QYDatePickerViewController {
+    ///类型
+    public class func yi_showDatePicker(type : QYComponentsType,
+                                        _ startTime : Int? = 2016,
+                                        _ backDate : @escaping ((String) -> Void)) {
+        QYDatePickerViewController.yi_showDatePicker(type: type, startTime, "取消",nil,nil, "确定",nil,nil, backDate)
+    }
+    ///类型按钮文本
+    public class func yi_showDatePicker(type : QYComponentsType,
+                                        _ startTime : Int?,
+                                        _ cancel: String,
+                                        _ sure: String,
+                                        _ backDate : @escaping ((String) -> Void)) {
+        QYDatePickerViewController.yi_showDatePicker(type: type, startTime, cancel,nil,nil, sure,nil,nil, backDate)
+    }
+    ///类型按钮文本丶颜色
+    public class func yi_showDatePicker(type : QYComponentsType,
+                                        _ startTime : Int?,
+                                        _ cancel: String,
+                                        _ cancelColor: UIColor? = .blue,
+                                        _ cancelFont: CGFloat?,
+                                        _ sure: String,
+                                        _ sureColor: UIColor? = .blue,
+                                        _ sureFont: CGFloat?,
+                                        _ backDate : @escaping ((String) -> Void)) {
+        let vc = QYDatePickerViewController.init()
+        vc.modalPresentationStyle = .fullScreen
+        vc.type = type
+        vc.startTime = startTime ?? 2016
+        vc.backDate = backDate
+        vc.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        vc.drawMyView()
+        vc.cancel.setTitle(cancel, for: .normal)
+        vc.cancel.setTitleColor(cancelColor, for: .normal)
+        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: QYScreenInfo.ratio(cancelFont ?? 15))
+        vc.sure.setTitle(sure, for: .normal)
+        vc.sure.setTitleColor(sureColor, for: .normal)
+        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: QYScreenInfo.ratio(sureFont ?? 15))
+        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
     }
 }

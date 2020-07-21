@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-class QYMacroInfo {
+class QYScreenInfo {
     ///屏幕宽
     public static var width: CGFloat {
         return UIScreen.main.bounds.size.width

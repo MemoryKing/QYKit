@@ -8,6 +8,7 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 import Foundation
+import CommonCrypto
 
 //MARK: -------   初始化
 extension String {
@@ -189,16 +190,18 @@ extension String {
     }
     ///转成byte数组
     public func yi_toBytes () -> [UInt8] {
-        let strData = self.data(using: String.Encoding.utf8)
-        let bytes = [UInt8](strData!)
-        return bytes
+        let strData = self.data(using: String.Encoding.utf8)! as NSData
+        let count = self.count / MemoryLayout<UInt8>.size
+        var bytesArray = [UInt8](repeating: 0, count: count)
+        strData.getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
+        return bytesArray
     }
     ///url
     public var yi_url: URL? {
         return URL(string: self)
     }
     ///图片
-    public var urlImage : UIImage? {
+    public var yi_urlImage : UIImage? {
         var image : UIImage?
         let url = URL.init(string: self)
         do {
@@ -209,17 +212,38 @@ extension String {
         }
         return image
     }
+    /// md5 字符串加密
+     public func yi_md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        free(result)
+        return String(format: hash as String)
+    }
 }
 //MARK: -------   大小写
 extension String {
-    ///大写字符串的第一个“计数”字符
+    ///转为大写
+    public func yi_uppercased(_ locale: Locale?) -> String {
+        return self.uppercased(with: locale)
+    }
+    ///转为小写
+    public func yi_lowercased(_ locale: Locale?) -> String {
+        return self.lowercased(with: locale)
+    }
+    ///大写字符串的第“计数”字符
     public mutating func yi_uppercasePrefix(_ count: Int) {
         guard self.count > 0 && count > 0 else { return }
         self.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: min(count, length)),
                              with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).uppercased())
     }
-    
-    ///大写首'计数'字符的字符串，返回一个新的字符串
+    ///大写首'计数'字符的字符串
     public func yi_uppercasedPrefix(_ count: Int) -> String {
         guard self.count > 0 && count > 0 else { return self }
         var result = self
@@ -227,15 +251,7 @@ extension String {
                                with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).uppercased())
         return result
     }
-    
-    ///字符串的最后一个“计数”字符是大写的
-    public mutating func yi_uppercaseSuffix(_ count: Int) {
-        guard self.count > 0 && count > 0 else { return }
-        self.replaceSubrange(self.index(endIndex, offsetBy: -min(count, length))..<endIndex,
-                             with: String(self[self.index(endIndex, offsetBy: -min(count, length))..<endIndex]).uppercased())
-    }
-    
-    ///字符串的最后一个“计数”字符，返回一个新字符串
+    ///字符串的最后“计数”字符，返回一个新字符串
     public func yi_uppercasedSuffix(_ count: Int) -> String {
         guard self.count > 0 && count > 0 else { return self }
         var result = self
@@ -243,15 +259,6 @@ extension String {
                                with: String(self[self.index(endIndex, offsetBy: -min(count, length))..<endIndex]).uppercased())
         return result
     }
-    
-    ///范围内大写
-    public mutating func yi_uppercase(range: CountableRange<Int>) {
-        let from = max(range.lowerBound, 0), to = min(range.upperBound, length)
-        guard self.count > 0 && (0..<length).contains(from) else { return }
-        self.replaceSubrange(self.index(startIndex, offsetBy: from)..<self.index(startIndex, offsetBy: to),
-                             with: String(self[self.index(startIndex, offsetBy: from)..<self.index(startIndex, offsetBy: to)]).uppercased())
-    }
-    
     ///范围内大写
     public func yi_uppercased(range: CountableRange<Int>) -> String {
         let from = max(range.lowerBound, 0), to = min(range.upperBound, length)
@@ -261,13 +268,6 @@ extension String {
                                with: String(self[self.index(startIndex, offsetBy: from)..<self.index(startIndex, offsetBy: to)]).uppercased())
         return result
     }
-    
-    ///首字母小写
-    public mutating func yi_lowercaseFirst() {
-        guard self.count > 0 else { return }
-        self.replaceSubrange(startIndex...startIndex, with: String(self[startIndex]).lowercased())
-    }
-    
     ///首字母小写
     public func yi_lowercasedFirst() -> String {
         guard self.count > 0 else { return self }
@@ -275,14 +275,6 @@ extension String {
         result.replaceSubrange(startIndex...startIndex, with: String(self[startIndex]).lowercased())
         return result
     }
-    
-    ///字符串的小写首'计数'字符
-    public mutating func yi_lowercasePrefix(_ count: Int) {
-        guard self.count > 0 && count > 0 else { return }
-        self.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: min(count, length)),
-                             with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).lowercased())
-    }
-    
     ///小写字符串的第一个“计数”字符
     public func yi_lowercasedPrefix(_ count: Int) -> String {
         guard self.count > 0 && count > 0 else { return self }
@@ -291,14 +283,6 @@ extension String {
                                with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).lowercased())
         return result
     }
-    
-    ///字符串的最后“计数”字符小写
-    public mutating func yi_lowercaseSuffix(_ count: Int) {
-        guard self.count > 0 && count > 0 else { return }
-        self.replaceSubrange(self.index(endIndex, offsetBy: -min(count, length))..<endIndex,
-                             with: String(self[self.index(endIndex, offsetBy: -min(count, length))..<endIndex]).lowercased())
-    }
-    
     ///字符串的最后“计数”字符小写
     public func yi_lowercasedSuffix(_ count: Int) -> String {
         guard self.count > 0 && count > 0 else { return self }

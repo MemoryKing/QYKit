@@ -53,7 +53,7 @@ extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControlle
         UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
     }
     ///打开相册
-    public func yi_invokeSystemPhoto() -> Void {
+    private func yi_invokeSystemPhoto() -> Void {
         QYPermissionsDetection.yi_openAlbumServiceWithBlock { (b) in
             if b {
                 let imagePickerController = UIImagePickerController()
@@ -75,7 +75,7 @@ extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControlle
         }
     }
     ///打开相机
-    public func yi_invokeSystemCamera() -> Void {
+    private func yi_invokeSystemCamera() -> Void {
         QYPermissionsDetection.yi_openCaptureDeviceServiceWithBlock { (b) in
             if b {
                 let imagePickerController = UIImagePickerController()
@@ -95,7 +95,7 @@ extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControlle
             }
         }
     }
-    ///UIImagePickerControllerDelegate
+    //MARK: -------UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never

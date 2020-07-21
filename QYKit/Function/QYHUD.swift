@@ -13,7 +13,7 @@ import PKHUD
 
 public class QYHUD: NSObject {
     
-    public class func show (_ str : String? = nil,
+    public class func show (_ str : String,
                             _ afterDelay : TimeInterval? = 1.5,
                             _ block : ((Bool) -> Void)? = nil) {
         completionBlock = block

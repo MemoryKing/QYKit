@@ -37,9 +37,10 @@
 		04EEBF0F24C56F1C0084BD20 /* QYSystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF424C56F1C0084BD20 /* QYSystemInfo.swift */; };
 		04EEBF1024C56F1C0084BD20 /* QYAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF524C56F1C0084BD20 /* QYAppInfo.swift */; };
 		04EEBF1124C56F1C0084BD20 /* QYRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF624C56F1C0084BD20 /* QYRegular.swift */; };
-		04EEBF1224C56F1C0084BD20 /* QYMacroInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF724C56F1C0084BD20 /* QYMacroInfo.swift */; };
+		04EEBF1224C56F1C0084BD20 /* QYScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF724C56F1C0084BD20 /* QYScreenInfo.swift */; };
 		04EEBF1324C56F1C0084BD20 /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF824C56F1C0084BD20 /* QYToolManager.swift */; };
 		04EEBF1424C56F1C0084BD20 /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBEF924C56F1C0084BD20 /* QYTouchIDManager.swift */; };
+		04EEBF2A24C6ED050084BD20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04EEBF2924C6ED050084BD20 /* README.md */; };
 		D81A585DF8D5A2B23E411BE6 /* Pods_QYKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F560FDEE8B6231E4C82424F9 /* Pods_QYKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,9 +96,10 @@
 		04EEBEF424C56F1C0084BD20 /* QYSystemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYSystemInfo.swift; sourceTree = "<group>"; };
 		04EEBEF524C56F1C0084BD20 /* QYAppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYAppInfo.swift; sourceTree = "<group>"; };
 		04EEBEF624C56F1C0084BD20 /* QYRegular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYRegular.swift; sourceTree = "<group>"; };
-		04EEBEF724C56F1C0084BD20 /* QYMacroInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYMacroInfo.swift; sourceTree = "<group>"; };
+		04EEBEF724C56F1C0084BD20 /* QYScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYScreenInfo.swift; sourceTree = "<group>"; };
 		04EEBEF824C56F1C0084BD20 /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
 		04EEBEF924C56F1C0084BD20 /* QYTouchIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTouchIDManager.swift; sourceTree = "<group>"; };
+		04EEBF2924C6ED050084BD20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		38518928AD5ACCDA2E21AF37 /* Pods-YJSwiftKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJSwiftKit.debug.xcconfig"; path = "Target Support Files/Pods-YJSwiftKit/Pods-YJSwiftKit.debug.xcconfig"; sourceTree = "<group>"; };
 		43527D8192BD4580F87ED551 /* Pods-QYKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKit.release.xcconfig"; path = "Target Support Files/Pods-QYKit/Pods-QYKit.release.xcconfig"; sourceTree = "<group>"; };
 		BD5365B016AE7E3E115D7980 /* Pods-QYKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKit.debug.xcconfig"; path = "Target Support Files/Pods-QYKit/Pods-QYKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		04901FC0249CA25F0086A508 /* QYKit */ = {
 			isa = PBXGroup;
 			children = (
+				04EEBF2924C6ED050084BD20 /* README.md */,
 				04EEBEDB24C56F1C0084BD20 /* QYKit */,
 				04901FC1249CA25F0086A508 /* AppDelegate.swift */,
 				04901FC5249CA25F0086A508 /* ViewController.swift */,
@@ -218,7 +221,7 @@
 				04EEBEF424C56F1C0084BD20 /* QYSystemInfo.swift */,
 				04EEBEF524C56F1C0084BD20 /* QYAppInfo.swift */,
 				04EEBEF624C56F1C0084BD20 /* QYRegular.swift */,
-				04EEBEF724C56F1C0084BD20 /* QYMacroInfo.swift */,
+				04EEBEF724C56F1C0084BD20 /* QYScreenInfo.swift */,
 				04EEBEF824C56F1C0084BD20 /* QYToolManager.swift */,
 				04EEBEF924C56F1C0084BD20 /* QYTouchIDManager.swift */,
 			);
@@ -352,6 +355,7 @@
 			files = (
 				04901FCE249CA2640086A508 /* LaunchScreen.storyboard in Resources */,
 				04D1A17B24B3194500FE37C5 /* NoData.png in Resources */,
+				04EEBF2A24C6ED050084BD20 /* README.md in Resources */,
 				04901FCB249CA2640086A508 /* Assets.xcassets in Resources */,
 				04901FC9249CA25F0086A508 /* Main.storyboard in Resources */,
 			);
@@ -447,7 +451,7 @@
 				04EEBF1024C56F1C0084BD20 /* QYAppInfo.swift in Sources */,
 				04EEBF0E24C56F1C0084BD20 /* QYBaseTableView.swift in Sources */,
 				04EEBEFA24C56F1C0084BD20 /* QYDevice.swift in Sources */,
-				04EEBF1224C56F1C0084BD20 /* QYMacroInfo.swift in Sources */,
+				04EEBF1224C56F1C0084BD20 /* QYScreenInfo.swift in Sources */,
 				04EEBF0A24C56F1C0084BD20 /* QYBaseCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

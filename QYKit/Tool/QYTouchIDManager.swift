@@ -11,7 +11,7 @@ import LocalAuthentication
 
 class QYTouchIDManager: NSObject {
     static let share = QYTouchIDManager()
-    public func touchID (reply : @escaping (Bool, Error?) -> Void) {
+    public func yi_touchID (reply : @escaping (Bool, Error?) -> Void) {
         let context = LAContext()
         var error: NSError?
         

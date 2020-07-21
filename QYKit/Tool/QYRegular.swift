@@ -12,7 +12,7 @@ import UIKit
 ///正则
 class QYRegular: NSObject {
     ///手机号
-    class func isPhoneNumber(phoneNumber:String) -> Bool {
+    class func yi_phoneNumber(phoneNumber:String) -> Bool {
         if phoneNumber.count == 0 {
             return false
         }
@@ -25,7 +25,7 @@ class QYRegular: NSObject {
         }
     }
     ///密码 : 6-20位字母和数字组合
-    class func isPasswordRuler(password:String) -> Bool {
+    class func yi_passwordRuler(password:String) -> Bool {
         let passwordRule = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$"
         let regexPassword = NSPredicate(format: "SELF MATCHES %@",passwordRule)
         if regexPassword.evaluate(with: password) == true {
@@ -35,7 +35,7 @@ class QYRegular: NSObject {
         }
     }
     ///邮箱
-    class func isEmail (email:String) -> Bool {
+    class func yi_mail (email:String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
 
         let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)

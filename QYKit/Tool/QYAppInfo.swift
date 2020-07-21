@@ -10,24 +10,20 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 
 class QYAppInfo {
-    ///版本号
-    static var version: String {
-        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-    }
     ///App 名称
-    static var appDisplayName: String {
+    static var yi_displayName: String {
         return Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String
     }
     ///Bundle Identifier
-    static var bundleIdentifier: String {
+    static var yi_bundleIdentifier: String {
         return Bundle.main.bundleIdentifier ?? ""
     }
     ///App 版本号
-    static var appVersion: String {
+    static var yi_version: String {
         return Bundle.main.infoDictionary? ["CFBundleShortVersionString"] as! String
     }
     //Bulid 版本号
-    static var buildVersion: String {
+    static var yi_buildVersion: String {
         return Bundle.main.infoDictionary? ["CFBundleVersion"] as! String
     }
 }

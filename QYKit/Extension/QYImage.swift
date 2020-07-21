@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 extension UIImage {
-    static func url(url: String) -> UIImage? {
+    public static func url(url: String) -> UIImage? {
         var image : UIImage?
         let url = URL.init(string: url)
         do {
@@ -28,7 +28,7 @@ extension UIImage {
 //MARK: -------   渐变
 extension UIImage {
     /// 渐变色方向
-    enum Direction {
+    public enum Direction {
         ///垂直
         case vertical
         ///水平

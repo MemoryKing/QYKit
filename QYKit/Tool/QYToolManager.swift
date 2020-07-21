@@ -19,7 +19,7 @@ class QYToolManager: NSObject {
  
  - returns: JSONString
  */
-func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
+public func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
     if (!JSONSerialization.isValidJSONObject(dictionary)) {
         print("无法解析出JSONString")
         return ""
@@ -32,7 +32,7 @@ func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
 ///
 /// - Parameter jsonString
 /// - Returns: 字典
-func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
+public func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
 
     let jsonData:Data = jsonString.data(using: .utf8)!
 
@@ -43,7 +43,7 @@ func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
     return NSDictionary()
 }
 
-func yPrintLog<T>(_ message: T, fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
+public func QYPrintLog<T>(_ message: T, fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
     #if DEBUG
     //获取当前时间
     let now = Date()

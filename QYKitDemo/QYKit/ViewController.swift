@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 //        img.image = UIImage.initGradient(size: .init(width: 100, height: 100), direction: .leftTop, colors: [.blue,.red])
 //        img.yi_addBorderTop(size: 10, color: .blue)
         
-        
+        self.view.backgroundColor = .blue
         let string = "4d31303630687474703a2f2f36312e3132392e37312e3130333a393033382f656d752f7265732f32303230303731353135313834323031393731353935393135334d3230323632303230303731353135313834323031393731353935393135"
         yPrintLog(string.yi_hexToString())
         yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
@@ -50,9 +50,8 @@ class ViewController: UIViewController {
     }()
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        QYHUD.showSuccess("sdafghj")
-        QYSystemInfo.yi_invokeCameraPhoto { (image) in
-            
+        QYDatePickerViewController.yi_showDatePicker(type: .day) { (str) in
+            QYHUD.show(str)
         }
     }
 }
