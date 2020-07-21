@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.author           = { '╰莪呮想好好宠Nǐつ ' => '1091676312@qq.com' }
   s.source           = { :git => 'https://github.com/MemoryKing/QYKit.git', :tag => s.version.to_s }
   s.swift_versions = '5.0'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
 
   s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','MediaPlayer','CoreTelephony','CoreLocation','AVFoundation'
 
