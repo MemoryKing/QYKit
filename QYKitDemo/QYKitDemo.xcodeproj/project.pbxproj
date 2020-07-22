@@ -35,7 +35,6 @@
 		04C6AB5D24C7E782009C348D /* QYAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4224C7E782009C348D /* QYAppInfo.swift */; };
 		04C6AB5E24C7E782009C348D /* QYSystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4324C7E782009C348D /* QYSystemInfo.swift */; };
 		04C6AB5F24C7E782009C348D /* QYRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4424C7E782009C348D /* QYRegular.swift */; };
-		04C6AB6024C7E782009C348D /* QYPermissionsDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4524C7E782009C348D /* QYPermissionsDetection.swift */; };
 		04C6AB6124C7E782009C348D /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4624C7E782009C348D /* QYToolManager.swift */; };
 		04C6AB6224C7E782009C348D /* QYScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4724C7E782009C348D /* QYScreenInfo.swift */; };
 		04C6AB6324C7E782009C348D /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB4824C7E782009C348D /* QYTouchIDManager.swift */; };
@@ -92,7 +91,6 @@
 		04C6AB4224C7E782009C348D /* QYAppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYAppInfo.swift; sourceTree = "<group>"; };
 		04C6AB4324C7E782009C348D /* QYSystemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYSystemInfo.swift; sourceTree = "<group>"; };
 		04C6AB4424C7E782009C348D /* QYRegular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYRegular.swift; sourceTree = "<group>"; };
-		04C6AB4524C7E782009C348D /* QYPermissionsDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYPermissionsDetection.swift; sourceTree = "<group>"; };
 		04C6AB4624C7E782009C348D /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
 		04C6AB4724C7E782009C348D /* QYScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYScreenInfo.swift; sourceTree = "<group>"; };
 		04C6AB4824C7E782009C348D /* QYTouchIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTouchIDManager.swift; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 				04C6AB4224C7E782009C348D /* QYAppInfo.swift */,
 				04C6AB4324C7E782009C348D /* QYSystemInfo.swift */,
 				04C6AB4424C7E782009C348D /* QYRegular.swift */,
-				04C6AB4524C7E782009C348D /* QYPermissionsDetection.swift */,
 				04C6AB4624C7E782009C348D /* QYToolManager.swift */,
 				04C6AB4724C7E782009C348D /* QYScreenInfo.swift */,
 				04C6AB4824C7E782009C348D /* QYTouchIDManager.swift */,
@@ -426,7 +423,6 @@
 				04C6AB5A24C7E782009C348D /* QYHUD.swift in Sources */,
 				04C6AB5124C7E782009C348D /* QYView.swift in Sources */,
 				04C6AB5524C7E782009C348D /* QYViewController.swift in Sources */,
-				04C6AB6024C7E782009C348D /* QYPermissionsDetection.swift in Sources */,
 				04C6AB6124C7E782009C348D /* QYToolManager.swift in Sources */,
 				04C6AB5724C7E782009C348D /* QYBaseViewController.swift in Sources */,
 				04C6AB4D24C7E782009C348D /* QYColor.swift in Sources */,
