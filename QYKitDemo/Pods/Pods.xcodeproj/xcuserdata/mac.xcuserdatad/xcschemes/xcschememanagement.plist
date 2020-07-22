@@ -24,7 +24,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-QYKit.xcscheme</key>
+		<key>Pods-QYKitDemo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>QYKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

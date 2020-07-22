@@ -1,12 +1,14 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'QYKit' do
+target 'QYKitDemo' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  #pod 'QYKit', :path => './QYKit'
+  pod 'QYKit', :path => './QYKit'
 pod 'PKHUD'
 pod 'MJRefresh'
 pod 'DZNEmptyDataSet'
+#pod 'WYJKit_Swift'
+#pod 'WYJKit_Swift', :path => './WYJKit_Swift'
 end
