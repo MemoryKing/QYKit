@@ -21,12 +21,12 @@ Pod::Spec.new do |s|
 
 #s.public_header_files   = 'QYKit/**/*.swift '
 
-s.subspec 'Extension' do |c|
-c.source_files          = 'QYKit/Extension/**/*.swift'
-end
-
 s.subspec 'Tool' do |e|
 e.source_files          = 'QYKit/Tool/**/*.swift'
+end
+
+s.subspec 'Extension' do |c|
+c.source_files          = 'QYKit/Extension/**/*.swift'
 end
 
 s.subspec 'Function' do |e|
