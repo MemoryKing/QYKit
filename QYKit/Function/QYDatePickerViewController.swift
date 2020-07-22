@@ -7,13 +7,14 @@ GitHub:        https://github.com/MemoryKing
 ********************************************************************************/
 
 import UIKit
-
 public enum QYComponentsType : Int {
     case year = 0
     case month = 1
     case day = 2
+} 
+private func DataRatio (_ num: CGFloat) -> CGFloat {
+    return UIScreen.main.bounds.size.width / 375.0 * num
 }
-
 public class QYDatePickerViewController: UIViewController {
     
     private var type : QYComponentsType?
@@ -22,8 +23,8 @@ public class QYDatePickerViewController: UIViewController {
     var picker: UIPickerView!
     ///获取当前日期
     private var currentDateCom: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())    //日期类型
-    var containV:UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: QYScreenInfo.height - QYScreenInfo.ratio(240), width: QYScreenInfo.width, height: QYScreenInfo.ratio(240)))
+    var containV: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - DataRatio(240), width: UIScreen.main.bounds.width, height: DataRatio(240)))
         view.backgroundColor = UIColor.white
         return view
     }()
@@ -44,7 +45,7 @@ public class QYDatePickerViewController: UIViewController {
         self.view.insertSubview(self.backgroundView, at: 0)
         self.modalPresentationStyle = .custom
         cancel = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-        sure = UIButton(frame: CGRect(x: QYScreenInfo.width - QYScreenInfo.ratio(70), y: 0, width: QYScreenInfo.ratio(70), height: QYScreenInfo.ratio(30)))
+        sure = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - DataRatio(70), y: 0, width: DataRatio(70), height: DataRatio(30)))
         cancel.setTitle("取消", for: .normal)
         sure.setTitle("确认", for: .normal)
         cancel.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -53,7 +54,7 @@ public class QYDatePickerViewController: UIViewController {
         sure.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
         cancel.addTarget(self, action: #selector(self.onClickCancel), for: .touchUpInside)
         sure.addTarget(self, action: #selector(self.onClickSure), for: .touchUpInside)
-        picker = UIPickerView(frame: CGRect(x: 0, y: QYScreenInfo.ratio(30), width: QYScreenInfo.width, height: QYScreenInfo.ratio(210)))
+        picker = UIPickerView(frame: CGRect(x: 0, y: DataRatio(30), width: UIScreen.main.bounds.width, height: DataRatio(210)))
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = UIColor.clear
@@ -156,13 +157,13 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
     public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         switch self.type {
         case .year:
-            return QYScreenInfo.width
+            return UIScreen.main.bounds.width
         case .month:
-            return QYScreenInfo.width / 2
+            return UIScreen.main.bounds.width / 2
         default:
             break
         }
-        return QYScreenInfo.width / 3
+        return UIScreen.main.bounds.width / 3
     }
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
@@ -297,10 +298,10 @@ extension QYDatePickerViewController {
         vc.drawMyView()
         vc.cancel.setTitle(cancel, for: .normal)
         vc.cancel.setTitleColor(cancelColor, for: .normal)
-        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: QYScreenInfo.ratio(cancelFont ?? 15))
+        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: DataRatio(cancelFont ?? 15))
         vc.sure.setTitle(sure, for: .normal)
         vc.sure.setTitleColor(sureColor, for: .normal)
-        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: QYScreenInfo.ratio(sureFont ?? 15))
+        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: DataRatio(sureFont ?? 15))
         UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
     }
 }
