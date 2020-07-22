@@ -9,6 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 import UIKit
+import QYPermissionsDetection
 
 public class QYSystemInfo: NSObject {
     ///是否编辑,默认false
