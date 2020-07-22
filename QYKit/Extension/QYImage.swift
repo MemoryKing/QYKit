@@ -39,11 +39,11 @@ public extension UIImage {
         case leftBottom
     }
     ///线性渐变
-    class func yi_initGradient (size : CGSize, direction : Direction,locations : Array<CGFloat> = [0.0,1.0] ,colors : [UIColor]) -> UIImage? {
+    class func yi_initGradient (size : CGSize, direction : Direction,locations : Array<CGFloat> = [0.0,1.0] ,colors : [UIColor]) -> UIImage {
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         guard (context != nil) else {
-            return nil
+            return UIImage()
         }
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         var cgColors = [CGColor]()
@@ -76,7 +76,7 @@ public extension UIImage {
         context?.drawLinearGradient(gradient, start: start, end: end, options: .drawsBeforeStartLocation)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
     ///放射性渐变
     class func yi_initRadialGradients (size : CGSize,locations : Array<CGFloat> = [0.0,1.0] ,colors : [UIColor]) -> UIImage? {

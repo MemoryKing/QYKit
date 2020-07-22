@@ -381,29 +381,29 @@ public class SynchronizedDictionary <Key: Hashable, Value> {
 //MARK: -------   前后时间
 public extension Date {
     ///加几天
-    func yi_addingDay(_ days: Int) -> Date? {
+    func yi_addingDay(_ days: Int) -> Date {
         var c = DateComponents()
         c.day = days
         let calender = Calendar(identifier: .chinese)
         
-        return calender.date(byAdding: c, to: self)
+        return calender.date(byAdding: c, to: self)!
     }
     ///减几天
-    func yi_subtractingDay(_ days: Int) -> Date? {
+    func yi_subtractingDay(_ days: Int) -> Date {
         var c = DateComponents()
         c.day = days * -1
         let calender = Calendar(identifier: .chinese)
         
-        return calender.date(byAdding: c, to: self)
+        return calender.date(byAdding: c, to: self)!
     }
     ///增加几小时
-    func yi_addingHours(_ dHours: Int) -> Date? {
+    func yi_addingHours(_ dHours: Int) -> Date {
         let aTimeInterval = TimeInterval(timeIntervalSinceReferenceDate + Double(60 * 60 * dHours))
         let newDate = Date(timeIntervalSinceReferenceDate: aTimeInterval)
         return newDate
     }
     ///减少几小时
-    func yi_subtractingHours(_ dHours: Int) -> Date? {
+    func yi_subtractingHours(_ dHours: Int) -> Date {
         let aTimeInterval = TimeInterval(timeIntervalSinceReferenceDate - Double(60 * 60 * dHours))
         let newDate = Date(timeIntervalSinceReferenceDate: aTimeInterval)
         return newDate
