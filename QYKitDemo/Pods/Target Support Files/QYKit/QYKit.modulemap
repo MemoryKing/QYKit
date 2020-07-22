@@ -1,6 +1,0 @@
-framework module QYKit {
-  umbrella header "QYKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

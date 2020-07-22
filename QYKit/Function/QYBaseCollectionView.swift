@@ -54,9 +54,12 @@ public class QYBaseCollectionView : UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
+            if #available(iOS 13.0, *) {
+                self.automaticallyAdjustsScrollIndicatorInsets = false
+            } else {
+                self.contentInsetAdjustmentBehavior = .never
+            }
         } else {
-            // Fallback on earlier versions
         }
         self.emptyDataSetSource = self
         self.emptyDataSetDelegate = self

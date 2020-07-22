@@ -8,7 +8,7 @@
 
 import UIKit
 //import PKHUD
-import QYKit
+//import QYKit
 
 
 class ViewController: UIViewController {
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 //        yPrintLog(string.yi_hexToString())
 //        string.baseImage()
         string.yi_removeTrimming()
-        string.yi
+//        string.yi
 //        string.yi_
         let arr = Array<Any>()
 //        yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())

@@ -8,14 +8,14 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-public class QYBaseNavigationController: UINavigationController {
+class QYBaseNavigationController: UINavigationController {
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
-    public override var childForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return topViewController
     }
 
