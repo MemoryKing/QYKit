@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 
-extension DispatchQueue {
+public extension DispatchQueue {
     static var `default`: DispatchQueue { return DispatchQueue.global(qos: .`default`) }
     static var userInteractive: DispatchQueue { return DispatchQueue.global(qos: .userInteractive) }
     static var userInitiated: DispatchQueue { return DispatchQueue.global(qos: .userInitiated) }
@@ -17,7 +17,7 @@ extension DispatchQueue {
     static var background: DispatchQueue { return DispatchQueue.global(qos: .background) }
     
     private static var _onceTracker = [String]()
-    public class func once(block:()->Void) {
+    class func once(block:()->Void) {
         let token = UUID().uuidString
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }

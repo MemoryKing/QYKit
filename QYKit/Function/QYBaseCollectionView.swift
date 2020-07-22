@@ -11,7 +11,7 @@ import UIKit
 import MJRefresh
 import DZNEmptyDataSet
 
-class QYBaseCollectionView : UICollectionView {
+public class QYBaseCollectionView : UICollectionView {
 
     var yi_empty_title              : String?   = "暂无数据"
     var yi_empty_titleFont          : UIFont    = UIFont.systemFont(ofSize: 15)
@@ -69,7 +69,7 @@ class QYBaseCollectionView : UICollectionView {
 }
 
 //MARK: -------   MJRefresh 刷新与加载
-extension QYBaseCollectionView {
+public extension QYBaseCollectionView {
     ///下拉
     func yi_refreshNormakHeader (_ refreshingBlock : @escaping () -> Void) {
         let header = MJRefreshNormalHeader.init(refreshingBlock: refreshingBlock)
@@ -98,10 +98,6 @@ extension QYBaseCollectionView {
         self.mj_header?.endRefreshing()
         self.mj_footer?.endRefreshing()
     }
-}
-
-//MARK: -------   DZNEmptyDataSet  空界面
-extension QYBaseCollectionView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     
     func yi_empty_button(title:String , _ bl: (() -> Void)?) {
         self.yi_empty_title = nil
@@ -110,15 +106,20 @@ extension QYBaseCollectionView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
         self.reloadTableView()
     }
     
+}
+
+//MARK: -------   DZNEmptyDataSet  空界面
+extension QYBaseCollectionView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
+    
     //MARK: -- DZNEmptyDataSetSource Methods
     ///标题为空的数据集
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+    public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [NSAttributedString.Key.font: self.yi_empty_titleFont,
                           NSAttributedString.Key.foregroundColor: self.yi_empty_titleColor]
         return (self.yi_empty_title != nil) ? NSAttributedString(string: self.yi_empty_title!, attributes: attributes) : nil
     }
     ///描述
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+    public func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
        
        let paragraph = NSMutableParagraphStyle()
        paragraph.alignment = .center
@@ -130,11 +131,11 @@ extension QYBaseCollectionView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
         return (self.yi_empty_description != nil) ? NSAttributedString(string: self.yi_empty_description!, attributes: attributes) : nil
     }
     ///图片
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+    public func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return (self.yi_empty_image != nil) ? self.yi_empty_image : nil
     }
     ///数据集加载动画
-    func imageAnimation(forEmptyDataSet scrollView: UIScrollView!) -> CAAnimation! {
+    public func imageAnimation(forEmptyDataSet scrollView: UIScrollView!) -> CAAnimation! {
        let animation = CABasicAnimation(keyPath: "transform")
        animation.fromValue = NSValue(caTransform3D: CATransform3DIdentity)
        animation.toValue = NSValue(caTransform3D: CATransform3DMakeRotation(CGFloat(Double.pi / 2), 0.0, 0.0, 1.0))
@@ -144,56 +145,56 @@ extension QYBaseCollectionView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
        return animation as CAAnimation
     }
     ///按钮标题
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
+    public func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
         let attributes = [NSAttributedString.Key.font : self.yi_empty_btn_titleFont,
                           NSAttributedString.Key.foregroundColor : self.yi_empty_btn_titleColor]
         return (self.yi_empty_btn_title != nil) ? NSAttributedString(string: self.yi_empty_btn_title!, attributes: attributes) : nil
     }
 
     ///重新加载按钮背景图片
-    func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
+    public func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
         return (self.yi_empty_image != nil) ? self.yi_empty_image : nil
        
     }
     ///自定义背景颜色
-    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+    public func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return self.yi_backgroundColor
     }
 
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+    public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return self.yi_verticalOffset
     }
 
-    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+    public func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return self.yi_spaceHeight
     }
 
     //MARK: -- DZNEmptyDataSetDelegate
     ///数据源为空时是否渲染和显示 (默认为 YES)
-    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+    public func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
        return true
     }
     ///是否允许点击 (默认为 YES)
-    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+    public func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
        return true
     }
     ///是否允许滚动(默认为 NO)
-    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+    public func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
        return false
     }
 
     ///是否允许动画(默认为 NO)
-    func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
+    public func emptyDataSetShouldAnimateImageView(_ scrollView: UIScrollView!) -> Bool {
        return false
     }
     ///视图触发
-    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+    public func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
         if self.clickBlock != nil {
             self.clickBlock!()
         }
     }
     ///按钮触发
-    func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
+    public func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
         if self.clickBlock != nil {
             self.clickBlock!()
         }

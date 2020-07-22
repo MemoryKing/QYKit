@@ -8,31 +8,32 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
+public enum QYComponentsType : Int {
+    case year = 0
+    case month = 1
+    case day = 2
+}
 
-class QYDatePickerViewController: UIViewController {
-    public enum QYComponentsType : Int {
-        case year = 0
-        case month = 1
-        case day = 2
-    }
+public class QYDatePickerViewController: UIViewController {
+    
     private var type : QYComponentsType?
     private var backDate: ((String) -> Void)?
     private var startTime = 2016
-    public var picker: UIPickerView!
+    var picker: UIPickerView!
     ///获取当前日期
     private var currentDateCom: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())    //日期类型
-    public var containV:UIView = {
+    var containV:UIView = {
         let view = UIView(frame: CGRect(x: 0, y: QYScreenInfo.height - QYScreenInfo.ratio(240), width: QYScreenInfo.width, height: QYScreenInfo.ratio(240)))
         view.backgroundColor = UIColor.white
         return view
     }()
-    public var backgroundView: UIView = {
+    var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         return view
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
     }
@@ -91,7 +92,7 @@ class QYDatePickerViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     ///点击任意位置view消失
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let currentPoint = touches.first?.location(in: self.view)
         if !self.containV.frame.contains(currentPoint ?? CGPoint()) {
@@ -105,13 +106,13 @@ class QYDatePickerViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func didReceiveMemoryWarning() {
+    public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
 // MARK: - PickerViewDelegate
 extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch self.type {
         case .year:
             return 1
@@ -122,7 +123,7 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
         }
         return 3
     }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
             return 10
         } else if component == 1 {
@@ -152,7 +153,7 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
         }
         return 29
     }
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+    public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         switch self.type {
         case .year:
             return QYScreenInfo.width
@@ -163,10 +164,10 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
         }
         return QYScreenInfo.width / 3
     }
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return "\(startTime + row)\("年")"
         } else if component == 1 {
@@ -175,7 +176,7 @@ extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSour
             return "\(row + 1)\("日")"
         }
     }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch self.type {
         case .year:break
         case .month:
@@ -197,11 +198,11 @@ enum DatePickerPresentAnimateType {
 }
 // MARK: - 转场动画delegate
 extension QYDatePickerViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animated = QYDatePickerViewControllerAnimated(type: .present)
         return animated
     }
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animated = QYDatePickerViewControllerAnimated(type: .dismiss)
         return animated
     }

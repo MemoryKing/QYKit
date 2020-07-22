@@ -17,23 +17,23 @@ public func kRGBFormHex (_ rgbValue : String) -> (UIColor) {
 }
 
 //MARK: -------   自定义初始化
-extension UIColor {
+public extension UIColor {
     ///rgb_Int
-    public convenience init (_ rgbValue : Int,_ alpha : CGFloat = 1.0) {
+    convenience init (_ rgbValue : Int,_ alpha : CGFloat = 1.0) {
         self.init(red:((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0,
                   green:((CGFloat)((rgbValue & 0xFF00) >> 8)) / 255.0,
                   blue:((CGFloat)(rgbValue & 0xFF)) / 255.0,
                   alpha:alpha)
     }
     ///r g b
-    public convenience init(_ r: UInt32 ,_ g: UInt32 ,_ b: UInt32 ,_ a: CGFloat = 1.0) {
+    convenience init(_ r: UInt32 ,_ g: UInt32 ,_ b: UInt32 ,_ a: CGFloat = 1.0) {
         self.init(red: CGFloat(r) / 255.0,
                   green: CGFloat(g) / 255.0,
                   blue: CGFloat(b) / 255.0,
                   alpha: a)
     }
     ///rgb_string
-    public convenience init(_ hex: String,_ alpha: CGFloat = 1) {
+    convenience init(_ hex: String,_ alpha: CGFloat = 1) {
         var red:   CGFloat = 0.0
         var green: CGFloat = 0.0
         var blue:  CGFloat = 0.0
@@ -75,7 +75,7 @@ extension UIColor {
     }
     
     ///随机色
-    public static func yi_random (_ randomAlpha: Bool = false) -> UIColor {
+    static func yi_random (_ randomAlpha: Bool = false) -> UIColor {
         let randomRed = CGFloat(arc4random() % 255)
         let randomGreen = CGFloat(arc4random() % 255)
         let randomBlue = CGFloat(arc4random() % 255)

@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import QuartzCore
 //MARK: -------   框线
-extension UIView {
+public extension UIView {
     
     enum ViewSide {
         case top
@@ -71,7 +71,7 @@ extension UIView {
 }
 
 //MARK: -------   渐变色
-extension UIView {
+public extension UIView {
     /// 渐变色方向
     enum GradientDirection {
         ///垂直
@@ -202,90 +202,90 @@ public extension UIView {
     }
 }
 //MARK: -------   frame
-extension UIView {
+public extension UIView {
     func yi_addSubviews(_ views: [UIView]) {
         views.forEach { [weak self] eachView in
             self?.addSubview(eachView)
         }
     }
-    public var x: CGFloat {
+    var x: CGFloat {
         get {
             return self.frame.origin.x
         } set(value) {
             self.frame = CGRect(x: value, y: self.y, width: self.w, height: self.h)
         }
     }
-    public var y: CGFloat {
+    var y: CGFloat {
         get {
             return self.frame.origin.y
         } set(value) {
             self.frame = CGRect(x: self.x, y: value, width: self.w, height: self.h)
         }
     }
-    public var w: CGFloat {
+    var w: CGFloat {
         get {
             return self.frame.size.width
         } set(value) {
             self.frame = CGRect(x: self.x, y: self.y, width: value, height: self.h)
         }
     }
-    public var h: CGFloat {
+    var h: CGFloat {
         get {
             return self.frame.size.height
         } set(value) {
             self.frame = CGRect(x: self.x, y: self.y, width: self.w, height: value)
         }
     }
-    public var left: CGFloat {
+    var left: CGFloat {
         get {
             return self.x
         } set(value) {
             self.x = value
         }
     }
-    public var right: CGFloat {
+    var right: CGFloat {
         get {
             return self.x + self.w
         } set(value) {
             self.x = value - self.w
         }
     }
-    public var top: CGFloat {
+    var top: CGFloat {
         get {
             return self.y
         } set(value) {
             self.y = value
         }
     }
-    public var bottom: CGFloat {
+    var bottom: CGFloat {
         get {
             return self.y + self.h
         } set(value) {
             self.y = value - self.h
         }
     }
-    public var origin: CGPoint {
+    var origin: CGPoint {
         get {
             return self.frame.origin
         } set(value) {
             self.frame = CGRect(origin: value, size: self.frame.size)
         }
     }
-    public var centerX: CGFloat {
+    var centerX: CGFloat {
         get {
             return self.center.x
         } set(value) {
             self.center.x = value
         }
     }
-    public var centerY: CGFloat {
+    var centerY: CGFloat {
         get {
             return self.center.y
         } set(value) {
             self.center.y = value
         }
     }
-    public var size: CGSize {
+    var size: CGSize {
         get {
             return self.frame.size
         } set(value) {
@@ -295,15 +295,15 @@ extension UIView {
 }
 
 //MARK: -------   layer
-extension UIView {
+public extension UIView {
     ///圆角
-    public func yi_setCornerRadius(_ radius: CGFloat) {
+    func yi_setCornerRadius(_ radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
     }
     
     ///阴影
-    public func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float,_ cornerRadius: CGFloat? = nil) {
+    func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float,_ cornerRadius: CGFloat? = nil) {
         self.layer.shadowOffset = offset
         self.layer.shadowRadius = radius
         self.layer.shadowOpacity = opacity
@@ -314,29 +314,29 @@ extension UIView {
     }
     //MARK: ------- 边框
     ///边框
-    public func yi_addBorder(width: CGFloat, _ color: UIColor = .black) {
+    func yi_addBorder(width: CGFloat, _ color: UIColor = .black) {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         layer.masksToBounds = true
     }
     
     ///边框-上
-    public func yi_addBorderTop(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderTop(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: padding, y: 0, width: frame.width - padding * 2, height: size, color: color)
     }
     
     ///边框-下
-    public func yi_addBorderBottom(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderBottom(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: padding, y: frame.height - size, width: frame.width - padding * 2, height: size, color: color)
     }
     
     ///边框-左
-    public func yi_addBorderLeft(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderLeft(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: 0, y: padding, width: size, height: frame.height - padding * 2, color: color)
     }
     
     ///边框-右
-    public func yi_addBorderRight(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderRight(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: frame.width - size, y: padding, width: size, height: frame.height - padding * 2, color: color)
     }
     
@@ -349,7 +349,7 @@ extension UIView {
     
     //MARK: -------   绘画
     ///画圆
-    public func yi_drawCircle(fillColor: UIColor,_ strokeColor: UIColor = .black, strokeWidth: CGFloat) {
+    func yi_drawCircle(fillColor: UIColor,_ strokeColor: UIColor = .black, strokeWidth: CGFloat) {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
@@ -360,7 +360,7 @@ extension UIView {
     }
     
     ///画中空圆
-    public func yi_drawStroke(width: CGFloat,_ color: UIColor = .black) {
+    func yi_drawStroke(width: CGFloat,_ color: UIColor = .black) {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w / 2)
         let shapeLayer = CAShapeLayer ()
         shapeLayer.path = path.cgPath
@@ -393,16 +393,16 @@ extension UIView {
     }
     
     ///移除layer
-    public func yi_removeLayer () {
+    func yi_removeLayer () {
         self.layer.mask = nil
         self.layer.borderWidth = 0
     }
 }
 
 //MARK: -------   转换
-extension UIView {
+public extension UIView {
     ///转换成图片
-    public func toImage () -> UIImage {
+    func toImage () -> UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
         drawHierarchy(in: bounds, afterScreenUpdates: false)
         let img = UIGraphicsGetImageFromCurrentImageContext()
@@ -412,53 +412,53 @@ extension UIView {
 }
 
 //MARK: -------   手势
-extension UIView {
+public extension UIView {
     ///单击
-    public func yi_addTapGesture(_ tapNumber: Int = 1, target: AnyObject, action: Selector) {
+    func yi_addTapGesture(_ tapNumber: Int = 1, target: AnyObject, action: Selector) {
         let tap = UITapGestureRecognizer(target: target, action: action)
         tap.numberOfTapsRequired = tapNumber
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
     }
     ///单击
-    public func yi_addTapGesture(_ tapNumber: Int = 1, action: ((UITapGestureRecognizer) -> Void)?) {
+    func yi_addTapGesture(_ tapNumber: Int = 1, action: ((UITapGestureRecognizer) -> Void)?) {
         let tap = BlockTap(tapCount: tapNumber, fingerCount: 1, action: action)
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
     }
     ///滑动
-    public func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, target: AnyObject, action: Selector) {
+    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, target: AnyObject, action: Selector) {
         let swipe = UISwipeGestureRecognizer(target: target, action: action)
         swipe.direction = direction
         addGestureRecognizer(swipe)
         isUserInteractionEnabled = true
     }
     ///滑动
-    public func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, action: ((UISwipeGestureRecognizer) -> Void)?) {
+    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, action: ((UISwipeGestureRecognizer) -> Void)?) {
         let swipe = BlockSwipe(direction: direction, fingerCount: numberOfTouches, action: action)
         addGestureRecognizer(swipe)
         isUserInteractionEnabled = true
     }
     ///拖动
-    public func yi_addPanGesture(target: AnyObject, action: Selector) {
+    func yi_addPanGesture(target: AnyObject, action: Selector) {
         let pan = UIPanGestureRecognizer(target: target, action: action)
         addGestureRecognizer(pan)
         isUserInteractionEnabled = true
     }
     ///拖动
-    public func yi_addPanGesture(action: ((UIPanGestureRecognizer) -> Void)?) {
+    func yi_addPanGesture(action: ((UIPanGestureRecognizer) -> Void)?) {
         let pan = BlockPan(action: action)
         addGestureRecognizer(pan)
         isUserInteractionEnabled = true
     }
     ///长按
-    public func yi_addLongPressGesture(target: AnyObject, action: Selector) {
+    func yi_addLongPressGesture(target: AnyObject, action: Selector) {
         let longPress = UILongPressGestureRecognizer(target: target, action: action)
         addGestureRecognizer(longPress)
         isUserInteractionEnabled = true
     }
     ///长按
-    public func yi_addLongPressGesture(action: ((UILongPressGestureRecognizer) -> Void)?) {
+    func yi_addLongPressGesture(action: ((UILongPressGestureRecognizer) -> Void)?) {
         let longPress = BlockLongPress(action: action)
         addGestureRecognizer(longPress)
         isUserInteractionEnabled = true

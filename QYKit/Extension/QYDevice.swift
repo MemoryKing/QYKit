@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-extension UIDevice {
+public extension UIDevice {
     //////系统名
     static var system_name : String {
         return UIDevice.current.systemName

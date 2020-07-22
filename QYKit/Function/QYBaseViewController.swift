@@ -9,9 +9,9 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
+public class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     private var _barStyle: UIStatusBarStyle?
-    public var yi_barStyle: UIStatusBarStyle {
+    var yi_barStyle: UIStatusBarStyle {
         set {
             _barStyle = newValue
             setNeedsStatusBarAppearanceUpdate()
@@ -21,7 +21,7 @@ class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     //返回手势
-    public var interactivePop: Bool? {
+    var interactivePop: Bool? {
         didSet {
             if interactivePop ?? false {
                 self.navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -30,7 +30,7 @@ class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         //防止自动下移64
@@ -40,7 +40,7 @@ class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.interactivePop = true
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.yi_barStyle
     }
 

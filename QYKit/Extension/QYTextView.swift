@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-extension UITextView {
+public extension UITextView {
     private func addNotification () {
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
     }
@@ -20,8 +20,8 @@ extension UITextView {
 }
 
 //MARK:   -------   重写系统方法 ----------
-extension UITextView {
-    open override func draw(_ rect: CGRect) {
+public extension UITextView {
+    override func draw(_ rect: CGRect) {
         // 如果有文字,就直接返回,不需要画占位文字
         if self.hasText {
             return

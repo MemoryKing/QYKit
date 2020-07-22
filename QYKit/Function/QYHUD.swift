@@ -13,7 +13,7 @@ import PKHUD
 
 public class QYHUD: NSObject {
     
-    public class func show (_ str : String,
+    class func show (_ str : String,
                             _ afterDelay : TimeInterval? = 1.5,
                             _ block : ((Bool) -> Void)? = nil) {
         completionBlock = block
@@ -23,7 +23,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    public class func showSuccess (_ title : String? = nil,
+    class func showSuccess (_ title : String? = nil,
                                    _ subtitle : String? = nil,
                                    _ afterDelay : TimeInterval? = 1.5,
                                    _ block : ((Bool) -> Void)? = nil) {
@@ -40,7 +40,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    public class func showError (_ title : String? = nil,
+    class func showError (_ title : String? = nil,
                                  _ subtitle : String? = nil,
                                  _ afterDelay : TimeInterval? = 1.5,
                                  _ block : ((Bool) -> Void)? = nil) {
@@ -56,7 +56,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    public class func showProgress (_ title : String? = nil,
+    class func showProgress (_ title : String? = nil,
                                          _ subtitle : String? = nil,
                                          _ afterDelay : TimeInterval? = 0,
                                          _ block : ((Bool) -> Void)? = nil) {
@@ -79,7 +79,7 @@ public class QYHUD: NSObject {
     }
 }
 
-public extension QYHUD {
+extension QYHUD {
     
     struct RuntimeKey {
         static let completionBlockKey = UnsafeRawPointer.init(bitPattern: "completionBlock".hashValue)

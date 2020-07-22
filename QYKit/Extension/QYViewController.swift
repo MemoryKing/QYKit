@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 //MARK: ---------- 设置导航 ----------
-extension UIViewController {
-    public var yi_hiddenShadow : Bool? {
+public extension UIViewController {
+    var yi_hiddenShadow : Bool? {
         set {
             objc_setAssociatedObject(self, RuntimeKey.hiddenShadowKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
             if (newValue != nil) {
@@ -28,7 +28,7 @@ extension UIViewController {
     }
     
     ///隐藏导航
-    public var yi_NavBarHidden: Bool {
+    var yi_NavBarHidden: Bool {
         get {
             return (navigationController?.isNavigationBarHidden)!
         }
@@ -38,7 +38,7 @@ extension UIViewController {
     }
     
     ///导航透明
-    public func yi_navClear () {
+    func yi_navClear () {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -48,7 +48,7 @@ extension UIViewController {
     }
     
     ///返回图片
-    public func yi_backImage (_ img : UIImage) {
+    func yi_backImage (_ img : UIImage) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -61,7 +61,7 @@ extension UIViewController {
     }
     
     ///导航背景色
-    public func yi_navBackground (_ color :UIColor) {
+    func yi_navBackground (_ color :UIColor) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -71,7 +71,7 @@ extension UIViewController {
     }
     
     ///文本
-    public func yi_navTitle (_ title : String,_ font : CGFloat = 18,_ color: UIColor = .black) {
+    func yi_navTitle (_ title : String,_ font : CGFloat = 18,_ color: UIColor = .black) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -82,7 +82,7 @@ extension UIViewController {
     }
     
     ///左文本按钮
-    public func yi_navLeftTitleItem (_ title: String,_ color: UIColor = .black,navBlk : @escaping ()->()) {
+    func yi_navLeftTitleItem (_ title: String,_ color: UIColor = .black,navBlk : @escaping ()->()) {
         let leftItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navLeftItemClick))
         leftItem.tintColor = color
         self.navigationItem.leftBarButtonItem = leftItem
@@ -90,21 +90,21 @@ extension UIViewController {
     }
     
     ///左图片按钮
-    public func yi_navLeftImageItem (_ image: UIImage,_ navBlk: @escaping ()->()) {
+    func yi_navLeftImageItem (_ image: UIImage,_ navBlk: @escaping ()->()) {
         let leftItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navLeftItemClick))
         self.navigationItem.leftBarButtonItem = leftItem
         leftNavBlock = navBlk
     }
     
     ///左图文
-    public func yi_navLeftTitleAndImageItem (_ title : String? , _ color : UIColor = .black,_ font : UIFont? = UIFont.systemFont(ofSize: 17),_ image : UIImage? = nil,_ navBlk: @escaping ()->()) {
+    func yi_navLeftTitleAndImageItem (_ title : String? , _ color : UIColor = .black,_ font : UIFont? = UIFont.systemFont(ofSize: 17),_ image : UIImage? = nil,_ navBlk: @escaping ()->()) {
         let item = self.customBarButtonItem(title, color, font, image, #selector(navLeftItemClick))
         self.navigationItem.leftBarButtonItem = item
         leftNavBlock = navBlk
     }
 
     ///右文本按钮
-    public func yi_navRightTitleItem (_ title: String,_ color: UIColor = .black,navBlk : @escaping ()->()) {
+    func yi_navRightTitleItem (_ title: String,_ color: UIColor = .black,navBlk : @escaping ()->()) {
         let rightItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navRightItemClick))
         rightItem.tintColor = color
         
@@ -113,14 +113,14 @@ extension UIViewController {
     }
     
     ///右图片按钮
-    public func yi_navRightImageItem (_ image: UIImage,_ navBlk: @escaping ()->()) {
+    func yi_navRightImageItem (_ image: UIImage,_ navBlk: @escaping ()->()) {
         let rightItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navRightItemClick))
         self.navigationItem.rightBarButtonItem = rightItem
         rightNavBlock = navBlk
     }
     
     ///左图文
-    public func yi_navRightTitleAndImageItem (_ title : String? , _ color : UIColor = .black,_ font : UIFont? = UIFont.systemFont(ofSize: 17),_ image : UIImage? = nil,_ navBlk: @escaping ()->()) {
+    func yi_navRightTitleAndImageItem (_ title : String? , _ color : UIColor = .black,_ font : UIFont? = UIFont.systemFont(ofSize: 17),_ image : UIImage? = nil,_ navBlk: @escaping ()->()) {
         let item = self.customBarButtonItem(title, color, font, image, #selector(navRightItemClick))
         self.navigationItem.rightBarButtonItem = item
         rightNavBlock = navBlk
@@ -128,9 +128,9 @@ extension UIViewController {
 }
 
 //MARK: -------   跳转
-extension UIViewController {
+public extension UIViewController {
     ///跳转
-    public func yi_push(_ viewController: UIViewController,_ animated: Bool = true) {
+    func yi_push(_ viewController: UIViewController,_ animated: Bool = true) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -142,7 +142,7 @@ extension UIViewController {
     }
     
     ///返回
-    public func yi_goBack (_ ani : Bool = true) {
+    func yi_goBack (_ ani : Bool = true) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -156,7 +156,7 @@ extension UIViewController {
     }
 
     ///返回某视图
-    public func yi_goBackToVC (_ num : Int = 0,_ ani : Bool = true) {
+    func yi_goBackToVC (_ num : Int = 0,_ ani : Bool = true) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -166,7 +166,7 @@ extension UIViewController {
     }
     
     ///返回首页
-    public func yi_backToRootControlelr (_ ani : Bool) {
+    func yi_backToRootControlelr (_ ani : Bool) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -181,7 +181,7 @@ extension UIViewController {
 }
 
 //MARK: -------   私有
-extension UIViewController {
+private extension UIViewController {
     
     @objc private func navLeftItemClick () {
         leftNavBlock?()
@@ -196,7 +196,7 @@ extension UIViewController {
         let button = UIButton().yi_init {
             $0.setTitle(title, for: .normal)
             $0.setTitleColor(color, for: .normal)
-            $0.setImage(image, for: .normal)
+            $0.setBackgroundImage(image, for: .normal)
             $0.titleLabel?.font = font
             $0.addTarget(self, action: block, for: .touchUpInside)
         }
@@ -204,7 +204,7 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {
+private extension UIViewController {
     struct RuntimeKey {
         static let leftKey = UnsafeRawPointer.init(bitPattern: "leftKey".hashValue)
         static let rightKey = UnsafeRawPointer.init(bitPattern: "rightKey".hashValue)

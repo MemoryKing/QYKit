@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 
 //MARK: -------   获取属性和方法
-extension NSObject {
+public extension NSObject {
     /// 获取类的属性列表
     ///
     /// - Returns:  属性名列表

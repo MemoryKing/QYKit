@@ -35,8 +35,8 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = .blue
         let string = "4d31303630687474703a2f2f36312e3132392e37312e3130333a393033382f656d752f7265732f32303230303731353135313834323031393731353935393135334d3230323632303230303731353135313834323031393731353935393135"
-        yPrintLog(string.yi_hexToString())
-        yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
+//        yPrintLog(string.yi_hexToString())
+//        yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
 //        self.tableView.frame = self.view.frame
 //        self.view.addSubview(self.tableView)
 //        self.tableView._yi_empty_image = UIImage.init(named: "NoData")

@@ -10,8 +10,8 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-extension UIImage {
-    public static func url(url: String) -> UIImage? {
+public extension UIImage {
+    static func url(url: String) -> UIImage? {
         var image : UIImage?
         let url = URL.init(string: url)
         do {
@@ -26,9 +26,9 @@ extension UIImage {
 }
 
 //MARK: -------   渐变
-extension UIImage {
+public extension UIImage {
     /// 渐变色方向
-    public enum Direction {
+    enum Direction {
         ///垂直
         case vertical
         ///水平
@@ -107,7 +107,7 @@ extension UIImage {
     }
 }
 //MARK: -------   转换
-extension UIImage {
+public extension UIImage {
     ///image --> base64
     func yi_toBaseString (_ quality : Float = 1,_ options : Data.Base64EncodingOptions = [.lineLength64Characters]) -> String {
         // 将图片转化成Data

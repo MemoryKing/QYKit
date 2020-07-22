@@ -8,19 +8,19 @@ GitHub:        https://github.com/MemoryKing
 
 
 import Foundation
-extension Array {
-    public init(reserveCapacity: Int) {
+public extension Array {
+    init(reserveCapacity: Int) {
         self = Array<Element>()
         self.reserveCapacity(reserveCapacity)
     }
     
-    public var slice: ArraySlice<Element> {
+    var slice: ArraySlice<Element> {
         return self[self.startIndex ..< self.endIndex]
     }
 }
 
-extension Array where Element == UInt8 {
-    public init(hex: String) {
+public extension Array where Element == UInt8 {
+    init(hex: String) {
         self.init(reserveCapacity: hex.unicodeScalars.lazy.underestimatedCount)
         var buffer: UInt8?
         var skip = hex.hasPrefix("0x") ? 2 : 0
@@ -58,7 +58,7 @@ extension Array where Element == UInt8 {
         }
     }
     ///转十六进制
-    public func toHexString() -> String {
+    func toHexString() -> String {
         return `lazy`.reduce("") {
             var s = String($1, radix: 16)
             if s.count == 1 {
@@ -69,9 +69,9 @@ extension Array where Element == UInt8 {
     }
 }
 
-extension Array {
+public extension Array {
     ///去掉重复的元素
-    public func yi_removeDuplicate() -> [Any] {
+    func yi_removeDuplicate() -> [Any] {
         let set = NSSet.init(array: self)
         return set.allObjects
     }

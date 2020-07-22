@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 
-class QYAppInfo {
+public class QYAppInfo {
     ///App 名称
     static var yi_displayName: String {
         return Bundle.main.infoDictionary?["CFBundleDisplayName"] as! String

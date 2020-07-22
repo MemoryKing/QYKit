@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import CoreGraphics
 
-public protocol QYThen {}
+protocol QYThen {}
 
 extension QYThen where Self : Any {
 
@@ -20,7 +20,7 @@ extension QYThen where Self : Any {
   ///       $0.origin.x = 10
   ///       $0.size.width = 100
   ///     }
-  public func yi_with (_ block: (inout Self) throws -> Void) rethrows -> Self {
+  func yi_with (_ block: (inout Self) throws -> Void) rethrows -> Self {
     var copy = self
     try block(&copy)
     return copy
@@ -33,7 +33,7 @@ extension QYThen where Self : Any {
   ///       $0.set("devxoul@gmail.com", forKey: "email")
   ///       $0.synchronize()
   ///     }
-  public func yi_do (_ block: (Self) throws -> Void) rethrows {
+  func yi_do (_ block: (Self) throws -> Void) rethrows {
     try block(self)
   }
 
@@ -48,7 +48,7 @@ extension QYThen where Self : AnyObject {
   ///       $0.textColor = UIColor.black
   ///       $0.text = "Hello, World!"
   ///     }
-  public func yi_init(_ block: (Self) throws -> Void) rethrows -> Self {
+  func yi_init(_ block: (Self) throws -> Void) rethrows -> Self {
     try block(self)
     return self
   }

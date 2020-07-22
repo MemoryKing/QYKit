@@ -9,9 +9,9 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import LocalAuthentication
 
-class QYTouchIDManager: NSObject {
+public class QYTouchIDManager: NSObject {
     static let share = QYTouchIDManager()
-    public func yi_touchID (reply : @escaping (Bool, Error?) -> Void) {
+    func yi_touchID (reply : @escaping (Bool, Error?) -> Void) {
         let context = LAContext()
         var error: NSError?
         

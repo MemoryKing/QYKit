@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 
 ///正则
-class QYRegular: NSObject {
+public class QYRegular: NSObject {
     ///手机号
     class func yi_phoneNumber(phoneNumber:String) -> Bool {
         if phoneNumber.count == 0 {

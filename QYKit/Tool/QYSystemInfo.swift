@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-class QYSystemInfo: NSObject {
+public class QYSystemInfo: NSObject {
     ///是否编辑,默认false
     var allowsEditing : Bool? = false
     
@@ -96,7 +96,7 @@ extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControlle
         }
     }
     //MARK: -------UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         }
