@@ -10,5 +10,4 @@ pod 'PKHUD'
 pod 'MJRefresh'
 pod 'DZNEmptyDataSet'
 #pod 'WYJKit_Swift'
-#pod 'WYJKit_Swift', :path => './WYJKit_Swift'
 end
