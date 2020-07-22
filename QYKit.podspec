@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.4'
+  s.version          = '1.0.5'
   s.summary          = 'QYKit'
   s.description      = <<-DESC
                             QYKit
@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
   #s.source_files = 'QYKit/**/*.swift '
   #s.public_header_files   = 'QYKit/**/*.swift '
 
-s.subspec 'Tool' do |e|
-e.source_files          = 'QYKit/Tool/**/*.swift'
+s.subspec 'Tool' do |t|
+t.source_files          = 'QYKit/Tool/**/*.swift'
 end
 
 s.subspec 'Extension' do |c|
