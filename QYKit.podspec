@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'QYKit'
   s.description      = <<-DESC
                             QYKit
@@ -16,16 +16,15 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "10.0"
 
   s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','MediaPlayer','CoreTelephony','CoreLocation','AVFoundation'
-
+  s.dependency 'MJRefresh'
+  s.dependency 'DZNEmptyDataSet'
+  s.dependency 'PKHUD'
+  
   #s.source_files = 'QYKit/**/*.swift '
-
-#s.public_header_files   = 'QYKit/**/*.swift '
+  #s.public_header_files   = 'QYKit/**/*.swift '
 
 s.subspec 'Tool' do |e|
 e.source_files          = 'QYKit/Tool/**/*.swift'
-e.dependency 'MJRefresh'
-e.dependency 'DZNEmptyDataSet'
-e.dependency 'PKHUD'
 end
 
 s.subspec 'Extension' do |c|
