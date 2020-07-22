@@ -14,7 +14,6 @@ class QYBaseNavigationController: UINavigationController {
         super.viewDidLoad()
 
     }
-    
     override var childForStatusBarStyle: UIViewController? {
         return topViewController
     }

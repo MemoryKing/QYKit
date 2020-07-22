@@ -28,7 +28,6 @@
 		04C6AB5524C7E782009C348D /* QYViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3824C7E782009C348D /* QYViewController.swift */; };
 		04C6AB5624C7E782009C348D /* QYThen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3924C7E782009C348D /* QYThen.swift */; };
 		04C6AB5724C7E782009C348D /* QYBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3B24C7E782009C348D /* QYBaseViewController.swift */; };
-		04C6AB5824C7E782009C348D /* QYBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3C24C7E782009C348D /* QYBaseNavigationController.swift */; };
 		04C6AB5924C7E782009C348D /* QYBaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3D24C7E782009C348D /* QYBaseCollectionView.swift */; };
 		04C6AB5A24C7E782009C348D /* QYHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3E24C7E782009C348D /* QYHUD.swift */; };
 		04C6AB5B24C7E782009C348D /* QYDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB3F24C7E782009C348D /* QYDatePickerViewController.swift */; };
@@ -86,7 +85,6 @@
 		04C6AB3824C7E782009C348D /* QYViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYViewController.swift; sourceTree = "<group>"; };
 		04C6AB3924C7E782009C348D /* QYThen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYThen.swift; sourceTree = "<group>"; };
 		04C6AB3B24C7E782009C348D /* QYBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYBaseViewController.swift; sourceTree = "<group>"; };
-		04C6AB3C24C7E782009C348D /* QYBaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYBaseNavigationController.swift; sourceTree = "<group>"; };
 		04C6AB3D24C7E782009C348D /* QYBaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYBaseCollectionView.swift; sourceTree = "<group>"; };
 		04C6AB3E24C7E782009C348D /* QYHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYHUD.swift; sourceTree = "<group>"; };
 		04C6AB3F24C7E782009C348D /* QYDatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYDatePickerViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				04C6AB3B24C7E782009C348D /* QYBaseViewController.swift */,
-				04C6AB3C24C7E782009C348D /* QYBaseNavigationController.swift */,
 				04C6AB3D24C7E782009C348D /* QYBaseCollectionView.swift */,
 				04C6AB3E24C7E782009C348D /* QYHUD.swift */,
 				04C6AB3F24C7E782009C348D /* QYDatePickerViewController.swift */,
@@ -441,7 +438,6 @@
 				04C6AB5024C7E782009C348D /* QYDate.swift in Sources */,
 				04C6AB5D24C7E782009C348D /* QYAppInfo.swift in Sources */,
 				04C6AB4E24C7E782009C348D /* QYBlockGesture.swift in Sources */,
-				04C6AB5824C7E782009C348D /* QYBaseNavigationController.swift in Sources */,
 				04C6AB5424C7E782009C348D /* QYImage.swift in Sources */,
 				04C6AB5F24C7E782009C348D /* QYRegular.swift in Sources */,
 				04C6AB5E24C7E782009C348D /* QYSystemInfo.swift in Sources */,

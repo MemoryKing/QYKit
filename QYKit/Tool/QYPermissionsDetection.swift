@@ -17,7 +17,6 @@ import AVFoundation
 public class QYPermissionsDetection {
     // MARK: - 开启媒体资料库/Apple Music 服务
     /// 开启媒体资料库/Apple Music 服务
-    @available(iOS 9.3, *)
     class func yi_openMediaPlayerServiceWithBlock(action :@escaping ((Bool)->())) {
         var isOpen = false
         let authStatus = MPMediaLibrary.authorizationStatus()
