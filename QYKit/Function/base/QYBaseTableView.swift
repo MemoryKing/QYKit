@@ -11,17 +11,17 @@ import UIKit
 import MJRefresh
 import DZNEmptyDataSet
 
-public class QYBaseTableView : UITableView {
+public class QYBaseTableView: UITableView {
 
-    var yi_empty_title              : String?   = "暂无数据"
-    var yi_empty_titleFont          : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_titleColor         : UIColor   = .lightGray
+    var yi_empty_title             : String?   = "暂无数据"
+    var yi_empty_titleFont         : UIFont    = UIFont.systemFont(ofSize: 15)
+    var yi_empty_titleColor        : UIColor   = .lightGray
     
-    var yi_empty_description        : String?
-    var yi_empty_descriptionFont    : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_descriptionColor   : UIColor   = .lightGray
-    var _yi_empty_image             : UIImage?
-    var yi_empty_image              : UIImage? {
+    var yi_empty_description       : String?
+    var yi_empty_descriptionFont   : UIFont    = UIFont.systemFont(ofSize: 15)
+    var yi_empty_descriptionColor  : UIColor   = .lightGray
+    var _yi_empty_image            : UIImage?
+    var yi_empty_image             : UIImage? {
         set {
             _yi_empty_image = newValue
             self.reloadTableView()
@@ -31,11 +31,11 @@ public class QYBaseTableView : UITableView {
         }
     }
     
-    var yi_empty_btn_title          : String?
-    var yi_empty_btn_titleFont      : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_btn_titleColor     : UIColor   = .lightGray
-    var _yi_empty_btn_image         : UIImage?
-    var yi_empty_btn_image          : UIImage? {
+    var yi_empty_btn_title         : String?
+    var yi_empty_btn_titleFont     : UIFont    = UIFont.systemFont(ofSize: 15)
+    var yi_empty_btn_titleColor    : UIColor   = .lightGray
+    var _yi_empty_btn_image        : UIImage?
+    var yi_empty_btn_image         : UIImage? {
         set {
             _yi_empty_btn_image = newValue
             self.reloadTableView()
@@ -44,11 +44,11 @@ public class QYBaseTableView : UITableView {
             return _yi_empty_btn_image
         }
     }
-    var yi_spaceHeight              : CGFloat   = 10.0
-    var yi_verticalOffset           : CGFloat   = 0
-    var yi_backgroundColor          : UIColor   = .clear
+    var yi_spaceHeight             : CGFloat   = 10.0
+    var yi_verticalOffset          : CGFloat   = 0
+    var yi_backgroundColor         : UIColor   = .clear
     
-    var clickBlock                  : (() -> Void)? = nil
+    var clickBlock                 : (() -> Void)? = nil
     
     public override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -71,33 +71,33 @@ public class QYBaseTableView : UITableView {
     
 }
 
-//MARK: -------   MJRefresh 刷新与加载
+//MARK: --- MJRefresh 刷新与加载
 public extension QYBaseTableView {
     ///下拉
-    func yi_refreshNormakHeader (_ refreshingBlock : @escaping () -> Void) {
+    func yi_refreshNormakHeader (_ refreshingBlock: @escaping() -> Void) {
         let header = MJRefreshNormalHeader.init(refreshingBlock: refreshingBlock)
         self.mj_header = header
     }
     
     ///动画下拉
-    func yi_refreshGifHeader (_ refreshingBlock: @escaping () -> Void) {
+    func yi_refreshGifHeader (_ refreshingBlock: @escaping() -> Void) {
         let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)
         self.mj_header = header
     }
     
     ///上拉
-    func yi_refreshFooter (_ refreshingBlock: @escaping () -> Void) {
+    func yi_refreshFooter (_ refreshingBlock: @escaping() -> Void) {
         let footer = MJRefreshBackNormalFooter.init(refreshingBlock: refreshingBlock)
         self.mj_footer = footer
     }
     
     ///提示没有更多的数据
-    func yi_endRefreshingWithNoMoreData (){
+    func yi_endRefreshingWithNoMoreData(){
         self.mj_footer?.endRefreshingWithNoMoreData()
     }
     
     ///结束刷新状态
-    func yi_endRefreshing () {
+    func yi_endRefreshing() {
         self.mj_header?.endRefreshing()
         self.mj_footer?.endRefreshing()
     }
@@ -109,15 +109,15 @@ public extension QYBaseTableView {
     }
 }
 
-//MARK: -------   DZNEmptyDataSet  空界面
-extension QYBaseTableView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
+//MARK: --- DZNEmptyDataSet  空界面
+extension QYBaseTableView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     
     //MARK: -- DZNEmptyDataSetSource Methods
     ///标题为空的数据集
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [NSAttributedString.Key.font: self.yi_empty_titleFont,
                           NSAttributedString.Key.foregroundColor: self.yi_empty_titleColor]
-        return (self.yi_empty_title != nil) ? NSAttributedString(string: self.yi_empty_title!, attributes: attributes) : nil
+        return (self.yi_empty_title != nil) ? NSAttributedString(string: self.yi_empty_title!, attributes: attributes): nil
     }
     ///描述
     public func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
@@ -129,11 +129,11 @@ extension QYBaseTableView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
                           NSAttributedString.Key.foregroundColor: self.yi_empty_descriptionColor,
                           NSAttributedString.Key.paragraphStyle: paragraph]
         
-        return (self.yi_empty_description != nil) ? NSAttributedString(string: self.yi_empty_description!, attributes: attributes) : nil
+        return (self.yi_empty_description != nil) ? NSAttributedString(string: self.yi_empty_description!, attributes: attributes): nil
     }
     ///图片
     public func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return (self.yi_empty_image != nil) ? self.yi_empty_image : nil
+        return (self.yi_empty_image != nil) ? self.yi_empty_image: nil
     }
     ///数据集加载动画
     public func imageAnimation(forEmptyDataSet scrollView: UIScrollView!) -> CAAnimation! {
@@ -147,14 +147,14 @@ extension QYBaseTableView : DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///按钮标题
     public func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
-        let attributes = [NSAttributedString.Key.font : self.yi_empty_btn_titleFont,
-                          NSAttributedString.Key.foregroundColor : self.yi_empty_btn_titleColor]
-        return (self.yi_empty_btn_title != nil) ? NSAttributedString(string: self.yi_empty_btn_title!, attributes: attributes) : nil
+        let attributes = [NSAttributedString.Key.font: self.yi_empty_btn_titleFont,
+                          NSAttributedString.Key.foregroundColor: self.yi_empty_btn_titleColor]
+        return (self.yi_empty_btn_title != nil) ? NSAttributedString(string: self.yi_empty_btn_title!, attributes: attributes): nil
     }
 
     ///重新加载按钮背景图片
     public func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
-        return (self.yi_empty_image != nil) ? self.yi_empty_image : nil
+        return (self.yi_empty_image != nil) ? self.yi_empty_image: nil
        
     }
     ///自定义背景颜色

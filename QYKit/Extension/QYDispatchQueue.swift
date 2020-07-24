@@ -29,12 +29,12 @@ public extension DispatchQueue {
         block()
     }
     // MARK: - 延时执行
-    typealias Task = (_ cancel : Bool) -> Void
+    typealias Task = (_ cancel: Bool) -> Void
     
     @discardableResult
-    func delay(_ time: TimeInterval, task: @escaping ()->()) ->  Task? {
+    func delay(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
         
-        func dispatch_later(block: @escaping ()->()) {
+        func dispatch_later(block: @escaping()->()) {
             let t = DispatchTime.now() + time
             DispatchQueue.main.asyncAfter(deadline: t, execute: block)
         }

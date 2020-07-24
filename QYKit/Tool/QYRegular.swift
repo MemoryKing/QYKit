@@ -11,35 +11,178 @@ import UIKit
 
 ///正则
 public class QYRegular: NSObject {
-    ///手机号
-    class func yi_phoneNumber(phoneNumber:String) -> Bool {
-        if phoneNumber.count == 0 {
-            return false
-        }
-        let mobile = "^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"
-        let regexMobile = NSPredicate(format: "SELF MATCHES %@",mobile)
-        if regexMobile.evaluate(with: phoneNumber) == true {
-            return true
-        } else {
-            return false
-        }
+    enum QYValidatedType {
+        case Email
+        case PhoneNumber
+        case Number
+        case SpecificNumbers
+        case Chinese
+        case IllegalCharacter
+        case URL
+        case BlankLines
+        case QQ
+        case ID
+        case MAC
+        case IdCard
+        case DateInformation
+        case AccountLegal
+        case Password
+        case StrongPassword
+        case ThereIsNo
     }
-    ///密码 : 6-20位字母和数字组合
-    class func yi_passwordRuler(password:String) -> Bool {
-        let passwordRule = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$"
-        let regexPassword = NSPredicate(format: "SELF MATCHES %@",passwordRule)
-        if regexPassword.evaluate(with: password) == true {
-            return true
-        } else {
+
+    ///验证邮箱
+    class func yi_isEmail(_ vStr: String) -> Bool {
+        return self.validateText(.Email, vStr)
+    }
+
+    ///验证手机号
+    class func yi_isPhoneNumber(_ vStr: String) -> Bool {
+        return self.validateText(.PhoneNumber, vStr)
+    }
+
+    ///验证纯数字
+    class func yi_isNumber(_ vStr: String) -> Bool {
+        return self.validateText(.Number, vStr)
+    }
+
+    ///验证数字个数
+    class func yi_isSpecificNumbers(_ vStr: String,_ num: Int) -> Bool {
+        return self.validateText(.SpecificNumbers, vStr,num)
+    }
+
+    ///验证是否是中文
+    class func yi_isChinese(_ vStr: String) -> Bool {
+        return self.validateText(.Chinese, vStr)
+    }
+
+    ///验证是否含有^%&',;=?$\"等字符
+    class func yi_isIllegalCharacter(_ vStr: String) -> Bool {
+        return self.validateText(.IllegalCharacter, vStr)
+    }
+
+    ///验证URL
+    class func yi_isURL(_ vStr: String) -> Bool {
+        return self.validateText(.URL, vStr)
+    }
+
+    ///验证首尾空白行
+    class func yi_isBlankLines(_ vStr: String) -> Bool {
+        return self.validateText(.BlankLines, vStr)
+    }
+
+    ///验证QQ号
+    class func yi_isQQ(_ vStr: String) -> Bool {
+        return self.validateText(.QQ, vStr)
+    }
+
+    ///验证ID地址
+    class func yi_isID(_ vStr: String) -> Bool {
+        return self.validateText(.ID, vStr)
+    }
+
+    ///验证MAC地址
+    class func yi_isMAC(_ vStr: String) -> Bool {
+        return self.validateText(.MAC, vStr)
+    }
+
+    ///验证身份证号
+    class func yi_isIdCard(_ vStr: String) -> Bool {
+        return self.validateText(.IdCard, vStr)
+    }
+
+    ///验证年月日    例子 2013-04-1 2
+    class func yi_isDateInformation(_ vStr: String) -> Bool {
+        return self.validateText(.DateInformation, vStr)
+    }
+
+    ///验证帐号是否合法(字母开头，默认允许6-18字节，允许字母数字下划线)
+    class func yi_isAccountLegal(_ vStr: String,
+                                 _ num: Int? = nil,
+                                 _ num2: Int? = nil) -> Bool {
+        return self.validateText(.AccountLegal, vStr,num,num2)
+    }
+    ///验证密码(以字母开头，默认长度在6~18之间，只能包含字母、数字和下划线)
+    class func yi_isPasswordIsValidated(_ vStr: String,
+                                        _ num: Int? = nil,
+                                        _ num2: Int? = nil) -> Bool {
+        return self.validateText(.Password, vStr)
+    }
+    ///验证强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-18之间)
+    class func yi_isStrongPassword(_ vStr: String,
+                                   _ num: Int? = nil,
+                                   _ num2: Int? = nil) -> Bool {
+        return self.validateText(.StrongPassword, vStr)
+    }
+    ///验证
+    private class func validateText(_ type: QYValidatedType,
+                              _ validateString: String,
+                              _ num: Int? = nil,
+                              _ num2: Int? = nil) -> Bool {
+        do {
+            let pattern: String
+            
+            switch type {
+                
+            case .Email:
+                pattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+                
+            case .PhoneNumber:
+                pattern = "^1[0-9]{10}$"
+                
+            case .Number:
+                pattern = "^[0-9]*$"
+                
+            case .SpecificNumbers:
+                pattern = "^\\d{\(num ?? 6)}$"
+                
+            case .Chinese:
+                pattern = "^[\\u4e00-\\u9fa5]{0,}$"
+                
+            case .IllegalCharacter:
+                pattern = "[%&',;=?$\\\\^]+"
+                
+            case .URL:
+                pattern = "^http://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$"
+                
+            case .BlankLines:
+                pattern = "^s*|s*$"
+                
+            case .QQ:
+                pattern = "[1-9][0-9]{4,}"
+                
+            case .ID:
+                pattern = "([1-9]{1,3}\\.){3}[1-9]"
+                
+            case .MAC:
+                pattern = "([A-Fa-f0-9]{2}\\:){5}[A-Fa-f0-9]"
+                
+            case .IdCard:
+                pattern = "\\d{14}[[0-9],0-9xX]"
+                
+            case .DateInformation:
+                pattern = "^\\d{4}-\\d{1,2}-\\d{1,2}"
+                
+            case .AccountLegal:
+                pattern = "^[a-zA-Z][a-zA-Z0-9_]{\(num ?? 6),\(num2 ?? 18)}$"
+                
+            case .Password:
+                pattern = "^[a-zA-Z]\\w{\(num ?? 6),\(num2 ?? 18)}$"
+                
+            case .StrongPassword:
+                pattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{\(num ?? 6),\(num2 ?? 18)}$"
+                
+            default:
+                pattern = ""
+            }
+            
+            let regex: NSRegularExpression = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+            let matches = regex.matches(in: validateString, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSMakeRange(0, validateString.count))
+            return matches.count > 0
+        }
+        catch {
             return false
         }
-    }
-    ///邮箱
-    class func yi_mail (email:String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-
-        let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-
-        return emailTest.evaluate(with: email)
     }
 }
+

@@ -24,7 +24,7 @@ public func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
         print("无法解析出JSONString")
         return ""
     }
-    let data : NSData! = try? JSONSerialization.data(withJSONObject: dictionary, options: []) as NSData?
+    let data: NSData! = try? JSONSerialization.data(withJSONObject: dictionary, options: []) as NSData?
     let JSONString = NSString(data:data as Data,encoding: String.Encoding.utf8.rawValue)
     return JSONString! as String
 }
@@ -43,7 +43,7 @@ public func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
     return NSDictionary()
 }
 
-public func QYPrintLog<T>(_ message: T, fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
+public func QYLog<T>(_ message: T, fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
     #if DEBUG
     //获取当前时间
     let now = Date()

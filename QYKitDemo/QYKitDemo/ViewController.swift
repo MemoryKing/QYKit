@@ -34,21 +34,20 @@ class ViewController: UIViewController {
         
 //        img.image = UIImage.initGradient(size: .init(width: 100, height: 100), direction: .leftTop, colors: [.blue,.red])
 //        img.yi_addBorderTop(size: 10, color: .blue)
-        
         self.view.backgroundColor = .blue
-        let string = "4d31303630687474703a2f2f36312e3132392e37312e3130333a393033382f656d752f7265732f32303230303731353135313834323031393731353935393135334d3230323632303230303731353135313834323031393731353935393135"
+//        let string = "adcfb425723432".yi_xor("213871248dbcaf")
 //        yPrintLog(string.yi_hexToString())
-//        string.baseImage()
-        string.yi_removeTrimming()
-//        string.yi
-//        string.yi_
-        let arr = Array<Any>()
-//        yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
+        
+        QYLog(QYRegular.yi_isSpecificNumbers("2312ujijr", 5))
+        QYLog(QYRegular.yi_isSpecificNumbers("23128", 5))
+        _ = CGSize.init(width: 1, height: 1) + CGSize.init(width: 1, height: 1)
+        
+//yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
 //        self.tableView.frame = self.view.frame
 //        self.view.addSubview(self.tableView)
 //        self.tableView._yi_empty_image = UIImage.init(named: "NoData")
     }
-//    lazy var tableView : QYBaseTableView = {
+//    lazy var tableView: QYBaseTableView = {
 //        let table = QYBaseTableView.init(frame: CGRect.zero, style: .grouped)
 //        table.delegate = self
 //        table.dataSource = self
@@ -63,8 +62,8 @@ class ViewController: UIViewController {
 //    }
 }
 
-//MARK: -------   TableViewDelegate
-extension ViewController : UITableViewDelegate,UITableViewDataSource {
+//MARK: --- TableViewDelegate
+extension ViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01

@@ -17,7 +17,7 @@ import AVFoundation
 public class QYPermissionsDetection {
     // MARK: - 开启媒体资料库/Apple Music 服务
     /// 开启媒体资料库/Apple Music 服务
-    class func yi_openMediaPlayerServiceWithBlock(action :@escaping ((Bool)->())) {
+    class func yi_openMediaPlayerServiceWithBlock(action:@escaping ((Bool)->())) {
         var isOpen = false
         let authStatus = MPMediaLibrary.authorizationStatus()
         if authStatus == MPMediaLibraryAuthorizationStatus.notDetermined {
@@ -38,7 +38,7 @@ public class QYPermissionsDetection {
 
     // MARK: - 检测是否开启联网
     /// 检测是否开启联网
-    class func yi_openEventServiceWithBolck(action :@escaping ((Bool)->())) {
+    class func yi_openEventServiceWithBolck(action:@escaping ((Bool)->())) {
         let cellularData = CTCellularData()
         var isOpen = false
         cellularData.cellularDataRestrictionDidUpdateNotifier = { (state) in
@@ -57,7 +57,7 @@ public class QYPermissionsDetection {
 
     // MARK: - 检测是否开启定位
     /// 检测是否开启定位
-    class func yi_openLocationServiceWithBlock(action :@escaping ((Bool)->())) {
+    class func yi_openLocationServiceWithBlock(action:@escaping ((Bool)->())) {
         var isOpen = false
         if CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() != .denied {
             isOpen = true
@@ -69,7 +69,7 @@ public class QYPermissionsDetection {
 
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
-    class func yi_openCaptureDeviceServiceWithBlock(action :@escaping ((Bool)->())) {
+    class func yi_openCaptureDeviceServiceWithBlock(action:@escaping ((Bool)->())) {
         var isOpen = false
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if authStatus == AVAuthorizationStatus.notDetermined {
@@ -87,7 +87,7 @@ public class QYPermissionsDetection {
     }
     // MARK: - 检测是否开启相册
     /// 检测是否开启相册
-    class func yi_openAlbumServiceWithBlock(action :@escaping ((Bool)->())) {
+    class func yi_openAlbumServiceWithBlock(action:@escaping ((Bool)->())) {
         var isOpen = true
         let authStatus = PHPhotoLibrary.authorizationStatus()
         if authStatus == PHAuthorizationStatus.restricted || authStatus == PHAuthorizationStatus.denied {
@@ -100,7 +100,7 @@ public class QYPermissionsDetection {
 
     // MARK: - 检测是否开启麦克风
     /// 检测是否开启麦克风
-    class func yi_openRecordServiceWithBlock(action :@escaping ((Bool)->())) {
+    class func yi_openRecordServiceWithBlock(action:@escaping ((Bool)->())) {
         var isOpen = false
         let permissionStatus = AVAudioSession.sharedInstance().recordPermission
         if permissionStatus == AVAudioSession.RecordPermission.undetermined {

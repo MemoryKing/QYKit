@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import Foundation
 import QuartzCore
-//MARK: -------   框线
+//MARK: --- 框线
 public extension UIView {
     
     enum ViewSide {
@@ -18,7 +18,7 @@ public extension UIView {
         case bottom
         case left
     }
-    //MARK: -------   单边边框线
+    //MARK: --- 单边边框线
     func yi_addBorder(side: ViewSide, thickness: CGFloat, color: UIColor, leftOffset: CGFloat = 0, rightOffset: CGFloat = 0, topOffset: CGFloat = 0, bottomOffset: CGFloat = 0) {
         self.layoutIfNeeded()
         switch side {
@@ -70,7 +70,7 @@ public extension UIView {
     }
 }
 
-//MARK: -------   渐变色
+//MARK: --- 渐变色
 public extension UIView {
     /// 渐变色方向
     enum GradientDirection {
@@ -89,7 +89,7 @@ public extension UIView {
     ///   - direction: 方向
     ///   - locations: 位置
     ///   - colors: 颜色组
-    func yi_setGradientLayer (direction : GradientDirection,locations : Array<NSNumber> = [0.0,1.0] ,colors : [UIColor]) {
+    func yi_setGradientLayer (direction: GradientDirection,locations: Array<NSNumber> = [0.0,1.0] ,colors: [UIColor]) {
         self.layoutIfNeeded()
         let gradientLayer = CAGradientLayer.init()
         gradientLayer.frame = self.bounds
@@ -104,15 +104,15 @@ public extension UIView {
             gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 0, y: 1.0)
             break
-        case .level :
+        case .level:
             gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 1.0, y: 0)
             break
-        case .leftTop :
+        case .leftTop:
             gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 1.0, y: 1.0)
             break
-        case .leftBottom :
+        case .leftBottom:
             gradientLayer.startPoint = CGPoint.init(x: 0, y: 1.0)
             gradientLayer.endPoint = CGPoint.init(x: 1.0, y: 0.0)
             break
@@ -120,9 +120,9 @@ public extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
-//MARK: -------   跳转
+//MARK: --- 跳转
 public extension UIView {
-    func yi_push(_ vc: UIViewController, animated : Bool = true) {
+    func yi_push(_ vc: UIViewController, animated: Bool = true) {
         let currentC = yi_currentController()
         if yi_currentController() == nil {
             NSLog("current controller is nil")
@@ -201,7 +201,7 @@ public extension UIView {
         return nil
     }
 }
-//MARK: -------   frame
+//MARK: --- frame
 public extension UIView {
     func yi_addSubviews(_ views: [UIView]) {
         views.forEach { [weak self] eachView in
@@ -212,28 +212,28 @@ public extension UIView {
         get {
             return self.frame.origin.x
         } set(value) {
-            self.frame = CGRect(x: value, y: self.y, width: self.w, height: self.h)
+            self.frame = CGRect(x: value, y: self.y, width: self.width, height: self.height)
         }
     }
     var y: CGFloat {
         get {
             return self.frame.origin.y
         } set(value) {
-            self.frame = CGRect(x: self.x, y: value, width: self.w, height: self.h)
+            self.frame = CGRect(x: self.x, y: value, width: self.width, height: self.height)
         }
     }
-    var w: CGFloat {
+    var width: CGFloat {
         get {
             return self.frame.size.width
         } set(value) {
-            self.frame = CGRect(x: self.x, y: self.y, width: value, height: self.h)
+            self.frame = CGRect(x: self.x, y: self.y, width: value, height: self.height)
         }
     }
-    var h: CGFloat {
+    var height: CGFloat {
         get {
             return self.frame.size.height
         } set(value) {
-            self.frame = CGRect(x: self.x, y: self.y, width: self.w, height: value)
+            self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: value)
         }
     }
     var left: CGFloat {
@@ -245,9 +245,9 @@ public extension UIView {
     }
     var right: CGFloat {
         get {
-            return self.x + self.w
+            return self.x + self.width
         } set(value) {
-            self.x = value - self.w
+            self.x = value - self.width
         }
     }
     var top: CGFloat {
@@ -259,9 +259,9 @@ public extension UIView {
     }
     var bottom: CGFloat {
         get {
-            return self.y + self.h
+            return self.y + self.height
         } set(value) {
-            self.y = value - self.h
+            self.y = value - self.height
         }
     }
     var origin: CGPoint {
@@ -294,14 +294,30 @@ public extension UIView {
     }
 }
 
-//MARK: -------   layer
+//MARK: --- layer
 public extension UIView {
-    ///圆角
-    func yi_setCornerRadius(_ radius: CGFloat) {
-        self.layer.cornerRadius = radius
-        self.layer.masksToBounds = true
+    //MARK: --- 连框
+    ///连框
+    var yi_borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
     }
-    
+    //MARK: --- 圆角
+    ///圆角
+    var yi_cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.masksToBounds = true
+            layer.cornerRadius = newValue
+        }
+    }
+    //MARK: --- 阴影
     ///阴影
     func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float,_ cornerRadius: CGFloat? = nil) {
         self.layer.shadowOffset = offset
@@ -347,10 +363,10 @@ public extension UIView {
         layer.addSublayer(border)
     }
     
-    //MARK: -------   绘画
+    //MARK: --- 绘画
     ///画圆
     func yi_drawCircle(fillColor: UIColor,_ strokeColor: UIColor = .black, strokeWidth: CGFloat) {
-        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w/2)
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.width, height: self.width), cornerRadius: self.width/2)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = fillColor.cgColor
@@ -361,8 +377,8 @@ public extension UIView {
     
     ///画中空圆
     func yi_drawStroke(width: CGFloat,_ color: UIColor = .black) {
-        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.w, height: self.w), cornerRadius: self.w / 2)
-        let shapeLayer = CAShapeLayer ()
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.width, height: self.width), cornerRadius: self.width / 2)
+        let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = color.cgColor
@@ -371,7 +387,7 @@ public extension UIView {
     }
     
     ///画虚线
-    func drawDashLine(lineLength : Int ,lineSpacing : Int,lineColor : UIColor){
+    func yi_drawDashLine(lineLength: Int ,lineSpacing: Int,lineColor: UIColor){
         let shapeLayer = CAShapeLayer()
         shapeLayer.bounds = bounds
         //        只要是CALayer这种类型,他的anchorPoint默认都是(0.5,0.5)
@@ -393,16 +409,16 @@ public extension UIView {
     }
     
     ///移除layer
-    func yi_removeLayer () {
+    func yi_removeLayer() {
         self.layer.mask = nil
         self.layer.borderWidth = 0
     }
 }
 
-//MARK: -------   转换
+//MARK: --- 转换
 public extension UIView {
     ///转换成图片
-    func toImage () -> UIImage {
+    func yi_toImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
         drawHierarchy(in: bounds, afterScreenUpdates: false)
         let img = UIGraphicsGetImageFromCurrentImageContext()
@@ -411,30 +427,38 @@ public extension UIView {
     }
 }
 
-//MARK: -------   手势
+//MARK: --- 手势
 public extension UIView {
     ///单击
-    func yi_addTapGesture(_ tapNumber: Int = 1, target: AnyObject, action: Selector) {
+    func yi_addTapGesture(_ tapNumber: Int = 1,
+                          target: AnyObject,
+                          action: Selector) {
         let tap = UITapGestureRecognizer(target: target, action: action)
         tap.numberOfTapsRequired = tapNumber
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
     }
     ///单击
-    func yi_addTapGesture(_ tapNumber: Int = 1, action: ((UITapGestureRecognizer) -> Void)?) {
+    func yi_addTapGesture(_ tapNumber: Int = 1,
+                          action: ((UITapGestureRecognizer) -> Void)?) {
         let tap = BlockTap(tapCount: tapNumber, fingerCount: 1, action: action)
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
     }
     ///滑动
-    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, target: AnyObject, action: Selector) {
+    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction,
+                            _ numberOfTouches: Int = 1,
+                            target: AnyObject,
+                            action: Selector) {
         let swipe = UISwipeGestureRecognizer(target: target, action: action)
         swipe.direction = direction
         addGestureRecognizer(swipe)
         isUserInteractionEnabled = true
     }
     ///滑动
-    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction, _ numberOfTouches: Int = 1, action: ((UISwipeGestureRecognizer) -> Void)?) {
+    func yi_addSwipeGesture(_ direction: UISwipeGestureRecognizer.Direction,
+                            _ numberOfTouches: Int = 1,
+                            action: ((UISwipeGestureRecognizer) -> Void)?) {
         let swipe = BlockSwipe(direction: direction, fingerCount: numberOfTouches, action: action)
         addGestureRecognizer(swipe)
         isUserInteractionEnabled = true

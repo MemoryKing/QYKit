@@ -12,19 +12,20 @@ import UIKit
 
 public class QYSystemInfo: NSObject {
     ///是否编辑,默认false
-    var allowsEditing : Bool? = false
+    var allowsEditing: Bool? = false
     
-    var photoBlock : ((UIImage)->())?
+    var photoBlock: ((UIImage)->())?
     
-    //MARK: -------   拨打电话
+    //MARK: --- 拨打电话
     ///拨打电话
-    class func yi_openPhone(_ phone : String,_ completion: ((Bool) -> Void)? = nil) {
+    class func yi_openPhone(_ phone: String,
+                            _ completion: ((Bool) -> Void)? = nil) {
         if UIApplication.shared.canOpenURL(URL(string: "tel://" + phone)!) {
             UIApplication.shared.open(URL(string: "tel://" + phone)!, options: [:], completionHandler: completion)
         }
     }
     
-    //MARK: -------   打开设置
+    //MARK: --- 打开设置
     ///打开设置
     class func yi_openSettings(_ completion: ((Bool) -> Void)? = nil) {
         let url = URL.init(string: UIApplication.openSettingsURLString)
@@ -34,9 +35,9 @@ public class QYSystemInfo: NSObject {
     }
 }
 //MARK: ------- 打开相机相册
-extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension QYSystemInfo: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     ///打开相机相册
-    public class func yi_invokeCameraPhoto (_ blc : ((UIImage)->())?) {
+    public class func yi_invokeCameraPhoto (_ blc: ((UIImage)->())?) {
         let qy = QYSystemInfo()
         qy.photoBlock = blc
         let alertVC = UIAlertController.init(title: "", message: "请选择图片", preferredStyle: .actionSheet)
@@ -96,7 +97,7 @@ extension QYSystemInfo : UIImagePickerControllerDelegate & UINavigationControlle
         }
     }
     //MARK: -------UIImagePickerControllerDelegate
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         }

@@ -7,24 +7,22 @@ GitHub:        https://github.com/MemoryKing
 ********************************************************************************/
 
 import UIKit
-public enum QYComponentsType : Int {
+public enum QYComponentsType: Int {
     case year = 0
     case month = 1
     case day = 2
 } 
-private func DataRatio (_ num: CGFloat) -> CGFloat {
-    return UIScreen.main.bounds.size.width / 375.0 * num
-}
+
 public class QYDatePickerViewController: UIViewController {
     
-    private var type : QYComponentsType?
+    private var type: QYComponentsType?
     private var backDate: ((String) -> Void)?
     private var startTime = 2016
     var picker: UIPickerView!
     ///获取当前日期
     private var currentDateCom: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())    //日期类型
     var containV: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - DataRatio(240), width: UIScreen.main.bounds.width, height: DataRatio(240)))
+        let view = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - QYRatio(240), width: UIScreen.main.bounds.width, height: QYRatio(240)))
         view.backgroundColor = UIColor.white
         return view
     }()
@@ -45,7 +43,7 @@ public class QYDatePickerViewController: UIViewController {
         self.view.insertSubview(self.backgroundView, at: 0)
         self.modalPresentationStyle = .custom
         cancel = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-        sure = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - DataRatio(70), y: 0, width: DataRatio(70), height: DataRatio(30)))
+        sure = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - QYRatio(70), y: 0, width: QYRatio(70), height: QYRatio(30)))
         cancel.setTitle("取消", for: .normal)
         sure.setTitle("确认", for: .normal)
         cancel.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -54,7 +52,7 @@ public class QYDatePickerViewController: UIViewController {
         sure.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
         cancel.addTarget(self, action: #selector(self.onClickCancel), for: .touchUpInside)
         sure.addTarget(self, action: #selector(self.onClickSure), for: .touchUpInside)
-        picker = UIPickerView(frame: CGRect(x: 0, y: DataRatio(30), width: UIScreen.main.bounds.width, height: DataRatio(210)))
+        picker = UIPickerView(frame: CGRect(x: 0, y: QYRatio(30), width: UIScreen.main.bounds.width, height: QYRatio(210)))
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = UIColor.clear
@@ -112,7 +110,7 @@ public class QYDatePickerViewController: UIViewController {
     }
 }
 // MARK: - PickerViewDelegate
-extension QYDatePickerViewController : UIPickerViewDelegate,UIPickerViewDataSource {
+extension QYDatePickerViewController: UIPickerViewDelegate,UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch self.type {
         case .year:
@@ -263,32 +261,32 @@ private class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnima
     }
 }
 
-//MARK: -------   调用方法
+//MARK: --- 调用方法
 extension QYDatePickerViewController {
     ///类型
-    public class func yi_showDatePicker(type : QYComponentsType,
-                                        _ startTime : Int? = 2016,
-                                        _ backDate : @escaping ((String) -> Void)) {
-        QYDatePickerViewController.yi_showDatePicker(type: type, startTime, "取消",nil,nil, "确定",nil,nil, backDate)
+    public class func yi_showDatePicker(_ type: QYComponentsType,
+                                        _ startTime: Int? = 2016,
+                                        _ backDate: @escaping ((String) -> Void)) {
+        QYDatePickerViewController.yi_showDatePicker(type, startTime, "取消",nil,nil, "确定",nil,nil, backDate)
     }
     ///类型按钮文本
-    public class func yi_showDatePicker(type : QYComponentsType,
-                                        _ startTime : Int?,
+    public class func yi_showDatePicker(_ type: QYComponentsType,
+                                        _ startTime: Int?,
                                         _ cancel: String,
                                         _ sure: String,
-                                        _ backDate : @escaping ((String) -> Void)) {
-        QYDatePickerViewController.yi_showDatePicker(type: type, startTime, cancel,nil,nil, sure,nil,nil, backDate)
+                                        _ backDate: @escaping ((String) -> Void)) {
+        QYDatePickerViewController.yi_showDatePicker(type, startTime, cancel,nil,nil, sure,nil,nil, backDate)
     }
     ///类型按钮文本丶颜色
-    public class func yi_showDatePicker(type : QYComponentsType,
-                                        _ startTime : Int?,
+    public class func yi_showDatePicker(_ type: QYComponentsType,
+                                        _ startTime: Int?,
                                         _ cancel: String,
                                         _ cancelColor: UIColor? = .blue,
                                         _ cancelFont: CGFloat?,
                                         _ sure: String,
                                         _ sureColor: UIColor? = .blue,
                                         _ sureFont: CGFloat?,
-                                        _ backDate : @escaping ((String) -> Void)) {
+                                        _ backDate: @escaping ((String) -> Void)) {
         let vc = QYDatePickerViewController.init()
         vc.modalPresentationStyle = .fullScreen
         vc.type = type
@@ -298,10 +296,10 @@ extension QYDatePickerViewController {
         vc.drawMyView()
         vc.cancel.setTitle(cancel, for: .normal)
         vc.cancel.setTitleColor(cancelColor, for: .normal)
-        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: DataRatio(cancelFont ?? 15))
+        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: QYRatio(cancelFont ?? 15))
         vc.sure.setTitle(sure, for: .normal)
         vc.sure.setTitleColor(sureColor, for: .normal)
-        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: DataRatio(sureFont ?? 15))
+        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: QYRatio(sureFont ?? 15))
         UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
     }
 }

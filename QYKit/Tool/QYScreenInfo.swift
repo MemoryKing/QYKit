@@ -9,6 +9,13 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
+public func QYRatio(_ num: CGFloat) -> CGFloat {
+    return QYScreenInfo.ratio(num)
+}
+public func QYFont(_ num: CGFloat) -> UIFont {
+    return QYScreenInfo.font(num)
+}
+
 public class QYScreenInfo {
     ///屏幕宽
     static var width: CGFloat {

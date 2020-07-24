@@ -8,30 +8,34 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-public func kRGBFormNum (_ rgbValue : Int) -> (UIColor) {
+public func QYHexColorFormNum(_ rgbValue: Int) -> (UIColor) {
     return UIColor.init(rgbValue)
 }
 
-public func kRGBFormHex (_ rgbValue : String) -> (UIColor) {
+public func QYColorHex(_ rgbValue: String) -> (UIColor) {
     return UIColor.init(rgbValue)
 }
 
-//MARK: -------   自定义初始化
+//MARK: --- 自定义初始化
 public extension UIColor {
+    //MARK: --- rgb_Int
     ///rgb_Int
-    convenience init (_ rgbValue : Int,_ alpha : CGFloat = 1.0) {
+    convenience init (_ rgbValue: Int,_ alpha: CGFloat = 1.0) {
         self.init(red:((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0,
                   green:((CGFloat)((rgbValue & 0xFF00) >> 8)) / 255.0,
                   blue:((CGFloat)(rgbValue & 0xFF)) / 255.0,
                   alpha:alpha)
     }
+    //MARK: --- r g b
     ///r g b
-    convenience init(_ r: UInt32 ,_ g: UInt32 ,_ b: UInt32 ,_ a: CGFloat = 1.0) {
+    convenience init(_ r: UInt32 ,_ g: UInt32 ,
+                     _ b: UInt32 ,_ a: CGFloat = 1.0) {
         self.init(red: CGFloat(r) / 255.0,
                   green: CGFloat(g) / 255.0,
                   blue: CGFloat(b) / 255.0,
                   alpha: a)
     }
+    //MARK: --- rgb_string
     ///rgb_string
     convenience init(_ hex: String,_ alpha: CGFloat = 1) {
         var red:   CGFloat = 0.0
@@ -73,7 +77,7 @@ public extension UIColor {
         }
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
-    
+    //MARK: --- 随机色
     ///随机色
     static func yi_random (_ randomAlpha: Bool = false) -> UIColor {
         let randomRed = CGFloat(arc4random() % 255)
@@ -82,4 +86,18 @@ public extension UIColor {
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
     }
 
+}
+//MARK: --- 换换
+public extension UIColor {
+    ///UIColor转化为16进制
+    func yi_toHex() -> String {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        var rgb: Int = (Int)(red * 255) << 16 | (Int)(green * 255) << 8
+        rgb = rgb | (Int)(blue * 255) << 0
+        return String(format: "#%06x", rgb)
+    }
 }

@@ -13,9 +13,9 @@ import PKHUD
 
 public class QYHUD: NSObject {
     
-    class func show (_ str : String,
-                            _ afterDelay : TimeInterval? = 1.5,
-                            _ block : ((Bool) -> Void)? = nil) {
+    class func show (_ str: String,
+                            _ afterDelay: TimeInterval? = 1.5,
+                            _ block: ((Bool) -> Void)? = nil) {
         completionBlock = block
         afterDelayTime = afterDelay
         HUD.show(.label(str), onView: UIApplication.shared.keyWindow?.rootViewController?.view)
@@ -23,10 +23,10 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showSuccess (_ title : String? = nil,
-                                   _ subtitle : String? = nil,
-                                   _ afterDelay : TimeInterval? = 1.5,
-                                   _ block : ((Bool) -> Void)? = nil) {
+    class func showSuccess (_ title: String? = nil,
+                                   _ subtitle: String? = nil,
+                                   _ afterDelay: TimeInterval? = 1.5,
+                                   _ block: ((Bool) -> Void)? = nil) {
         completionBlock = block
         afterDelayTime = afterDelay
         
@@ -40,10 +40,10 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showError (_ title : String? = nil,
-                                 _ subtitle : String? = nil,
-                                 _ afterDelay : TimeInterval? = 1.5,
-                                 _ block : ((Bool) -> Void)? = nil) {
+    class func showError (_ title: String? = nil,
+                                 _ subtitle: String? = nil,
+                                 _ afterDelay: TimeInterval? = 1.5,
+                                 _ block: ((Bool) -> Void)? = nil) {
         completionBlock = block
         afterDelayTime = afterDelay
         var tit = title
@@ -56,10 +56,10 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showProgress (_ title : String? = nil,
-                                         _ subtitle : String? = nil,
-                                         _ afterDelay : TimeInterval? = 0,
-                                         _ block : ((Bool) -> Void)? = nil) {
+    class func showProgress (_ title: String? = nil,
+                                         _ subtitle: String? = nil,
+                                         _ afterDelay: TimeInterval? = 0,
+                                         _ block: ((Bool) -> Void)? = nil) {
         completionBlock = block
         afterDelayTime = afterDelay
         var tit = title
@@ -74,7 +74,7 @@ public class QYHUD: NSObject {
         }
     }
     
-    private class func hideTime () {
+    private class func hideTime() {
         HUD.hide(afterDelay: afterDelayTime ?? 1.5, completion: completionBlock)
     }
 }
@@ -86,7 +86,7 @@ extension QYHUD {
         static let afterDelayKey      = UnsafeRawPointer.init(bitPattern: "afterDelay".hashValue)
     }
     
-    class var completionBlock : ((Bool) -> (Void))? {
+    class var completionBlock: ((Bool) -> (Void))? {
         set {
             objc_setAssociatedObject(self, RuntimeKey.completionBlockKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
@@ -95,7 +95,7 @@ extension QYHUD {
         }
     }
     
-    class var afterDelayTime : TimeInterval? {
+    class var afterDelayTime: TimeInterval? {
         set {
             objc_setAssociatedObject(self, RuntimeKey.afterDelayKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }

@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.5'
+  s.version          = '1.0.6'
   s.summary          = 'QYKit'
   s.description      = <<-DESC
-                            QYKit
+                            QYLocation
                        DESC
 
   s.homepage         = 'https://github.com/MemoryKing/QYKit.git'

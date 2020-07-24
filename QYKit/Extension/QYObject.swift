@@ -9,12 +9,11 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 
-//MARK: -------   获取属性和方法
+//MARK: --- 获取属性和方法
 public extension NSObject {
+    //MARK: --- 获取类的属性列表
     /// 获取类的属性列表
-    ///
-    /// - Returns:  属性名列表
-    func yi_get_class_copyPropertyList()->[String]{
+    func yi_get_class_copyPropertyList() -> [String] {
         var outCount:UInt32 = 0
         let propers:UnsafeMutablePointer<objc_property_t>! =  class_copyPropertyList(self.classForCoder, &outCount)
         let count:Int = Int(outCount);
@@ -27,10 +26,9 @@ public extension NSObject {
         }
         return names
     }
+    //MARK: --- 获取类的方法列表
     /// 获取类的方法列表
-    ///
-    /// - Returns: 方法名列表
-    func yi_get_class_copyMethodList() -> [String]{
+    func yi_get_class_copyMethodList() -> [String] {
         var outCount:UInt32
         outCount = 0
         let methods:UnsafeMutablePointer<objc_property_t>! =  class_copyMethodList(self.classForCoder, &outCount)

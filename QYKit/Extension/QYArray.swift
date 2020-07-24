@@ -18,12 +18,12 @@ public extension Array {
         return self[self.startIndex ..< self.endIndex]
     }
 }
-
+//MARK: --- 类型转换
 public extension Array where Element == UInt8 {
     init(hex: String) {
         self.init(reserveCapacity: hex.unicodeScalars.lazy.underestimatedCount)
         var buffer: UInt8?
-        var skip = hex.hasPrefix("0x") ? 2 : 0
+        var skip = hex.hasPrefix("0x") ? 2: 0
         for char in hex.unicodeScalars.lazy {
             guard skip == 0 else {
                 skip -= 1
@@ -58,7 +58,7 @@ public extension Array where Element == UInt8 {
         }
     }
     ///转十六进制
-    func toHexString() -> String {
+    func yi_toHexString() -> String {
         return `lazy`.reduce("") {
             var s = String($1, radix: 16)
             if s.count == 1 {
@@ -67,12 +67,26 @@ public extension Array where Element == UInt8 {
             return $0 + s
         }
     }
-}
-
-public extension Array {
-    ///去掉重复的元素
-    func yi_removeDuplicate() -> [Any] {
-        let set = NSSet.init(array: self)
-        return set.allObjects
+    /// 转data
+    func yi_toData() -> Data {
+        if (!JSONSerialization.isValidJSONObject(self)) {
+            print("数组转data")
+            return Data()
+        }
+        let data = try? JSONSerialization.data(withJSONObject: self, options: [])
+        return data!
     }
+}
+//MARK: ---
+public extension Array where Element : Equatable{
+    ///去掉重复的元素
+    func yi_removedDuplicates() -> [Element] {
+        return reduce([]) { $0.contains($1) ? $0 : $0 + [$1] }
+    }
+    ///移除对象
+    mutating func remove(_ object: Element) {
+        if let index = firstIndex(of: object) {
+             remove(at: index)
+        }
+     }
 }

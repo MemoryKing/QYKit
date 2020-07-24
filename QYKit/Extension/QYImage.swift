@@ -12,7 +12,7 @@ import UIKit
 
 public extension UIImage {
     static func url(url: String) -> UIImage? {
-        var image : UIImage?
+        var image: UIImage?
         let url = URL.init(string: url)
         do {
             let data = try Data(contentsOf: url!)
@@ -25,7 +25,7 @@ public extension UIImage {
     
 }
 
-//MARK: -------   渐变
+//MARK: --- 渐变
 public extension UIImage {
     /// 渐变色方向
     enum Direction {
@@ -39,7 +39,10 @@ public extension UIImage {
         case leftBottom
     }
     ///线性渐变
-    class func yi_initGradient (size : CGSize, direction : Direction,locations : Array<CGFloat> = [0.0,1.0] ,colors : [UIColor]) -> UIImage {
+    class func yi_initGradient (size: CGSize,
+                                direction: Direction,
+                                locations: Array<CGFloat> = [0.0,1.0] ,
+                                colors: [UIColor]) -> UIImage {
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         guard (context != nil) else {
@@ -59,15 +62,15 @@ public extension UIImage {
             start = CGPoint.init(x: 0, y: 0)
             end = CGPoint.init(x: 0, y: size.height)
             break
-        case .level :
+        case .level:
             start = CGPoint.init(x: 0, y: 0)
             end = CGPoint.init(x: size.width, y: 0)
             break
-        case .leftTop :
+        case .leftTop:
             start = CGPoint.init(x: 0, y: 0)
             end = CGPoint.init(x: size.width, y: size.height)
             break
-        case .leftBottom :
+        case .leftBottom:
             start = CGPoint.init(x: size.width, y: 0)
             end = CGPoint.init(x: 0, y: size.height)
             break
@@ -79,7 +82,9 @@ public extension UIImage {
         return image!
     }
     ///放射性渐变
-    class func yi_initRadialGradients (size : CGSize,locations : Array<CGFloat> = [0.0,1.0] ,colors : [UIColor]) -> UIImage? {
+    class func yi_initRadialGradients (size: CGSize,
+                                       locations: Array<CGFloat> = [0.0,1.0],
+                                       colors: [UIColor]) -> UIImage? {
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         guard (context != nil) else {
@@ -106,10 +111,11 @@ public extension UIImage {
         return image
     }
 }
-//MARK: -------   转换
+//MARK: --- 转换
 public extension UIImage {
     ///image --> base64
-    func yi_toBaseString (_ quality : Float = 1,_ options : Data.Base64EncodingOptions = [.lineLength64Characters]) -> String {
+    func yi_toBaseString (_ quality: Float = 1,
+                          _ options: Data.Base64EncodingOptions = [.lineLength64Characters]) -> String {
         // 将图片转化成Data
         let imageData = self.jpegData(compressionQuality: CGFloat(quality))
         // 将Data转化成 base64的字符串
