@@ -58,3 +58,4 @@ public class QYScreenInfo {
         return num * proportion
     }
 }
+

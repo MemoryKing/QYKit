@@ -1,6 +1,12 @@
 # QYKit
 
 ##   1.0.6
+
+####  textField     最大数     占位颜色
+####  textView
+####  button  
+####  NSAttributedString   加粗   颜色  删除线
+####  label      间距    复制功能
 ####  QYLocation   定位
 ####  字符串异或    MD5加密  类型转换   增删改
 ####  button
@@ -10,7 +16,6 @@
 ####  date类型转换
 ####  数组类型转换
 ####  QYOperation    类型计算
-####  NSAttributedString   加粗   颜色  删除线
 
 
 ##   1.0.5

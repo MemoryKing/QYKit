@@ -337,22 +337,22 @@ public extension UIView {
     }
     
     ///边框-上
-    func yi_addBorderTop(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderTop(_ size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: padding, y: 0, width: frame.width - padding * 2, height: size, color: color)
     }
     
     ///边框-下
-    func yi_addBorderBottom(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderBottom(_ size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: padding, y: frame.height - size, width: frame.width - padding * 2, height: size, color: color)
     }
     
     ///边框-左
-    func yi_addBorderLeft(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderLeft(_ size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: 0, y: padding, width: size, height: frame.height - padding * 2, color: color)
     }
     
     ///边框-右
-    func yi_addBorderRight(size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
+    func yi_addBorderRight(_ size: CGFloat,_ padding: CGFloat = 0,_ color: UIColor = .black) {
         _addBorderUtility(x: frame.width - size, y: padding, width: size, height: frame.height - padding * 2, color: color)
     }
     

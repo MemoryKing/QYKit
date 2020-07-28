@@ -9,8 +9,6 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 
-
-
 public extension Dictionary {
     ///json 初始化
     init? (json: String) {

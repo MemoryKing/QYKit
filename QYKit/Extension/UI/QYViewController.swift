@@ -11,10 +11,22 @@ import UIKit
 
 //MARK: ---------- 设置导航 ----------
 public extension UIViewController {
+    @available(iOS 12.0, *)
+    ///设置暗黑模式
+    var yi_interfaceStyle: UIUserInterfaceStyle {
+        set {
+            objc_setAssociatedObject(self, QYRuntimeKey.interfaceStyleKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            UITraitCollection.current.userInterfaceStyle = newValue
+        }
+        get {
+            return objc_getAssociatedObject(self, QYRuntimeKey.interfaceStyleKey!) as! UIUserInterfaceStyle
+        }
+    }
+    
     ///影藏底线
     var yi_isHiddenShadow: Bool {
         set {
-            objc_setAssociatedObject(self, VCRuntimeKey.hiddenShadowKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, QYRuntimeKey.hiddenShadowKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
             if self.navigationController == nil {
                 NSLog("no navigation controller", 1)
             } else {
@@ -26,7 +38,7 @@ public extension UIViewController {
             }
         }
         get {
-            return (objc_getAssociatedObject(self, VCRuntimeKey.hiddenShadowKey!) as! Bool)
+            return (objc_getAssociatedObject(self, QYRuntimeKey.hiddenShadowKey!) as! Bool)
         }
     }
     ///隐藏导航
@@ -216,28 +228,29 @@ public extension UIViewController {
 
 //MARK: --- 私有
 private extension UIViewController {
-    private struct VCRuntimeKey {
+    private struct QYRuntimeKey {
         static let leftKey = UnsafeRawPointer.init(bitPattern: "leftKey".hashValue)
         static let rightKey = UnsafeRawPointer.init(bitPattern: "rightKey".hashValue)
         static let titleColorKey = UnsafeRawPointer.init(bitPattern: "titleColorKey".hashValue)
         static let hiddenShadowKey = UnsafeRawPointer.init(bitPattern: "hiddenShadowKey".hashValue)
+        static let interfaceStyleKey = UnsafeRawPointer.init(bitPattern: "interfaceStyleKey".hashValue)
     }
     
     private var leftNavBlock: (() ->())? {
         set {
-            objc_setAssociatedObject(self, VCRuntimeKey.leftKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, QYRuntimeKey.leftKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
-            return  (objc_getAssociatedObject(self, VCRuntimeKey.leftKey!) as! (() ->()))
+            return  (objc_getAssociatedObject(self, QYRuntimeKey.leftKey!) as! (() ->()))
         }
     }
     
     private var rightNavBlock: (() ->())? {
         set {
-            objc_setAssociatedObject(self, VCRuntimeKey.rightKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, QYRuntimeKey.rightKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
-            return (objc_getAssociatedObject(self, VCRuntimeKey.rightKey!) as! (() ->()))
+            return (objc_getAssociatedObject(self, QYRuntimeKey.rightKey!) as! (() ->()))
         }
     }
     

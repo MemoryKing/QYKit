@@ -9,9 +9,9 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-public class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
+class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     private var _barStyle: UIStatusBarStyle?
-    var yi_barStyle: UIStatusBarStyle {
+    public var yi_barStyle: UIStatusBarStyle {
         set {
             _barStyle = newValue
             setNeedsStatusBarAppearanceUpdate()
@@ -21,26 +21,28 @@ public class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate
         }
     }
     //返回手势
-    var interactivePop: Bool? {
-        didSet {
-            if interactivePop ?? false {
-                self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-            } else {
-                self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-            }
+    private var _interactivePop: Bool?
+    public var interactivePop: Bool {
+        set {
+            _interactivePop = newValue
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = newValue
+        }
+        get {
+            return _interactivePop ?? false
         }
     }
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         //防止自动下移64
         self.automaticallyAdjustsScrollViewInsets = false
+        
         self.extendedLayoutIncludesOpaqueBars = true
         
         self.interactivePop = true
     }
     
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.yi_barStyle
     }
 

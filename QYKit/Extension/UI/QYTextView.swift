@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 public extension UITextView {
-    private func addNotification () {
+    private func addNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
     }
     
-    @objc private func textDidChange (_ tv : UITextView) {
+    @objc private func textDidChange (_ tv: UITextView) {
         setNeedsDisplay()
     }
 }
@@ -26,40 +26,43 @@ public extension UITextView {
         if self.hasText {
             return
         }
+        
         // 属性
-        let attrs: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: self.placeholderColor,NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: 16)]
+        let attrs: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: self.yi_placeholderColor,NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: 16)]
         // 文字
         var rect1 = rect
         rect1.origin.x = 5
         rect1.origin.y = 8
         rect1.size.width = rect1.size.width - 2 * rect1.origin.x
-        (self.placeholder as NSString).draw(in: rect1, withAttributes: attrs)
+        (self.yi_placeholder as NSString).draw(in: rect1, withAttributes: attrs)
     }
 }
 
 //MARK:   -------   属性扩展 ----------
 public extension UITextView {
-    struct RuntimeKey {
+    private struct QYRuntimeKey {
         static let placeholderKey = UnsafeRawPointer.init(bitPattern: "placeholder".hashValue)
         static let placeholderColorKey = UnsafeRawPointer.init(bitPattern: "placeholderColor".hashValue)
     }
-    
-    var placeholder : String {
+    //MARK: --- 占位字
+    ///占位字
+    var yi_placeholder: String {
         set {
-            objc_setAssociatedObject(self, RuntimeKey.placeholderKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, QYRuntimeKey.placeholderKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             addNotification()
         }
         get {
-            return objc_getAssociatedObject(self, RuntimeKey.placeholderKey!) as! String
+            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderKey!) as! String
         }
     }
-    
-    var placeholderColor : UIColor {
+    //MARK: --- 占位字颜色
+    ///占位字颜色
+    var yi_placeholderColor: UIColor {
         set {
-            objc_setAssociatedObject(self, RuntimeKey.placeholderColorKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, QYRuntimeKey.placeholderColorKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
-            return objc_getAssociatedObject(self, RuntimeKey.placeholderColorKey!) as? UIColor ?? UIColor.lightGray
+            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderColorKey!) as? UIColor ?? QY99Color
         }
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 
 
 class ViewController: UIViewController {
-
+    var lab: UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -38,6 +38,14 @@ class ViewController: UIViewController {
 //        let string = "adcfb425723432".yi_xor("213871248dbcaf")
 //        yPrintLog(string.yi_hexToString())
         
+        
+        lab = UILabel().yi_then {
+            $0.text = "sdaijgwqewqe"
+            $0.frame = .init(x: 100, y: 100, width: 100, height: 100)
+            $0.yi_isCopy = true
+        }
+        self.view.addSubview(lab!)
+        
         QYLog(QYRegular.yi_isSpecificNumbers("2312ujijr", 5))
         QYLog(QYRegular.yi_isSpecificNumbers("23128", 5))
         _ = CGSize.init(width: 1, height: 1) + CGSize.init(width: 1, height: 1)
@@ -55,11 +63,11 @@ class ViewController: UIViewController {
 //        return table
 //    }()
 //
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        QYDatePickerViewController.yi_showDatePicker(type: .day) { (str) in
-//            QYHUD.show(str)
+        
 //        }
-//    }
+    }
 }
 
 //MARK: --- TableViewDelegate
