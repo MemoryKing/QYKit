@@ -1,5 +1,8 @@
 # QYKit
 
+##   1.0.7
+
+
 ##   1.0.6
 ####  QYAlert                                  系统弹窗--alertVC ,alertaction扩展
 ####  base                                      添加基类table,collection
