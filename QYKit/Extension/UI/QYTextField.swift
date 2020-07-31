@@ -18,11 +18,13 @@ extension UITextField {
     func yi_distanceSides(_ leftWidth:CGFloat,
                           _ rightWidth:CGFloat? = 0)  {
         //左侧view
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: leftWidth, height: 5))
-        leftViewMode = .always
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: leftWidth, height: 5))
+        self.leftViewMode = .always
+        self.leftView = leftV
         //右侧view
-        rightView = UIView(frame: CGRect(x: 0, y: 0, width: rightWidth!, height: 5))
-        rightViewMode = .always
+        let rightV = UIView(frame: CGRect(x: 0, y: 0, width: rightWidth!, height: 5))
+        self.rightViewMode = .always
+        self.rightView = rightV
     }
     
     /// 添加标题
@@ -31,8 +33,8 @@ extension UITextField {
     ///   - titleLabel: titleLabel
     ///   - titleWidth: titleWidth
     ///   - padding: 距离右侧输入框的距离
-    func yi_leftTile(title: String,
-                     titleWidth: CGFloat,
+    func yi_leftTile(_ title: String,
+                     _ titleWidth: CGFloat,
                      _ color: UIColor = .lightGray,
                      _ font: CGFloat = 14,
                      _ textAlignment: NSTextAlignment = .center,
@@ -40,12 +42,13 @@ extension UITextField {
         let label = UILabel()
         label.text = title
         label.textColor = color
-        label.font = UIFont.systemFont(ofSize: font)
+        label.font = UIFont.systemFont(ofSize: QYRatio(font))
         label.textAlignment = .center
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: titleWidth + padding + CGFloat(5), height: 30))
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: titleWidth + padding, height: 30))
         label.frame = CGRect(x: 5, y: 0, width: titleWidth, height: 30)
-        leftView?.addSubview(label)
+        leftV.addSubview(label)
         self.leftViewMode = .always
+        self.leftView = leftV
     }
     
     /// 添加左侧icon
@@ -54,12 +57,13 @@ extension UITextField {
     ///   - image: image
     ///   - size: icon的size
     ///   - padding: 距离文本距离
-    func yi_leftIcon(_ image: UIImage,size:CGSize,padding: CGFloat)  {
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: size.width + 2 * padding - 3, height: size.height))
+    func yi_leftIcon(_ image: UIImage,_ size:CGSize,_ padding: CGFloat)  {
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: size.width + 2 * padding - 3, height: size.height))
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: padding, y: 0, width: size.width, height: size.height)
-        self.leftView?.addSubview(imageView)
+        leftV.addSubview(imageView)
         self.leftViewMode = .always
+        self.leftView = leftV
     }
     
     /// 添加右侧icon
@@ -69,11 +73,12 @@ extension UITextField {
     ///   - size: size
     ///   - padding: padding
     func yi_rightIcon(_ image: UIImage,size:CGSize,padding: CGFloat)  {
-        self.rightView = UIView(frame: CGRect(x: 0, y: 0, width: size.width + 2 * padding, height: size.height))
+        let rightV = UIView(frame: CGRect(x: 0, y: 0, width: size.width + 2 * padding, height: size.height))
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: padding, y: 0, width: size.width, height: size.height)
-        self.rightView?.addSubview(imageView)
-        rightViewMode = .always
+        rightV.addSubview(imageView)
+        self.rightViewMode = .always
+        self.rightView = rightV
     }
 }
 

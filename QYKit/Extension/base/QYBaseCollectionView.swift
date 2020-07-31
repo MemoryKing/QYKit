@@ -14,13 +14,13 @@ import DZNEmptyDataSet
 public class QYBaseCollectionView: UICollectionView {
 
     var yi_empty_title             : String?   = "暂无数据"
-    var yi_empty_titleFont         : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_titleColor        : UIColor   = .lightGray
+    var yi_empty_titleFont         : UIFont    = QYFont(15)
+    var yi_empty_titleColor        : UIColor   = QY33Color
     
     var yi_empty_description       : String?
-    var yi_empty_descriptionFont   : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_descriptionColor  : UIColor   = .lightGray
-    var _yi_empty_image            : UIImage?
+    var yi_empty_descriptionFont   : UIFont    = QYFont(15)
+    var yi_empty_descriptionColor  : UIColor   = QY33Color
+    private var _yi_empty_image            : UIImage?
     var yi_empty_image             : UIImage? {
         set {
             _yi_empty_image = newValue
@@ -32,9 +32,9 @@ public class QYBaseCollectionView: UICollectionView {
     }
     
     var yi_empty_btn_title         : String?
-    var yi_empty_btn_titleFont     : UIFont    = UIFont.systemFont(ofSize: 15)
-    var yi_empty_btn_titleColor    : UIColor   = .lightGray
-    var _yi_empty_btn_image        : UIImage?
+    var yi_empty_btn_titleFont     : UIFont    = QYFont(15)
+    var yi_empty_btn_titleColor    : UIColor   = QY33Color
+    private var _yi_empty_btn_image        : UIImage?
     var yi_empty_btn_image         : UIImage? {
         set {
             _yi_empty_btn_image = newValue
@@ -44,12 +44,13 @@ public class QYBaseCollectionView: UICollectionView {
             return _yi_empty_btn_image
         }
     }
+    ///图文间距
+    var yi_empty_spaceHeight             : CGFloat   = QYRatio(10)
+    ///偏移
+    var yi_empty_verticalOffset          : CGFloat   = 0
+    var yi_empty_backgroundColor         : UIColor   = QYF5Color
     
-    var yi_spaceHeight             : CGFloat   = 10.0
-    var yi_verticalOffset          : CGFloat   = 0
-    var yi_backgroundColor         : UIColor   = .clear
-    
-    var clickBlock                 : (() -> Void)? = nil
+    private var emptyClickBlock         : (() -> Void)? = nil
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -60,6 +61,7 @@ public class QYBaseCollectionView: UICollectionView {
                 self.contentInsetAdjustmentBehavior = .never
             }
         } else {
+            
         }
         self.emptyDataSetSource = self
         self.emptyDataSetDelegate = self
@@ -105,7 +107,7 @@ public extension QYBaseCollectionView {
     func yi_empty_button(title:String , _ bl: (() -> Void)?) {
         self.yi_empty_title = nil
         self.yi_empty_btn_title = title
-        self.clickBlock = bl
+        self.emptyClickBlock = bl
         self.reloadTableView()
     }
     
@@ -113,7 +115,6 @@ public extension QYBaseCollectionView {
 
 //MARK: --- DZNEmptyDataSet  空界面
 extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
-    
     //MARK: -- DZNEmptyDataSetSource Methods
     ///标题为空的数据集
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
@@ -161,15 +162,15 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///自定义背景颜色
     public func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return self.yi_backgroundColor
+        return self.yi_empty_backgroundColor
     }
 
     public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return self.yi_verticalOffset
+        return self.yi_empty_verticalOffset
     }
 
     public func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return self.yi_spaceHeight
+        return self.yi_empty_spaceHeight
     }
 
     //MARK: -- DZNEmptyDataSetDelegate
@@ -192,14 +193,14 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///视图触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
-        if self.clickBlock != nil {
-            self.clickBlock!()
+        if self.emptyClickBlock != nil {
+            self.emptyClickBlock!()
         }
     }
     ///按钮触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
-        if self.clickBlock != nil {
-            self.clickBlock!()
+        if self.emptyClickBlock != nil {
+            self.emptyClickBlock!()
         }
     }
 

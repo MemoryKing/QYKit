@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0441F03F24D29CB500E15769 /* QYCountDownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0441F03E24D29CB500E15769 /* QYCountDownButton.swift */; };
+		044B106724D2D32E00ED923C /* QYAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044B106624D2D32E00ED923C /* QYAlert.swift */; };
 		048583A924CAEA62006D98F8 /* QYBaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048583A824CAEA62006D98F8 /* QYBaseCollectionView.swift */; };
 		04A17B9224CA750200E542AA /* QYDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A17B9124CA750200E542AA /* QYDictionary.swift */; };
 		04A17B9424CAAF5E00E542AA /* QYData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A17B9324CAAF5E00E542AA /* QYData.swift */; };
@@ -71,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0441F03E24D29CB500E15769 /* QYCountDownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYCountDownButton.swift; sourceTree = "<group>"; };
+		044B106624D2D32E00ED923C /* QYAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYAlert.swift; sourceTree = "<group>"; };
 		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		048583A824CAEA62006D98F8 /* QYBaseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYBaseCollectionView.swift; sourceTree = "<group>"; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,8 +193,10 @@
 		0448AE9A24C9670E00F7CC4D /* 功能 */ = {
 			isa = PBXGroup;
 			children = (
+				0441F03E24D29CB500E15769 /* QYCountDownButton.swift */,
 				04FA089624C82B2F00B695C4 /* QYLocation.swift */,
 				04C6ABB524C81D91009C348D /* QYDatePickerViewController.swift */,
+				044B106624D2D32E00ED923C /* QYAlert.swift */,
 			);
 			path = "功能";
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				04C6ABD624C81D91009C348D /* QYPermissionsDetection.swift in Sources */,
 				04A17B9824CACE6600E542AA /* QYOperation.swift in Sources */,
 				04C6ABD724C81D91009C348D /* QYToolManager.swift in Sources */,
+				044B106724D2D32E00ED923C /* QYAlert.swift in Sources */,
 				04C6ABCD24C81D91009C348D /* QYBaseViewController.swift in Sources */,
 				04FDFD8324CEB7E5001B694E /* QYFont.swift in Sources */,
 				04C6ABC324C81D91009C348D /* QYColor.swift in Sources */,
@@ -523,6 +530,7 @@
 				04A17B9424CAAF5E00E542AA /* QYData.swift in Sources */,
 				04C6ABC124C81D91009C348D /* QYButton.swift in Sources */,
 				04C6ABC224C81D91009C348D /* QYDispatchQueue.swift in Sources */,
+				0441F03F24D29CB500E15769 /* QYCountDownButton.swift in Sources */,
 				04C6ABD124C81D91009C348D /* QYDatePickerViewController.swift in Sources */,
 				04C6ABC924C81D91009C348D /* QYArray.swift in Sources */,
 				04C6ABC624C81D91009C348D /* QYDate.swift in Sources */,

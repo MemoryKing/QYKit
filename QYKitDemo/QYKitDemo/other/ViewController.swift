@@ -11,7 +11,15 @@ import UIKit
 //import QYKit
 
 
-class ViewController: UIViewController {
+class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
     var lab: UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,34 +47,40 @@ class ViewController: UIViewController {
 //        yPrintLog(string.yi_hexToString())
         
         
-        lab = UILabel().yi_then {
-            $0.text = "sdaijgwqewqe"
+        let lab = QYCountDownButton().yi_then {
             $0.frame = .init(x: 100, y: 100, width: 100, height: 100)
-            $0.yi_isCopy = true
+            $0.yi_title = "获取验证码"
+            $0.addTarget(self, action: #selector(self.click(_:)), for: .touchUpInside)
         }
-        self.view.addSubview(lab!)
+        self.view.addSubview(lab)
         
-        QYLog(QYRegular.yi_isSpecificNumbers("2312ujijr", 5))
-        QYLog(QYRegular.yi_isSpecificNumbers("23128", 5))
         _ = CGSize.init(width: 1, height: 1) + CGSize.init(width: 1, height: 1)
         
-//yPrintLog("M1060http://61.129.71.103:9038/emu/res/20200715151842019715959153M20262020071515184201971595915".yi_toHexString())
-//        self.tableView.frame = self.view.frame
-//        self.view.addSubview(self.tableView)
-//        self.tableView._yi_empty_image = UIImage.init(named: "NoData")
-    }
-//    lazy var tableView: QYBaseTableView = {
-//        let table = QYBaseTableView.init(frame: CGRect.zero, style: .grouped)
-//        table.delegate = self
-//        table.dataSource = self
-//        table.separatorStyle = .none
-//        return table
-//    }()
-//
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        QYDatePickerViewController.yi_showDatePicker(type: .day) { (str) in
         
+//        self.yi_addTableView {
+//            $0.backgroundColor = .red
 //        }
+        
+        
+    }
+    @objc func click (_ btn: QYCountDownButton) {
+        QYAlert.yi_show(message: "打", titleArr: ["123","qwe"], highlighted: 1, handler: { (alert,action,i) in
+            if i == 0 {
+                action.setValue(QY99Color, forKey: "titleTextColor")
+            }
+            alert.yi_titleColor = .cyan
+            alert.yi_titleFont = UIFont.QYFont_23
+            alert.yi_messageColor = .green
+            alert.yi_messageFont = UIFont.QYFont_22
+            action.yi_titleColor = .red
+            QYLog(action.yi_get_class_copyPropertyList())
+            QYLog(action.yi_get_class_copyMethodList())
+            action.yi_image = UIImage.init(named: "矩形 490")
+            
+        }) { (i, s) -> (Void) in
+            
+        }
+        
     }
 }
 

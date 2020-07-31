@@ -13,8 +13,10 @@ import MediaPlayer
 import CoreTelephony
 import CoreLocation
 import AVFoundation
+import CoreBluetooth
 
 public class QYPermissionsDetection {
+    private var bluetoohTools: QYCheckBluetooth?
     // MARK: - 开启媒体资料库/Apple Music 服务
     /// 开启媒体资料库/Apple Music 服务
     class func yi_openMediaPlayerServiceWithBlock(action:@escaping ((Bool)->())) {
@@ -35,7 +37,6 @@ public class QYPermissionsDetection {
             action(isOpen)
         }
     }
-
     // MARK: - 检测是否开启联网
     /// 检测是否开启联网
     class func yi_openEventServiceWithBolck(action:@escaping ((Bool)->())) {
@@ -54,7 +55,6 @@ public class QYPermissionsDetection {
             action(isOpen)
         }
     }
-
     // MARK: - 检测是否开启定位
     /// 检测是否开启定位
     class func yi_openLocationServiceWithBlock(action:@escaping ((Bool)->())) {
@@ -66,7 +66,6 @@ public class QYPermissionsDetection {
             action(isOpen)
         }
     }
-
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
     class func yi_openCaptureDeviceServiceWithBlock(action:@escaping ((Bool)->())) {
@@ -97,7 +96,6 @@ public class QYPermissionsDetection {
             action(isOpen)
         }
     }
-
     // MARK: - 检测是否开启麦克风
     /// 检测是否开启麦克风
     class func yi_openRecordServiceWithBlock(action:@escaping ((Bool)->())) {
@@ -114,6 +112,22 @@ public class QYPermissionsDetection {
         }
         DispatchQueue.main.async {
             action(isOpen)
+        }
+    }
+    // MARK: - 检测是否开启蓝牙
+    /// 检测是否开启蓝牙
+    class func yi_openBluetoothWithBlock(action:@escaping ((Bool,QYAuthorizationState)->())) {
+        let ble = QYCheckBluetooth()
+        ble.requestBluetoothAuthorization { (state) in
+            var isOpen = false
+            if state == .poweredOn {
+                isOpen = true
+            } else {
+                isOpen = false
+            }
+            DispatchQueue.main.async {
+                action(isOpen,state)
+            }
         }
     }
     // MARK: - 跳转系统设置界面
@@ -138,5 +152,55 @@ public class QYPermissionsDetection {
         alertController.addAction(settingsAction)
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
+}
 
+//MARK: --- 蓝牙
+/// 蓝牙权限状态
+public enum QYAuthorizationState : Int {
+    ///未知状态
+    case unknown = 0
+    ///正在重置，与系统服务暂时丢失
+    case resetting
+    ///不支持蓝牙
+    case unsupported
+    ///未授权
+    case unauthorized
+    ///关闭
+    case poweredOff
+    ///开启并可用
+    case poweredOn
+}
+private class QYCheckBluetooth: NSObject ,CBCentralManagerDelegate {
+    var completionHandler: ((_ state: QYAuthorizationState) -> Void)?
+    var cbcManager: CBCentralManager?
+    var bluetoothQueue: DispatchQueue?
+    /// 获取蓝牙权限
+    func requestBluetoothAuthorization(_ completionHandler: @escaping (_ state: QYAuthorizationState) -> Void) {
+        self.completionHandler = completionHandler
+        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetooth Queue")
+        self.cbcManager = CBCentralManager.init(delegate: self, queue: self.bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
+    }
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if self.completionHandler != nil {
+            if central.state == .resetting {
+                QYLog("正在重置，与系统服务暂时丢失")
+                self.completionHandler!(QYAuthorizationState.resetting)
+            } else if central.state == .unsupported {
+                QYLog("不支持蓝牙")
+                self.completionHandler!(QYAuthorizationState.unsupported)
+            } else if central.state == .unauthorized {
+                QYLog("未授权")
+                self.completionHandler!(QYAuthorizationState.unauthorized)
+            } else if central.state == .poweredOff {
+                QYLog("关闭")
+                self.completionHandler!(QYAuthorizationState.poweredOff)
+            } else if central.state == .poweredOn {
+                QYLog("开启并可用")
+                self.completionHandler!(QYAuthorizationState.poweredOn)
+            } else {
+                QYLog("未知状态")
+                self.completionHandler!(QYAuthorizationState.unknown)
+            }
+        }
+    }
 }

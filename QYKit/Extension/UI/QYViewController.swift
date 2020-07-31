@@ -12,14 +12,30 @@ import UIKit
 //MARK: ---------- 设置导航 ----------
 public extension UIViewController {
     @available(iOS 12.0, *)
-    ///设置暗黑模式
+    ///设置暗黑模式(影响当前view/viewController/window 以及它下面的任何内容。)
     var yi_interfaceStyle: UIUserInterfaceStyle {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.interfaceStyleKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            UITraitCollection.current.userInterfaceStyle = newValue
+            if #available(iOS 13.0, *) {
+                self.overrideUserInterfaceStyle = newValue
+            } else {
+                // Fallback on earlier versions
+            }
         }
         get {
             return objc_getAssociatedObject(self, QYRuntimeKey.interfaceStyleKey!) as! UIUserInterfaceStyle
+        }
+    }
+    @available(iOS 12.0, *)
+    ///获取当前暗黑模式
+    var yi_userInterfaceStyle: UIUserInterfaceStyle {
+        get {
+            if #available(iOS 13.0, *) {
+                return UITraitCollection.current.userInterfaceStyle
+            } else {
+                // Fallback on earlier versions
+            }
+            return .unspecified
         }
     }
     

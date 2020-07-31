@@ -9,5 +9,5 @@ target 'QYKitDemo' do
 pod 'PKHUD'
 pod 'MJRefresh'
 pod 'DZNEmptyDataSet'
-#pod 'WYJKit_Swift'
+pod 'SnapKit'
 end

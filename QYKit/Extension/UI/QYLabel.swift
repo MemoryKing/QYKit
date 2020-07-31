@@ -9,7 +9,6 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-
 public extension UILabel {
     
     /// 改变字间距

@@ -13,11 +13,21 @@ import CommonCrypto
 //MARK: --- 初始化
 public extension String {
     ///float -> string
-    init(_ float: Float?) {
-        self.init(String(describing: float ?? 0))
+    init?(_ float: Float?,_ significand: Int? = nil) {
+        if let i = significand {
+            self.init(String(format: "%.\(i)f", float!))
+        }
+        self.init(format: "%f", float ?? 0.0)
+    }
+    ///double -> string
+    init?(_ double: Double?,_ significand: Int? = nil) {
+        if let i = significand {
+            self.init(String(format: "%.\(i)f", double!))
+        }
+        self.init(format: "%f", double ?? 0.0)
     }
     ///base64
-    init ? (base64: String) {
+    init?(base64: String) {
         let pad = String(repeating: "=", count: base64.length % 4)
         let base64Padded = base64 + pad
         if let decodedData = Data(base64Encoded: base64Padded, options: NSData.Base64DecodingOptions(rawValue: 0)), let decodedString = NSString(data: decodedData, encoding: String.Encoding.utf8.rawValue) {
@@ -66,7 +76,7 @@ public extension String {
     }
     //MARK: --- 获取文本高度
     /// 获取文本高度
-    func getHeight(_ font : UIFont = UIFont.systemFont(ofSize: 18), fixedWidth : CGFloat) -> CGFloat {
+    func yi_getHeight(_ font : UIFont = UIFont.systemFont(ofSize: 18), fixedWidth : CGFloat) -> CGFloat {
         
         guard self.count > 0 && fixedWidth > 0 else {
             return 0
@@ -78,7 +88,7 @@ public extension String {
     }
     //MARK: --- 获取文本宽度
     /// 获取文本宽度
-    func getWidth(_ font : UIFont = UIFont.systemFont(ofSize: 17)) -> CGFloat {
+    func yi_getWidth(_ font : UIFont = UIFont.systemFont(ofSize: 17)) -> CGFloat {
         guard self.count > 0 else {
             return 0
         }
@@ -112,7 +122,7 @@ public extension String {
         return self.yi_index(closedRange.lowerBound..<(closedRange.upperBound + 1))
     }
     ///count
-    var length: Int {
+    private var length: Int {
         return self.count
     }
     ///替换指定范围内的字符串
@@ -120,6 +130,24 @@ public extension String {
         let startIndex = self.index(self.startIndex, offsetBy: index)
         self.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: length), with: replac)
         return self
+    }
+    
+    /// 替换字符串
+    /// - Parameters:
+    ///   - of: 字符串
+    ///   - with: 替换的字符串
+    ///   - option: 可以用来指定一个选项标记（这个标记可以作为替换的条件)
+    ///   - range: 指定一个替换的范围
+    func yi_replacingOccurrences(_ of: String,_ with: String,option: String.CompareOptions = [],range: Range<Self.Index>? = nil) -> String {
+        let s = self.replacingOccurrences(of: of, with: with, options: option, range: range)
+        return s
+    }
+    /// 替换字符串
+    /// - Parameters:
+    ///   - range: 范围
+    ///   - with: 替换字符串
+    func yi_replacingCharacters(_ range: NSRange,_ with: String) -> String {
+        return (self as NSString).replacingCharacters(in: range, with: with)
     }
     ///删除第一个字符
     mutating func yi_deleteFirst() -> String {
