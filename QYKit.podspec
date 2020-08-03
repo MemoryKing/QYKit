@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
   s.dependency 'PKHUD'
   s.dependency 'SnapKit'
   
-  s.resources  = 'QYKit/Resource/*.json'
-  s.source_files = 'QYKit/**/*.swift '
+  #s.resources  = 'QYKit/Resource/*.json'
+  s.source_files = 'QYKit/**/*.swift'
 
 #s.subspec 'Tool' do |t|
 #t.source_files          = 'QYKit/Tool/**/*.swift'
