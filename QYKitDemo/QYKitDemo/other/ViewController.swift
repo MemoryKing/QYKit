@@ -80,7 +80,7 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
         }) { (i, s) -> (Void) in
             
         }
-        
+        QYLog(["12","34","56","78"][[0,3,7]])
     }
 }
 

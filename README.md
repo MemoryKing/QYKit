@@ -1,7 +1,8 @@
 # QYKit
 
 ##   1.0.7
-
+#### array                                      多下标获取
+####  数据类型   运算
 
 ##   1.0.6
 ####  QYAlert                                  系统弹窗--alertVC ,alertaction扩展

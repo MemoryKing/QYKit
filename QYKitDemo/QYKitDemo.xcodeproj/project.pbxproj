@@ -14,6 +14,7 @@
 		04A17B9424CAAF5E00E542AA /* QYData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A17B9324CAAF5E00E542AA /* QYData.swift */; };
 		04A17B9624CACD6F00E542AA /* QYAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A17B9524CACD6F00E542AA /* QYAttributedString.swift */; };
 		04A17B9824CACE6600E542AA /* QYOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A17B9724CACE6600E542AA /* QYOperation.swift */; };
+		04C03FD124D41C750055E370 /* address-code.json in Resources */ = {isa = PBXBuildFile; fileRef = 04C03FD024D41C750055E370 /* address-code.json */; };
 		04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB1A24C7E33B009C348D /* ViewController.swift */; };
 		04C6AB2424C7E33B009C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C6AB1B24C7E33B009C348D /* Assets.xcassets */; };
 		04C6AB2524C7E33B009C348D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C6AB1C24C7E33B009C348D /* LaunchScreen.storyboard */; };
@@ -84,6 +85,7 @@
 		04A17B9324CAAF5E00E542AA /* QYData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYData.swift; sourceTree = "<group>"; };
 		04A17B9524CACD6F00E542AA /* QYAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYAttributedString.swift; sourceTree = "<group>"; };
 		04A17B9724CACE6600E542AA /* QYOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYOperation.swift; sourceTree = "<group>"; };
+		04C03FD024D41C750055E370 /* address-code.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "address-code.json"; sourceTree = "<group>"; };
 		04C6AB1A24C7E33B009C348D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04C6AB1B24C7E33B009C348D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04C6AB1D24C7E33B009C348D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -169,6 +171,14 @@
 				04C6AB1E24C7E33B009C348D /* Main.storyboard */,
 			);
 			path = other;
+			sourceTree = "<group>";
+		};
+		041B1D2124D41E41007D0465 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				04C03FD024D41C750055E370 /* address-code.json */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		0448AE9824C966E400F7CC4D /* 集成 */ = {
@@ -272,12 +282,12 @@
 		04C6ABA024C81D91009C348D /* QYKit */ = {
 			isa = PBXGroup;
 			children = (
+				041B1D2124D41E41007D0465 /* Resource */,
 				04C6ABA124C81D91009C348D /* Extension */,
 				04C6ABB024C81D91009C348D /* Function */,
 				04C6ABB724C81D91009C348D /* Tool */,
 			);
-			name = QYKit;
-			path = ../../QYKit;
+			path = QYKit;
 			sourceTree = "<group>";
 		};
 		04C6ABA124C81D91009C348D /* Extension */ = {
@@ -441,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C6AB2724C7E33B009C348D /* NoData.png in Resources */,
+				04C03FD124D41C750055E370 /* address-code.json in Resources */,
 				04C6AB2624C7E33B009C348D /* Main.storyboard in Resources */,
 				04FA089924C82BED00B695C4 /* README.md in Resources */,
 				04FA089B24C82BF600B695C4 /* QYKit.podspec in Resources */,

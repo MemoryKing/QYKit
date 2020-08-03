@@ -1,28 +1,28 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.6'
-  s.summary          = 'QYKit'
+  s.version          = '1.0.7'
+  s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
-                            QYLocation
+                            ...
                        DESC
 
-  s.homepage         = 'https://github.com/MemoryKing/QYKit.git'
+  s.homepage         = 'https://github.com/MemoryKing/QYKit'
   #s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.license          = 'MIT'
   s.author           = { '╰莪呮想好好宠Nǐつ ' => '1091676312@qq.com' }
   s.source           = { :git => 'https://github.com/MemoryKing/QYKit.git', :tag => s.version.to_s }
   #s.pod_target_xcconfig = {'SWIFT_VERSION' => '5.0'}
   s.swift_versions = '5.0'
-  s.platform     = :ios, "10.0"
-
+  s.platform     = :ios, "9.0"
   s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','MediaPlayer','CoreTelephony','CoreLocation','AVFoundation'
+  
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'PKHUD'
   s.dependency 'SnapKit'
   
+  s.resources  = 'QYKit/Resource/*.json'
   s.source_files = 'QYKit/**/*.swift '
-  #s.public_header_files   = 'QYKit/**/*.swift '
 
 #s.subspec 'Tool' do |t|
 #t.source_files          = 'QYKit/Tool/**/*.swift'
@@ -35,7 +35,6 @@ Pod::Spec.new do |s|
 #s.subspec 'Function' do |e|
 #e.source_files          = 'QYKit/Function/**/*.swift'
 #end
-
 
 s.requires_arc = true
 end
