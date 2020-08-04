@@ -71,10 +71,10 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.baseTableView!.estimatedSectionHeaderHeight = 0
         self.view.addSubview(self.baseTableView!)
         self.baseTableView!.snp.makeConstraints {
-            $0.top.equalTo(QYScreenInfo.statusAndNavHeight)
+            $0.top.equalTo(QYStatusAndNavHeight)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
-            $0.bottom.equalTo(-QYScreenInfo.bottomHeight)
+            $0.bottom.equalTo(-QYBottomHeight)
         }
         block?(self.baseTableView!)
     }
@@ -104,10 +104,10 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.baseCollection!.backgroundColor = QYF5Color
         self.view.addSubview(self.baseCollection!)
         self.baseCollection!.snp.makeConstraints {
-            $0.top.equalTo(QYScreenInfo.statusAndNavHeight)
+            $0.top.equalTo(QYStatusAndNavHeight)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
-            $0.bottom.equalTo(-QYScreenInfo.bottomHeight)
+            $0.bottom.equalTo(-QYBottomHeight)
         }
         block?(layout,self.baseCollection!)
     }
