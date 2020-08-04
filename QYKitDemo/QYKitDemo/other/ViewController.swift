@@ -69,9 +69,9 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
                 action.setValue(QY99Color, forKey: "titleTextColor")
             }
             alert.yi_titleColor = .cyan
-            alert.yi_titleFont = UIFont.QYFont_23
+            alert.yi_titleFont = QYFont_23
             alert.yi_messageColor = .green
-            alert.yi_messageFont = UIFont.QYFont_22
+            alert.yi_messageFont = QYFont_22
             action.yi_titleColor = .red
             QYLog(action.yi_get_class_copyPropertyList())
             QYLog(action.yi_get_class_copyMethodList())
