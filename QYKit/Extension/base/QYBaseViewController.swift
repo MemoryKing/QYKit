@@ -55,7 +55,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: --- 添加表视图
     ///添加表视图
-    func yi_addTableView(_ block: ((QYBaseTableView) -> Void)? = nil) {
+    public func yi_addTableView(_ block: ((QYBaseTableView) -> Void)? = nil) {
         if self.baseCollection != nil {
             self.baseCollection?.removeFromSuperview()
             self.baseCollection = nil
@@ -81,7 +81,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK:-注册表视图cell
     ///注册表视图cell
-    func yi_registerCell(cells:[AnyClass],cellName:[String]) {
+    public func yi_registerCell(cells:[AnyClass],cellName:[String]) {
         for index in 0..<cells.count {
             self.baseTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
         }
@@ -89,7 +89,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: --- 添加集合视图
     ///添加集合视图
-    func yi_addCollectionView(_ block: ((UICollectionViewFlowLayout,QYBaseCollectionView) -> Void)? = nil) {
+    public func yi_addCollectionView(_ block: ((UICollectionViewFlowLayout,QYBaseCollectionView) -> Void)? = nil) {
         if self.baseTableView != nil {
             self.baseTableView?.removeFromSuperview()
             self.baseTableView = nil
@@ -114,7 +114,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK:-注册集合视图cell
     ///注册集合视图cell
-    func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
+    public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
         self.baseCollection?.register(cell, forCellWithReuseIdentifier: cellName)
     }
     

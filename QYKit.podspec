@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.7'
+  s.version          = '1.0.8'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/MemoryKing/QYKit.git', :tag => s.version.to_s }
   #s.pod_target_xcconfig = {'SWIFT_VERSION' => '5.0'}
   s.swift_versions = '5.0'
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "10.0"
   s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','MediaPlayer','CoreTelephony','CoreLocation','AVFoundation'
   
   s.dependency 'MJRefresh'
