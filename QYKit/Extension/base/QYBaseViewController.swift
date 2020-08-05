@@ -40,7 +40,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     public var baseTableView: QYBaseTableView?
     public var baseCollection: QYBaseCollectionView?
     //MARK: --- viewDidLoad
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         //防止自动下移64
