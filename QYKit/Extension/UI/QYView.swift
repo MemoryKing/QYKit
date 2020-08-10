@@ -135,12 +135,13 @@ public extension UIView {
                 }
                 nav.pushViewController(vc, animated: animated)
             } else {
-                #error("父控制器没有导航")
-                let nav: UINavigationController = currentC!.navigationController!
-                if nav.viewControllers.count > 0 {
-                    vc.hidesBottomBarWhenPushed = true
+                if currentC?.navigationController != nil {
+                    let nav: UINavigationController = currentC!.navigationController!
+                    if nav.viewControllers.count > 0 {
+                        vc.hidesBottomBarWhenPushed = true
+                    }
+                    currentC!.navigationController!.pushViewController(vc, animated: animated)
                 }
-                currentC!.navigationController!.pushViewController(vc, animated: animated)
             }
         }
     }
@@ -308,7 +309,6 @@ public extension UIView {
             layer.borderWidth = newValue
         }
     }
-    #error("添加多圆角")
     //MARK: --- 圆角
     ///圆角
     var yi_cornerRadius: CGFloat {
@@ -319,6 +319,14 @@ public extension UIView {
             layer.masksToBounds = true
             layer.cornerRadius = newValue
         }
+    }
+    ///圆角
+    func yi_cornerRadius(_ corners: UIRectCorner,_ radii: CGFloat) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
     }
     //MARK: --- 阴影
     ///阴影
