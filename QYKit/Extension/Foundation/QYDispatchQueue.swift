@@ -32,7 +32,8 @@ public extension DispatchQueue {
     typealias Task = (_ cancel: Bool) -> Void
     
     @discardableResult
-    func delay(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
+    
+    func after(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
         
         func dispatch_later(block: @escaping()->()) {
             let t = DispatchTime.now() + time

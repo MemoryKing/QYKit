@@ -1,5 +1,10 @@
 # QYKit
 
+
+##   1.0.12
+#### baseVC  添加注册
+#### button 图文位置bug   
+
 ##   1.0.11
 #### baseVC 
 

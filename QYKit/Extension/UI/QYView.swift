@@ -122,6 +122,7 @@ public extension UIView {
 }
 //MARK: --- 跳转
 public extension UIView {
+    
     func yi_push(_ vc: UIViewController, animated: Bool = true) {
         let currentC = yi_currentController()
         if yi_currentController() == nil {
@@ -134,6 +135,7 @@ public extension UIView {
                 }
                 nav.pushViewController(vc, animated: animated)
             } else {
+                #error("父控制器没有导航")
                 let nav: UINavigationController = currentC!.navigationController!
                 if nav.viewControllers.count > 0 {
                     vc.hidesBottomBarWhenPushed = true
@@ -306,6 +308,7 @@ public extension UIView {
             layer.borderWidth = newValue
         }
     }
+    #error("添加多圆角")
     //MARK: --- 圆角
     ///圆角
     var yi_cornerRadius: CGFloat {

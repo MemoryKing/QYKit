@@ -61,7 +61,9 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
 //            $0.backgroundColor = .red
 //        }
         
-        
+        UIButton().yi_then({
+            $0.yi_imagePosition(.right, 1)
+        })
     }
     @objc func click (_ btn: QYCountDownButton) {
         QYAlert.yi_show(message: "打", titleArr: ["123","qwe"], highlighted: 1, handler: { (alert,action,i) in

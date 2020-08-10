@@ -89,9 +89,10 @@ public extension UIButton {
     ///   - type: 图片位置
     ///   - imageWidth: 图片大小
     ///   - space: 间距
-    func yi_imagePosition(_ type: QYButtonImagePosition,_ imageW: CGFloat? = 0,_ imageH: CGFloat? = 0,_ space: CGFloat) {
+    func yi_imagePosition(_ type: QYButtonImagePosition,_ space: CGFloat? = nil,_ imageW: CGFloat? = nil,_ imageH: CGFloat? = nil) {
         var image: UIImage?
-        if imageW != 0 && imageH != 0 {
+//        #error("宽高为空崩")
+        if imageW != 0 && imageH != 0 && imageW != nil && imageH != nil {
             image = UIImage.yi_scale(self.imageView?.image ?? UIImage(), imageW ?? 0.0,imageH ?? 0.0)
             self.setImage(image, for: .normal)
         }
@@ -99,7 +100,7 @@ public extension UIButton {
         let imageHeight = self.imageView?.image?.size.height ?? 0
         let titleWidth = self.titleLabel?.text?.yi_getWidth((self.titleLabel?.font)!) ?? 0
         let titleHeight = self.titleLabel?.font.pointSize ?? 0
-        let insetAmount = space / 2
+        let insetAmount = (space ?? 0) / 2
         let imageOffWidth = (imageWidth + titleWidth) / 2 - imageWidth / 2
         let imageOffHeight = imageHeight / 2 + insetAmount
         let titleOffWidth = imageWidth + titleWidth / 2 - (imageWidth + titleWidth) / 2

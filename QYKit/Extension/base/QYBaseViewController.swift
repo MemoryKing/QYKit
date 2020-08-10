@@ -66,7 +66,7 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.baseTableView!.showsHorizontalScrollIndicator = false
         self.baseTableView!.backgroundColor = QYF5Color
         self.baseTableView!.separatorStyle = .none
-        self.baseTableView!.estimatedRowHeight = 0
+        self.baseTableView!.estimatedRowHeight = 44
         self.baseTableView!.estimatedSectionFooterHeight = 0
         self.baseTableView!.estimatedSectionHeaderHeight = 0
         self.view.addSubview(self.baseTableView!)
@@ -86,6 +86,21 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
             self.baseTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
         }
     }
+    ///注册表视图cell
+    public func yi_registerCell(cell:AnyClass,cellName:String) {
+        self.baseTableView?.register(cell, forCellReuseIdentifier: cellName)
+    }
+    ///注册表视图nib cell
+    public func yi_registerCell(cellNib:String,cellNameNib:String) {
+        self.baseTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
+    }
+    ///注册表视图nib cell
+    public func yi_registerCell(cellNibs:[String],cellNibName:[String]) {
+        for index in 0 ..< cellNibs.count {
+            self.baseTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
+        }
+    }
+    
     
     //MARK: --- 添加集合视图
     ///添加集合视图
@@ -117,6 +132,23 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
         self.baseCollection?.register(cell, forCellWithReuseIdentifier: cellName)
     }
+    ///注册集合视图cell
+    public func yi_registerCollectionCell(cells:[AnyClass],cellName:[String]) {
+        for index in 0..<cells.count {
+            self.baseCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
+        }
+    }
+    ///注册集合视图nib cell
+    public func yi_registerCollectionCell(cellNib:String,cellNameNib:String) {
+        self.baseCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
+    }
+    ///注册集合视图nib cell
+    public func yi_registerCollectionCell(cellNibs:[String],cellNibName:[String]) {
+        for index in 0 ..< cellNibs.count {
+            self.baseCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
+        }
+    }
+    
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.yi_barStyle

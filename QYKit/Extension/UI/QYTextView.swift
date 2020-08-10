@@ -34,7 +34,7 @@ public extension UITextView {
         rect1.origin.x = 5
         rect1.origin.y = 8
         rect1.size.width = rect1.size.width - 2 * rect1.origin.x
-        (self.yi_placeholder as NSString).draw(in: rect1, withAttributes: attrs)
+        ((self.yi_placeholder ?? "") as NSString).draw(in: rect1, withAttributes: attrs)
     }
 }
 
@@ -46,13 +46,13 @@ public extension UITextView {
     }
     //MARK: --- 占位字
     ///占位字
-    var yi_placeholder: String {
+    var yi_placeholder: String? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.placeholderKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             addNotification()
         }
         get {
-            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderKey!) as! String
+            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderKey!) as? String
         }
     }
     //MARK: --- 占位字颜色

@@ -109,7 +109,7 @@ extension UITextField {
             self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         }
         get {
-            return objc_getAssociatedObject(self, QYRuntimeKey.maxCount!) as! Int
+            return objc_getAssociatedObject(self, QYRuntimeKey.maxCount!) as? Int ?? 0
         }
     }
     ///占位字颜色
@@ -120,7 +120,7 @@ extension UITextField {
             objc_setAssociatedObject(self, QYRuntimeKey.placeholderColor!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
-            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderColor!) as! UIColor
+            return objc_getAssociatedObject(self, QYRuntimeKey.placeholderColor!) as? UIColor ?? QY99Color
         }
     }
 }
