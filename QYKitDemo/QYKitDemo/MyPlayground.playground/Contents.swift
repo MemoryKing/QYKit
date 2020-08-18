@@ -17,19 +17,19 @@ class MyViewController : UIViewController {
 PlaygroundPage.current.liveView = MyViewController()
 
 
-open class HUD: UIView {
+//open class HUD: UIView {
     
-    static let share = HUD()
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .lightGray
-        
-    }
+//    static let share = HUD()
+//
+//    public override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        backgroundColor = .lightGray
+//
+//    }
+//
+//    required public init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    
-}
+//}
