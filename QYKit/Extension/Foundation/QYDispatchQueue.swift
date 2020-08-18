@@ -32,8 +32,8 @@ public extension DispatchQueue {
     typealias Task = (_ cancel: Bool) -> Void
     
     @discardableResult
-    
-    func after(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
+    ///延迟
+    func yi_after(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
         
         func dispatch_later(block: @escaping()->()) {
             let t = DispatchTime.now() + time
@@ -66,7 +66,16 @@ public extension DispatchQueue {
         
     }
     // MARK: 取消延时执行
-    func cancel(_ task: Task?) {
+    func yi_cancel(_ task: Task?) {
         task?(true)
     }
+    ///返回主线程
+    func yi_getMainAsync(_ bl: @escaping ()->()) {
+        DispatchQueue.main.async(execute: bl)
+    }
+    
+    convenience init(_ str: String) {
+        self.init(label: str)
+    }
+    
 }

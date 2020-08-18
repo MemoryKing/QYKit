@@ -21,7 +21,7 @@ open class QYAppInfo: NSObject {
         return Bundle.main.bundleIdentifier ?? ""
     }
     //MARK: --- App 版本号
-    ///App 版本号
+    ///App version 版本号
     public static var yi_version: String {
         return Bundle.main.infoDictionary? ["CFBundleShortVersionString"] as! String
     }

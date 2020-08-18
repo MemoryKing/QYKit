@@ -40,10 +40,16 @@ public extension String {
         let base64Padded = base64 + pad
         if let decodedData = Data(base64Encoded: base64Padded, options: NSData.Base64DecodingOptions(rawValue: 0)), let decodedString = NSString(data: decodedData, encoding: String.Encoding.utf8.rawValue) {
             self.init(decodedString)
-            return
         }
-        return nil
+        self.init("")
     }
+    ///时间戳创建时间字符串
+    init?(timeInterval: Double,formatter: String) {
+        let date = Date.init(timeIntervalSince1970: timeInterval / 1000)
+        let dateStr = date.yi_toString(formatter)
+        self.init(dateStr)
+    }
+    
 }
 //MARK: --- 功能
 public extension String {
@@ -323,7 +329,7 @@ public extension String {
         return sumString
     }
     /// base64
-    func yi_toBase64 (_ options: Data.Base64EncodingOptions = [.lineLength64Characters]) -> String {
+    func yi_toBase64 (_ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
         let plainData = (self as NSString).data(using: String.Encoding.utf8.rawValue)
         let base64String = plainData!.base64EncodedString(options: options)
         return base64String
@@ -343,6 +349,9 @@ public extension String {
     ///图片
     func yi_toUrlImage() -> UIImage? {
         var image: UIImage?
+        if self.length <= 0 {
+            return nil
+        }
         let url = URL.init(string: self)
         do {
             let data = try Data(contentsOf: url!)
@@ -370,8 +379,17 @@ public extension String {
     func yi_toAttributed() -> NSAttributedString {
         return NSAttributedString.init(string: self)
     }
-    
+    ///url encode
+    func yi_toUrlEncoded(_ charactersIn: String?) -> String{
+        var customAllowedSet = NSCharacterSet.alphanumerics
+        if (charactersIn != nil) {
+            customAllowedSet =  NSCharacterSet(charactersIn:charactersIn ?? "!*'();:@&=+$,/?%#[]").inverted
+        }
+        let st = (self as NSString).addingPercentEncoding(withAllowedCharacters: customAllowedSet)
+        return st ?? ""
+    }
 }
+
 //MARK: --- 大小写
 public extension String {
     ///转为大写

@@ -175,7 +175,6 @@ public func /= (lhs: inout Float,rhs: Int) {
     let rhs2 = Float(rhs)
     lhs = lhs / rhs2
 }
-
 public func + (lhs: Double,rhs: Int) -> Double {
     let rhs2 = Double(rhs)
     return lhs + rhs2

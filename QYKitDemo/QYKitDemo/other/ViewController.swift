@@ -45,8 +45,7 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
         self.view.backgroundColor = .blue
 //        let string = "adcfb425723432".yi_xor("213871248dbcaf")
 //        yPrintLog(string.yi_hexToString())
-        
-        
+        QYLog("text=text".yi_toURLEncode("="))
         let lab = QYCountDownButton().yi_then {
             $0.frame = .init(x: 100, y: 100, width: 100, height: 100)
             $0.yi_title = "获取验证码"
@@ -66,23 +65,26 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
         })
     }
     @objc func click (_ btn: QYCountDownButton) {
-        QYAlert.yi_show(message: "打", titleArr: ["123","qwe"], highlighted: 1, handler: { (alert,action,i) in
-            if i == 0 {
-                action.setValue(QY99Color, forKey: "titleTextColor")
-            }
-            alert.yi_titleColor = .cyan
-            alert.yi_titleFont = QYFont_23
-            alert.yi_messageColor = .green
-            alert.yi_messageFont = QYFont_22
-            action.yi_titleColor = .red
-            QYLog(action.yi_get_class_copyPropertyList())
-            QYLog(action.yi_get_class_copyMethodList())
-            action.yi_image = UIImage.init(named: "矩形 490")
-            
-        }) { (i, s) -> (Void) in
+        QYDatePickerViewController.yi_showDatePicker(.year) { (st) in
             
         }
-        QYLog(["12","34","56","78"][[0,3,7]])
+//        QYAlert.yi_show(message: "打", titleArr: ["123","qwe"], highlighted: 1, handler: { (alert,action,i) in
+//            if i == 0 {
+//                action.setValue(QY99Color, forKey: "titleTextColor")
+//            }
+//            alert.yi_titleColor = .cyan
+//            alert.yi_titleFont = QYFont_23
+//            alert.yi_messageColor = .green
+//            alert.yi_messageFont = QYFont_22
+//            action.yi_titleColor = .red
+//            QYLog(action.yi_get_class_copyPropertyList())
+//            QYLog(action.yi_get_class_copyMethodList())
+//            action.yi_image = UIImage.init(named: "矩形 490")
+//            
+//        }) { (i, s) -> (Void) in
+//            
+//        }
+//        QYLog(["12","34","56","78"][[0,3,7]])
     }
 }
 

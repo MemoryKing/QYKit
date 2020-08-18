@@ -264,17 +264,9 @@
 				045C61F524D815470080FAFF /* QYCountDownButton.swift */,
 				045C61F624D815470080FAFF /* QYDatePickerViewController.swift */,
 				045C61F724D815470080FAFF /* QYAlert.swift */,
-				045C61F824D815470080FAFF /* New Group */,
 				045C61F924D815470080FAFF /* QYLocation.swift */,
 			);
 			path = "功能";
-			sourceTree = "<group>";
-		};
-		045C61F824D815470080FAFF /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		045C61FA24D815470080FAFF /* Resource */ = {
