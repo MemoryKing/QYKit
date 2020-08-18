@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.14'
+  s.version          = '1.0.15'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
                        DESC
 
-  s.homepage         = 'https://github.com/MemoryKing/QYKit'
+  s.homepage         = 'https://github.com/MemoryKing/QYKit.git'
   #s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.license          = 'MIT'
   s.author           = { '╰莪呮想好好宠Nǐつ ' => '1091676312@qq.com' }
