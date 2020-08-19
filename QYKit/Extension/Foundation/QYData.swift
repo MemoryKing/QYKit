@@ -15,7 +15,7 @@ public extension Data {
         return [UInt8](self)
     }
     ///转string
-    func yi_toString(_ encoding: String.Encoding = String.Encoding.utf8) -> String? {
+    func yi_toEncodingString(_ encoding: String.Encoding = String.Encoding.utf8) -> String? {
         return String(data: self, encoding: encoding)
     }
     ///json对象

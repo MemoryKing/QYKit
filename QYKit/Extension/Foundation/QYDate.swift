@@ -82,10 +82,10 @@ public extension Date {
     }
     //MARK: --- 将日期转换为字符串
     ///将日期转换为字符串
-    func yi_toString(_ dateFormat: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
+    func yi_toString(format: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
-        formatter.dateFormat = dateFormat
+        formatter.dateFormat = format
         formatter.timeZone = timeZone
         let date = formatter.string(from: self)
         return date
@@ -100,7 +100,7 @@ public extension Date {
     }
     //MARK: --- 将日期转换为具有格式的字符串
     ///  将日期转换为具有格式的字符串
-    func yi_toString(_ format: QYDateFormatter) -> String {
+    func yi_toString(format: QYDateFormatter) -> String {
         let dateFormatter = yi_getDateFormatter(for: format)
         return dateFormatter.string(from: self)
     }

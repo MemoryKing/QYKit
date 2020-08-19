@@ -45,7 +45,7 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
         self.view.backgroundColor = .blue
 //        let string = "adcfb425723432".yi_xor("213871248dbcaf")
 //        yPrintLog(string.yi_hexToString())
-        QYLog("text=text".yi_toURLEncode("="))
+//        QYLog("text=text".yi_toURLEncode("="))
         let lab = QYCountDownButton().yi_then {
             $0.frame = .init(x: 100, y: 100, width: 100, height: 100)
             $0.yi_title = "获取验证码"

@@ -106,4 +106,16 @@ public extension UIColor {
         rgb = rgb | (Int)(blue * 255) << 0
         return String(format: "#%06x", rgb)
     }
+    ///颜色生成image
+    func yi_toImage(_ color : UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size);
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor);
+        context!.fill(rect)
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
 }

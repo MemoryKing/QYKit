@@ -98,22 +98,22 @@ public extension UIViewController {
     }
     ///文本
     func yi_navTitle (_ title: String,
-                      _ font: CGFloat = 18,
-                      _ color: UIColor = .black) {
+                      _ font: CGFloat? = nil,
+                      _ color: UIColor? = nil) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
             self.navigationItem.title = title
-            let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: color,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font)]
+            let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: color ?? UIColor.black,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font ?? 18)]
             self.navigationController?.navigationBar.titleTextAttributes = dict as? [NSAttributedString.Key: AnyObject]
         }
     }
     ///左文本按钮
     func yi_navLeftTitleItem (_ title: String,
-                              _ color: UIColor = .black,
+                              _ color: UIColor? = nil,
                               _ navBlk: @escaping()->()) {
         let leftItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navLeftItemClick))
-        leftItem.tintColor = color
+        leftItem.tintColor = color ?? UIColor.black
         self.navigationItem.leftBarButtonItem = leftItem
         leftNavBlock = navBlk
     }
@@ -128,21 +128,21 @@ public extension UIViewController {
     
     ///左图文
     func yi_navLeftTitleAndImageItem (_ title: String? ,
-                                      _ color: UIColor = .black,
-                                      _ font: UIFont? = UIFont.systemFont(ofSize: 17),
+                                      _ color: UIColor? = nil,
+                                      _ font: UIFont? = nil,
                                       _ image: UIImage? = nil,
                                       _ navBlk: @escaping()->()) {
-        let item = self._customBarButtonItem(title, color, font, image, #selector(navLeftItemClick))
+        let item = self._customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navLeftItemClick))
         self.navigationItem.leftBarButtonItem = item
         leftNavBlock = navBlk
     }
 
     ///右文本按钮
     func yi_navRightTitleItem (_ title: String,
-                               _ color: UIColor = .black,
+                               _ color: UIColor? = nil,
                                _ navBlk: @escaping()->()) {
         let rightItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navRightItemClick))
-        rightItem.tintColor = color
+        rightItem.tintColor = color ?? UIColor.black
         self.navigationItem.rightBarButtonItem = rightItem
         rightNavBlock = navBlk
     }
@@ -156,10 +156,10 @@ public extension UIViewController {
     
     ///右图文
     func yi_navRightTitleAndImageItem (_ title: String?,
-                                       _ color: UIColor = .black,
-                                       _ font: UIFont? = UIFont.systemFont(ofSize: 17),
+                                       _ color: UIColor? = nil,
+                                       _ font: UIFont? = nil,
                                        _ image: UIImage? = nil,_ navBlk: @escaping()->()) {
-        let item = self._customBarButtonItem(title, color, font, image, #selector(navRightItemClick))
+        let item = self._customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navRightItemClick))
         self.navigationItem.rightBarButtonItem = item
         rightNavBlock = navBlk
     }
@@ -228,7 +228,7 @@ public extension UIViewController {
     }
     
     ///返回首页
-    func yi_backToRootControlelr (_ ani: Bool) {
+    func yi_backToRootControlelr (_ ani: Bool = true) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -284,15 +284,15 @@ private extension UIViewController {
     
     //自定义barItem
     private func _customBarButtonItem (_ title: String? ,
-                                       _ color: UIColor = .black,
-                                       _ font: UIFont? = UIFont.systemFont(ofSize: 17),
+                                       _ color: UIColor? = nil,
+                                       _ font: UIFont? = nil,
                                        _ image: UIImage? = nil,
                                        _ block: Selector) -> UIBarButtonItem {
         let button = UIButton().yi_then {
             $0.setTitle(title, for: .normal)
-            $0.setTitleColor(color, for: .normal)
+            $0.setTitleColor(color ?? UIColor.black, for: .normal)
             $0.setBackgroundImage(image, for: .normal)
-            $0.titleLabel?.font = font
+            $0.titleLabel?.font = font ?? UIFont.systemFont(ofSize: 17)
             $0.addTarget(self, action: block, for: .touchUpInside)
         }
         return UIBarButtonItem.init(customView: button)

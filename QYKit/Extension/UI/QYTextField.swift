@@ -82,7 +82,7 @@ public extension UITextField {
     }
 }
 
-extension UITextField {
+private extension UITextField {
     @objc func textFieldDidChange() {
         if self.maxCount > 0 {
             self.setMaxCount()
@@ -97,7 +97,7 @@ extension UITextField {
     }
     
 }
-extension UITextField {
+public extension UITextField {
     private struct QYRuntimeKey {
         static let maxCount = UnsafeRawPointer.init(bitPattern: "maxCount".hashValue)
         static let placeholderColor = UnsafeRawPointer.init(bitPattern: "placeholderColor".hashValue)

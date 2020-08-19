@@ -46,7 +46,7 @@ public extension String {
     ///时间戳创建时间字符串
     init?(timeInterval: Double,formatter: String) {
         let date = Date.init(timeIntervalSince1970: timeInterval / 1000)
-        let dateStr = date.yi_toString(formatter)
+        let dateStr = date.yi_toString(format: formatter)
         self.init(dateStr)
     }
     
@@ -246,7 +246,7 @@ public extension String {
         return nil
     }
     ///string --> date
-    func yi_toDate(_ dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
+    func yi_toDate(dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = dateFormat

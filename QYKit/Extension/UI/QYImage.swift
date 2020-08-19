@@ -144,13 +144,17 @@ public extension UIImage {
 //MARK: --- 转换
 public extension UIImage {
     ///image --> base64
-    func yi_toBase64 (_ quality: Float = 1,
+    func yi_toBase64 (_ quality: Float? = nil,
                           _ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
         // 将图片转化成Data
-        let imageData = self.jpegData(compressionQuality: CGFloat(quality))
+        let imageData = self.jpegData(compressionQuality: CGFloat(quality ?? 1))
         // 将Data转化成 base64的字符串
         let imageBase64String = imageData?.base64EncodedString(options: options) ?? ""
         return imageBase64String
+    }
+    ///image --> color
+    func yi_toColor() -> UIColor? {
+        return UIColor.init(patternImage: self)
     }
 }
 //MARK: --- 功能

@@ -91,7 +91,6 @@ public extension UIButton {
     ///   - space: 间距
     func yi_imagePosition(_ type: QYButtonImagePosition,_ space: CGFloat? = nil,_ imageW: CGFloat? = nil,_ imageH: CGFloat? = nil) {
         var image: UIImage?
-//        #error("宽高为空崩")
         if imageW != 0 && imageH != 0 && imageW != nil && imageH != nil {
             image = UIImage.yi_scale(self.imageView?.image ?? UIImage(), imageW ?? 0.0,imageH ?? 0.0)
             self.setImage(image, for: .normal)

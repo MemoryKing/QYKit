@@ -11,9 +11,9 @@ import Foundation
 
 import PKHUD
 
-public class QYHUD: NSObject {
+open class QYHUD: NSObject {
     
-    class func show (_ str: String,
+    public class func show (_ str: String?,
                             _ afterDelay: TimeInterval? = 1.5,
                             _ block: ((Bool) -> Void)? = nil) {
         completionBlock = block
@@ -23,7 +23,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showSuccess (_ title: String? = nil,
+    public class func showSuccess (_ title: String? = nil,
                                    _ subtitle: String? = nil,
                                    _ afterDelay: TimeInterval? = 1.5,
                                    _ block: ((Bool) -> Void)? = nil) {
@@ -40,7 +40,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showError (_ title: String? = nil,
+    public class func showError (_ title: String? = nil,
                                  _ subtitle: String? = nil,
                                  _ afterDelay: TimeInterval? = 1.5,
                                  _ block: ((Bool) -> Void)? = nil) {
@@ -56,7 +56,7 @@ public class QYHUD: NSObject {
         self.hideTime()
     }
     
-    class func showProgress (_ title: String? = nil,
+    public class func showProgress (_ title: String? = nil,
                                          _ subtitle: String? = nil,
                                          _ afterDelay: TimeInterval? = 0,
                                          _ block: ((Bool) -> Void)? = nil) {
@@ -76,6 +76,9 @@ public class QYHUD: NSObject {
     
     private class func hideTime() {
         HUD.hide(afterDelay: afterDelayTime ?? 1.5, completion: completionBlock)
+    }
+    public class func hideHud() {
+        HUD.hide()
     }
 }
 
