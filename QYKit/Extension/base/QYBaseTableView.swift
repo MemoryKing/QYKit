@@ -57,14 +57,14 @@ open class QYBaseTableView: UITableView {
         if #available(iOS 11.0, *) {
             if #available(iOS 13.0, *) {
                 self.automaticallyAdjustsScrollIndicatorInsets = false
-            } else {
-                self.contentInsetAdjustmentBehavior = .never
             }
+            self.contentInsetAdjustmentBehavior = .never
         } else {
             // Fallback on earlier versions
         }
         self.emptyDataSetSource = self
         self.emptyDataSetDelegate = self
+        self.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     public required init?(coder: NSCoder) {

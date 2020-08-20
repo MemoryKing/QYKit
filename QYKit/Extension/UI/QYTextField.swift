@@ -84,15 +84,15 @@ public extension UITextField {
 
 private extension UITextField {
     @objc func textFieldDidChange() {
-        if self.maxCount > 0 {
+        if self.yi_maxCount > 0 {
             self.setMaxCount()
         }
     }
     ///设置最大值
     private func setMaxCount() {
         let textCount = self.text?.count ?? 0
-        if textCount > self.maxCount {
-            self.text = String(self.text?.prefix(self.maxCount) ?? "")
+        if textCount > self.yi_maxCount {
+            self.text = String(self.text?.prefix(self.yi_maxCount) ?? "")
         }
     }
     
@@ -103,7 +103,7 @@ public extension UITextField {
         static let placeholderColor = UnsafeRawPointer.init(bitPattern: "placeholderColor".hashValue)
     }
     ///最大字数
-    var maxCount: Int {
+    var yi_maxCount: Int {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.maxCount!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
             self.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -113,7 +113,7 @@ public extension UITextField {
         }
     }
     ///占位字颜色
-    var placeholderColor: UIColor {
+    var yi_placeholderColor: UIColor {
         set {
             guard let holder = self.placeholder, !holder.isEmpty else { return }
             self.attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: newValue])

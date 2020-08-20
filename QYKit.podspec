@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.0.17'
+  s.version          = '1.0.18'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...

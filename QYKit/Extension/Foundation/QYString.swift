@@ -46,7 +46,7 @@ public extension String {
     ///时间戳创建时间字符串
     init?(timeInterval: Double,formatter: String) {
         let date = Date.init(timeIntervalSince1970: timeInterval / 1000)
-        let dateStr = date.yi_toString(format: formatter)
+        let dateStr = date.yi_toString(formatter)
         self.init(dateStr)
     }
     
@@ -380,7 +380,7 @@ public extension String {
         return NSAttributedString.init(string: self)
     }
     ///url encode
-    func yi_toUrlEncoded(_ charactersIn: String?) -> String{
+    func yi_toUrlEncoded(_ charactersIn: String? = nil) -> String{
         var customAllowedSet = NSCharacterSet.alphanumerics
         if (charactersIn != nil) {
             customAllowedSet =  NSCharacterSet(charactersIn:charactersIn ?? "!*'();:@&=+$,/?%#[]").inverted

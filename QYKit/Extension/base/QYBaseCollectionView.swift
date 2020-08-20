@@ -56,9 +56,8 @@ open class QYBaseCollectionView: UICollectionView {
         if #available(iOS 11.0, *) {
             if #available(iOS 13.0, *) {
                 self.automaticallyAdjustsScrollIndicatorInsets = false
-            } else {
-                self.contentInsetAdjustmentBehavior = .never
             }
+            self.contentInsetAdjustmentBehavior = .never
         } else {
             
         }

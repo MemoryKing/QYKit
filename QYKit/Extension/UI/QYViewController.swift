@@ -76,7 +76,7 @@ public extension UIViewController {
         }
     }
     ///返回图片
-    func yi_backImage (_ img: UIImage) {
+    func yi_backImage (_ img: UIImage?) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
@@ -88,22 +88,22 @@ public extension UIViewController {
         }
     }
     ///导航背景色
-    func yi_navBackground (_ color:UIColor) {
+    func yi_navBackground (_ color:UIColor?) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
-            self.navigationController?.navigationBar.barTintColor = color
+            self.navigationController?.navigationBar.barTintColor = color ?? UIColor.white
             self.navigationController?.navigationBar.isTranslucent = false
         }
     }
     ///文本
-    func yi_navTitle (_ title: String,
-                      _ font: CGFloat? = nil,
-                      _ color: UIColor? = nil) {
+    func yi_navTitle (_ title: String?,
+                      _ color: UIColor? = nil,
+                      _ font: CGFloat? = nil) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
-            self.navigationItem.title = title
+            self.navigationItem.title = title ?? ""
             let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: color ?? UIColor.black,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font ?? 18)]
             self.navigationController?.navigationBar.titleTextAttributes = dict as? [NSAttributedString.Key: AnyObject]
         }
@@ -119,9 +119,9 @@ public extension UIViewController {
     }
     
     ///左图片按钮
-    func yi_navLeftImageItem (_ image: UIImage,
+    func yi_navLeftImageItem (_ image: UIImage?,
                               _ navBlk: @escaping()->()) {
-        let leftItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navLeftItemClick))
+        let leftItem = UIBarButtonItem(image: image?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navLeftItemClick))
         self.navigationItem.leftBarButtonItem = leftItem
         leftNavBlock = navBlk
     }

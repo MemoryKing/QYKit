@@ -143,11 +143,14 @@ public extension UIImage {
 }
 //MARK: --- 转换
 public extension UIImage {
+    func yi_quality(_ quality: Float? = nil) -> UIImage? {
+        guard let imageData = self.jpegData(compressionQuality: CGFloat(quality ?? 1)) else { return nil }
+        return UIImage.init(data: imageData)
+    }
     ///image --> base64
-    func yi_toBase64 (_ quality: Float? = nil,
-                          _ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
+    func yi_toBase64 (_ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
         // 将图片转化成Data
-        let imageData = self.jpegData(compressionQuality: CGFloat(quality ?? 1))
+        let imageData = self.yi_quality()?.jpegData(compressionQuality: 1)
         // 将Data转化成 base64的字符串
         let imageBase64String = imageData?.base64EncodedString(options: options) ?? ""
         return imageBase64String

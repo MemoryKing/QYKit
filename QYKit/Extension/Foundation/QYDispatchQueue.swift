@@ -33,7 +33,7 @@ public extension DispatchQueue {
     
     @discardableResult
     ///延迟
-    func yi_after(_ time: TimeInterval, task: @escaping()->()) ->  Task? {
+    func yi_after(_ time: TimeInterval,_ task: @escaping()->()) ->  Task? {
         
         func dispatch_later(block: @escaping()->()) {
             let t = DispatchTime.now() + time

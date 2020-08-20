@@ -1,7 +1,7 @@
 /*******************************************************************************
 Copyright (K), 2020 - ~, ╰莪呮想好好宠Nǐつ
 
-Author:        ╰莪呮想好好宠Nǐつ 
+Author:        ╰莪呮想好好宠Nǐつ
 E-mail:        1091676312@qq.com
 GitHub:        https://github.com/MemoryKing
 ********************************************************************************/
@@ -82,27 +82,13 @@ public extension Date {
     }
     //MARK: --- 将日期转换为字符串
     ///将日期转换为字符串
-    func yi_toString(format: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
+    func yi_toString(_ formatstr: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
-        formatter.dateFormat = format
+        formatter.dateFormat = formatstr
         formatter.timeZone = timeZone
         let date = formatter.string(from: self)
         return date
-    }
-    //MARK: --- 将日期转换为字符串
-    ///  将日期转换为字符串
-    func yi_toString(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = dateStyle
-        formatter.timeStyle = timeStyle
-        return formatter.string(from: self)
-    }
-    //MARK: --- 将日期转换为具有格式的字符串
-    ///  将日期转换为具有格式的字符串
-    func yi_toString(format: QYDateFormatter) -> String {
-        let dateFormatter = yi_getDateFormatter(for: format)
-        return dateFormatter.string(from: self)
     }
 }
 

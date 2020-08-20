@@ -37,8 +37,8 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    public var baseTableView: QYBaseTableView?
-    public var baseCollection: QYBaseCollectionView?
+    public var mainTableView: QYBaseTableView?
+    public var mainCollection: QYBaseCollectionView?
     //MARK: --- viewDidLoad
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,48 +56,48 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: --- 添加表视图
     ///添加表视图
     public func yi_addTableView(_ block: ((QYBaseTableView) -> Void)? = nil) {
-        if self.baseCollection != nil {
-            self.baseCollection?.removeFromSuperview()
-            self.baseCollection = nil
+        if self.mainCollection != nil {
+            self.mainCollection?.removeFromSuperview()
+            self.mainCollection = nil
         }
         
-        self.baseTableView = QYBaseTableView()
-        self.baseTableView!.showsVerticalScrollIndicator = false
-        self.baseTableView!.showsHorizontalScrollIndicator = false
-        self.baseTableView!.backgroundColor = QYF5Color
-        self.baseTableView!.separatorStyle = .none
-        self.baseTableView!.estimatedRowHeight = 44
-        self.baseTableView!.estimatedSectionFooterHeight = 0
-        self.baseTableView!.estimatedSectionHeaderHeight = 0
-        self.view.addSubview(self.baseTableView!)
-        self.baseTableView!.snp.makeConstraints {
+        self.mainTableView = QYBaseTableView()
+        self.mainTableView!.showsVerticalScrollIndicator = false
+        self.mainTableView!.showsHorizontalScrollIndicator = false
+        self.mainTableView!.backgroundColor = QYF5Color
+        self.mainTableView!.separatorStyle = .none
+        self.mainTableView!.estimatedRowHeight = 44
+        self.mainTableView!.estimatedSectionFooterHeight = 0
+        self.mainTableView!.estimatedSectionHeaderHeight = 0
+        self.view.addSubview(self.mainTableView!)
+        self.mainTableView!.snp.makeConstraints {
             $0.top.equalTo(QYStatusAndNavHeight)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.bottom.equalTo(-QYBottomHeight)
         }
-        block?(self.baseTableView!)
+        block?(self.mainTableView!)
     }
     
     //MARK:-注册表视图cell
     ///注册表视图cell
     public func yi_registerCell(cells:[AnyClass],cellName:[String]) {
         for index in 0..<cells.count {
-            self.baseTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
+            self.mainTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
         }
     }
     ///注册表视图cell
     public func yi_registerCell(cell:AnyClass,cellName:String) {
-        self.baseTableView?.register(cell, forCellReuseIdentifier: cellName)
+        self.mainTableView?.register(cell, forCellReuseIdentifier: cellName)
     }
     ///注册表视图nib cell
     public func yi_registerCell(cellNib:String,cellNameNib:String) {
-        self.baseTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
+        self.mainTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
     }
     ///注册表视图nib cell
     public func yi_registerCell(cellNibs:[String],cellNibName:[String]) {
         for index in 0 ..< cellNibs.count {
-            self.baseTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
+            self.mainTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
         }
     }
     
@@ -105,47 +105,47 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: --- 添加集合视图
     ///添加集合视图
     public func yi_addCollectionView(_ block: ((UICollectionViewFlowLayout,QYBaseCollectionView) -> Void)? = nil) {
-        if self.baseTableView != nil {
-            self.baseTableView?.removeFromSuperview()
-            self.baseTableView = nil
+        if self.mainTableView != nil {
+            self.mainTableView?.removeFromSuperview()
+            self.mainTableView = nil
         }
         
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
         layout.estimatedItemSize = CGSize.init(width: 100, height: 100)
-        self.baseCollection = QYBaseCollectionView.init(frame: .init(), collectionViewLayout: layout)
-        self.baseCollection!.showsVerticalScrollIndicator = false
-        self.baseCollection!.showsHorizontalScrollIndicator = false
-        self.baseCollection!.backgroundColor = QYF5Color
-        self.view.addSubview(self.baseCollection!)
-        self.baseCollection!.snp.makeConstraints {
+        self.mainCollection = QYBaseCollectionView.init(frame: .init(), collectionViewLayout: layout)
+        self.mainCollection!.showsVerticalScrollIndicator = false
+        self.mainCollection!.showsHorizontalScrollIndicator = false
+        self.mainCollection!.backgroundColor = QYF5Color
+        self.view.addSubview(self.mainCollection!)
+        self.mainCollection!.snp.makeConstraints {
             $0.top.equalTo(QYStatusAndNavHeight)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.bottom.equalTo(-QYBottomHeight)
         }
-        block?(layout,self.baseCollection!)
+        block?(layout,self.mainCollection!)
     }
     
     //MARK:-注册集合视图cell
     ///注册集合视图cell
     public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
-        self.baseCollection?.register(cell, forCellWithReuseIdentifier: cellName)
+        self.mainCollection?.register(cell, forCellWithReuseIdentifier: cellName)
     }
     ///注册集合视图cell
     public func yi_registerCollectionCell(cells:[AnyClass],cellName:[String]) {
         for index in 0..<cells.count {
-            self.baseCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
+            self.mainCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
         }
     }
     ///注册集合视图nib cell
     public func yi_registerCollectionCell(cellNib:String,cellNameNib:String) {
-        self.baseCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
+        self.mainCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
     }
     ///注册集合视图nib cell
     public func yi_registerCollectionCell(cellNibs:[String],cellNibName:[String]) {
         for index in 0 ..< cellNibs.count {
-            self.baseCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
+            self.mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
         }
     }
     
