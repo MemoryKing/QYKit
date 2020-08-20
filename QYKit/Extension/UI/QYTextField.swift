@@ -16,7 +16,7 @@ public extension UITextField {
     ///   - leftWidth: 左侧距离
     ///   - rightWidth: 右侧距离
     func yi_distanceSides(_ leftWidth:CGFloat,
-                          _ rightWidth:CGFloat? = 0)  {
+                          _ rightWidth:CGFloat? = nil)  {
         //左侧view
         let leftV = UIView(frame: CGRect(x: 0, y: 0, width: leftWidth, height: 5))
         self.leftViewMode = .always
@@ -26,26 +26,26 @@ public extension UITextField {
         self.rightViewMode = .always
         self.rightView = rightV
     }
-    
     /// 添加标题
     ///
     /// - Parameters:
     ///   - titleLabel: titleLabel
     ///   - titleWidth: titleWidth
     ///   - padding: 距离右侧输入框的距离
-    func yi_leftTile(_ title: String,
-                     _ titleWidth: CGFloat,
-                     _ color: UIColor = .lightGray,
-                     _ font: CGFloat = 14,
-                     _ textAlignment: NSTextAlignment = .center,
-                     _ padding: CGFloat = 0)  {
+    func yi_leftTitle(_ title: String,
+                      _ titleWidth: CGFloat,
+                      _ color: UIColor? = nil,
+                      _ font: UIFont? = nil,
+                      _ textAlignment: NSTextAlignment? = nil,
+                      _ padding: CGFloat? = nil)  {
         let label = UILabel()
         label.text = title
-        label.textColor = color
-        label.font = UIFont.systemFont(ofSize: QYRatio(font))
-        label.textAlignment = .center
-        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: titleWidth + padding, height: 30))
-        label.frame = CGRect(x: 5, y: 0, width: titleWidth, height: 30)
+        label.textColor = color ?? self.textColor
+        label.font = font ?? self.font
+        label.textAlignment = textAlignment ?? self.textAlignment
+        let wid = titleWidth + (padding ?? 0)
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: wid, height: 30))
+        label.frame = leftV.bounds
         leftV.addSubview(label)
         self.leftViewMode = .always
         self.leftView = leftV
@@ -66,6 +66,30 @@ public extension UITextField {
         self.leftView = leftV
     }
     
+    /// 添加标题
+    ///
+    /// - Parameters:
+    ///   - titleLabel: titleLabel
+    ///   - titleWidth: titleWidth
+    ///   - padding: 距离左侧输入框的距离
+    func yi_rightTitle(_ title: String,
+                       _ titleWidth: CGFloat,
+                       _ color: UIColor? = nil,
+                       _ font: UIFont? = nil,
+                       _ textAlignment: NSTextAlignment? = nil,
+                       _ padding: CGFloat? = nil) {
+        let label = UILabel()
+        label.text = title
+        label.textColor = color ?? self.textColor
+        label.font = font ?? self.font
+        label.textAlignment = textAlignment ?? self.textAlignment
+        let wid = titleWidth + (padding ?? 0)
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: wid, height: 30))
+        label.frame = leftV.bounds
+        leftV.addSubview(label)
+        self.rightViewMode = .always
+        self.rightView = leftV
+    }
     /// 添加右侧icon
     ///
     /// - Parameters:
