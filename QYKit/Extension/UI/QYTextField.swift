@@ -31,21 +31,20 @@ public extension UITextField {
     /// - Parameters:
     ///   - titleLabel: titleLabel
     ///   - titleWidth: titleWidth
-    ///   - padding: 距离右侧输入框的距离
+    ///   - spacing: 距离左侧的距离
     func yi_leftTitle(_ title: String,
                       _ titleWidth: CGFloat,
                       _ color: UIColor? = nil,
                       _ font: UIFont? = nil,
                       _ textAlignment: NSTextAlignment? = nil,
-                      _ padding: CGFloat? = nil)  {
+                      _ spacing: CGFloat? = nil)  {
         let label = UILabel()
         label.text = title
         label.textColor = color ?? self.textColor
         label.font = font ?? self.font
         label.textAlignment = textAlignment ?? self.textAlignment
-        let wid = titleWidth + (padding ?? 0)
-        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: wid, height: 30))
-        label.frame = leftV.bounds
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: titleWidth, height: 30))
+        label.frame = CGRect(x: spacing ?? 0, y: 0, width: titleWidth - (spacing ?? 0), height: 30)
         leftV.addSubview(label)
         self.leftViewMode = .always
         self.leftView = leftV
@@ -71,21 +70,20 @@ public extension UITextField {
     /// - Parameters:
     ///   - titleLabel: titleLabel
     ///   - titleWidth: titleWidth
-    ///   - padding: 距离左侧输入框的距离
+    ///   - spacing: 距离右侧的距离
     func yi_rightTitle(_ title: String,
                        _ titleWidth: CGFloat,
                        _ color: UIColor? = nil,
                        _ font: UIFont? = nil,
                        _ textAlignment: NSTextAlignment? = nil,
-                       _ padding: CGFloat? = nil) {
+                       _ spacing: CGFloat? = nil) {
         let label = UILabel()
         label.text = title
         label.textColor = color ?? self.textColor
         label.font = font ?? self.font
         label.textAlignment = textAlignment ?? self.textAlignment
-        let wid = titleWidth + (padding ?? 0)
-        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: wid, height: 30))
-        label.frame = leftV.bounds
+        let leftV = UIView(frame: CGRect(x: 0, y: 0, width: titleWidth, height: 30))
+        label.frame = CGRect(x: spacing ?? 0, y: 0, width: titleWidth - (spacing ?? 0), height: 30)
         leftV.addSubview(label)
         self.rightViewMode = .always
         self.rightView = leftV
