@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-open class QYSystemInfo : NSObject {
+open class QYSystem: NSObject {
     ///是否编辑,默认false
     public var allowsEditing: Bool? = false
     
@@ -35,10 +35,10 @@ open class QYSystemInfo : NSObject {
     }
 }
 //MARK: ------- 打开相机相册
-extension QYSystemInfo: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension QYSystem: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     ///打开相机相册
     public class func yi_invokeCameraPhoto (_ blc: ((UIImage)->())?) {
-        let qy = QYSystemInfo()
+        let qy = QYSystem()
         qy.photoBlock = blc
         let alertVC = UIAlertController.init(title: "", message: "请选择图片", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction.init(title: "相机", style: .default) { (action) in

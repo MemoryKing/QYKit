@@ -8,17 +8,17 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-public let QY99Color = QYColorHex("#999999")
-public let QY33Color = QYColorHex("#333333")
-public let QY66Color = QYColorHex("#666666")
-public let QYF5Color = QYColorHex("#F5F5F5")
-public let QYEEColor = QYColorHex("#EEEEEE")
+public let QY99Color = QYHexColor("#999999")
+public let QY33Color = QYHexColor("#333333")
+public let QY66Color = QYHexColor("#666666")
+public let QYF5Color = QYHexColor("#F5F5F5")
+public let QYEEColor = QYHexColor("#EEEEEE")
 
 public func QYHexColorFormNum(_ rgbValue: Int,_ alpha: CGFloat = 1.0) -> (UIColor) {
     return UIColor.init(rgbValue, alpha)
 }
 
-public func QYColorHex(_ rgbValue: String,_ alpha: CGFloat = 1.0) -> (UIColor) {
+public func QYHexColor(_ rgbValue: String,_ alpha: CGFloat = 1.0) -> (UIColor) {
     return UIColor.init(rgbValue, alpha)
 }
 

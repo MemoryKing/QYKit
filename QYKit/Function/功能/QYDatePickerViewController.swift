@@ -284,7 +284,7 @@ extension QYDatePickerViewController {
         vc.cancel.setTitleColor(cancelColor ?? QY99Color, for: .normal)
         vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: cancelFont ?? 15)
         vc.sure.setTitle(sure ?? "确定", for: .normal)
-        vc.sure.setTitleColor(sureColor ?? QYColorHex("#1C81FE"), for: .normal)
+        vc.sure.setTitleColor(sureColor ?? QYHexColor("#1C81FE"), for: .normal)
         vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: sureFont ?? 15)
         UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
     }

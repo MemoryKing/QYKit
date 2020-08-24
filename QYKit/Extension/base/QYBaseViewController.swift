@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import SnapKit
 
-open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
+open class QYBaseViewController: UIViewController {
     //MARK: --- 状态栏
     private var _barStyle: UIStatusBarStyle?
     ///状态栏
@@ -25,15 +25,16 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     //MARK: --- 返回手势
-    private var _interactivePop: Bool?
+    private var _openPopGecognizer: Bool?
     ///返回手势
-    public var yi_interactivePop: Bool {
+    public var yi_openPopGecognizer: Bool {
         set {
-            _interactivePop = newValue
+            _openPopGecognizer = newValue
+            self.navigationController?.yi_openPopGecognizer = newValue
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = newValue
         }
         get {
-            return _interactivePop ?? false
+            return _openPopGecognizer ?? false
         }
     }
     
@@ -48,9 +49,14 @@ open class QYBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.extendedLayoutIncludesOpaqueBars = true
         
-        self.yi_interactivePop = true
+        self.yi_openPopGecognizer = true
         
         self.view.backgroundColor = QYF5Color
+        yi_InterfaceLayout()
+    }
+    ///界面布局
+    open func yi_InterfaceLayout() {
+        
     }
     
     //MARK: --- 添加表视图

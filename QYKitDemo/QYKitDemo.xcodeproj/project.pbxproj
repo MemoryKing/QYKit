@@ -39,7 +39,7 @@
 		045C622124D815470080FAFF /* QYLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61F924D815470080FAFF /* QYLocation.swift */; };
 		045C622224D815470080FAFF /* address-code.json in Resources */ = {isa = PBXBuildFile; fileRef = 045C61FB24D815470080FAFF /* address-code.json */; };
 		045C622324D815470080FAFF /* QYAppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61FD24D815470080FAFF /* QYAppInfo.swift */; };
-		045C622424D815470080FAFF /* QYSystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61FE24D815470080FAFF /* QYSystemInfo.swift */; };
+		045C622424D815470080FAFF /* QYSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61FE24D815470080FAFF /* QYSystem.swift */; };
 		045C622524D815470080FAFF /* QYRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61FF24D815470080FAFF /* QYRegular.swift */; };
 		045C622624D815470080FAFF /* QYPermissionsDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620024D815470080FAFF /* QYPermissionsDetection.swift */; };
 		045C622724D815470080FAFF /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620124D815470080FAFF /* QYToolManager.swift */; };
@@ -106,7 +106,7 @@
 		045C61F924D815470080FAFF /* QYLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYLocation.swift; sourceTree = "<group>"; };
 		045C61FB24D815470080FAFF /* address-code.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "address-code.json"; sourceTree = "<group>"; };
 		045C61FD24D815470080FAFF /* QYAppInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYAppInfo.swift; sourceTree = "<group>"; };
-		045C61FE24D815470080FAFF /* QYSystemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYSystemInfo.swift; sourceTree = "<group>"; };
+		045C61FE24D815470080FAFF /* QYSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYSystem.swift; sourceTree = "<group>"; };
 		045C61FF24D815470080FAFF /* QYRegular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYRegular.swift; sourceTree = "<group>"; };
 		045C620024D815470080FAFF /* QYPermissionsDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYPermissionsDetection.swift; sourceTree = "<group>"; };
 		045C620124D815470080FAFF /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				045C61FD24D815470080FAFF /* QYAppInfo.swift */,
-				045C61FE24D815470080FAFF /* QYSystemInfo.swift */,
+				045C61FE24D815470080FAFF /* QYSystem.swift */,
 				045C61FF24D815470080FAFF /* QYRegular.swift */,
 				045C620024D815470080FAFF /* QYPermissionsDetection.swift */,
 				045C620124D815470080FAFF /* QYToolManager.swift */,
@@ -524,7 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045C622424D815470080FAFF /* QYSystemInfo.swift in Sources */,
+				045C622424D815470080FAFF /* QYSystem.swift in Sources */,
 				045C622524D815470080FAFF /* QYRegular.swift in Sources */,
 				045C621524D815470080FAFF /* QYFont.swift in Sources */,
 				045C621924D815470080FAFF /* QYBaseViewController.swift in Sources */,
