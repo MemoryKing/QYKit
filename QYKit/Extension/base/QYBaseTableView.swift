@@ -210,5 +210,111 @@ extension QYBaseTableView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
 }
 
-
-
+//MARK: --- delegate --dataSource
+extension UITableView {
+    //MARK: --- 区头
+    ///区数
+    func yi_numberSections(_ number: Int) {
+        delegateInitialize()
+        qyDelegate?.numberSections = number
+    }
+    ///区数
+    func yi_numberOfSections(_ block: @escaping (UITableView)->(Int)) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.numberOfSections = block
+        return self
+    }
+    
+    ///区头高
+    func yi_heightHeaderSection(_ height: CGFloat) {
+        delegateInitialize()
+        qyDelegate?.heightHeaderSection = height
+    }
+    ///区头高
+    func yi_heightForHeaderInSection(_ block: @escaping (UITableView, Int)->(CGFloat)) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.heightForHeaderInSection = block
+        return self
+    }
+    ///区头视图
+    func yi_viewForHeaderInSection(_ block: @escaping (UITableView, Int)->UIView) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.viewForHeaderInSection = block
+        return self
+    }
+    
+    //MARK: --- 区尾
+    ///区尾高
+    func yi_heightFooterSection(_ height: CGFloat) {
+        delegateInitialize()
+        qyDelegate?.heightFooterSection = height
+    }
+    ///区尾高
+    func yi_heightForFooterInSection(_ block: @escaping (UITableView, Int)->(CGFloat)) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.heightForFooterInSection = block
+        return self
+    }
+    ///区尾视图
+    func yi_viewForFooterInSection(_ block: @escaping (UITableView, Int)->UIView) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.viewForFooterInSection = block
+        return self
+    }
+    
+    //MARK: --- 单元
+    ///单元数(所有区相同)
+    func yi_numberRows(_ number: Int) {
+        delegateInitialize()
+        qyDelegate?.numberSections = number
+    }
+    ///单元数
+    func yi_numberOfRowsInSection(_ block: @escaping (UITableView, Int)->(Int)) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.numberOfRowsInSection = block
+        return self
+    }
+    ///单元高
+    func yi_heightRows(_ height: CGFloat) {
+        delegateInitialize()
+        qyDelegate?.heightRows = height
+    }
+    ///单元高
+    func yi_heightForRowAtIndexPath(_ block: @escaping (UITableView, IndexPath)->(CGFloat)) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.heightForRowAtIndexPath = block
+        return self
+    }
+    ///单元
+    func yi_cellForRowAtIndexPath(_ block: @escaping (UITableView, IndexPath)-> UITableViewCell) -> UITableView {
+        delegateInitialize()
+        qyDelegate?.cellForRowAtIndexPath = block
+        return self
+    }
+    ///单元点击
+    func yi_didSelectRowAtIndexPath(_ block: @escaping (UITableView, IndexPath)->()) {
+        delegateInitialize()
+        qyDelegate?.didSelectRowAtIndexPath = block
+    }
+    
+    private func delegateInitialize() {
+        if qyDelegate == nil {
+            qyDelegate = QYTableViewDelegate()
+            self.dataSource = qyDelegate
+            self.delegate = qyDelegate
+        }
+    }
+        
+    private var qyDelegate: QYTableViewDelegate? {
+        set {
+            objc_setAssociatedObject(self, QYRuntimeKey.QYDelegateKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            objc_getAssociatedObject(self, QYRuntimeKey.QYDelegateKey!) as? QYTableViewDelegate
+        }
+    }
+    private struct QYRuntimeKey {
+        static let QYDelegateKey = UnsafeRawPointer.init(bitPattern: "QYDelegateKey".hashValue)
+    }
+    
+}

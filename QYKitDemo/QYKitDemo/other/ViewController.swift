@@ -11,20 +11,49 @@ import UIKit
 //import QYKit
 
 
-class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-    
+class ViewController: QYBaseViewController {
+    var tableView: UITableView!
     var lab: UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = .red
+//        ceshi()
+        ceshi1()
+    }
+    func ceshi1() {
+        tableView = UITableView(frame: view.bounds)
+        tableView.backgroundColor = .blue
+        view.addSubview(tableView)
+        tableView.yi_viewForHeaderInSection({ (tab, sec) -> UIView in
+            let view = UIView()
+            if sec == 0 {
+                view.backgroundColor = .red
+            } else {
+                view.backgroundColor = .gray
+            }
+            return view
+        }).yi_numberOfSections({ (tab) -> (Int) in
+            return 10
+        }).yi_heightHeaderSection(100)
+        
+        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
+            let view = UIView()
+            view.backgroundColor = .purple
+            if sec == 1 {
+                view.backgroundColor = .gray
+            }
+            return view
+        }.yi_heightFooterSection(30)
+        
+        tableView.yi_didSelectRowAtIndexPath { (tab, indexPath) in
+            QYLog(indexPath)
+        }
+        
+    }
+    
+    func ceshi() {
 //        la.frame = .init(x: 0, y: 0, width: 200, height: 200)
 //        la.center = self.view.center
 //        la.text = "创建来到测试世界"
@@ -54,16 +83,8 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
         self.view.addSubview(lab)
         
         _ = CGSize.init(width: 1, height: 1) + CGSize.init(width: 1, height: 1)
-        
-        
-//        self.yi_addTableView {
-//            $0.backgroundColor = .red
-//        }
-        
-        UIButton().yi_then({
-            $0.yi_imagePosition(.right, 1)
-        })
     }
+    
     @objc func click (_ btn: QYCountDownButton) {
         QYDatePickerViewController.yi_showDatePicker(.year) { (st) in
             
@@ -88,39 +109,3 @@ class ViewController: QYBaseViewController, UICollectionViewDelegate, UICollecti
     }
 }
 
-//MARK: --- TableViewDelegate
-extension ViewController: UITableViewDelegate,UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView.init()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell.init()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView.init()
-    }
-    
-}

@@ -9,15 +9,6 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 public extension Array {
-    init(reserveCapacity: Int) {
-        self = Array<Element>()
-        self.reserveCapacity(reserveCapacity)
-    }
-    
-    var slice: ArraySlice<Element> {
-        return self[self.startIndex ..< self.endIndex]
-    }
-    
     /// 转data
     func yi_toData() -> Data {
         if (!JSONSerialization.isValidJSONObject(self)) {
@@ -27,9 +18,19 @@ public extension Array {
         let data = try? JSONSerialization.data(withJSONObject: self, options: [])
         return data!
     }
+    
 }
 //MARK: --- 类型转换
 public extension Array where Element == UInt8 {
+    init(reserveCapacity: Int) {
+        self = Array<Element>()
+        self.reserveCapacity(reserveCapacity)
+    }
+    
+    var slice: ArraySlice<Element> {
+        return self[self.startIndex ..< self.endIndex]
+    }
+    
     init(hex: String) {
         self.init(reserveCapacity: hex.unicodeScalars.lazy.underestimatedCount)
         var buffer: UInt8?
@@ -82,8 +83,15 @@ public extension Array where Element == UInt8 {
 public extension Array where Element : Equatable{
     ///去掉重复的元素
     func yi_removedDuplicates() -> [Element] {
-        return reduce([]) { $0.contains($1) ? $0 : $0 + [$1] }
+        var uniqueValues: [Element] = self
+        forEach { item in
+            if !uniqueValues.contains(item) {
+                uniqueValues += [item]
+            }
+        }
+        return uniqueValues
     }
+    
     ///移除对象
     mutating func yi_remove(_ object: Element) {
         if let index = firstIndex(of: object) {
