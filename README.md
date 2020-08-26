@@ -1,7 +1,7 @@
 # QYKit
 
 
-##   1.1.2
+##   1.1.3
 #### 分离tableview delegate
 
 ##   1.1.1
