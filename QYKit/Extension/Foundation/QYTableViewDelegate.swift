@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-private class QYTableViewDelegate: NSObject {
+class QYTableViewDelegate: NSObject {
     ///区数
     var numberSections: Int?
     ///区头数
