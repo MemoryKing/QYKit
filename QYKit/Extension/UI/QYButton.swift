@@ -36,6 +36,17 @@ public extension UIButton {
             }
         }
     }
+    var yi_selectedColor: UIColor? {
+        get { return self.titleColor(for: .selected) }
+        set {
+            setTitleColor(newValue, for: .selected)
+            setTitleColor(newValue?.withAlphaComponent(0.5), for: .disabled)
+            setTitleColor(newValue, for: .selected)
+            if buttonType == .custom {
+                setTitleColor(newValue?.withAlphaComponent(0.5), for: .highlighted)
+            }
+        }
+    }
     
     var yi_titleShadowColor: UIColor? {
         get { return self.titleShadowColor(for: .normal) }

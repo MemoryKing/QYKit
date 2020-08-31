@@ -86,9 +86,9 @@ public extension UIColor {
     //MARK: --- 随机色
     ///随机色
     static func yi_random (_ randomAlpha: Bool = false) -> UIColor {
-        let randomRed = CGFloat(arc4random() % 255)
-        let randomGreen = CGFloat(arc4random() % 255)
-        let randomBlue = CGFloat(arc4random() % 255)
+        let randomRed = CGFloat(arc4random() % 255) / 255.0
+        let randomGreen = CGFloat(arc4random() % 255) / 255.0
+        let randomBlue = CGFloat(arc4random() % 255) / 255.0
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
     }
 

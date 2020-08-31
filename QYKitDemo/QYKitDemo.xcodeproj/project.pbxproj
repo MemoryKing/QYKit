@@ -46,6 +46,8 @@
 		045C622724D815470080FAFF /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620124D815470080FAFF /* QYToolManager.swift */; };
 		045C622824D815470080FAFF /* QYScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620224D815470080FAFF /* QYScreenInfo.swift */; };
 		045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620324D815470080FAFF /* QYTouchIDManager.swift */; };
+		04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A52DBD24F9026A00A71142 /* MyViewController.swift */; };
+		04BADA8F24F7A99B004FA99F /* QYPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BADA8E24F7A99B004FA99F /* QYPageView.swift */; };
 		04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB1A24C7E33B009C348D /* ViewController.swift */; };
 		04C6AB2424C7E33B009C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C6AB1B24C7E33B009C348D /* Assets.xcassets */; };
 		04C6AB2524C7E33B009C348D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C6AB1C24C7E33B009C348D /* LaunchScreen.storyboard */; };
@@ -118,6 +120,8 @@
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FD4249CA2650086A508 /* QYKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FDF249CA2650086A508 /* QYKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04A52DBD24F9026A00A71142 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		04BADA8E24F7A99B004FA99F /* QYPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYPageView.swift; sourceTree = "<group>"; };
 		04C6AB1A24C7E33B009C348D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04C6AB1B24C7E33B009C348D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04C6AB1D24C7E33B009C348D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 				04C6AB2024C7E33B009C348D /* NoData.png */,
 				04C6AB2124C7E33B009C348D /* AppDelegate.swift */,
 				04C6AB1A24C7E33B009C348D /* ViewController.swift */,
+				04A52DBD24F9026A00A71142 /* MyViewController.swift */,
 				04C6AB1B24C7E33B009C348D /* Assets.xcassets */,
 				04C6AB1C24C7E33B009C348D /* LaunchScreen.storyboard */,
 				04C6AB1E24C7E33B009C348D /* Main.storyboard */,
@@ -276,6 +281,7 @@
 				045C61F624D815470080FAFF /* QYDatePickerViewController.swift */,
 				045C61F724D815470080FAFF /* QYAlert.swift */,
 				045C61F924D815470080FAFF /* QYLocation.swift */,
+				04BADA8E24F7A99B004FA99F /* QYPageView.swift */,
 			);
 			path = "功能";
 			sourceTree = "<group>";
@@ -540,6 +546,7 @@
 				045C621524D815470080FAFF /* QYFont.swift in Sources */,
 				045C621924D815470080FAFF /* QYBaseViewController.swift in Sources */,
 				045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */,
+				04BADA8F24F7A99B004FA99F /* QYPageView.swift in Sources */,
 				040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */,
 				045C622724D815470080FAFF /* QYToolManager.swift in Sources */,
 				045C621F24D815470080FAFF /* QYDatePickerViewController.swift in Sources */,
@@ -566,6 +573,7 @@
 				045C621A24D815470080FAFF /* QYBaseNavigationController.swift in Sources */,
 				045C620D24D815470080FAFF /* QYDispatchQueue.swift in Sources */,
 				045C621424D815470080FAFF /* QYAttributedString.swift in Sources */,
+				04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */,
 				045C620924D815470080FAFF /* QYImage.swift in Sources */,
 				04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */,
 				045C620724D815470080FAFF /* QYTextField.swift in Sources */,

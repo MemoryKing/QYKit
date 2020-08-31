@@ -1,5 +1,7 @@
 # QYKit
 
+##   1.1.5
+#### 分页控制器
 
 ##   1.1.4
 #### 分离tableview delegate

@@ -18,9 +18,28 @@ class ViewController: QYBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .lightGray
 //        ceshi()
-        ceshi1()
+//        ceshi1()
+        ceshi2()
+    }
+    func ceshi2() {
+        let page = QYPageView().yi_then({
+            $0.lineColor = .red
+            $0.lineSpacing = 9
+            $0.lineWidth = 20
+            $0.backgroundColor = .blue
+            view.addSubview($0)
+            $0.viewControllers = [MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController()]
+        })
+        page.snp.makeConstraints({
+            $0.top.equalTo(QYStatusHeight)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(-QYBottomHeight)
+        })
+        page.yi_createPage(["都是","无去的啊","无去的","㡒豆捞坊什么","㡒经济法可什么","为福克斯的从自行车"]) { (str, i) in
+            QYLog("\(str)" + "\(i)")
+        }
     }
     func ceshi1() {
         tableView = UITableView(frame: view.bounds)
