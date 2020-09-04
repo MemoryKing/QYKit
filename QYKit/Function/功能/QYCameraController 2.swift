@@ -24,21 +24,11 @@ open class QYCameraController: QYBaseViewController {
     public var photoType: QYPhotoType?
     public var yi_cameraDidFinishShoot: ((UIImage)->())?
     public var titleText: String?
-    
     private var clipImage: UIImage?
     private var isFlashOn: Bool = false
     private lazy var session: AVCaptureSession = {
         let s = AVCaptureSession.init()
         return s
-    }()
-    private lazy var titleLabel: UILabel = {
-        return UILabel().yi_then({
-            $0.text = titleText
-            $0.textAlignment = .center
-            $0.font = QYFont_14
-            $0.textColor = UIColor.white
-            $0.transform = CGAffineTransform.init(rotationAngle: CGFloat.pi * 0.5)
-        })
     }()
     private lazy var device: AVCaptureDevice? = {
         let d = AVCaptureDevice.default(for: AVMediaType.video)
@@ -57,24 +47,28 @@ open class QYCameraController: QYBaseViewController {
     fileprivate lazy var floatingView: QYFloatingView = {
         let v = QYFloatingView(frame: self.view.bounds)
         v.frame = view.bounds
+        v.titleText = titleText
         v.photoType = photoType
         return v
     }()
     private lazy var photoButton: UIButton = {
         return UIButton().yi_then({
-            $0.yi_backgroundImage = QYFloatingView.bundledImage(named: "photo")
+            let bundle = self.floatingView.resouceBundle
+            $0.yi_backgroundImage = UIImage.init(contentsOfFile: bundle.path(forResource: "photo@2x", ofType: "png")!)
             $0.addTarget(self, action: #selector(shutterCamera(btn:)), for: .touchUpInside)
         })
     }()
     private lazy var cancleButton: UIButton = {
         return UIButton().yi_then({
-            $0.yi_backgroundImage = QYFloatingView.bundledImage(named: "closeButton")
+            let bundle = self.floatingView.resouceBundle
+            $0.yi_backgroundImage = UIImage.init(contentsOfFile: bundle.path(forResource: "closeButton@2x", ofType: "png")!)
             $0.addTarget(self, action: #selector(cancleButtonAction(_ :)), for: .touchUpInside)
         })
     }()
     private lazy var flashButton: UIButton = {
         return UIButton().yi_then({
-            $0.yi_backgroundImage = QYFloatingView.bundledImage(named: "cameraFlash")
+            let bundle = self.floatingView.resouceBundle
+            $0.yi_backgroundImage = UIImage.init(contentsOfFile: bundle.path(forResource: "cameraFlash@2x", ofType: "png")!)
             $0.addTarget(self, action: #selector(flashOn(btn:)), for: .touchUpInside)
         })
     }()
@@ -134,7 +128,7 @@ open class QYCameraController: QYBaseViewController {
     //MARK: --- UI布局
     ///UI布局
     private func interfaceLayout() {
-        view.yi_addSubviews([photoButton,cancleButton,flashButton,bottomView,titleLabel])
+        view.yi_addSubviews([photoButton,cancleButton,flashButton,bottomView])
         photoButton.snp.makeConstraints({
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(-QYBottomHeight - QYRatio(27))
@@ -151,11 +145,6 @@ open class QYCameraController: QYBaseViewController {
             $0.left.right.equalToSuperview()
             $0.bottom.equalTo(-QYBottomHeight)
             $0.height.equalTo(QYRatio(55))
-        })
-        
-        titleLabel.snp.makeConstraints({
-            $0.centerX.equalTo(QYRatio(27))
-            $0.centerY.equalToSuperview()
         })
     }
     //MARK: --- 设置相机
@@ -357,6 +346,12 @@ fileprivate class QYFloatingView: UIView {
             }
         }
     }
+    var titleText: String? {
+        willSet {
+            textLabel.text = newValue
+        }
+    }
+    var textLabel: UILabel!
     lazy var WindowLayer: CAShapeLayer = {
         let windowLayer = CAShapeLayer.init()
         windowLayer.position = self.layer.position
@@ -366,34 +361,26 @@ fileprivate class QYFloatingView: UIView {
         return windowLayer
     }()
     
+    lazy var resouceBundle: Bundle = {
+        let path = Bundle.init(for: self.classForCoder).path(forResource: "QYCameraImages", ofType: "bundle")
+        let bundle = Bundle.init(path: path!)
+        return bundle!
+    }()
     lazy var frontImage: UIImageView = {
         return UIImageView().yi_then({
-            $0.image = QYFloatingView.bundledImage(named: "xuxian")
+            $0.image = UIImage.init(contentsOfFile: resouceBundle.path(forResource: "xuxian@2x", ofType: "png")!)
             $0.transform = CGAffineTransform.init(rotationAngle: CGFloat.pi * 0.5)
             $0.contentMode = .scaleAspectFill
         })
     }()
     lazy var reverseImage: UIImageView = {
         return UIImageView().yi_then({
-            $0.image = QYFloatingView.bundledImage(named: "Page")
+            $0.image = UIImage.init(contentsOfFile: resouceBundle.path(forResource: "Page@2x", ofType: "png")!)
             $0.transform = CGAffineTransform.init(rotationAngle: CGFloat.pi * 0.5)
             $0.contentMode = .scaleAspectFill
         })
     }()
-    internal class func bundledImage(named name: String) -> UIImage {
-        let primaryBundle = Bundle(for: QYCameraController.self)
-        if let image = UIImage(named: name, in: primaryBundle, compatibleWith: nil) {
-            return image
-        } else if
-            let subBundleUrl = primaryBundle.url(forResource: "QYResources", withExtension: "bundle"),
-            let subBundle = Bundle(url: subBundleUrl),
-            let image = UIImage(named: name, in: subBundle, compatibleWith: nil)
-        {
-            return image
-        }
-
-        return UIImage()
-    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
@@ -415,8 +402,23 @@ fileprivate class QYFloatingView: UIView {
         fillLayer.fillColor = UIColor.black.cgColor
         fillLayer.opacity = 0.6
         layer.addSublayer(fillLayer)
+        
+        // 提示标签
+        textLabel = UILabel()
+        textLabel.textAlignment = .center
+        textLabel.font = QYFont_14
+        textLabel.textColor = UIColor.white
+        addSubview(textLabel)
+        
+        textLabel.transform = CGAffineTransform.init(rotationAngle: CGFloat.pi * 0.5)
+        
         frontImage.isHidden = true
         reverseImage.isHidden = true
+        
+        textLabel.snp.makeConstraints({
+            $0.left.equalToSuperview().offset(QYRatio(-7))
+            $0.centerY.equalToSuperview()
+        })
         yi_addSubviews([frontImage,reverseImage])
         reverseImage.snp.makeConstraints({
             $0.centerY.equalToSuperview().offset(-height / 2 + QYRatio(72))
