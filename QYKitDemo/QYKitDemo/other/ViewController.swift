@@ -18,10 +18,30 @@ class ViewController: QYBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = .lightGray
-//        ceshi()
-//        ceshi1()
-        ceshi2()
+        view.backgroundColor = .lightGray
+        
+        ceshi3()
+        
+    }
+    func ceshi3() {
+        let brn = UIButton.init().yi_then({
+            $0.backgroundColor = .red
+            $0.frame = self.view.bounds
+            view.addSubview($0)
+        })
+        brn.yi_clickAction = {
+            QYLog("12333333333333333333")
+            let cam = QYCameraController()
+            self.yi_present(cam.yi_then({
+                $0.titleText = "213hndnsajif"
+                $0.modalPresentationStyle = .fullScreen
+                $0.photoType = .reverse
+            }))
+            cam.yi_cameraDidFinishShoot = {
+                brn.yi_backgroundImage = $0
+            }
+            
+        }
     }
     func ceshi2() {
         let page = QYPageView().yi_then({

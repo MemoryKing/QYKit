@@ -11,6 +11,8 @@ import CoreLocation
  
 typealias PositioningClosure = (CLPlacemark) ->()
 typealias PositioningClosureError = (String) ->()
+
+///定位
 open class QYLocation: NSObject {
     
     public static let shared = QYLocation()

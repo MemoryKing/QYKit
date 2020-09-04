@@ -162,28 +162,6 @@ public extension UIImage {
 }
 //MARK: --- 功能
 public extension UIImage {
-    ///将图片绘制成制定大小
-     class func yi_scale(_ image: UIImage,_ w: CGFloat,_ h: CGFloat) -> UIImage {
-         let newSize = CGSize(width: w, height: h)
-         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-         image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-         UIGraphicsEndImageContext()
-         return newImage
-     }
-     
-     ///颜色生成image
-     class func yi_fromColor(_ color:UIColor) -> UIImage {
-         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-         UIGraphicsBeginImageContext(rect.size);
-         let context = UIGraphicsGetCurrentContext()
-         context!.setFillColor(color.cgColor);
-         context!.fill(rect)
-         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-         UIGraphicsEndImageContext()
-         
-         return newImage;
-     }
      /// 截取指定Image的rect
      func yi_indexCrop(_ rect: CGRect) -> UIImage {
          guard rect.size.height < size.height && rect.size.height < size.height else { return self }
@@ -227,40 +205,6 @@ public extension UIImage {
          UIGraphicsEndImageContext()
          return newImage
      }
-     /// 根据字符串生成二维码图片
-     func yi_generateQRImage(_ QRCodeString: String,_ logo: UIImage?,_ size: CGSize = CGSize(width: 200, height: 200)) -> UIImage? {
-         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
-             return nil
-         }
-         let imageFilter = CIFilter(name: "CIQRCodeGenerator")
-         imageFilter?.setValue(data, forKey: "inputMessage")
-         imageFilter?.setValue("H", forKey: "inputCorrectionLevel")
-         let ciImage = imageFilter?.outputImage
-         // 创建颜色滤镜
-         let colorFilter = CIFilter(name: "CIFalseColor")
-         colorFilter?.setDefaults()
-         colorFilter?.setValue(ciImage, forKey: "inputImage")
-         colorFilter?.setValue(CIColor(red: 0, green: 0, blue: 0), forKey: "inputColor0")
-         colorFilter?.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: "inputColor1")
-         // 返回二维码图片
-         let qrImage = UIImage(ciImage: (colorFilter?.outputImage)!)
-         let imageRect = size.width > size.height ?
-             CGRect(x: (size.width - size.height) / 2, y: 0, width: size.height, height: size.height) :
-             CGRect(x: 0, y: (size.height - size.width) / 2, width: size.width, height: size.width)
-         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, UIScreen.main.scale)
-         defer {
-             UIGraphicsEndImageContext()
-         }
-         qrImage.draw(in: imageRect)
-         if logo != nil {
-             let logoSize = size.width > size.height ?
-                 CGSize(width: size.height * 0.25, height: size.height * 0.25) :
-                 CGSize(width: size.width * 0.25, height: size.width * 0.25)
-             logo?.draw(in: CGRect(x: (imageRect.size.width - logoSize.width) / 2, y: (imageRect.size.height - logoSize.height) / 2, width: logoSize.width, height: logoSize.height))
-         }
-         return UIGraphicsGetImageFromCurrentImageContext()
-     }
-    
     ///图片压缩
     func yi_resetImageSize(maxSizeKB : CGFloat,_ maxImageLenght : CGFloat = 0) -> UIImage {
         var maxSize = maxSizeKB
@@ -296,4 +240,106 @@ public extension UIImage {
         }
         return UIImage.init(data: imageData!)!
     }
+    
+    ///将图片绘制成制定大小
+    class func yi_scale(_ image: UIImage,_ w: CGFloat,_ h: CGFloat) -> UIImage {
+        let newSize = CGSize(width: w, height: h)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    ///颜色生成image
+    class func yi_fromColor(_ color:UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size);
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor);
+        context!.fill(rect)
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return newImage;
+    }
+    
+     /// 根据字符串生成二维码图片
+     class func yi_generateQRImage(_ QRCodeString: String,_ logo: UIImage?,_ size: CGSize = CGSize(width: 200, height: 200)) -> UIImage? {
+         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
+             return nil
+         }
+         let imageFilter = CIFilter(name: "CIQRCodeGenerator")
+         imageFilter?.setValue(data, forKey: "inputMessage")
+         imageFilter?.setValue("H", forKey: "inputCorrectionLevel")
+         let ciImage = imageFilter?.outputImage
+         // 创建颜色滤镜
+         let colorFilter = CIFilter(name: "CIFalseColor")
+         colorFilter?.setDefaults()
+         colorFilter?.setValue(ciImage, forKey: "inputImage")
+         colorFilter?.setValue(CIColor(red: 0, green: 0, blue: 0), forKey: "inputColor0")
+         colorFilter?.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: "inputColor1")
+         // 返回二维码图片
+         let qrImage = UIImage(ciImage: (colorFilter?.outputImage)!)
+         let imageRect = size.width > size.height ?
+             CGRect(x: (size.width - size.height) / 2, y: 0, width: size.height, height: size.height) :
+             CGRect(x: 0, y: (size.height - size.width) / 2, width: size.width, height: size.width)
+         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, UIScreen.main.scale)
+         defer {
+             UIGraphicsEndImageContext()
+         }
+         qrImage.draw(in: imageRect)
+         if logo != nil {
+             let logoSize = size.width > size.height ?
+                 CGSize(width: size.height * 0.25, height: size.height * 0.25) :
+                 CGSize(width: size.width * 0.25, height: size.width * 0.25)
+             logo?.draw(in: CGRect(x: (imageRect.size.width - logoSize.width) / 2, y: (imageRect.size.height - logoSize.height) / 2, width: logoSize.width, height: logoSize.height))
+         }
+         return UIGraphicsGetImageFromCurrentImageContext()
+     }
+    ///生成条形码
+    class func generateCode128(_ text:String, _ size:CGSize,_ color:UIColor? = nil ) -> UIImage?
+    {
+        //给滤镜设置内容
+        guard let data = text.data(using: .utf8) else {
+            return nil
+        }
+        
+        if let filter = CIFilter(name: "CICode128BarcodeGenerator") {
+            
+            filter.setDefaults()
+            
+            filter.setValue(data, forKey: "inputMessage")
+            
+            //获取生成的条形码
+            guard let outPutImage = filter.outputImage else {
+                return nil
+            }
+            
+            // 设置条形码颜色
+            let colorFilter = CIFilter(name: "CIFalseColor", parameters: ["inputImage":outPutImage,"inputColor0":CIColor(cgColor: color?.cgColor ?? UIColor.black.cgColor),"inputColor1":CIColor(cgColor: UIColor.clear.cgColor)])
+            
+            //获取带颜色的条形码
+            guard let newOutPutImage = colorFilter?.outputImage else {
+                return nil
+            }
+            
+            let scaleX:CGFloat = size.width/newOutPutImage.extent.width
+            
+            let scaleY:CGFloat = size.height/newOutPutImage.extent.height
+            
+            let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+            
+            let output = newOutPutImage.transformed(by: transform)
+            
+            let barCodeImage = UIImage(ciImage: output)
+            
+            return barCodeImage
+            
+        }
+        
+        return nil
+    }
+    
+    
 }

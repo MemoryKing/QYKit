@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E859824F5085600002267 /* QYTableViewDelegate.swift */; };
+		0438ECAD24FE1FFF00A2EB92 /* QYCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */; };
 		045C620424D815470080FAFF /* QYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D624D815460080FAFF /* QYButton.swift */; };
 		045C620524D815470080FAFF /* QYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D724D815460080FAFF /* QYTextView.swift */; };
 		045C620624D815470080FAFF /* QYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D824D815460080FAFF /* QYView.swift */; };
@@ -56,6 +57,7 @@
 		04C6AB2824C7E33B009C348D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB2124C7E33B009C348D /* AppDelegate.swift */; };
 		04FA089924C82BED00B695C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089824C82BED00B695C4 /* README.md */; };
 		04FA089B24C82BF600B695C4 /* QYKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089A24C82BF600B695C4 /* QYKit.podspec */; };
+		04FB64C32501DDDD00CCAEBB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FB64C22501DDDD00CCAEBB /* Images.xcassets */; };
 		938CD3D9C3D9A0E933374077 /* Pods_QYKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9D30B75E934813E876663D /* Pods_QYKitDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		040E859824F5085600002267 /* QYTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYTableViewDelegate.swift; sourceTree = "<group>"; };
+		0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYCameraController.swift; sourceTree = "<group>"; };
 		045C61D624D815460080FAFF /* QYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYButton.swift; sourceTree = "<group>"; };
 		045C61D724D815460080FAFF /* QYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTextView.swift; sourceTree = "<group>"; };
 		045C61D824D815460080FAFF /* QYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYView.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 		04C6AB2224C7E33B009C348D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04FA089824C82BED00B695C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		04FA089A24C82BF600B695C4 /* QYKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QYKit.podspec; path = ../../QYKit.podspec; sourceTree = "<group>"; };
+		04FB64C22501DDDD00CCAEBB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		38518928AD5ACCDA2E21AF37 /* Pods-YJSwiftKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJSwiftKit.debug.xcconfig"; path = "Target Support Files/Pods-YJSwiftKit/Pods-YJSwiftKit.debug.xcconfig"; sourceTree = "<group>"; };
 		43527D8192BD4580F87ED551 /* Pods-QYKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKit.release.xcconfig"; path = "Target Support Files/Pods-QYKit/Pods-QYKit.release.xcconfig"; sourceTree = "<group>"; };
 		AA48D6AEB9A67077249D2F96 /* Pods-QYKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-QYKitDemo/Pods-QYKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 				045C61F724D815470080FAFF /* QYAlert.swift */,
 				045C61F924D815470080FAFF /* QYLocation.swift */,
 				04BADA8E24F7A99B004FA99F /* QYPageView.swift */,
+				0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */,
 			);
 			path = "功能";
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				045C61FB24D815470080FAFF /* address-code.json */,
+				04FB64C22501DDDD00CCAEBB /* Images.xcassets */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -468,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04FB64C32501DDDD00CCAEBB /* Images.xcassets in Resources */,
 				04C6AB2724C7E33B009C348D /* NoData.png in Resources */,
 				045C622224D815470080FAFF /* address-code.json in Resources */,
 				04C6AB2624C7E33B009C348D /* Main.storyboard in Resources */,
@@ -576,6 +583,7 @@
 				04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */,
 				045C620924D815470080FAFF /* QYImage.swift in Sources */,
 				04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */,
+				0438ECAD24FE1FFF00A2EB92 /* QYCameraController.swift in Sources */,
 				045C620724D815470080FAFF /* QYTextField.swift in Sources */,
 				045C621224D815470080FAFF /* QYString.swift in Sources */,
 				045C621E24D815470080FAFF /* QYCountDownButton.swift in Sources */,

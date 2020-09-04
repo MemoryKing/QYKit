@@ -86,6 +86,8 @@ public extension UIButton {
         get { return self.backgroundImage(for: .disabled) }
         set { setBackgroundImage(newValue?.withRenderingMode(.alwaysOriginal), for: .disabled) }
     }
+    
+    
 }
 
 public enum QYButtonImagePosition: Int {
@@ -95,6 +97,7 @@ public enum QYButtonImagePosition: Int {
     case bottom     = 0x03
 }
 public extension UIButton {
+    //MARK: --- 图片文本位置
     /// 图片文本位置
     /// - Parameters:
     ///   - type: 图片位置
@@ -141,5 +144,26 @@ public extension UIButton {
                                              bottom: titleOffHeight, right: titleOffWidth)
                 self.contentVerticalAlignment = .center
         }
+    }
+}
+
+extension UIButton {
+    struct QYRuntimeKey {
+        static let QYButtonClick = UnsafeRawPointer.init(bitPattern: "QYButtonClick".hashValue)
+    }
+    //MARK: --- 点击
+    ///点击
+    var yi_clickAction: (()->())? {
+        set {
+            objc_setAssociatedObject(self, QYRuntimeKey.QYButtonClick!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            addTarget(self, action: #selector(self.buttonClickAction), for: .touchUpInside)
+        }
+        get {
+            return objc_getAssociatedObject(self, QYRuntimeKey.QYButtonClick!) as? () -> ()
+        }
+    }
+    
+    @objc private func buttonClickAction() {
+        yi_clickAction?()
     }
 }

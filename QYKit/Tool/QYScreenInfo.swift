@@ -22,11 +22,11 @@ public func QYBoldFont(_ num: CGFloat) -> UIFont {
     return UIFont.boldSystemFont(ofSize: num * QYProportion)
 }
 ///屏幕宽
-public var QYWidth: CGFloat {
+public var QYScreenWidth: CGFloat {
     return UIScreen.main.bounds.size.width
 }
 ///屏幕高
-public var QYHeight: CGFloat {
+public var QYScreenHeight: CGFloat {
     return UIScreen.main.bounds.size.height
 }
 ///屏幕比例

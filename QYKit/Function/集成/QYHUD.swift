@@ -12,7 +12,8 @@ import Foundation
 import PKHUD
 
 open class QYHUD: NSObject {
-    
+    static var completionBlock: ((Bool) -> (Void))?
+    static var afterDelayTime: TimeInterval?
     public class func show (_ str: String?,
                             _ afterDelay: TimeInterval? = 1.5,
                             _ block: ((Bool) -> Void)? = nil) {
@@ -83,27 +84,4 @@ open class QYHUD: NSObject {
 }
 
 extension QYHUD {
-    
-    struct RuntimeKey {
-        static let completionBlockKey = UnsafeRawPointer.init(bitPattern: "completionBlock".hashValue)
-        static let afterDelayKey      = UnsafeRawPointer.init(bitPattern: "afterDelay".hashValue)
-    }
-    
-    class var completionBlock: ((Bool) -> (Void))? {
-        set {
-            objc_setAssociatedObject(self, RuntimeKey.completionBlockKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-        }
-        get {
-            return objc_getAssociatedObject(self, RuntimeKey.completionBlockKey!) as? ((Bool) -> (Void))
-        }
-    }
-    
-    class var afterDelayTime: TimeInterval? {
-        set {
-            objc_setAssociatedObject(self, RuntimeKey.afterDelayKey!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        get {
-            return objc_getAssociatedObject(self, RuntimeKey.afterDelayKey!) as? TimeInterval
-        }
-    }
 }

@@ -202,18 +202,18 @@ public extension UIViewController {
             self.navigationController?.pushViewController(viewController, animated: animated)
         }
     }
-    
+    func yi_present(_ viewController: UIViewController,_ animated: Bool = true, completion: (()->Void)? = nil) {
+        self.present(viewController, animated: animated, completion: completion)
+    }
     ///返回
     func yi_goBack (_ ani: Bool = true) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
+        if self.navigationController != nil {
             if ((self.navigationController?.viewControllers.count)! > 1) {
                 self.navigationController?.popViewController(animated: ani)
             }
-            else if ((self.presentingViewController) != nil) {
-                self.dismiss(animated: ani, completion: nil)
-            }
+        }
+        if ((self.presentingViewController) != nil) {
+            self.dismiss(animated: ani, completion: nil)
         }
     }
 
@@ -235,9 +235,9 @@ public extension UIViewController {
             if ((self.navigationController?.viewControllers.count)! > 1) {
                 self.navigationController?.popToRootViewController(animated: ani)
             }
-            else if ((self.presentingViewController) != nil) {
-                self.dismiss(animated: ani, completion: nil)
-            }
+        }
+        if ((self.presentingViewController) != nil) {
+            self.dismiss(animated: ani, completion: nil)
         }
     }
 }

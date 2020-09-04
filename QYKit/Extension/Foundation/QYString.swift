@@ -102,7 +102,7 @@ public extension String {
     }
     //MARK: --- 获取文本宽度
     /// 获取文本宽度
-    func yi_getWidth(_ font : UIFont = UIFont.systemFont(ofSize: 17)) -> CGFloat {
+    func yi_getWidth(_ font : UIFont = UIFont.systemFont(ofSize: 18)) -> CGFloat {
         guard self.count > 0 else {
             return 0
         }

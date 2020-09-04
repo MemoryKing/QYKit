@@ -8,6 +8,7 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
+///分页控制器
 open class QYPageView: UIView {
     private var currentIndex: Int = 0
     public var lineColor: UIColor? {
@@ -48,7 +49,7 @@ open class QYPageView: UIView {
     public func yi_createPage(_ titles: Array<String>,_ spacing: CGFloat? = nil,_ uniform: CGFloat? = nil,_ block: ((String,Int)->())?) {
         var uni: CGFloat?
         if titles.count < 3 && (uniform == nil) {
-            uni = QYWidth / titles.count
+            uni = QYScreenWidth / titles.count
         }
         selectView.create(titles, spacing, uni)
         selectView.clickBlock = {[weak self] in
@@ -253,7 +254,7 @@ fileprivate class QYSelectView: UIView {
             $0.showsHorizontalScrollIndicator = false
             $0.isUserInteractionEnabled = true
             $0.backgroundColor = .green
-            $0.contentSize = .init(width: QYWidth * 2, height: QYRatio(41))
+            $0.contentSize = .init(width: QYScreenWidth * 2, height: QYRatio(41))
         })
     }()
     

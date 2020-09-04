@@ -10,6 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
+///系统提示窗
 open class QYAlert: UIView {
     //MARK: --- 系统提示框
     /// 系统提示框

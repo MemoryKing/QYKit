@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.1.5'
+  s.version          = '1.1.6'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
@@ -21,7 +21,8 @@ Pod::Spec.new do |s|
   s.dependency 'PKHUD'
   s.dependency 'SnapKit'
   
-  #s.resources  = 'QYKit/Resource/*.json'
+  s.resource_bundles = { 'QYResources' => 'QYKit/**/*.xcassets' }
+  
   s.source_files = 'QYKit/**/*.swift'
 
 #s.subspec 'Tool' do |t|

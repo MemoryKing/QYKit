@@ -10,7 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-
+///倒计时按钮
 open class QYCountDownButton: UIButton {
     /// 最大倒计时
     public var yi_maxSecond = 60

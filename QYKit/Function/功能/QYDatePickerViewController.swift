@@ -13,6 +13,7 @@ public enum QYComponentsType: Int {
     case day = 2
 } 
 
+///时间选择器
 open class QYDatePickerViewController: UIViewController {
     
     private var type: QYComponentsType?
