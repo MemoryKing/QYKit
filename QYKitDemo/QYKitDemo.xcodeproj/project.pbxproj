@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E859824F5085600002267 /* QYTableViewDelegate.swift */; };
+		042094C925133D5800C15B3F /* QYFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042094C825133D5800C15B3F /* QYFunction.swift */; };
 		0438ECAD24FE1FFF00A2EB92 /* QYCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */; };
 		045C620424D815470080FAFF /* QYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D624D815460080FAFF /* QYButton.swift */; };
 		045C620524D815470080FAFF /* QYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D724D815460080FAFF /* QYTextView.swift */; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		040E859824F5085600002267 /* QYTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYTableViewDelegate.swift; sourceTree = "<group>"; };
+		042094C825133D5800C15B3F /* QYFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYFunction.swift; sourceTree = "<group>"; };
 		0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYCameraController.swift; sourceTree = "<group>"; };
 		045C61D624D815460080FAFF /* QYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYButton.swift; sourceTree = "<group>"; };
 		045C61D724D815460080FAFF /* QYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTextView.swift; sourceTree = "<group>"; };
@@ -170,13 +172,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		040E859724F5084400002267 /* 测试-开发 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "测试-开发";
-			sourceTree = "<group>";
-		};
 		0416421B24CAE183003E19A0 /* other */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,7 +189,6 @@
 		045C61D324D815460080FAFF /* QYKit */ = {
 			isa = PBXGroup;
 			children = (
-				040E859724F5084400002267 /* 测试-开发 */,
 				045C61D424D815460080FAFF /* Extension */,
 				045C61F124D815460080FAFF /* Function */,
 				045C61FA24D815470080FAFF /* Resource */,
@@ -224,6 +218,7 @@
 				045C61DA24D815460080FAFF /* QYLabel.swift */,
 				045C61DB24D815460080FAFF /* QYImage.swift */,
 				045C61DC24D815460080FAFF /* QYViewController.swift */,
+				042094C825133D5800C15B3F /* QYFunction.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -557,6 +552,7 @@
 				040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */,
 				045C622724D815470080FAFF /* QYToolManager.swift in Sources */,
 				045C621F24D815470080FAFF /* QYDatePickerViewController.swift in Sources */,
+				042094C925133D5800C15B3F /* QYFunction.swift in Sources */,
 				045C621824D815470080FAFF /* QYThen.swift in Sources */,
 				04C6AB2824C7E33B009C348D /* AppDelegate.swift in Sources */,
 				045C620F24D815470080FAFF /* QYData.swift in Sources */,

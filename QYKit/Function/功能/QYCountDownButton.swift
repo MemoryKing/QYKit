@@ -20,7 +20,7 @@ open class QYCountDownButton: UIButton {
             oldValue ? startCountdown() : stopCountdown()
         }
     }
-    
+    static  let shared = QYCountDownButton()
     private var second = 0
     private var timer: Timer?
     private var timeLabel = UILabel()

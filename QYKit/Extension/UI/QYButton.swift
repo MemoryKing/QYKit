@@ -86,8 +86,6 @@ public extension UIButton {
         get { return self.backgroundImage(for: .disabled) }
         set { setBackgroundImage(newValue?.withRenderingMode(.alwaysOriginal), for: .disabled) }
     }
-    
-    
 }
 
 public enum QYButtonImagePosition: Int {

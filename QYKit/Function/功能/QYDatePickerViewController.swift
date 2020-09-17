@@ -38,37 +38,37 @@ open class QYDatePickerViewController: UIViewController {
         
     }
     // MARK: - Func
-    private var cancel: UIButton!
-    private var sure: UIButton!
+    private var cancelBtn: UIButton!
+    private var sureBtn: UIButton!
     private func drawMyView() {
         self.view.insertSubview(self.backgroundView, at: 0)
         self.modalPresentationStyle = .custom
-        cancel = UIButton(frame: CGRect(x: 0, y: 0, width: QYRatio(80), height: QYRatio(40)))
-        sure = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - QYRatio(80), y: 0, width: QYRatio(80), height: QYRatio(40)))
-        cancel.setTitle("取消", for: .normal)
-        sure.setTitle("确认", for: .normal)
-        cancel.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        sure.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        cancel.setTitleColor(UIColor.init(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1), for: .normal)
-        sure.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
-        cancel.addTarget(self, action: #selector(self.onClickCancel), for: .touchUpInside)
-        sure.addTarget(self, action: #selector(self.onClickSure), for: .touchUpInside)
+        cancelBtn = UIButton(frame: CGRect(x: 0, y: 0, width: QYRatio(80), height: QYRatio(40)))
+        sureBtn = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - QYRatio(80), y: 0, width: QYRatio(80), height: QYRatio(40)))
+        cancelBtn.setTitle("取消", for: .normal)
+        sureBtn.setTitle("确认", for: .normal)
+        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        sureBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        cancelBtn.setTitleColor(UIColor.init(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1), for: .normal)
+        sureBtn.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
+        cancelBtn.addTarget(self, action: #selector(self.onClickcancelBtn), for: .touchUpInside)
+        sureBtn.addTarget(self, action: #selector(self.onClicksureBtn), for: .touchUpInside)
         picker = UIPickerView(frame: CGRect(x: 0, y: QYRatio(40), width: UIScreen.main.bounds.width, height: QYRatio(220)))
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = UIColor.clear
         picker.clipsToBounds = true
-        self.containV.addSubview(cancel)
-        self.containV.addSubview(sure)
+        self.containV.addSubview(cancelBtn)
+        self.containV.addSubview(sureBtn)
         self.containV.addSubview(picker)
         self.view.addSubview(self.containV)
     }
-    // MARK: on Cancel Click
-    @objc func onClickCancel() {
+    // MARK: on cancelBtn Click
+    @objc func onClickcancelBtn() {
         self.dismiss(animated: true, completion: nil)
     }
-    // MARK: on Sure Click
-    @objc func onClickSure() {
+    // MARK: on sureBtn Click
+    @objc func onClicksureBtn() {
         var dateString = ""
         switch self.type {
         case .year:
@@ -264,29 +264,64 @@ private class QYDatePickerViewControllerAnimated: NSObject,UIViewControllerAnima
 
 //MARK: --- 调用方法
 extension QYDatePickerViewController {
-    ///年月日
-    public class func yi_showDatePicker(_ type: QYComponentsType,
-                                        _ startTime: Int? = nil,
-                                        _ cancel: String? = nil,
-                                        _ cancelColor: UIColor? = nil,
-                                        _ cancelFont: CGFloat? = nil,
-                                        _ sure: String? = nil,
-                                        _ sureColor: UIColor? = nil,
-                                        _ sureFont: CGFloat? = nil,
-                                        _ backDate: @escaping ((String) -> Void)) {
-        let vc = QYDatePickerViewController.init()
-        vc.modalPresentationStyle = .fullScreen
-        vc.type = type
-        vc.startTime = startTime ?? 2016
-        vc.backDate = backDate
-        vc.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        vc.drawMyView()
-        vc.cancel.setTitle(cancel ?? "取消", for: .normal)
-        vc.cancel.setTitleColor(cancelColor ?? QY99Color, for: .normal)
-        vc.cancel.titleLabel?.font = UIFont.systemFont(ofSize: cancelFont ?? 15)
-        vc.sure.setTitle(sure ?? "确定", for: .normal)
-        vc.sure.setTitleColor(sureColor ?? QYHexColor("#1C81FE"), for: .normal)
-        vc.sure.titleLabel?.font = UIFont.systemFont(ofSize: sureFont ?? 15)
-        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+    /// 年月日
+    /// - Parameters:
+    ///   - types: 类型
+    ///   - startTimes: 开始时间
+    ///   - cancel: 取消文本
+    ///   - cancelBtnColor: 颜色
+    ///   - cancelBtnFont: 字体
+    ///   - sure: 确认文本
+    ///   - sureBtnColor: 颜色
+    ///   - sureBtnFont: 字体
+    ///   - block: 确认回调
+    public class func yi_show(_ type: QYComponentsType,
+                              _ startTime: Int? = nil,
+                              _ cancel: String? = nil,
+                              _ cancelBtnColor: UIColor? = nil,
+                              _ cancelBtnFont: CGFloat? = nil,
+                              _ sure: String? = nil,
+                              _ sureBtnColor: UIColor? = nil,
+                              _ sureBtnFont: CGFloat? = nil,
+                              _ block: @escaping ((String) -> Void)) {
+        let vc = QYDatePickerViewController()
+        vc.yi_showDatePicker(type, startTime, cancel, cancelBtnColor, cancelBtnFont, sure, sureBtnColor, sureBtnFont, block)
+        
+    }
+    /// 年月日
+    /// - Parameters:
+    ///   - types: 类型
+    ///   - startTimes: 开始时间
+    ///   - cancel: 取消文本
+    ///   - cancelBtnColor: 颜色
+    ///   - cancelBtnFont: 字体
+    ///   - sure: 确认文本
+    ///   - sureBtnColor: 颜色
+    ///   - sureBtnFont: 字体
+    ///   - block: 确认回调
+    public func yi_showDatePicker(_ types: QYComponentsType,
+                                  _ startTimes: Int? = nil,
+                                  _ cancel: String? = nil,
+                                  _ cancelBtnColor: UIColor? = nil,
+                                  _ cancelBtnFont: CGFloat? = nil,
+                                  _ sure: String? = nil,
+                                  _ sureBtnColor: UIColor? = nil,
+                                  _ sureBtnFont: CGFloat? = nil,
+                                  _ block: @escaping ((String) -> Void)) {
+        modalPresentationStyle = .fullScreen
+        type = types
+        startTime = startTimes ?? 2016
+        backDate = block
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        drawMyView()
+        cancelBtn.setTitle(cancel ?? "取消", for: .normal)
+        cancelBtn.setTitleColor(cancelBtnColor ?? QY99Color, for: .normal)
+        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: cancelBtnFont ?? 15)
+        sureBtn.setTitle(sure ?? "确定", for: .normal)
+        sureBtn.setTitleColor(sureBtnColor ?? QYHexColor("#1C81FE"), for: .normal)
+        sureBtn.titleLabel?.font = UIFont.systemFont(ofSize: sureBtnFont ?? 15)
+        UIApplication.shared.keyWindow?.rootViewController?.present(self, animated: true, completion: nil)
     }
 }
+
+

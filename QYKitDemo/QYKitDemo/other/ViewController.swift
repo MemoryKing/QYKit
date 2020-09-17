@@ -21,7 +21,6 @@ class ViewController: QYBaseViewController {
         view.backgroundColor = .lightGray
         
         ceshi3()
-        
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
@@ -125,9 +124,6 @@ class ViewController: QYBaseViewController {
     }
     
     @objc func click (_ btn: QYCountDownButton) {
-        QYDatePickerViewController.yi_showDatePicker(.year) { (st) in
-            
-        }
 //        QYAlert.yi_show(message: "打", titleArr: ["123","qwe"], highlighted: 1, handler: { (alert,action,i) in
 //            if i == 0 {
 //                action.setValue(QY99Color, forKey: "titleTextColor")
