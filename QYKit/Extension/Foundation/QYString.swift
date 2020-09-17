@@ -120,6 +120,12 @@ public extension String {
         let index2 = self.index(self.startIndex, offsetBy: stop)
         return String(self[index1..<index2])
     }
+    ///从哪到之后长度
+    func yi_index(_ start: Int ,length: Int) -> String {
+        let index1 = self.index(self.startIndex, offsetBy: start)
+        let index2 = self.index(self.startIndex, offsetBy: start + length)
+        return String(self[index1..<index2])
+    }
     ///开始到i
     func yi_index(to i: Int) -> String {
         let index = self.index(startIndex, offsetBy: i)
@@ -455,4 +461,19 @@ public extension String {
         return result
     }
     
+}
+
+public extension String {
+    ///是否是手机
+    var yi_isPhone: Bool {
+        return QYRegular.yi_isPhoneNumber(self)
+    }
+    ///是否是身份证
+    var yi_isIdCard: Bool {
+        return QYRegular.yi_isIdCard(self)
+    }
+    ///是否是纯数字
+    var yi_isNumber: Bool {
+        return QYRegular.yi_isNumber(self)
+    }
 }

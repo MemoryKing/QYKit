@@ -15,6 +15,7 @@ import CoreLocation
 import AVFoundation
 import CoreBluetooth
 
+///权限
 open class QYPermissionsDetection: NSObject {
     private var bluetoohTools: QYCheckBluetooth?
     // MARK: - 开启媒体资料库/Apple Music 服务

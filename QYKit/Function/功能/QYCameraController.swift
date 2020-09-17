@@ -21,9 +21,9 @@ public enum QYPhotoType {
 }
 ///拍照
 open class QYCameraController: QYBaseViewController {
-    public var photoType: QYPhotoType?
+    public var yi_photoType: QYPhotoType?
     public var yi_cameraDidFinishShoot: ((UIImage)->())?
-    public var titleText: String?
+    public var yi_titleText: String?
     
     private var clipImage: UIImage?
     private var isFlashOn: Bool = false
@@ -33,7 +33,7 @@ open class QYCameraController: QYBaseViewController {
     }()
     private lazy var titleLabel: UILabel = {
         return UILabel().yi_then({
-            $0.text = titleText
+            $0.text = yi_titleText
             $0.textAlignment = .center
             $0.font = QYFont_14
             $0.textColor = UIColor.white
@@ -57,7 +57,7 @@ open class QYCameraController: QYBaseViewController {
     fileprivate lazy var floatingView: QYFloatingView = {
         let v = QYFloatingView(frame: self.view.bounds)
         v.frame = view.bounds
-        v.photoType = photoType
+        v.photoType = yi_photoType
         return v
     }()
     private lazy var photoButton: UIButton = {

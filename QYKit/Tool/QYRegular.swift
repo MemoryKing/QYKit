@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
-///正则
+///正则表达式
 open class QYRegular: NSObject {
     public enum QYValidatedType {
         case Email

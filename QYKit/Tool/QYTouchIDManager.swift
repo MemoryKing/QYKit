@@ -9,6 +9,7 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import LocalAuthentication
 
+///指纹
 open class QYTouchIDManager: NSObject {
     public static let share = QYTouchIDManager()
     //MARK: --- 开启

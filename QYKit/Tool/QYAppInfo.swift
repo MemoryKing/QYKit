@@ -9,6 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import Foundation
 
+///APP 信息
 open class QYAppInfo: NSObject {
     //MARK: --- App 名称
     ///App 名称

@@ -10,6 +10,7 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
+///系统功能
 open class QYSystem: NSObject {
     ///是否编辑,默认false
     public var allowsEditing: Bool? = false
