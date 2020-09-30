@@ -12,15 +12,26 @@ import UIKit
 
 
 class ViewController: QYBaseViewController {
-    var tableView: UITableView!
+    var tableView: QYBaseTableView!
     var lab: UILabel?
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        QYLog("viewcontro")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         view.backgroundColor = .lightGray
         
-        ceshi3()
+        var ss = "123133wqer"
+        let aa = ss.yi_deleteLast()
+        QYLog("\(ss) + \(aa)")
+        
+//        ceshi1()
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
@@ -31,14 +42,15 @@ class ViewController: QYBaseViewController {
         brn.yi_clickAction = {
             QYLog("12333333333333333333")
             let cam = QYCameraController()
-            self.yi_present(cam.yi_then({
-                $0.titleText = "213hndnsajif"
-                $0.modalPresentationStyle = .fullScreen
-                $0.photoType = .reverse
-            }))
-            cam.yi_cameraDidFinishShoot = {
-                brn.yi_backgroundImage = $0
-            }
+            self.yi_push(cam)
+//            self.yi_present(cam.yi_then({
+////                $0.titleText = "213hndnsajif"
+//                $0.modalPresentationStyle = .fullScreen
+////                $0.photoType = .reverse
+//            }))
+//            cam.yi_cameraDidFinishShoot = {
+//                brn.yi_backgroundImage = $0
+//            }
             
         }
     }
@@ -49,7 +61,7 @@ class ViewController: QYBaseViewController {
             $0.lineWidth = 20
             $0.backgroundColor = .blue
             view.addSubview($0)
-            $0.viewControllers = [MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController()]
+            $0.yi_viewControllers = [MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController()]
         })
         page.snp.makeConstraints({
             $0.top.equalTo(QYStatusHeight)
@@ -61,8 +73,10 @@ class ViewController: QYBaseViewController {
         }
     }
     func ceshi1() {
-        tableView = UITableView(frame: view.bounds)
+        tableView = QYBaseTableView(frame: view.bounds)
+        tableView.yi_empty_title = "123"
         tableView.backgroundColor = .blue
+        tableView.yi_isScrollEnabled = true
         view.addSubview(tableView)
         tableView.yi_viewForHeaderInSection({ (tab, sec) -> UIView in
             let view = UIView()
@@ -88,7 +102,7 @@ class ViewController: QYBaseViewController {
         tableView.yi_didSelectRowAtIndexPath { (tab, indexPath) in
             QYLog(indexPath)
         }
-        
+        QYRatio(1)
     }
     
     func ceshi() {

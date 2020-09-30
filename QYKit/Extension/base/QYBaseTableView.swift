@@ -13,7 +13,7 @@ import MJRefresh
 import DZNEmptyDataSet
 
 open class QYBaseTableView: UITableView {
-
+    public var yi_isScrollEnabled         : Bool?
     public var yi_empty_title             : String?   = "暂无数据"
     public var yi_empty_titleFont         : UIFont    = QYFont(15)
     public var yi_empty_titleColor        : UIColor   = QY33Color
@@ -68,9 +68,24 @@ open class QYBaseTableView: UITableView {
         self.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
+    open override func reloadEmptyDataSet() {
+        super.reloadEmptyDataSet()
+    }
+    fileprivate func reloadTableView(){
+        reloadEmptyDataSet()
+        self.reloadData()
+    }
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    open override func reloadData() {
+        super.reloadData()
+        self.isScrollEnabled = yi_isScrollEnabled ?? true
+    }
+    
+}
+extension QYBaseTableView: UIScrollViewDelegate {
     
 }
 
@@ -203,11 +218,6 @@ extension QYBaseTableView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
         if self.emptyClickBlock != nil {
             self.emptyClickBlock!()
         }
-    }
-
-    fileprivate func reloadTableView(){
-       self.reloadData()
-       self.reloadEmptyDataSet()
     }
 }
 

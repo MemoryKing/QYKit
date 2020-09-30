@@ -54,7 +54,7 @@ open class QYPageView: UIView {
         selectView.create(titles, spacing, uni)
         selectView.clickBlock = {[weak self] in
             QYLog($0 + "\($1)")
-            let vc = self?.viewControllers?[$1]
+            let vc = self?.yi_viewControllers?[$1]
             
             if $1 > self?.currentIndex ?? 0 {
                 self?.pageViewController.setViewControllers([vc!], direction: .forward, animated: false, completion: nil)
@@ -64,9 +64,9 @@ open class QYPageView: UIView {
         }
     }
     
-    public var viewControllers: Array<UIViewController>? {
-        didSet {
-            let vc = viewControllers?.first
+    public var yi_viewControllers: Array<UIViewController>? {
+        willSet {
+            let vc = newValue?.first
             pageViewController.setViewControllers([vc!], direction: .reverse, animated: false, completion: nil)
         }
     }
@@ -88,29 +88,29 @@ open class QYPageView: UIView {
 extension QYPageView: UIPageViewControllerDelegate,UIPageViewControllerDataSource {
     ///前一页
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vcs = self.viewControllers! as NSArray
+        let vcs = self.yi_viewControllers! as NSArray
         var index = vcs.index(of: viewController)
         if index == 0 || index == NSNotFound {
             return nil
         }
         index -= 1
-        return self.viewControllers?[index] ?? nil
+        return self.yi_viewControllers?[index] ?? nil
     }
     ///后一页
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vcs = self.viewControllers! as NSArray
+        let vcs = self.yi_viewControllers! as NSArray
         var index = vcs.index(of: viewController)
-        if index == (self.viewControllers?.count ?? 0) - 1 || index == NSNotFound {
+        if index == (self.yi_viewControllers?.count ?? 0) - 1 || index == NSNotFound {
             return nil
         }
         index += 1
-        return self.viewControllers?[index] ?? nil
+        return self.yi_viewControllers?[index] ?? nil
     }
     ///将要滑动切换的时候
     public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
         let vc = pendingViewControllers.first
-        let vcs = self.viewControllers! as NSArray
+        let vcs = self.yi_viewControllers! as NSArray
         let index = vcs.index(of: vc ?? UIViewController())
         
         currentIndex = index
@@ -118,7 +118,7 @@ extension QYPageView: UIPageViewControllerDelegate,UIPageViewControllerDataSourc
     /// 滑动结束后
     public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
-            DispatchQueue.main.yi_getMainAsync {
+            DispatchQueue.yi_getMainAsync {
                 self.selectView.allClick(self.selectView.buttons![self.currentIndex])
             }
         }
@@ -153,13 +153,13 @@ fileprivate class QYSelectView: UIView {
         var oldButotn: UIButton?
         let initspacing = 10
         for (i,string) in titles.enumerated() {
-            var titW = string.yi_getWidth(QYFont_14)
-            let titH = string.yi_getHeight(QYFont_14, fixedWidth: titW)
+            var titW = string.yi_getWidth(QYFont(14))
+            let titH = string.yi_getHeight(QYFont(14), fixedWidth: titW)
             titW = lineWidth ?? titW
             let button = UIButton().yi_then({
                 $0.yi_title = string
                 $0.yi_titleColor = QY33Color
-                $0.yi_titleFont = QYFont_14
+                $0.yi_titleFont = QYFont(14)
                 $0.yi_selectedColor = .blue
                 $0.tag = i
                 $0.addTarget(self, action: #selector(self.allClick(_:)), for: .touchUpInside)
@@ -223,8 +223,8 @@ fileprivate class QYSelectView: UIView {
         clickBlock?(titles.first ?? "",0)
     }
     @objc func allClick(_ sender: UIButton) {
-        var titW = sender.titleLabel?.text!.yi_getWidth(QYFont_14)
-        guard let titH = sender.titleLabel?.text?.yi_getHeight(QYFont_14, fixedWidth: titW ?? 100) else { return }
+        var titW = sender.titleLabel?.text!.yi_getWidth(QYFont(14))
+        guard let titH = sender.titleLabel?.text?.yi_getHeight(QYFont(14), fixedWidth: titW ?? 100) else { return }
         titW = lineWidth ?? titW
         buttons?.forEach({ btn in
             btn.isSelected = false

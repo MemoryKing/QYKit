@@ -81,7 +81,7 @@ open class QYPermissionsDetection: NSObject {
         } else {
             isOpen = true
         }
-        DispatchQueue.main.async {
+        DispatchQueue.yi_getMainAsync {
             action(isOpen)
         }
     }
@@ -93,7 +93,7 @@ open class QYPermissionsDetection: NSObject {
         if authStatus == PHAuthorizationStatus.restricted || authStatus == PHAuthorizationStatus.denied {
             isOpen = false;
         }
-        DispatchQueue.main.async {
+        DispatchQueue.yi_getMainAsync {
             action(isOpen)
         }
     }
@@ -111,7 +111,7 @@ open class QYPermissionsDetection: NSObject {
         } else {
             isOpen = true
         }
-        DispatchQueue.main.async {
+        DispatchQueue.yi_getMainAsync {
             action(isOpen)
         }
     }
@@ -126,7 +126,7 @@ open class QYPermissionsDetection: NSObject {
             } else {
                 isOpen = false
             }
-            DispatchQueue.main.async {
+            DispatchQueue.yi_getMainAsync {
                 action(isOpen,state)
             }
         }
@@ -178,7 +178,7 @@ private class QYCheckBluetooth: NSObject ,CBCentralManagerDelegate {
     /// 获取蓝牙权限
     func requestBluetoothAuthorization(_ completionHandler: @escaping (_ state: QYAuthorizationState) -> Void) {
         self.completionHandler = completionHandler
-        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetooth Queue")
+        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetoothQueue")
         self.cbcManager = CBCentralManager.init(delegate: self, queue: self.bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
     }
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

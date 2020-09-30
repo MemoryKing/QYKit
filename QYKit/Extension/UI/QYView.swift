@@ -429,12 +429,19 @@ public extension UIView {
 //MARK: --- 转换
 public extension UIView {
     ///转换成图片
-    func yi_toImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
+    func yi_toImage(_ size:CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0)
         drawHierarchy(in: bounds, afterScreenUpdates: false)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return img ?? UIImage.init()
+    }
+    ///转换成图片
+    func yi_toImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
     }
 }
 

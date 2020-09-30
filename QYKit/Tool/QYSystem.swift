@@ -10,8 +10,8 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 import UIKit
 
-///系统功能
 open class QYSystem: NSObject {
+    static let shared = QYSystem()
     ///是否编辑,默认false
     public var allowsEditing: Bool? = false
     
@@ -36,11 +36,11 @@ open class QYSystem: NSObject {
     }
 }
 //MARK: ------- 打开相机相册
-extension QYSystem: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     ///打开相机相册
     public class func yi_invokeCameraPhoto (_ blc: ((UIImage)->())?) {
-        let qy = QYSystem()
-        qy.photoBlock = blc
+        let qy = QYSystem.shared
+        QYSystem.shared.photoBlock = blc
         let alertVC = UIAlertController.init(title: "", message: "请选择图片", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction.init(title: "相机", style: .default) { (action) in
             qy.yi_invokeSystemCamera()
@@ -60,7 +60,7 @@ extension QYSystem: UIImagePickerControllerDelegate & UINavigationControllerDele
             if b {
                 let imagePickerController = UIImagePickerController()
                 imagePickerController.sourceType = .photoLibrary
-                imagePickerController.delegate = self
+                imagePickerController.delegate = QYSystem.shared
                 imagePickerController.allowsEditing = false
                 if self.allowsEditing! {
                     imagePickerController.allowsEditing = true
@@ -82,7 +82,7 @@ extension QYSystem: UIImagePickerControllerDelegate & UINavigationControllerDele
             if b {
                 let imagePickerController = UIImagePickerController()
                 imagePickerController.sourceType = .camera
-                imagePickerController.delegate = self
+                imagePickerController.delegate = QYSystem.shared
                 imagePickerController.allowsEditing = false
                 imagePickerController.cameraCaptureMode = .photo
                 imagePickerController.mediaTypes = ["public.image"]
@@ -105,14 +105,21 @@ extension QYSystem: UIImagePickerControllerDelegate & UINavigationControllerDele
         ///原图
         let orignalImg = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         ///编辑后的图片
-        let editedImg = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
+        let editedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if picker.sourceType == .camera && (orignalImg != nil) {
             UIImageWriteToSavedPhotosAlbum(orignalImg!, self, nil, nil)
         }
         picker.dismiss(animated: true) {
             DispatchQueue.main.async {
                 if (self.photoBlock != nil) {
-                    self.photoBlock!(editedImg)
+                    if let img = editedImg {
+                        self.photoBlock!(img)
+                    } else {
+                        if let img = orignalImg {
+                            self.photoBlock!(img)
+                        }
+                    }
+                    
                 }
             }
         }

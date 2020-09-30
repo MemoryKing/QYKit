@@ -35,7 +35,7 @@ open class QYCameraController: QYBaseViewController {
         return UILabel().yi_then({
             $0.text = yi_titleText
             $0.textAlignment = .center
-            $0.font = QYFont_14
+            $0.font = QYFont(14)
             $0.textColor = UIColor.white
             $0.transform = CGAffineTransform.init(rotationAngle: CGFloat.pi * 0.5)
         })
@@ -87,7 +87,7 @@ open class QYCameraController: QYBaseViewController {
             againBtn.setTitle("重拍", for: UIControl.State.normal)
             againBtn.setTitleColor(UIColor.white, for: UIControl.State.normal)
             againBtn.addTarget(self, action: #selector(takePhotoAgain), for: UIControl.Event.touchUpInside)
-            againBtn.titleLabel?.font = QYFont_16
+            againBtn.titleLabel?.font = QYFont(16)
             againBtn.titleLabel?.textAlignment = .center
             b.addSubview(againBtn)
             againBtn.snp.makeConstraints({
@@ -101,7 +101,7 @@ open class QYCameraController: QYBaseViewController {
             userBtn.setTitle("使用照片", for: UIControl.State.normal)
             userBtn.setTitleColor(UIColor.white, for: UIControl.State.normal)
             userBtn.addTarget(self, action: #selector(usePhoto), for: UIControl.Event.touchUpInside)
-            userBtn.titleLabel?.font = QYFont_16
+            userBtn.titleLabel?.font = QYFont(16)
             userBtn.titleLabel?.textAlignment = .center
             b.addSubview(userBtn)
             userBtn.snp.makeConstraints({
@@ -235,9 +235,10 @@ open class QYCameraController: QYBaseViewController {
     // MARK: 拍照
     @objc private func shutterCamera(btn: UIButton) {
         let settings = AVCapturePhotoSettings()
-        if settings.availablePreviewPhotoPixelFormatTypes.count > 0 {
-            settings.previewPhotoFormat = [ kCVPixelBufferPixelFormatTypeKey as String : settings.availablePreviewPhotoPixelFormatTypes.first!]
+        if settings.previewPhotoFormat?.count ?? 0 > 0 {
+            settings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String : settings.previewPhotoFormat?.first as Any]
         }
+        
         imageOutput.capturePhoto(with: settings, delegate: self)
         cancleButton.isHidden = true
         flashButton.isHidden = true

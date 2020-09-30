@@ -54,6 +54,9 @@ open class QYBaseViewController: UIViewController {
         self.view.backgroundColor = QYF5Color
         yi_InterfaceLayout()
     }
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     ///界面布局
     open func yi_InterfaceLayout() {
         
@@ -76,11 +79,23 @@ open class QYBaseViewController: UIViewController {
         self.mainTableView!.estimatedSectionFooterHeight = 0
         self.mainTableView!.estimatedSectionHeaderHeight = 0
         self.view.addSubview(self.mainTableView!)
+        var top: CGFloat
+        var bottom: CGFloat
+        if (self.navigationController != nil) {
+            top = QYStatusAndNavHeight
+        } else {
+            top = QYStatusHeight
+        }
+        if self.tabBarController != nil {
+            bottom = QYBottomAndTabBarHeight
+        } else {
+            bottom = QYBottomHeight
+        }
         self.mainTableView!.snp.makeConstraints {
-            $0.top.equalTo(QYStatusAndNavHeight)
+            $0.top.equalTo(top)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
-            $0.bottom.equalTo(-QYBottomHeight)
+            $0.bottom.equalTo(-bottom)
         }
         block?(self.mainTableView!)
     }
@@ -154,7 +169,6 @@ open class QYBaseViewController: UIViewController {
             self.mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
         }
     }
-    
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.yi_barStyle

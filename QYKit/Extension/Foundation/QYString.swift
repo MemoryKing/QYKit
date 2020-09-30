@@ -23,16 +23,18 @@ public extension String {
     ///float -> string
     init?(_ float: Float?,_ significand: Int? = nil) {
         if let i = significand {
-            self.init(String(format: "%.\(i)f", float!))
+            self.init(String(format: "%.\(i)f", float ?? 0.00))
+        } else {
+            self.init(format: "%f", float ?? 0.0)
         }
-        self.init(format: "%f", float ?? 0.0)
     }
     ///double -> string
     init?(_ double: Double?,_ significand: Int? = nil) {
         if let i = significand {
-            self.init(String(format: "%.\(i)f", double!))
+            self.init(String(format: "%.\(i)f", double ?? 0.00))
+        } else {
+            self.init(format: "%f", double ?? 0.0)
         }
-        self.init(format: "%f", double ?? 0.0)
     }
     ///base64
     init?(base64: String) {
@@ -40,8 +42,10 @@ public extension String {
         let base64Padded = base64 + pad
         if let decodedData = Data(base64Encoded: base64Padded, options: NSData.Base64DecodingOptions(rawValue: 0)), let decodedString = NSString(data: decodedData, encoding: String.Encoding.utf8.rawValue) {
             self.init(decodedString)
+        } else {
+            self.init("")
         }
-        self.init("")
+        
     }
     ///时间戳创建时间字符串
     init?(timeInterval: Double,formatter: String) {
@@ -86,7 +90,7 @@ public extension String {
         } else if (char >= "a".utf8CString[0] && char <= "f".utf8CString[0]) {
             return Int(char) - Int("a".utf8CString[0]) + 10
         }
-        return 0;
+        return 0
     }
     //MARK: --- 获取文本高度
     /// 获取文本高度
@@ -116,40 +120,59 @@ public extension String {
 public extension String {
     ///开始结束
     func yi_index(_ start: Int ,_ stop: Int) -> String {
-        let index1 = self.index(self.startIndex, offsetBy: start)
-        let index2 = self.index(self.startIndex, offsetBy: stop)
-        return String(self[index1..<index2])
+        let string = self
+        let index1 = string.index(string.startIndex, offsetBy: start)
+        let index2 = string.index(string.startIndex, offsetBy: stop)
+        return String(string[index1..<index2])
     }
     ///从哪到之后长度
     func yi_index(_ start: Int ,length: Int) -> String {
-        let index1 = self.index(self.startIndex, offsetBy: start)
-        let index2 = self.index(self.startIndex, offsetBy: start + length)
-        return String(self[index1..<index2])
+        let string = self
+        let index1 = string.index(string.startIndex, offsetBy: start)
+        let index2 = string.index(string.startIndex, offsetBy: start + length)
+        return String(string[index1..<index2])
     }
     ///开始到i
     func yi_index(to i: Int) -> String {
-        let index = self.index(startIndex, offsetBy: i)
-        return String(self[index])
+        let string = self
+        let index = string.index(startIndex, offsetBy: i)
+        return String(string[index])
     }
     ///截取range
     func yi_index(_ range: Range<Int>) -> String {
-        let start = self.index(startIndex, offsetBy: range.lowerBound)
-        let end = self.index(startIndex, offsetBy: range.upperBound)
-        return String(self[start..<end])
+        let string = self
+        let start = string.index(startIndex, offsetBy: range.lowerBound)
+        let end = string.index(startIndex, offsetBy: range.upperBound)
+        return String(string[start..<end])
     }
     ///截取closedrange
     func yi_index(closedRange: ClosedRange<Int>) -> String {
-        return self.yi_index(closedRange.lowerBound..<(closedRange.upperBound + 1))
+        let string = self
+        return string.yi_index(closedRange.lowerBound..<(closedRange.upperBound + 1))
     }
     ///count
     private var length: Int {
         return self.count
     }
     ///替换指定范围内的字符串
-    mutating func yi_replacing(index:Int,length:Int,replac:String) -> String {
-        let startIndex = self.index(self.startIndex, offsetBy: index)
-        self.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: length), with: replac)
-        return self
+    /// - Parameters:
+    ///   - index: 起点
+    ///   - length: 长度
+    ///   - replac: 替换字符
+    ///   - cycle: 是否循环插入替换字符串
+    /// - Returns: 新字符串
+    mutating func yi_replacing(index:Int,length:Int,replac:String,_ cycle: Bool? = nil) -> String {
+        var string = self
+        let count = self.count
+        let startIndex = string.index(string.startIndex, offsetBy: index)
+        string.replaceSubrange(startIndex..<string.index(startIndex, offsetBy: length), with: replac)
+        if cycle ?? false {
+            while count <= string.count {
+                string = string.yi_insert(replac, index: index)
+            }
+            return string
+        }
+        return string
     }
     
     /// 替换字符串
@@ -159,7 +182,8 @@ public extension String {
     ///   - option: 可以用来指定一个选项标记（这个标记可以作为替换的条件)
     ///   - range: 指定一个替换的范围
     func yi_replacingOccurrences(_ of: String,_ with: String,option: String.CompareOptions = [],range: Range<Self.Index>? = nil) -> String {
-        let s = self.replacingOccurrences(of: of, with: with, options: option, range: range)
+        let string = self
+        let s = string.replacingOccurrences(of: of, with: with, options: option, range: range)
         return s
     }
     /// 替换字符串
@@ -167,50 +191,52 @@ public extension String {
     ///   - range: 范围
     ///   - with: 替换字符串
     func yi_replacingCharacters(_ range: NSRange,_ with: String) -> String {
-        return (self as NSString).replacingCharacters(in: range, with: with)
+        let string = self
+        return (string as NSString).replacingCharacters(in: range, with: with)
     }
     ///删除第一个字符
     mutating func yi_deleteFirst() -> String {
-        self.remove(at: self.index(before: self.startIndex))
-        return self
+        var string = self
+        string.remove(at: string.index(before: string.startIndex))
+        return string
     }
     ///删除最后一个字符
     mutating func yi_deleteLast() -> String {
-        self.remove(at: self.index(before: self.endIndex))
-        return self
+        var string = self
+        string.remove(at: string.index(before: string.endIndex))
+        return string
     }
     /// 删除指定字符串
     mutating func yi_delete(_ string: String) -> String {
-        return self.replacingOccurrences(of: string, with: "")
-    }
-    /// 字符的插入
-    mutating func yi_insert(_ text: Character, index: Int) -> String{
-        let start = self.index(self.startIndex, offsetBy: index)
-        self.insert(text, at: start)
-        return self
+        let string = self
+        return string.replacingOccurrences(of: string, with: "")
     }
     ///字符串的插入
     mutating func yi_insert(_ text: String, index: Int) -> String {
-        let start = self.index(self.startIndex, offsetBy: index)
-        self.insert(contentsOf: text, at: start)
-        return self
+        var string = self
+        let start = string.index(string.startIndex, offsetBy: index)
+        string.insert(contentsOf: text, at: start)
+        return string
     }
     /// 将字符串通过特定的字符串拆分为字符串数组
     func yi_components(_ string: String) -> [String] {
+        let string = self
         return NSString(string: self).components(separatedBy: string)
     }
     ///去除前后的换行和空格
     func yi_removeSapce() -> String {
-        var resultString = self.trimmingCharacters(in: CharacterSet.whitespaces)
+        let string = self
+        var resultString = string.trimmingCharacters(in: CharacterSet.whitespaces)
         resultString = resultString.trimmingCharacters(in: CharacterSet.newlines)
         return resultString
     }
     ///获取某个字符串在总字符串的位置
     func yi_positionOf(_ sub: String,_ backwards: Bool = false)->Int {
+        let string = self
         var pos = -1
         if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
             if !range.isEmpty {
-                pos = self.distance(from:startIndex, to:range.lowerBound)
+                pos = string.distance(from:startIndex, to:range.lowerBound)
             }
         }
         return pos
@@ -252,7 +278,7 @@ public extension String {
         return nil
     }
     ///string --> date
-    func yi_toDate(dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
+    func yi_toDate(from dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = dateFormat
@@ -316,7 +342,7 @@ public extension String {
             Scanner(string: hexCharStr).scanHexInt32(&r)
             bytes.append(UInt8(r))
         }
-        dataBStr = String.init(data: Data(bytes), encoding: String.Encoding.ascii)!
+        dataBStr = String.init(data: Data(bytes), encoding: String.Encoding.ascii) ?? ""
         return dataBStr
     }
     ///普通字符串转换为十六进制
@@ -335,9 +361,16 @@ public extension String {
         return sumString
     }
     /// base64
-    func yi_toBase64 (_ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
+    func yi_toBase64 (_ options: Data.Base64EncodingOptions? = nil) -> String {
         let plainData = (self as NSString).data(using: String.Encoding.utf8.rawValue)
-        let base64String = plainData!.base64EncodedString(options: options)
+        var base64String = ""
+        if let data = plainData {
+            if let option = options {
+                base64String = data.base64EncodedString(options: option)
+            } else {
+                base64String = data.base64EncodedString()
+            }
+        }
         return base64String
     }
     ///转成byte数组
@@ -400,17 +433,21 @@ public extension String {
 public extension String {
     ///转为大写
     func yi_uppercased(_ locale: Locale?) -> String {
-        return self.uppercased(with: locale)
+        let string = self
+        return string.uppercased(with: locale)
     }
     ///转为小写
     func yi_lowercased(_ locale: Locale?) -> String {
-        return self.lowercased(with: locale)
+        let string = self
+        return string.lowercased(with: locale)
     }
     ///大写字符串的第“计数”字符
-    mutating func yi_uppercasePrefix(_ count: Int) {
-        guard self.count > 0 && count > 0 else { return }
-        self.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: min(count, length)),
-                             with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).uppercased())
+    mutating func yi_uppercasePrefix(_ count: Int) -> String {
+        guard self.count > 0 && count > 0 else { return self }
+        var string = self
+        string.replaceSubrange(startIndex..<string.index(startIndex, offsetBy: min(count, length)),
+                             with: String(string[startIndex..<string.index(startIndex, offsetBy: min(count, length))]).uppercased())
+        return string
     }
     ///大写首'计数'字符的字符串
     func yi_uppercasedPrefix(_ count: Int) -> String {

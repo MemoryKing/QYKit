@@ -9,6 +9,7 @@ GitHub:        https://github.com/MemoryKing
 
 import UIKit
 
+///设备
 public extension UIDevice {
     //MARK: --- 系统名
     ///系统名

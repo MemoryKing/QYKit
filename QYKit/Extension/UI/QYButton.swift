@@ -104,7 +104,7 @@ public extension UIButton {
     func yi_imagePosition(_ type: QYButtonImagePosition,_ space: CGFloat? = nil,_ imageW: CGFloat? = nil,_ imageH: CGFloat? = nil) {
         var image: UIImage?
         if imageW != 0 && imageH != 0 && imageW != nil && imageH != nil {
-            image = UIImage.yi_scale(self.imageView?.image ?? UIImage(), imageW ?? 0.0,imageH ?? 0.0)
+            image = image?.yi_scale(imageW ?? 0.0, imageH ?? 0.0)
             self.setImage(image, for: .normal)
         }
         let imageWidth = self.imageView?.image?.size.width ?? 0

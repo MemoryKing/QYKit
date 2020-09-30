@@ -18,7 +18,7 @@ public extension UIImage {
         do {
             let data = try Data(contentsOf: url!)
             image = UIImage.init(data: data)
-        }catch let error as NSError {
+        } catch let error as NSError {
             print(error)
         }
         return image
@@ -168,19 +168,8 @@ public extension UIImage {
          guard let image: CGImage = cgImage?.cropping(to: rect) else { return self }
          return UIImage(cgImage: image)
      }
-    ///view生成指定大小的图片
-    func yi_fromView(_ view:UIView ,_ size:CGSize) -> UIImage {
-         
-         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-         view.layer.render(in: UIGraphicsGetCurrentContext()!)
-         
-         let image = UIGraphicsGetImageFromCurrentImageContext()
-         UIGraphicsEndImageContext()
-         
-         return image!
-     }
-     ///压缩图片
-     func yi_compressedData(_ quality: CGFloat = 0.5) -> UIImage? {
+     ///图片质量
+     func yi_compressionQuality(_ quality: CGFloat = 0.5) -> UIImage? {
         return UIImage.init(data: self.jpegData(compressionQuality: quality)!)
      }
      /// 旋转指定角度
@@ -206,7 +195,7 @@ public extension UIImage {
          return newImage
      }
     ///图片压缩
-    func yi_resetImageSize(maxSizeKB : CGFloat,_ maxImageLenght : CGFloat = 0) -> UIImage {
+    func yi_resetImageSize(maxSizeKB : CGFloat,maxImageLenght : CGFloat) -> UIImage? {
         var maxSize = maxSizeKB
         var maxImageSize = maxImageLenght
         if (maxSize <= 0.0) {
@@ -238,15 +227,20 @@ public extension UIImage {
             sizeOriginKB = CGFloat((imageData?.count)!) / 1024.0
             resizeRate -= 0.1
         }
-        return UIImage.init(data: imageData!)!
+        QYLog("压缩后图片--大小:\(sizeOriginKB)--size:\(newSize)")
+        if let data = imageData {
+            return UIImage.init(data: data)
+        } else {
+            return nil
+        }
     }
     
     ///将图片绘制成制定大小
-    class func yi_scale(_ image: UIImage,_ w: CGFloat,_ h: CGFloat) -> UIImage {
+    func yi_scale(_ w: CGFloat,_ h: CGFloat) -> UIImage? {
         let newSize = CGSize(width: w, height: h)
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
     }
@@ -261,7 +255,7 @@ public extension UIImage {
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        return newImage;
+        return newImage
     }
     
      /// 根据字符串生成二维码图片
@@ -298,48 +292,44 @@ public extension UIImage {
          return UIGraphicsGetImageFromCurrentImageContext()
      }
     ///生成条形码
-    class func generateCode128(_ text:String, _ size:CGSize,_ color:UIColor? = nil ) -> UIImage?
-    {
+    class func generateCode128(_ text:String, _ size:CGSize,_ color:UIColor? = nil ) -> UIImage? {
         //给滤镜设置内容
         guard let data = text.data(using: .utf8) else {
             return nil
         }
-        
         if let filter = CIFilter(name: "CICode128BarcodeGenerator") {
-            
             filter.setDefaults()
-            
             filter.setValue(data, forKey: "inputMessage")
-            
             //获取生成的条形码
             guard let outPutImage = filter.outputImage else {
                 return nil
             }
-            
             // 设置条形码颜色
             let colorFilter = CIFilter(name: "CIFalseColor", parameters: ["inputImage":outPutImage,"inputColor0":CIColor(cgColor: color?.cgColor ?? UIColor.black.cgColor),"inputColor1":CIColor(cgColor: UIColor.clear.cgColor)])
-            
             //获取带颜色的条形码
             guard let newOutPutImage = colorFilter?.outputImage else {
                 return nil
             }
-            
             let scaleX:CGFloat = size.width/newOutPutImage.extent.width
-            
             let scaleY:CGFloat = size.height/newOutPutImage.extent.height
-            
             let transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-            
             let output = newOutPutImage.transformed(by: transform)
-            
             let barCodeImage = UIImage(ciImage: output)
-            
             return barCodeImage
-            
         }
-        
         return nil
     }
     
-    
+//    func loadImage(image:UIImage) {
+//        UIImageWriteToSavedPhotosAlbum(self, self, #selector(saveImage(image:didFinishSavingWithError:contextInfo:)), nil)
+//    }
+//       
+//    @objc private func saveImage(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
+//        if error != nil{
+//            QYHUD.show("保存失败")
+//        }else{
+//            print("保存成功")
+//            QYHUD.show("保存成功")
+//        }
+//    }
 }

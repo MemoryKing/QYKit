@@ -70,8 +70,12 @@ public extension DispatchQueue {
         task?(true)
     }
     ///返回主线程
-    func yi_getMainAsync(_ bl: @escaping ()->()) {
-        DispatchQueue.main.async(execute: bl)
+    class func yi_getMainAsync(_ bl: @escaping ()->()) {
+        if Thread.isMainThread {
+            bl()
+        } else {
+            DispatchQueue.main.async(execute: bl)
+        }
     }
     
     convenience init(_ str: String) {

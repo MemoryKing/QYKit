@@ -27,7 +27,6 @@
 		045C621224D815470080FAFF /* QYString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61E524D815460080FAFF /* QYString.swift */; };
 		045C621324D815470080FAFF /* QYArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61E624D815460080FAFF /* QYArray.swift */; };
 		045C621424D815470080FAFF /* QYAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61E724D815460080FAFF /* QYAttributedString.swift */; };
-		045C621524D815470080FAFF /* QYFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61E824D815460080FAFF /* QYFont.swift */; };
 		045C621624D815470080FAFF /* QYOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61E924D815460080FAFF /* QYOperation.swift */; };
 		045C621724D815470080FAFF /* QYDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61EA24D815460080FAFF /* QYDictionary.swift */; };
 		045C621824D815470080FAFF /* QYThen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61EB24D815460080FAFF /* QYThen.swift */; };
@@ -46,7 +45,6 @@
 		045C622524D815470080FAFF /* QYRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61FF24D815470080FAFF /* QYRegular.swift */; };
 		045C622624D815470080FAFF /* QYPermissionsDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620024D815470080FAFF /* QYPermissionsDetection.swift */; };
 		045C622724D815470080FAFF /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620124D815470080FAFF /* QYToolManager.swift */; };
-		045C622824D815470080FAFF /* QYScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620224D815470080FAFF /* QYScreenInfo.swift */; };
 		045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620324D815470080FAFF /* QYTouchIDManager.swift */; };
 		04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A52DBD24F9026A00A71142 /* MyViewController.swift */; };
 		04BADA8F24F7A99B004FA99F /* QYPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BADA8E24F7A99B004FA99F /* QYPageView.swift */; };
@@ -100,7 +98,6 @@
 		045C61E524D815460080FAFF /* QYString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYString.swift; sourceTree = "<group>"; };
 		045C61E624D815460080FAFF /* QYArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYArray.swift; sourceTree = "<group>"; };
 		045C61E724D815460080FAFF /* QYAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYAttributedString.swift; sourceTree = "<group>"; };
-		045C61E824D815460080FAFF /* QYFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYFont.swift; sourceTree = "<group>"; };
 		045C61E924D815460080FAFF /* QYOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYOperation.swift; sourceTree = "<group>"; };
 		045C61EA24D815460080FAFF /* QYDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYDictionary.swift; sourceTree = "<group>"; };
 		045C61EB24D815460080FAFF /* QYThen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYThen.swift; sourceTree = "<group>"; };
@@ -119,7 +116,6 @@
 		045C61FF24D815470080FAFF /* QYRegular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYRegular.swift; sourceTree = "<group>"; };
 		045C620024D815470080FAFF /* QYPermissionsDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYPermissionsDetection.swift; sourceTree = "<group>"; };
 		045C620124D815470080FAFF /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
-		045C620224D815470080FAFF /* QYScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYScreenInfo.swift; sourceTree = "<group>"; };
 		045C620324D815470080FAFF /* QYTouchIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTouchIDManager.swift; sourceTree = "<group>"; };
 		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,7 +233,6 @@
 				045C61E524D815460080FAFF /* QYString.swift */,
 				045C61E624D815460080FAFF /* QYArray.swift */,
 				045C61E724D815460080FAFF /* QYAttributedString.swift */,
-				045C61E824D815460080FAFF /* QYFont.swift */,
 				045C61E924D815460080FAFF /* QYOperation.swift */,
 				045C61EA24D815460080FAFF /* QYDictionary.swift */,
 				045C61EB24D815460080FAFF /* QYThen.swift */,
@@ -303,7 +298,6 @@
 				045C61FF24D815470080FAFF /* QYRegular.swift */,
 				045C620024D815470080FAFF /* QYPermissionsDetection.swift */,
 				045C620124D815470080FAFF /* QYToolManager.swift */,
-				045C620224D815470080FAFF /* QYScreenInfo.swift */,
 				045C620324D815470080FAFF /* QYTouchIDManager.swift */,
 			);
 			path = Tool;
@@ -545,7 +539,6 @@
 			files = (
 				045C622424D815470080FAFF /* QYSystem.swift in Sources */,
 				045C622524D815470080FAFF /* QYRegular.swift in Sources */,
-				045C621524D815470080FAFF /* QYFont.swift in Sources */,
 				045C621924D815470080FAFF /* QYBaseViewController.swift in Sources */,
 				045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */,
 				04BADA8F24F7A99B004FA99F /* QYPageView.swift in Sources */,
@@ -568,7 +561,6 @@
 				045C622024D815470080FAFF /* QYAlert.swift in Sources */,
 				045C622124D815470080FAFF /* QYLocation.swift in Sources */,
 				045C620E24D815470080FAFF /* QYColor.swift in Sources */,
-				045C622824D815470080FAFF /* QYScreenInfo.swift in Sources */,
 				045C621C24D815470080FAFF /* QYBaseTableView.swift in Sources */,
 				045C620C24D815470080FAFF /* QYObject.swift in Sources */,
 				045C621B24D815470080FAFF /* QYBaseCollectionView.swift in Sources */,
