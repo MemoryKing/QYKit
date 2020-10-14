@@ -218,12 +218,12 @@ public extension UIViewController {
     }
 
     ///返回某视图
-    func yi_goBackToVC (_ num: Int = 0,_ ani: Bool = true) {
+    func yi_goBackToVC (_ num: Int? = nil,_ ani: Bool? = nil) {
         if self.navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
-            guard let vc = self.navigationController?.viewControllers[num] else { return }
-            self.navigationController?.popToViewController(vc, animated: ani)
+            guard let vc = self.navigationController?.viewControllers[num ?? 0] else { return }
+            self.navigationController?.popToViewController(vc, animated: ani ?? true)
         }
     }
     

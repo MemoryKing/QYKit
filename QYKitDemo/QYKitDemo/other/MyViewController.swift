@@ -15,15 +15,17 @@ class MyViewController: QYBaseViewController {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .yi_random()
-        self.yi_addTableView()
-        self.mainTableView?.yi_cellForRowAtIndexPath({ (tab, inde) -> UITableViewCell in
-            return UITableViewCell()
-            }).yi_numberRows(100)
-        self.mainTableView?.yi_heightRows(50)
+//        self.yi_addTableView()
+//        self.mainTableView?.yi_cellForRowAtIndexPath({ (tab, inde) -> UITableViewCell in
+//            return UITableViewCell()
+//            }).yi_numberRows(100)
+//        self.mainTableView?.yi_heightRows(50)
         
     }
     
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        QYHUD.showProgress("oooolplpl")
+    }
     /*
     // MARK: - Navigation
 

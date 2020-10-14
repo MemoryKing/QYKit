@@ -34,6 +34,15 @@ open class QYSystem: NSObject {
             UIApplication.shared.open(url!, options: [:], completionHandler: completion)
         }
     }
+    //MARK: --- 是否是模拟器
+    ///是否是模拟器
+    public class func yi_isSimulator() -> Bool {
+        var isSim = false
+        #if arch(i386) || arch(x86_64)
+            isSim = true
+        #endif
+        return isSim
+    }
 }
 //MARK: ------- 打开相机相册
 extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDelegate {

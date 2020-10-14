@@ -16,8 +16,10 @@ public extension UIImage {
         var image: UIImage?
         let url = URL.init(string: url)
         do {
-            let data = try Data(contentsOf: url!)
-            image = UIImage.init(data: data)
+            if let ur = url {
+                let data = try Data(contentsOf: ur)
+                image = UIImage.init(data: data)
+            }
         } catch let error as NSError {
             print(error)
         }
@@ -195,15 +197,9 @@ public extension UIImage {
          return newImage
      }
     ///图片压缩
-    func yi_resetImageSize(maxSizeKB : CGFloat,maxImageLenght : CGFloat) -> UIImage? {
-        var maxSize = maxSizeKB
-        var maxImageSize = maxImageLenght
-        if (maxSize <= 0.0) {
-            maxSize = 1024.0
-        }
-        if (maxImageSize <= 0.0)  {
-            maxImageSize = 1024.0
-        }
+    func yi_resetImage(_ maxSizeKB : CGFloat,_ maxImageLenght : CGFloat?) -> UIImage? {
+        let maxSize = maxSizeKB
+        let maxImageSize = maxImageLenght ?? self.size.width
         //先调整分辨率
         var newSize = CGSize.init(width: self.size.width, height: self.size.height)
         let tempHeight = newSize.height / maxImageSize
@@ -319,17 +315,25 @@ public extension UIImage {
         }
         return nil
     }
-    
-//    func loadImage(image:UIImage) {
-//        UIImageWriteToSavedPhotosAlbum(self, self, #selector(saveImage(image:didFinishSavingWithError:contextInfo:)), nil)
-//    }
-//       
-//    @objc private func saveImage(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
-//        if error != nil{
-//            QYHUD.show("保存失败")
-//        }else{
-//            print("保存成功")
-//            QYHUD.show("保存成功")
-//        }
-//    }
+    ///保存到相册
+    func yi_savedPhotosAlbum() {
+        UIImageWriteToSavedPhotosAlbum(self, self, #selector(saveImage(image:didFinishSavingWithError:contextInfo:)), nil)
+    }
+       
+    @objc private func saveImage(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
+        if error != nil{
+            QYHUD.show("保存失败")
+        }else{
+            print("保存成功")
+            QYHUD.show("保存成功")
+        }
+    }
+}
+
+
+
+public extension UIImage {
+    private struct QYRuntimeKey {
+        static let saveBlockKey = UnsafeRawPointer.init(bitPattern: <#T##Int#>)
+    }
 }

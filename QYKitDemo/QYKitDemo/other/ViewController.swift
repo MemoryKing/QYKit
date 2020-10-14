@@ -29,20 +29,26 @@ class ViewController: QYBaseViewController {
         
         var ss = "123133wqer"
         let aa = ss.yi_deleteLast()
+        
         QYLog("\(ss) + \(aa)")
         
-//        ceshi1()
+        ceshi3()
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
-            $0.backgroundColor = .red
+            $0.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
             $0.frame = self.view.bounds
             view.addSubview($0)
         })
         brn.yi_clickAction = {
-            QYLog("12333333333333333333")
-            let cam = QYCameraController()
-            self.yi_push(cam)
+//            QYHUD.shared.locationStatus = .top
+            QYHUD.show("tisi") {
+                QYLog("12333333333333333333")
+                self.yi_push(MyViewController())
+            }
+//            QYHUD.showProgress()
+//            let cam = QYCameraController()
+//            self.yi_push(cam)
 //            self.yi_present(cam.yi_then({
 ////                $0.titleText = "213hndnsajif"
 //                $0.modalPresentationStyle = .fullScreen

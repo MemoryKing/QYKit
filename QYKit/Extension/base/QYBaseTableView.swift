@@ -222,7 +222,7 @@ extension QYBaseTableView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
 }
 
 //MARK: --- delegate --dataSource
-extension UITableView {
+public extension UITableView {
     //MARK: --- 区头
     ///区数
     func yi_numberSections(_ number: Int) {
@@ -230,10 +230,9 @@ extension UITableView {
         qyDelegate?.numberSections = number
     }
     ///区数
-    func yi_numberOfSections(_ block: @escaping (UITableView)->(Int)) -> UITableView {
+    func yi_numberOfSections(_ block: @escaping (UITableView)->(Int)) {
         delegateInitialize()
         qyDelegate?.numberOfSections = block
-        return self
     }
     
     ///区头高

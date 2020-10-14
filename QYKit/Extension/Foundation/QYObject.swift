@@ -43,13 +43,13 @@ public extension NSObject {
         }
         return names
     }
-    
+    ///获取当前控制器
     func yi_getTopViewController () -> UIViewController? {
         var root = UIApplication.shared.keyWindow?.rootViewController
         while let par = root?.presentingViewController {
             root = par
         }
-        while ((root?.isKind(of: UINavigationController.self)) != nil) {
+        while root?.isKind(of: UINavigationController.self) == true {
             let nav = root as! UINavigationController
             root = nav.topViewController
         }
