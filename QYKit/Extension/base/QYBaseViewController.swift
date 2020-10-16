@@ -37,7 +37,8 @@ open class QYBaseViewController: UIViewController {
             return _openPopGecognizer ?? false
         }
     }
-    
+    ///区头区尾悬停
+    public var isHover: Bool?
     public var mainTableView: QYBaseTableView?
     public var mainCollection: QYBaseCollectionView?
     //MARK: --- viewDidLoad
@@ -64,13 +65,13 @@ open class QYBaseViewController: UIViewController {
     
     //MARK: --- 添加表视图
     ///添加表视图
-    public func yi_addTableView(_ block: ((QYBaseTableView) -> Void)? = nil) {
+    public func yi_addTableView(_ style: UITableView.Style? = nil, _ block: ((QYBaseTableView) -> Void)? = nil) {
         if self.mainCollection != nil {
             self.mainCollection?.removeFromSuperview()
             self.mainCollection = nil
         }
         
-        self.mainTableView = QYBaseTableView()
+        self.mainTableView = QYBaseTableView(frame: .zero, style: style ?? .plain)
         self.mainTableView!.showsVerticalScrollIndicator = false
         self.mainTableView!.showsHorizontalScrollIndicator = false
         self.mainTableView!.backgroundColor = QYF5Color
@@ -173,5 +174,45 @@ open class QYBaseViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.yi_barStyle
     }
+}
 
+extension QYBaseViewController : UIScrollViewDelegate {
+    //MARK: --- header、footer均不悬停
+    //header、footer均不悬停
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if isHover ?? false {
+            //组头高度
+            let sectionHeaderHeight:CGFloat = 30
+            //组尾高度
+            let sectionFooterHeight:CGFloat = 30
+             
+            //获取是否有默认调整的内边距
+            let defaultEdgeTop:CGFloat = navigationController?.navigationBar != nil
+                && self.automaticallyAdjustsScrollViewInsets ? 64 : 0
+             
+            //上边距相关
+            var edgeTop = defaultEdgeTop
+            if scrollView.contentOffset.y >= -defaultEdgeTop &&
+                scrollView.contentOffset.y <= sectionHeaderHeight - defaultEdgeTop  {
+                edgeTop = -scrollView.contentOffset.y
+            }
+            else if (scrollView.contentOffset.y>=sectionHeaderHeight - defaultEdgeTop) {
+                edgeTop = -sectionHeaderHeight + defaultEdgeTop
+            }
+             
+            //下边距相关
+            var edgeBottom:CGFloat = 0
+            let b = scrollView.contentOffset.y + scrollView.frame.height
+            let h = scrollView.contentSize.height - sectionFooterHeight
+             
+            if b <= h {
+                edgeBottom = -30
+            }else if b > h && b < scrollView.contentSize.height {
+                edgeBottom = b - h - 30
+            }
+             
+            //设置内边距
+            scrollView.contentInset = UIEdgeInsets(top: edgeTop, left: 0, bottom: edgeBottom, right: 0)
+        }
+    }
 }

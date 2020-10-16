@@ -84,18 +84,23 @@ class ViewController: QYBaseViewController {
         tableView.backgroundColor = .blue
         tableView.yi_isScrollEnabled = true
         view.addSubview(tableView)
-        tableView.yi_viewForHeaderInSection({ (tab, sec) -> UIView in
-            let view = UIView()
-            if sec == 0 {
-                view.backgroundColor = .red
-            } else {
-                view.backgroundColor = .gray
-            }
-            return view
-        }).yi_numberOfSections({ (tab) -> (Int) in
-            return 10
-        }).yi_heightHeaderSection(100)
         
+//        tableView.yi_viewForHeaderInSection({ (tab, sec) -> UIView in
+//            let view = UIView()
+//            if sec == 0 {
+//                view.backgroundColor = .red
+//            } else {
+//                view.backgroundColor = .gray
+//            }
+//            return view
+//        }).yi_numberOfSections({ (tab) -> (Int) in
+//            return 10
+//        }).yi_heightHeaderSection(100)
+        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
+            
+        }.yi_numberOfSections { (tab) -> (Int) in
+            
+        }
         tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
             let view = UIView()
             view.backgroundColor = .purple

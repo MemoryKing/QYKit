@@ -247,27 +247,16 @@ public extension String {
 public extension String {
     /// Int
     func yi_toInt() -> Int? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.intValue
-        } else {
-            return nil
-        }
+        
+        return NSDecimalNumber.init(string: String(format: "%@", self)).intValue
     }
     /// Double
     func yi_toDouble() -> Double? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.doubleValue
-        } else {
-            return nil
-        }
+        return NSDecimalNumber.init(string: String(format: "%@", self)).doubleValue
     }
     /// Float
     func yi_toFloat() -> Float? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.floatValue
-        } else {
-            return nil
-        }
+        return NSDecimalNumber.init(string: String(format: "%@", self)).floatValue
     }
     /// Bool
     func yi_toBool() -> Bool? {

@@ -24,7 +24,7 @@ open class QYAlert: UIView {
     public class func yi_show(title: String? = "",
                        message: String,
                        titleArr: [String],
-                       highlighted: Int?,
+                       highlighted: Int? = 1,
                        handler: ((UIAlertController,UIAlertAction,NSInteger) -> Void)?,
                        type: UIAlertController.Style = .alert,
                        complete: @escaping ((NSInteger,String)->(Void))) {
@@ -40,7 +40,6 @@ open class QYAlert: UIView {
                     alert.preferredAction = action
                 }
             })
-            action.setValue(QY33Color, forKey: "titleTextColor")
             handler?(alert,action,index)
             alert.addAction(action)
         }
@@ -64,7 +63,7 @@ open class QYAlert: UIView {
     ///   - type: 类型
     public class func yi_show(title: String? = "",message: String,
                        titleArr: [String],
-                       highlighted: Int?,
+                       highlighted: Int? = 1,
                        textFields: [String],
                        actionHandler: ((UIAlertController,UIAlertAction,NSInteger) -> Void)?,
                        tfHandler: ((UITextField,NSInteger) -> Void)?,

@@ -111,99 +111,133 @@ public prefix func - (vector: CGVector) -> CGVector {
 
 //MARK: --- Int
 public func + (lhs: CGFloat,rhs: Int) -> CGFloat {
-    let rhs2 = CGFloat(rhs)
-    return lhs + rhs2
+    
+    let newRhs = CGFloat(rhs)
+    return lhs + newRhs
 }
 public func - (lhs: CGFloat,rhs: Int) -> CGFloat {
-    let rhs2 = CGFloat(rhs)
-    return lhs - rhs2
+    let newRhs = CGFloat(rhs)
+    return lhs - newRhs
 }
 public func * (lhs: CGFloat,rhs: Int) -> CGFloat {
-    let rhs2 = CGFloat(rhs)
-    return lhs * rhs2
+    let newRhs = CGFloat(rhs)
+    return lhs * newRhs
 }
 public func / (lhs: CGFloat,rhs: Int) -> CGFloat {
-    let rhs2 = CGFloat(rhs)
-    return lhs / rhs2
+    let newRhs = CGFloat(rhs)
+    return lhs / newRhs
 }
 public func += (lhs: inout CGFloat,rhs: Int) {
-    let rhs2 = CGFloat(rhs)
-    lhs = lhs + rhs2
+    let newRhs = CGFloat(rhs)
+    lhs = lhs + newRhs
 }
 public func -= (lhs: inout CGFloat,rhs: Int) {
-    let rhs2 = CGFloat(rhs)
-    lhs = lhs - rhs2
+    let newRhs = CGFloat(rhs)
+    lhs = lhs - newRhs
 }
 public func *= (lhs: inout CGFloat,rhs: Int) {
-    let rhs2 = CGFloat(rhs)
-    lhs = lhs * rhs2
+    let newRhs = CGFloat(rhs)
+    lhs = lhs * newRhs
 }
 public func /= (lhs: inout CGFloat,rhs: Int) {
-    let rhs2 = CGFloat(rhs)
-    lhs = lhs / rhs2
+    let newRhs = CGFloat(rhs)
+    lhs = lhs / newRhs
 }
 
 public func + (lhs: Float,rhs: Int) -> Float {
-    let rhs2 = Float(rhs)
-    return lhs + rhs2
+    
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.adding(newRhs).floatValue
 }
 public func - (lhs: Float,rhs: Int) -> Float {
-    let rhs2 = Float(rhs)
-    return lhs - rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.subtracting(newRhs).floatValue
 }
 public func * (lhs: Float,rhs: Int) -> Float {
-    let rhs2 = Float(rhs)
-    return lhs * rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.multiplying(by: newRhs).floatValue
 }
 public func / (lhs: Float,rhs: Int) -> Float {
-    let rhs2 = Float(rhs)
-    return lhs / rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.dividing(by: newRhs).floatValue
 }
 public func += (lhs: inout Float,rhs: Int) {
-    let rhs2 = Float(rhs)
-    lhs = lhs + rhs2
+    
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    lhs = newLhs.adding(newRhs).floatValue
 }
 public func -= (lhs: inout Float,rhs: Int) {
-    let rhs2 = Float(rhs)
-    lhs = lhs - rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    lhs = newLhs.subtracting(newRhs).floatValue
 }
 public func *= (lhs: inout Float,rhs: Int) {
-    let rhs2 = Float(rhs)
-    lhs = lhs * rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    lhs = newLhs.dividing(by: newRhs).floatValue
 }
 public func /= (lhs: inout Float,rhs: Int) {
-    let rhs2 = Float(rhs)
-    lhs = lhs / rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    lhs = newLhs.dividing(by: newRhs).floatValue
 }
+
 public func + (lhs: Double,rhs: Int) -> Double {
-    let rhs2 = Double(rhs)
-    return lhs + rhs2
+    
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.adding(newRhs).doubleValue
 }
 public func - (lhs: Double,rhs: Int) -> Double {
-    let rhs2 = Double(rhs)
-    return lhs - rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.subtracting(newRhs).doubleValue
 }
 public func * (lhs: Double,rhs: Int) -> Double {
-    let rhs2 = Double(rhs)
-    return lhs * rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.multiplying(by: newRhs).doubleValue
 }
 public func / (lhs: Double,rhs: Int) -> Double {
-    let rhs2 = Double(rhs)
-    return lhs / rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    return newLhs.dividing(by: newRhs).doubleValue
 }
 public func += (lhs: inout Double,rhs: Int) {
-    let rhs2 = Double(rhs)
-    lhs = lhs + rhs2
+    
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    lhs = newLhs.adding(newRhs).doubleValue
 }
 public func -= (lhs: inout Double,rhs: Int) {
-    let rhs2 = Double(rhs)
-    lhs = lhs - rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    lhs = newLhs.subtracting(newRhs).doubleValue
 }
 public func *= (lhs: inout Double,rhs: Int) {
-    let rhs2 = Double(rhs)
-    lhs = lhs * rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    lhs = newLhs.dividing(by: newRhs).doubleValue
 }
 public func /= (lhs: inout Double,rhs: Int) {
-    let rhs2 = Double(rhs)
-    lhs = lhs / rhs2
+    let newLhs = NSDecimalNumber.init(string: String(format: "%f", lhs))
+    let newRhs = NSDecimalNumber.init(string: String(format: "%ld", rhs))
+    
+    lhs = newLhs.dividing(by: newRhs).doubleValue
 }

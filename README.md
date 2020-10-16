@@ -1,7 +1,10 @@
 # QYKit
 
 ##   1.1.9
-
+#### uiimage 新增功能
+#### 调取相册bug
+#### baseTableview    增加是否悬停控制
+#### 运算符修改
 #### 封装MBProgressHUD
 #### 相机模拟器执行问题
 

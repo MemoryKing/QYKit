@@ -34,22 +34,11 @@ open class QYSystem: NSObject {
             UIApplication.shared.open(url!, options: [:], completionHandler: completion)
         }
     }
-    //MARK: --- 是否是模拟器
-    ///是否是模拟器
-    public class func yi_isSimulator() -> Bool {
-        var isSim = false
-        #if arch(i386) || arch(x86_64)
-            isSim = true
-        #endif
-        return isSim
-    }
-}
-//MARK: ------- 打开相机相册
-extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+    
     ///打开相机相册
     public class func yi_invokeCameraPhoto (_ blc: ((UIImage)->())?) {
         let qy = QYSystem.shared
-        QYSystem.shared.photoBlock = blc
+        qy.photoBlock = blc
         let alertVC = UIAlertController.init(title: "", message: "请选择图片", preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction.init(title: "相机", style: .default) { (action) in
             qy.yi_invokeSystemCamera()
@@ -69,7 +58,7 @@ extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDele
             if b {
                 let imagePickerController = UIImagePickerController()
                 imagePickerController.sourceType = .photoLibrary
-                imagePickerController.delegate = QYSystem.shared
+                imagePickerController.delegate = self
                 imagePickerController.allowsEditing = false
                 if self.allowsEditing! {
                     imagePickerController.allowsEditing = true
@@ -91,7 +80,7 @@ extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDele
             if b {
                 let imagePickerController = UIImagePickerController()
                 imagePickerController.sourceType = .camera
-                imagePickerController.delegate = QYSystem.shared
+                imagePickerController.delegate = self
                 imagePickerController.allowsEditing = false
                 imagePickerController.cameraCaptureMode = .photo
                 imagePickerController.mediaTypes = ["public.image"]
@@ -106,27 +95,29 @@ extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDele
             }
         }
     }
+}
+//MARK: ------- 打开相机相册
+extension QYSystem: UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+    
     //MARK: -------UIImagePickerControllerDelegate
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         }
         ///原图
-        let orignalImg = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        let orignalImg = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         ///编辑后的图片
         let editedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-        if picker.sourceType == .camera && (orignalImg != nil) {
-            UIImageWriteToSavedPhotosAlbum(orignalImg!, self, nil, nil)
+        if picker.sourceType == .camera {
+            UIImageWriteToSavedPhotosAlbum(orignalImg, self, nil, nil)
         }
         picker.dismiss(animated: true) {
             DispatchQueue.main.async {
                 if (self.photoBlock != nil) {
                     if let img = editedImg {
                         self.photoBlock!(img)
-                    } else {
-                        if let img = orignalImg {
-                            self.photoBlock!(img)
-                        }
+                    } else  {
+                        self.photoBlock!(orignalImg)
                     }
                     
                 }
