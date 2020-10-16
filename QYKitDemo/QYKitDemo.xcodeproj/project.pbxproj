@@ -45,6 +45,7 @@
 		045C622624D815470080FAFF /* QYPermissionsDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620024D815470080FAFF /* QYPermissionsDetection.swift */; };
 		045C622724D815470080FAFF /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620124D815470080FAFF /* QYToolManager.swift */; };
 		045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620324D815470080FAFF /* QYTouchIDManager.swift */; };
+		048CD62E25397CCD00E8BC75 /* QYCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CD62D25397CCD00E8BC75 /* QYCameraController.swift */; };
 		04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A52DBD24F9026A00A71142 /* MyViewController.swift */; };
 		04BADA8F24F7A99B004FA99F /* QYPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BADA8E24F7A99B004FA99F /* QYPageView.swift */; };
 		04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB1A24C7E33B009C348D /* ViewController.swift */; };
@@ -116,6 +117,7 @@
 		045C620124D815470080FAFF /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
 		045C620324D815470080FAFF /* QYTouchIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTouchIDManager.swift; sourceTree = "<group>"; };
 		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		048CD62D25397CCD00E8BC75 /* QYCameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYCameraController.swift; sourceTree = "<group>"; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FD4249CA2650086A508 /* QYKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FDF249CA2650086A508 /* QYKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,6 +271,7 @@
 		045C61F424D815460080FAFF /* 功能 */ = {
 			isa = PBXGroup;
 			children = (
+				048CD62D25397CCD00E8BC75 /* QYCameraController.swift */,
 				045C61F524D815470080FAFF /* QYCountDownButton.swift */,
 				045C61F624D815470080FAFF /* QYDatePickerViewController.swift */,
 				045C61F724D815470080FAFF /* QYAlert.swift */,
@@ -558,6 +561,7 @@
 				045C622024D815470080FAFF /* QYAlert.swift in Sources */,
 				045C622124D815470080FAFF /* QYLocation.swift in Sources */,
 				045C620E24D815470080FAFF /* QYColor.swift in Sources */,
+				048CD62E25397CCD00E8BC75 /* QYCameraController.swift in Sources */,
 				045C621C24D815470080FAFF /* QYBaseTableView.swift in Sources */,
 				045C620C24D815470080FAFF /* QYObject.swift in Sources */,
 				045C621B24D815470080FAFF /* QYBaseCollectionView.swift in Sources */,
