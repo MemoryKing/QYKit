@@ -96,11 +96,11 @@ class ViewController: QYBaseViewController {
 //        }).yi_numberOfSections({ (tab) -> (Int) in
 //            return 10
 //        }).yi_heightHeaderSection(100)
-        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
-            
-        }.yi_numberOfSections { (tab) -> (Int) in
-            
-        }
+//        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
+//
+//        }.yi_numberOfSections { (tab) -> (Int) in
+//            
+//        }
         tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
             let view = UIView()
             view.backgroundColor = .purple
