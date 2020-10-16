@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E859824F5085600002267 /* QYTableViewDelegate.swift */; };
 		042094C925133D5800C15B3F /* QYFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042094C825133D5800C15B3F /* QYFunction.swift */; };
-		0438ECAD24FE1FFF00A2EB92 /* QYCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */; };
 		045C620424D815470080FAFF /* QYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D624D815460080FAFF /* QYButton.swift */; };
 		045C620524D815470080FAFF /* QYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D724D815460080FAFF /* QYTextView.swift */; };
 		045C620624D815470080FAFF /* QYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D824D815460080FAFF /* QYView.swift */; };
@@ -80,7 +79,6 @@
 /* Begin PBXFileReference section */
 		040E859824F5085600002267 /* QYTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYTableViewDelegate.swift; sourceTree = "<group>"; };
 		042094C825133D5800C15B3F /* QYFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYFunction.swift; sourceTree = "<group>"; };
-		0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYCameraController.swift; sourceTree = "<group>"; };
 		045C61D624D815460080FAFF /* QYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYButton.swift; sourceTree = "<group>"; };
 		045C61D724D815460080FAFF /* QYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTextView.swift; sourceTree = "<group>"; };
 		045C61D824D815460080FAFF /* QYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYView.swift; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 				045C61F724D815470080FAFF /* QYAlert.swift */,
 				045C61F924D815470080FAFF /* QYLocation.swift */,
 				04BADA8E24F7A99B004FA99F /* QYPageView.swift */,
-				0438ECAC24FE1FFF00A2EB92 /* QYCameraController.swift */,
 			);
 			path = "功能";
 			sourceTree = "<group>";
@@ -571,7 +568,6 @@
 				04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */,
 				045C620924D815470080FAFF /* QYImage.swift in Sources */,
 				04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */,
-				0438ECAD24FE1FFF00A2EB92 /* QYCameraController.swift in Sources */,
 				045C620724D815470080FAFF /* QYTextField.swift in Sources */,
 				045C621224D815470080FAFF /* QYString.swift in Sources */,
 				045C621E24D815470080FAFF /* QYCountDownButton.swift in Sources */,
