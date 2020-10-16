@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.1.9'
+  s.version          = '1.1.10'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'PKHUD'
   s.dependency 'SnapKit'
+  s.dependency 'MBProgressHUD'
   
   s.resource_bundles = { 'QYResources' => 'QYKit/**/*.xcassets' }
   
