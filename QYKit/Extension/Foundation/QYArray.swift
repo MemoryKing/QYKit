@@ -12,11 +12,24 @@ public extension Array {
     /// 转data
     func yi_toData() -> Data {
         if (!JSONSerialization.isValidJSONObject(self)) {
-            print("数组转data")
+            QYLog("数组转data")
             return Data()
         }
         let data = try? JSONSerialization.data(withJSONObject: self, options: [])
         return data!
+    }
+    
+    func yi_toJSONString() -> String? {
+        if (!JSONSerialization.isValidJSONObject(self)) {
+            QYLog("dic转json失败")
+            return nil
+        }
+        if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: []) {
+            let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
+            return JSONString as String? ?? nil
+        }
+        QYLog("dic转json失败")
+        return nil
     }
     
 }

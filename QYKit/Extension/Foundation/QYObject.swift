@@ -55,6 +55,7 @@ public extension NSObject {
         }
         return root
     }
+    
 }
 ///比例大小
 public func QYRatio(_ num: CGFloat) -> CGFloat {

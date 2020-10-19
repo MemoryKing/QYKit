@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040AAF79253D8D1C006C48B5 /* QYMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040AAF78253D8D1C006C48B5 /* QYMappable.swift */; };
 		040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E859824F5085600002267 /* QYTableViewDelegate.swift */; };
 		042094C925133D5800C15B3F /* QYFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042094C825133D5800C15B3F /* QYFunction.swift */; };
 		045C620424D815470080FAFF /* QYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D624D815460080FAFF /* QYButton.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040AAF78253D8D1C006C48B5 /* QYMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYMappable.swift; sourceTree = "<group>"; };
 		040E859824F5085600002267 /* QYTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYTableViewDelegate.swift; sourceTree = "<group>"; };
 		042094C825133D5800C15B3F /* QYFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYFunction.swift; sourceTree = "<group>"; };
 		045C61D624D815460080FAFF /* QYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYButton.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				045C61E924D815460080FAFF /* QYOperation.swift */,
 				045C61EA24D815460080FAFF /* QYDictionary.swift */,
 				045C61EB24D815460080FAFF /* QYThen.swift */,
+				040AAF78253D8D1C006C48B5 /* QYMappable.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				04C6AB2824C7E33B009C348D /* AppDelegate.swift in Sources */,
 				045C620F24D815470080FAFF /* QYData.swift in Sources */,
 				045C621D24D815470080FAFF /* QYHUD.swift in Sources */,
+				040AAF79253D8D1C006C48B5 /* QYMappable.swift in Sources */,
 				045C620A24D815470080FAFF /* QYViewController.swift in Sources */,
 				045C620524D815470080FAFF /* QYTextView.swift in Sources */,
 				045C621024D815470080FAFF /* QYBlockGesture.swift in Sources */,

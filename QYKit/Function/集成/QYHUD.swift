@@ -23,7 +23,7 @@ open class QYHUD: NSObject {
     ///单例
     static var shared = QYHUD()
     ///超时时间
-    public var afterDelayTime: TimeInterval = 2
+    public var afterDelayTime: TimeInterval?
     ///是否动画
     public var animated: Bool = true
     ///位置
@@ -42,11 +42,22 @@ open class QYHUD: NSObject {
             hud.label.text = text
             hud.mode = .text
             qyhud.defaultConfiguration(hud)
-            hud.hide(animated: qyhud.animated, afterDelay: qyhud.afterDelayTime)
             hud.completionBlock = completion
+            
+            if let time = qyhud.afterDelayTime {
+                hud.minShowTime = time
+            } else {
+                if text.count / 6 < 1 {
+                    hud.minShowTime = 1.5
+                } else {
+                    hud.minShowTime = TimeInterval(text.count / 6 + 3 / 4)
+                }
+            }
+            hud.hide(animated: qyhud.animated)
         }
     }
-    ///加载
+    //MARK: --- 菊花
+    ///菊花
     public class func showProgress(_ text: String? = nil) {
         DispatchQueue.yi_getMainAsync {
             let hud = MBProgressHUD.showAdded(to: onView, animated: qyhud.animated)
@@ -56,6 +67,8 @@ open class QYHUD: NSObject {
         }
     }
     
+    //MARK: --- 默认配置
+    ///默认配置
     private func defaultConfiguration(_ hud: MBProgressHUD) {
         ///多行
         hud.label.numberOfLines = 0
@@ -73,7 +86,6 @@ open class QYHUD: NSObject {
                 hud.offset = .init(x: 0, y: MBProgressMaxOffset)
         }
         hud.removeFromSuperViewOnHide = true
-        hud.show(animated: qyhud.animated)
     }
     
     ///当前视图

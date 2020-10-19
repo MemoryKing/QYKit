@@ -21,20 +21,30 @@ public extension Dictionary {
     }
     ///转json
     func yi_toJSON() -> String? {
-        if let jsonData = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions()) {
-            let jsonStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
-            return String(jsonStr ?? "")
+        if (!JSONSerialization.isValidJSONObject(self)) {
+            QYLog("dit转json失败")
+            return nil
         }
+        if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: []) {
+            let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
+            return JSONString as String? ?? nil
+        }
+        QYLog("dic转json失败")
         return nil
     }
+    
     /// 字典转二进制
-    func yi_toData() -> Data {
+    func yi_toData() -> Data? {
         if (!JSONSerialization.isValidJSONObject(self)) {
-            print("字典转二进制失败")
+            QYLog("字典转二进制失败")
             return Data()
         }
-        let data = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        return data!
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
+            return data
+        } catch let error {
+            QYLog(error)
+        }
+        return nil
     }
 }

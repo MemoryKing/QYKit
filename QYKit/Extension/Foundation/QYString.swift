@@ -294,13 +294,16 @@ public extension String {
         return Int(stamp)
     }
     /// JSONString转换为字典
-    func yi_toDictionary() -> NSDictionary {
-        let jsonData:Data = self.data(using: .utf8)!
-        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-        if dict != nil {
-            return dict as! NSDictionary
+    func yi_toDictionary() -> [String:Any]? {
+        guard let jsonData:Data = self.data(using: .utf8) else {
+            QYLog("json转dict失败")
+            return nil
         }
-        return NSDictionary()
+        if let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) {
+            return dict as? [String : Any] ?? ["":""]
+        }
+        QYLog("json转dict失败")
+        return nil
     }
     ///十六进制转数字
     func yi_hexToInt() -> Int {

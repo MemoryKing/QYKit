@@ -11,11 +11,15 @@ import UIKit
 //import QYKit
 
 
+struct Preson: QYMappable {
+    var name: String?
+}
+
 class ViewController: QYBaseViewController {
     var tableView: QYBaseTableView!
     var lab: UILabel?
     
-    
+    var model : Preson?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         QYLog("viewcontro")
@@ -32,6 +36,13 @@ class ViewController: QYBaseViewController {
         
         QYLog("\(ss) + \(aa)")
         
+        model = Preson.init(name: "ddmmmvvvvvv")
+        
+        let s = model?.to()
+        
+        
+        
+        
         ceshi3()
     }
     func ceshi3() {
@@ -42,7 +53,7 @@ class ViewController: QYBaseViewController {
         })
         brn.yi_clickAction = {
 //            QYHUD.shared.locationStatus = .top
-            QYHUD.show("tisi") {
+            QYHUD.show("这下吧发是这下吧发是这下吧发是这下吧发是") {
                 QYLog("12333333333333333333")
                 self.yi_push(MyViewController())
             }
@@ -114,6 +125,12 @@ class ViewController: QYBaseViewController {
             QYLog(indexPath)
         }
         QYRatio(1)
+        
+        yi_addTableView(.grouped) { (tab) in
+            
+        }
+        
+        
     }
     
     func ceshi() {

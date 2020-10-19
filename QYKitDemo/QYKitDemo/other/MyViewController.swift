@@ -12,7 +12,7 @@ class MyViewController: QYBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.yi_barStyle = .lightContent
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .yi_random()
 //        self.yi_addTableView()
