@@ -245,6 +245,7 @@ public extension String {
 
 //MARK: --- 转换
 public extension String {
+    //MARK: --- 数据类型
     /// Int
     func yi_toInt() -> Int? {
         
@@ -266,6 +267,7 @@ public extension String {
         }
         return nil
     }
+    //MARK: --- 时间
     ///string --> date
     func yi_toDate(from dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
         let formatter = DateFormatter()
@@ -293,6 +295,8 @@ public extension String {
         let stamp = date.timeIntervalSince1970
         return Int(stamp)
     }
+    
+    //MARK: --- json转换
     /// JSONString转换为字典
     func yi_toDictionary() -> [String:Any]? {
         guard let jsonData:Data = self.data(using: .utf8) else {
@@ -305,6 +309,13 @@ public extension String {
         QYLog("json转dict失败")
         return nil
     }
+    /// JSONString转换为data
+    func yi_toData() -> Data? {
+        let data = self.data(using: String.Encoding.utf8)
+        return data
+    }
+    
+    //MARK: --- 进制
     ///十六进制转数字
     func yi_hexToInt() -> Int {
         let str = self.uppercased()
@@ -352,6 +363,7 @@ public extension String {
         }
         return sumString
     }
+    //MARK: --- 加密
     /// base64
     func yi_toBase64 (_ options: Data.Base64EncodingOptions? = nil) -> String {
         let plainData = (self as NSString).data(using: String.Encoding.utf8.rawValue)
@@ -373,10 +385,36 @@ public extension String {
         strData.getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
         return bytesArray
     }
+    ///md5 字符串加密
+    func yi_md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        free(result)
+        return String(format: hash as String)
+    }
+    ///encode
+    func yi_encoded(_ charactersIn: String? = nil) -> String{
+        var customAllowedSet = NSCharacterSet.alphanumerics
+        if let characters = charactersIn {
+            ///"!*'();:@&=+$,/?%#[]"
+            customAllowedSet =  NSCharacterSet(charactersIn:characters).inverted
+        }
+        let st = (self as NSString).addingPercentEncoding(withAllowedCharacters: customAllowedSet)
+        return st ?? ""
+    }
+    
     ///url
     func yi_toUrl() -> URL? {
         return URL(string: self)
     }
+    
     ///图片
     func yi_toUrlImage() -> UIImage? {
         var image: UIImage?
@@ -392,32 +430,11 @@ public extension String {
         }
         return image
     }
-    ///md5 字符串加密
-    func yi_md5() -> String {
-        let str = self.cString(using: String.Encoding.utf8)
-        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
-        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
-        CC_MD5(str!, strLen, result)
-        let hash = NSMutableString()
-        for i in 0 ..< digestLen {
-            hash.appendFormat("%02x", result[i])
-        }
-        free(result)
-        return String(format: hash as String)
-    }
+    
+    
     ///NSAttributedString
     func yi_toAttributed() -> NSAttributedString {
         return NSAttributedString.init(string: self)
-    }
-    ///url encode
-    func yi_toUrlEncoded(_ charactersIn: String? = nil) -> String{
-        var customAllowedSet = NSCharacterSet.alphanumerics
-        if (charactersIn != nil) {
-            customAllowedSet =  NSCharacterSet(charactersIn:charactersIn ?? "!*'();:@&=+$,/?%#[]").inverted
-        }
-        let st = (self as NSString).addingPercentEncoding(withAllowedCharacters: customAllowedSet)
-        return st ?? ""
     }
 }
 

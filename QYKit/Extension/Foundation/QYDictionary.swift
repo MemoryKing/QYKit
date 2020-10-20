@@ -35,6 +35,7 @@ public extension Dictionary {
     
     /// 字典转二进制
     func yi_toData() -> Data? {
+        
         if (!JSONSerialization.isValidJSONObject(self)) {
             QYLog("字典转二进制失败")
             return Data()

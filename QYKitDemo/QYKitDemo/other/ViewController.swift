@@ -11,18 +11,21 @@ import UIKit
 //import QYKit
 
 
-struct Preson: QYMappable {
-    var name: String?
+struct Presonewe: QYCodable {
+    var name: QYStrInt?
+    var ss: QYStrDble?
+//    init(from decoder: Decoder) throws {
+//        name = try TStrInt.init(from: decoder)
+//    }
 }
 
 class ViewController: QYBaseViewController {
     var tableView: QYBaseTableView!
     var lab: UILabel?
     
-    var model : Preson?
+    var model : Presonewe?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        QYLog("viewcontro")
     }
     
     override func viewDidLoad() {
@@ -36,13 +39,13 @@ class ViewController: QYBaseViewController {
         
         QYLog("\(ss) + \(aa)")
         
-        model = Preson.init(name: "ddmmmvvvvvv")
         
-        let s = model?.to()
+        let str = "{\"ss\":\"0.003880\",\"name\":null}"
+        model = try? Presonewe.yi_fromDic(str.yi_toDictionary())
         
-        
-        
-        
+        QYLog(model?.name?.string ?? "123")
+        QYLog(model?.ss?.string ?? "0.0000000")
+        QYLog(model?.ss?.double ?? 0.0000000)
         ceshi3()
     }
     func ceshi3() {
