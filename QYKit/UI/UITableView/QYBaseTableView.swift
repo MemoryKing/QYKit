@@ -52,6 +52,12 @@ open class QYBaseTableView: UITableView {
     public var yi_empty_backgroundColor         : UIColor   = QYF5Color
     
     private var emptyClickBlock         : (() -> Void)? = nil
+    ///分页页数
+    public var yi_page: Int = 1
+    ///分页每页个数
+    public var yi_pageNumber: Int = 10
+    ///数据个数
+    public var yi_dataCount: Int = 0
     
     public override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -82,6 +88,14 @@ open class QYBaseTableView: UITableView {
     open override func reloadData() {
         super.reloadData()
         self.isScrollEnabled = yi_isScrollEnabled ?? true
+        
+        self.yi_endRefreshing()
+        if (self.mj_footer != nil) {
+            if self.yi_page * self.yi_pageNumber > self.yi_dataCount {
+                self.yi_endRefreshingWithNoMoreData()
+            }
+            self.yi_page += 1
+        }
     }
     
 }

@@ -51,6 +51,14 @@ open class QYBaseCollectionView: UICollectionView {
     public var yi_empty_backgroundColor         : UIColor   = QYF5Color
     
     private var emptyClickBlock         : (() -> Void)? = nil
+    
+    ///分页页数
+    public var yi_page: Int = 1
+    ///分页每页个数
+    public var yi_pageNumber: Int = 10
+    ///数据个数
+    public var yi_dataCount: Int = 0
+    public var yi_isScrollEnabled         : Bool?
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         if #available(iOS 11.0, *) {
@@ -65,8 +73,28 @@ open class QYBaseCollectionView: UICollectionView {
         self.emptyDataSetDelegate = self
     }
     
-    required public init?(coder: NSCoder) {
+    open override func reloadEmptyDataSet() {
+        super.reloadEmptyDataSet()
+    }
+    fileprivate func reloadTableView(){
+        reloadEmptyDataSet()
+        self.reloadData()
+    }
+    
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    open override func reloadData() {
+        super.reloadData()
+        self.isScrollEnabled = yi_isScrollEnabled ?? true
+        
+        self.yi_endRefreshing()
+        if (self.mj_footer != nil) {
+            if self.yi_page * self.yi_pageNumber > self.yi_dataCount {
+                self.yi_endRefreshingWithNoMoreData()
+            }
+            self.yi_page += 1
+        }
     }
     
 }
@@ -202,10 +230,6 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
         }
     }
 
-    fileprivate func reloadTableView(){
-       self.reloadData()
-       self.reloadEmptyDataSet()
-    }
 }
 
 

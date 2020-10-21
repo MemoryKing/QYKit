@@ -46,7 +46,7 @@ class ViewController: QYBaseViewController {
         QYLog(model?.ss?.string ?? "0.0000000")
         QYLog(model?.ss?.double ?? 0.0000000)
         
-//        ceshi3()
+        ceshi1()
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
@@ -98,41 +98,22 @@ class ViewController: QYBaseViewController {
         tableView.backgroundColor = .blue
         tableView.yi_isScrollEnabled = true
         view.addSubview(tableView)
-        
-//        tableView.yi_viewForHeaderInSection({ (tab, sec) -> UIView in
-//            let view = UIView()
-//            if sec == 0 {
-//                view.backgroundColor = .red
-//            } else {
-//                view.backgroundColor = .gray
-//            }
-//            return view
-//        }).yi_numberOfSections({ (tab) -> (Int) in
-//            return 10
-//        }).yi_heightHeaderSection(100)
-//        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
-//
-//        }.yi_numberOfSections { (tab) -> (Int) in
-//            
-//        }
-        tableView.yi_viewForFooterInSection { (tab, sec) -> UIView in
-            let view = UIView()
-            view.backgroundColor = .purple
-            if sec == 1 {
-                view.backgroundColor = .gray
-            }
-            return view
-        }.yi_heightFooterSection(30)
+        tableView.yi_dataCount = 18
+        tableView.yi_cellForRowAtIndexPath { (tab, index) -> UITableViewCell in
+            return UITableViewCell()
+        }.yi_numberOfRowsInSection { (tab, int) -> (Int) in
+            return self.tableView.yi_page * self.tableView.yi_pageNumber
+        }.yi_heightRows(50)
         
         tableView.yi_didSelectRowAtIndexPath { (tab, indexPath) in
             QYLog(indexPath)
         }
-//        QYRatio(1)
         
-        yi_addTableView(.grouped) { (tab) in
-            
+        tableView.yi_refreshFooter {
+            DispatchQueue.main.yi_after(1) {
+                self.tableView.reloadData()
+            }
         }
-        
         
     }
     
