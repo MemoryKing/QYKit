@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		040AAF79253D8D1C006C48B5 /* QYCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040AAF78253D8D1C006C48B5 /* QYCodable.swift */; };
 		040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E859824F5085600002267 /* QYTableViewDelegate.swift */; };
-		042094C925133D5800C15B3F /* QYFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042094C825133D5800C15B3F /* QYFunction.swift */; };
 		045C620424D815470080FAFF /* QYButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D624D815460080FAFF /* QYButton.swift */; };
 		045C620524D815470080FAFF /* QYTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D724D815460080FAFF /* QYTextView.swift */; };
 		045C620624D815470080FAFF /* QYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C61D824D815460080FAFF /* QYView.swift */; };
@@ -46,6 +45,7 @@
 		045C622624D815470080FAFF /* QYPermissionsDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620024D815470080FAFF /* QYPermissionsDetection.swift */; };
 		045C622724D815470080FAFF /* QYToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620124D815470080FAFF /* QYToolManager.swift */; };
 		045C622924D815470080FAFF /* QYTouchIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C620324D815470080FAFF /* QYTouchIDManager.swift */; };
+		04824C00253FE56B00FEB336 /* QYGradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04824BFF253FE56B00FEB336 /* QYGradientLabel.swift */; };
 		048CD62E25397CCD00E8BC75 /* QYCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CD62D25397CCD00E8BC75 /* QYCameraController.swift */; };
 		04931F8F253EE81C0095A773 /* QYCustomDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04931F8E253EE81C0095A773 /* QYCustomDataType.swift */; };
 		04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A52DBD24F9026A00A71142 /* MyViewController.swift */; };
@@ -82,7 +82,6 @@
 /* Begin PBXFileReference section */
 		040AAF78253D8D1C006C48B5 /* QYCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYCodable.swift; sourceTree = "<group>"; };
 		040E859824F5085600002267 /* QYTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYTableViewDelegate.swift; sourceTree = "<group>"; };
-		042094C825133D5800C15B3F /* QYFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYFunction.swift; sourceTree = "<group>"; };
 		045C61D624D815460080FAFF /* QYButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYButton.swift; sourceTree = "<group>"; };
 		045C61D724D815460080FAFF /* QYTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTextView.swift; sourceTree = "<group>"; };
 		045C61D824D815460080FAFF /* QYView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYView.swift; sourceTree = "<group>"; };
@@ -119,6 +118,7 @@
 		045C620024D815470080FAFF /* QYPermissionsDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYPermissionsDetection.swift; sourceTree = "<group>"; };
 		045C620124D815470080FAFF /* QYToolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYToolManager.swift; sourceTree = "<group>"; };
 		045C620324D815470080FAFF /* QYTouchIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYTouchIDManager.swift; sourceTree = "<group>"; };
+		04824BFF253FE56B00FEB336 /* QYGradientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYGradientLabel.swift; sourceTree = "<group>"; };
 		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		048CD62D25397CCD00E8BC75 /* QYCameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYCameraController.swift; sourceTree = "<group>"; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,102 +189,30 @@
 		045C61D324D815460080FAFF /* QYKit */ = {
 			isa = PBXGroup;
 			children = (
-				045C61D424D815460080FAFF /* Extension */,
-				045C61F124D815460080FAFF /* Function */,
+				04824BF7253FE3CC00FEB336 /* Foundation */,
+				04824BF3253FE3B200FEB336 /* UI */,
+				04824BF8253FE41700FEB336 /* 功能 */,
 				045C61FA24D815470080FAFF /* Resource */,
-				045C61FC24D815470080FAFF /* Tool */,
+				045C61FC24D815470080FAFF /* 其它 */,
 			);
 			name = QYKit;
 			path = ../../QYKit;
 			sourceTree = "<group>";
 		};
-		045C61D424D815460080FAFF /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				045C61D524D815460080FAFF /* UI */,
-				045C61DD24D815460080FAFF /* Foundation */,
-				045C61EC24D815460080FAFF /* base */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		045C61D524D815460080FAFF /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				045C61D624D815460080FAFF /* QYButton.swift */,
-				045C61D724D815460080FAFF /* QYTextView.swift */,
-				045C61D824D815460080FAFF /* QYView.swift */,
-				045C61D924D815460080FAFF /* QYTextField.swift */,
-				045C61DA24D815460080FAFF /* QYLabel.swift */,
-				045C61DB24D815460080FAFF /* QYImage.swift */,
-				045C61DC24D815460080FAFF /* QYViewController.swift */,
-				042094C825133D5800C15B3F /* QYFunction.swift */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		045C61DD24D815460080FAFF /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				040E859824F5085600002267 /* QYTableViewDelegate.swift */,
-				045C61DE24D815460080FAFF /* QYDevice.swift */,
-				045C61DF24D815460080FAFF /* QYObject.swift */,
-				045C61E024D815460080FAFF /* QYDispatchQueue.swift */,
-				045C61E124D815460080FAFF /* QYColor.swift */,
-				045C61E224D815460080FAFF /* QYData.swift */,
-				045C61E324D815460080FAFF /* QYBlockGesture.swift */,
-				045C61E424D815460080FAFF /* QYDate.swift */,
-				045C61E524D815460080FAFF /* QYString.swift */,
-				045C61E624D815460080FAFF /* QYArray.swift */,
-				045C61E724D815460080FAFF /* QYAttributedString.swift */,
-				045C61E924D815460080FAFF /* QYOperation.swift */,
-				045C61EA24D815460080FAFF /* QYDictionary.swift */,
-				045C61EB24D815460080FAFF /* QYThen.swift */,
-				040AAF78253D8D1C006C48B5 /* QYCodable.swift */,
-				04931F8E253EE81C0095A773 /* QYCustomDataType.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		045C61EC24D815460080FAFF /* base */ = {
-			isa = PBXGroup;
-			children = (
-				045C61ED24D815460080FAFF /* QYBaseViewController.swift */,
-				045C61EE24D815460080FAFF /* QYBaseNavigationController.swift */,
-				045C61EF24D815460080FAFF /* QYBaseCollectionView.swift */,
-				045C61F024D815460080FAFF /* QYBaseTableView.swift */,
-			);
-			path = base;
-			sourceTree = "<group>";
-		};
-		045C61F124D815460080FAFF /* Function */ = {
-			isa = PBXGroup;
-			children = (
-				045C61F224D815460080FAFF /* 集成 */,
-				045C61F424D815460080FAFF /* 功能 */,
-			);
-			path = Function;
-			sourceTree = "<group>";
-		};
-		045C61F224D815460080FAFF /* 集成 */ = {
+		045C61F224D815460080FAFF /* MBHUD */ = {
 			isa = PBXGroup;
 			children = (
 				045C61F324D815460080FAFF /* QYHUD.swift */,
 			);
-			path = "集成";
+			path = MBHUD;
 			sourceTree = "<group>";
 		};
-		045C61F424D815460080FAFF /* 功能 */ = {
+		045C61F424D815460080FAFF /* page */ = {
 			isa = PBXGroup;
 			children = (
-				048CD62D25397CCD00E8BC75 /* QYCameraController.swift */,
-				045C61F524D815470080FAFF /* QYCountDownButton.swift */,
-				045C61F624D815470080FAFF /* QYDatePickerViewController.swift */,
-				045C61F724D815470080FAFF /* QYAlert.swift */,
-				045C61F924D815470080FAFF /* QYLocation.swift */,
 				04BADA8E24F7A99B004FA99F /* QYPageView.swift */,
 			);
-			path = "功能";
+			path = page;
 			sourceTree = "<group>";
 		};
 		045C61FA24D815470080FAFF /* Resource */ = {
@@ -296,17 +224,329 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		045C61FC24D815470080FAFF /* Tool */ = {
+		045C61FC24D815470080FAFF /* 其它 */ = {
+			isa = PBXGroup;
+			children = (
+				045C620124D815470080FAFF /* QYToolManager.swift */,
+			);
+			path = "其它";
+			sourceTree = "<group>";
+		};
+		04824B29253FDF6800FEB336 /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F524D815470080FAFF /* QYCountDownButton.swift */,
+				045C61D624D815460080FAFF /* QYButton.swift */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
+		04824B2D253FDF8F00FEB336 /* UITextView */ = {
+			isa = PBXGroup;
+			children = (
+				045C61D724D815460080FAFF /* QYTextView.swift */,
+			);
+			path = UITextView;
+			sourceTree = "<group>";
+		};
+		04824B34253FDF9A00FEB336 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				045C61D824D815460080FAFF /* QYView.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		04824B3E253FDFA500FEB336 /* UITextField */ = {
+			isa = PBXGroup;
+			children = (
+				045C61D924D815460080FAFF /* QYTextField.swift */,
+			);
+			path = UITextField;
+			sourceTree = "<group>";
+		};
+		04824B45253FDFB500FEB336 /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				045C61DA24D815460080FAFF /* QYLabel.swift */,
+				04824BFF253FE56B00FEB336 /* QYGradientLabel.swift */,
+			);
+			path = UILabel;
+			sourceTree = "<group>";
+		};
+		04824B4F253FDFC800FEB336 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				045C61DB24D815460080FAFF /* QYImage.swift */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		04824B53253FDFDB00FEB336 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				045C61DC24D815460080FAFF /* QYViewController.swift */,
+				045C61ED24D815460080FAFF /* QYBaseViewController.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		04824B68253FE1A100FEB336 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				040E859824F5085600002267 /* QYTableViewDelegate.swift */,
+				045C61F024D815460080FAFF /* QYBaseTableView.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
+		04824B6C253FE1C800FEB336 /* UIDevice */ = {
+			isa = PBXGroup;
+			children = (
+				045C61DE24D815460080FAFF /* QYDevice.swift */,
+			);
+			path = UIDevice;
+			sourceTree = "<group>";
+		};
+		04824B73253FE1DA00FEB336 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				045C61DF24D815460080FAFF /* QYObject.swift */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		04824B7D253FE1EB00FEB336 /* DispatchQueue */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E024D815460080FAFF /* QYDispatchQueue.swift */,
+			);
+			path = DispatchQueue;
+			sourceTree = "<group>";
+		};
+		04824B87253FE20100FEB336 /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E124D815460080FAFF /* QYColor.swift */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		04824B8B253FE20F00FEB336 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E224D815460080FAFF /* QYData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		04824B8C253FE21900FEB336 /* UIPanGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E324D815460080FAFF /* QYBlockGesture.swift */,
+			);
+			path = UIPanGestureRecognizer;
+			sourceTree = "<group>";
+		};
+		04824B90253FE22600FEB336 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E424D815460080FAFF /* QYDate.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		04824B97253FE23700FEB336 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E524D815460080FAFF /* QYString.swift */,
+				045C61E724D815460080FAFF /* QYAttributedString.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		04824B98253FE24800FEB336 /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E624D815460080FAFF /* QYArray.swift */,
+			);
+			path = Array;
+			sourceTree = "<group>";
+		};
+		04824B99253FE25400FEB336 /* 运算符 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61E924D815460080FAFF /* QYOperation.swift */,
+			);
+			path = "运算符";
+			sourceTree = "<group>";
+		};
+		04824BA0253FE26500FEB336 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				045C61EA24D815460080FAFF /* QYDictionary.swift */,
+			);
+			path = Dictionary;
+			sourceTree = "<group>";
+		};
+		04824BA7253FE27300FEB336 /* then */ = {
+			isa = PBXGroup;
+			children = (
+				045C61EB24D815460080FAFF /* QYThen.swift */,
+			);
+			path = then;
+			sourceTree = "<group>";
+		};
+		04824BA8253FE28A00FEB336 /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				040AAF78253D8D1C006C48B5 /* QYCodable.swift */,
+				04931F8E253EE81C0095A773 /* QYCustomDataType.swift */,
+			);
+			path = Codable;
+			sourceTree = "<group>";
+		};
+		04824BAF253FE29900FEB336 /* UINavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				045C61EE24D815460080FAFF /* QYBaseNavigationController.swift */,
+			);
+			path = UINavigationController;
+			sourceTree = "<group>";
+		};
+		04824BB3253FE2A600FEB336 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				045C61EF24D815460080FAFF /* QYBaseCollectionView.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
+		04824BBD253FE2BE00FEB336 /* 相机 */ = {
+			isa = PBXGroup;
+			children = (
+				048CD62D25397CCD00E8BC75 /* QYCameraController.swift */,
+			);
+			path = "相机";
+			sourceTree = "<group>";
+		};
+		04824BC4253FE2CE00FEB336 /* DatePickerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F624D815470080FAFF /* QYDatePickerViewController.swift */,
+			);
+			path = DatePickerViewController;
+			sourceTree = "<group>";
+		};
+		04824BC8253FE2E200FEB336 /* UIAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F724D815470080FAFF /* QYAlert.swift */,
+			);
+			path = UIAlertController;
+			sourceTree = "<group>";
+		};
+		04824BCC253FE2F300FEB336 /* 定位 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F924D815470080FAFF /* QYLocation.swift */,
+			);
+			path = "定位";
+			sourceTree = "<group>";
+		};
+		04824BD9253FE32600FEB336 /* 指纹 */ = {
+			isa = PBXGroup;
+			children = (
+				045C620324D815470080FAFF /* QYTouchIDManager.swift */,
+			);
+			path = "指纹";
+			sourceTree = "<group>";
+		};
+		04824BDD253FE33C00FEB336 /* 正则表达式 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61FF24D815470080FAFF /* QYRegular.swift */,
+			);
+			path = "正则表达式";
+			sourceTree = "<group>";
+		};
+		04824BE1253FE34800FEB336 /* APP 信息 */ = {
 			isa = PBXGroup;
 			children = (
 				045C61FD24D815470080FAFF /* QYAppInfo.swift */,
-				045C61FE24D815470080FAFF /* QYSystem.swift */,
-				045C61FF24D815470080FAFF /* QYRegular.swift */,
-				045C620024D815470080FAFF /* QYPermissionsDetection.swift */,
-				045C620124D815470080FAFF /* QYToolManager.swift */,
-				045C620324D815470080FAFF /* QYTouchIDManager.swift */,
 			);
-			path = Tool;
+			path = "APP 信息";
+			sourceTree = "<group>";
+		};
+		04824BE5253FE35900FEB336 /* 权限 */ = {
+			isa = PBXGroup;
+			children = (
+				045C620024D815470080FAFF /* QYPermissionsDetection.swift */,
+			);
+			path = "权限";
+			sourceTree = "<group>";
+		};
+		04824BE9253FE36C00FEB336 /* 调用系统 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61FE24D815470080FAFF /* QYSystem.swift */,
+			);
+			path = "调用系统";
+			sourceTree = "<group>";
+		};
+		04824BF3253FE3B200FEB336 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F424D815460080FAFF /* page */,
+				04824BC4253FE2CE00FEB336 /* DatePickerViewController */,
+				04824B6C253FE1C800FEB336 /* UIDevice */,
+				04824B68253FE1A100FEB336 /* UITableView */,
+				04824B53253FDFDB00FEB336 /* UIViewController */,
+				04824B4F253FDFC800FEB336 /* UIImage */,
+				04824B45253FDFB500FEB336 /* UILabel */,
+				04824B3E253FDFA500FEB336 /* UITextField */,
+				04824B34253FDF9A00FEB336 /* UIView */,
+				04824B2D253FDF8F00FEB336 /* UITextView */,
+				04824B29253FDF6800FEB336 /* UIButton */,
+				04824B87253FE20100FEB336 /* UIColor */,
+				04824B8C253FE21900FEB336 /* UIPanGestureRecognizer */,
+				04824BAF253FE29900FEB336 /* UINavigationController */,
+				04824BB3253FE2A600FEB336 /* UICollectionView */,
+				04824BC8253FE2E200FEB336 /* UIAlertController */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		04824BF7253FE3CC00FEB336 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				04824B7D253FE1EB00FEB336 /* DispatchQueue */,
+				04824B73253FE1DA00FEB336 /* NSObject */,
+				04824B8B253FE20F00FEB336 /* Data */,
+				04824B90253FE22600FEB336 /* Date */,
+				04824B97253FE23700FEB336 /* String */,
+				04824B98253FE24800FEB336 /* Array */,
+				04824B99253FE25400FEB336 /* 运算符 */,
+				04824BA0253FE26500FEB336 /* Dictionary */,
+				04824BA7253FE27300FEB336 /* then */,
+				04824BA8253FE28A00FEB336 /* Codable */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		04824BF8253FE41700FEB336 /* 功能 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F224D815460080FAFF /* MBHUD */,
+				04824BDD253FE33C00FEB336 /* 正则表达式 */,
+				04824BE1253FE34800FEB336 /* APP 信息 */,
+				04824BE5253FE35900FEB336 /* 权限 */,
+				04824BE9253FE36C00FEB336 /* 调用系统 */,
+				04824BBD253FE2BE00FEB336 /* 相机 */,
+				04824BCC253FE2F300FEB336 /* 定位 */,
+				04824BD9253FE32600FEB336 /* 指纹 */,
+			);
+			path = "功能";
 			sourceTree = "<group>";
 		};
 		04901FB5249CA25F0086A508 = {
@@ -428,7 +668,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "祎";
 				TargetAttributes = {
 					04901FBD249CA25F0086A508 = {
@@ -551,8 +791,8 @@
 				040E859924F5085600002267 /* QYTableViewDelegate.swift in Sources */,
 				045C622724D815470080FAFF /* QYToolManager.swift in Sources */,
 				045C621F24D815470080FAFF /* QYDatePickerViewController.swift in Sources */,
-				042094C925133D5800C15B3F /* QYFunction.swift in Sources */,
 				04931F8F253EE81C0095A773 /* QYCustomDataType.swift in Sources */,
+				04824C00253FE56B00FEB336 /* QYGradientLabel.swift in Sources */,
 				045C621824D815470080FAFF /* QYThen.swift in Sources */,
 				04C6AB2824C7E33B009C348D /* AppDelegate.swift in Sources */,
 				045C620F24D815470080FAFF /* QYData.swift in Sources */,
@@ -665,6 +905,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -725,6 +966,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -761,7 +1003,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -781,7 +1023,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

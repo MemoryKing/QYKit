@@ -6,9 +6,9 @@ target 'QYKitDemo' do
   use_frameworks!
 #pod 'QYKit'
 #  pod 'QYKit',:path => './QYKit'
-pod 'PKHUD'
-pod 'MJRefresh'
-pod 'DZNEmptyDataSet'
-pod 'SnapKit'
-pod 'MBProgressHUD'
+pod 'PKHUD',:inhibit_warnings => true
+pod 'MJRefresh',:inhibit_warnings => true
+pod 'DZNEmptyDataSet',:inhibit_warnings => true
+pod 'SnapKit',:inhibit_warnings => true
+pod 'MBProgressHUD',:inhibit_warnings => true
 end

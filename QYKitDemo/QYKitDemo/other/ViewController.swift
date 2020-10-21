@@ -39,14 +39,14 @@ class ViewController: QYBaseViewController {
         
         QYLog("\(ss) + \(aa)")
         
-        
         let str = "{\"ss\":\"0.003880\",\"name\":null}"
-        model = try? Presonewe.yi_fromDic(str.yi_toDictionary())
+        model = try? Presonewe.yi_init(str.yi_toDictionary())
         
         QYLog(model?.name?.string ?? "123")
         QYLog(model?.ss?.string ?? "0.0000000")
         QYLog(model?.ss?.double ?? 0.0000000)
-        ceshi3()
+        
+//        ceshi3()
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
@@ -127,7 +127,7 @@ class ViewController: QYBaseViewController {
         tableView.yi_didSelectRowAtIndexPath { (tab, indexPath) in
             QYLog(indexPath)
         }
-        QYRatio(1)
+//        QYRatio(1)
         
         yi_addTableView(.grouped) { (tab) in
             
