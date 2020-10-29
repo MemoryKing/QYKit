@@ -47,6 +47,7 @@ class ViewController: QYBaseViewController {
         QYLog(model?.ss?.double ?? 0.0000000)
         
         ceshi1()
+        
     }
     func ceshi3() {
         let brn = UIButton.init().yi_then({
@@ -56,7 +57,7 @@ class ViewController: QYBaseViewController {
         })
         brn.yi_clickAction = {
 //            QYHUD.shared.locationStatus = .top
-            QYHUD.show("这下吧发是这下吧发是这下吧发是这下吧发是") {
+            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
                 QYLog("12333333333333333333")
                 self.yi_push(MyViewController())
             }
@@ -93,6 +94,7 @@ class ViewController: QYBaseViewController {
         }
     }
     func ceshi1() {
+        
         tableView = QYBaseTableView(frame: view.bounds)
         tableView.yi_empty_title = "123"
         tableView.backgroundColor = .blue
@@ -103,7 +105,7 @@ class ViewController: QYBaseViewController {
             return UITableViewCell()
         }.yi_numberOfRowsInSection { (tab, int) -> (Int) in
             return self.tableView.yi_page * self.tableView.yi_pageNumber
-        }.yi_heightRows(50)
+        }
         
         tableView.yi_didSelectRowAtIndexPath { (tab, indexPath) in
             QYLog(indexPath)

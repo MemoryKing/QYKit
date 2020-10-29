@@ -6,10 +6,9 @@ E-mail:        1091676312@qq.com
 GitHub:        https://github.com/MemoryKing
 ********************************************************************************/
 
-
+import UIKit
+import Foundation
 import Photos
-import AssetsLibrary
-import MediaPlayer
 import CoreTelephony
 import CoreLocation
 import AVFoundation
@@ -18,26 +17,6 @@ import CoreBluetooth
 ///权限
 open class QYPermissionsDetection: NSObject {
     private var bluetoohTools: QYCheckBluetooth?
-    // MARK: - 开启媒体资料库/Apple Music 服务
-    /// 开启媒体资料库/Apple Music 服务
-    public class func yi_openMediaPlayerServiceWithBlock(action:@escaping ((Bool)->())) {
-        var isOpen = false
-        let authStatus = MPMediaLibrary.authorizationStatus()
-        if authStatus == MPMediaLibraryAuthorizationStatus.notDetermined {
-            MPMediaLibrary.requestAuthorization { (status) in
-                if (status == MPMediaLibraryAuthorizationStatus.authorized) {
-                    isOpen = true
-                }
-            }
-        } else if authStatus == MPMediaLibraryAuthorizationStatus.authorized {
-                isOpen = true
-        } else {
-            isOpen = false
-        }
-        DispatchQueue.main.async {
-            action(isOpen)
-        }
-    }
     // MARK: - 检测是否开启联网
     /// 检测是否开启联网
     public class func yi_openEventServiceWithBolck(action:@escaping ((Bool)->())) {
@@ -141,11 +120,13 @@ open class QYPermissionsDetection: NSObject {
         let cancelAction = UIAlertAction(title:"取消", style: .cancel, handler:nil)
         let settingsAction = UIAlertAction(title:"设置", style: .default, handler: {
             (action) -> Void in
-            if  UIApplication.shared.canOpenURL(url!) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url!, options: [:],completionHandler: {(success) in})
-                } else {
-                    UIApplication.shared.openURL(url!)
+            if let openURL = url {
+                if  UIApplication.shared.canOpenURL(openURL) {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(openURL, options: [:],completionHandler: {(success) in})
+                    } else {
+                        UIApplication.shared.openURL(openURL)
+                    }
                 }
             }
         })

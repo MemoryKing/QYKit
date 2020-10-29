@@ -13,38 +13,38 @@ import MBProgressHUD
 fileprivate let qyhud = QYHUD.shared
 
 ///位置
-public enum QYHUDLocationStatus {
+public enum QYHUDLocation {
     case top
     case center
     case bottom
 }
 
-open class QYHUD: NSObject {
+open class QYHUD {
     ///单例
     static var shared = QYHUD()
     ///超时时间
-    public var afterDelayTime: TimeInterval?
+    public var yi_afterDelayTime: TimeInterval?
     ///是否动画
-    public var animated: Bool = true
+    public var yi_animated: Bool = true
     ///位置
-    public var locationStatus = QYHUDLocationStatus.center
+    public var yi_location = QYHUDLocation.center
     ///背景颜色
-    public var backgroundColor = UIColor.black
+    public var yi_backgroundColor = UIColor.black
     ///文本颜色
-    public var textColor = UIColor.white
+    public var yi_textColor = UIColor.white
     ///是否遮罩层
-    public var isMask = true
+    public var yi_isMask = true
     
     ///显示文本
-    public class func show(_ text: String,_ completion:(() -> ())? = nil) {
+    public static func yi_show(_ text: String,_ completion:(() -> ())? = nil) {
         DispatchQueue.yi_getMainAsync {
-            let hud = MBProgressHUD.showAdded(to: onView, animated: qyhud.animated)
+            let hud = MBProgressHUD.showAdded(to: onView, animated: qyhud.yi_animated)
             hud.label.text = text
             hud.mode = .text
             qyhud.defaultConfiguration(hud)
             hud.completionBlock = completion
             
-            if let time = qyhud.afterDelayTime {
+            if let time = qyhud.yi_afterDelayTime {
                 hud.minShowTime = time
             } else {
                 if text.count / 6 < 1 {
@@ -53,14 +53,15 @@ open class QYHUD: NSObject {
                     hud.minShowTime = TimeInterval(text.count / 6 + 3 / 4)
                 }
             }
-            hud.hide(animated: qyhud.animated)
+            hud.hide(animated: qyhud.yi_animated)
         }
     }
+    
     //MARK: --- 菊花
     ///菊花
-    public class func showProgress(_ text: String? = nil) {
+    public static func yi_loading(_ text: String? = nil) {
         DispatchQueue.yi_getMainAsync {
-            let hud = MBProgressHUD.showAdded(to: onView, animated: qyhud.animated)
+            let hud = MBProgressHUD.showAdded(to: onView, animated: qyhud.yi_animated)
             hud.label.text = text
             hud.mode = .indeterminate
             qyhud.defaultConfiguration(hud)
@@ -73,11 +74,11 @@ open class QYHUD: NSObject {
         ///多行
         hud.label.numberOfLines = 0
         hud.bezelView.style = .solidColor
-        hud.contentColor = textColor
-        hud.bezelView.backgroundColor = backgroundColor
+        hud.contentColor = yi_textColor
+        hud.bezelView.backgroundColor = yi_backgroundColor
         
         ///位置
-        switch locationStatus {
+        switch yi_location {
             case .top:
                 hud.offset = .init(x: 0, y: -MBProgressMaxOffset)
             case .center:

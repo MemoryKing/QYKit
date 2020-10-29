@@ -234,14 +234,11 @@ open class QYCameraController: QYBaseViewController {
     }
     // MARK: 拍照
     @objc private func shutterCamera(btn: UIButton) {
-        #if !(arch(i386) || arch(x86_64))
         let settings = AVCapturePhotoSettings()
         if settings.availablePreviewPhotoPixelFormatTypes.count > 0 {
             settings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String : settings.availablePreviewPhotoPixelFormatTypes.first!]
         }
         imageOutput.capturePhoto(with: settings, delegate: self)
-        
-        #endif
         
         cancleButton.isHidden = true
         flashButton.isHidden = true

@@ -28,6 +28,7 @@ public extension UIImage {
         }
         return image
     }
+    
     /// 根据view 生成image
     convenience init?(view: UIView) {
         UIGraphicsBeginImageContext(view.frame.size)
@@ -42,6 +43,7 @@ public extension UIImage {
         }
         self.init(cgImage: cgImage)
     }
+    
     ///根据颜色生成图片
     convenience init(color: UIColor, size: CGSize) {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)

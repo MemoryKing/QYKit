@@ -45,15 +45,28 @@ public extension NSObject {
     }
     ///获取当前控制器
     func yi_getTopViewController () -> UIViewController? {
-        var root = UIApplication.shared.keyWindow?.rootViewController
-        while let par = root?.presentingViewController {
-            root = par
+        var window = UIApplication.shared.keyWindow
+        if window?.windowLevel != UIWindow.Level.normal {
+            let windows = UIApplication.shared.windows
+            for windowTemp in windows {
+                if windowTemp.windowLevel == UIWindow.Level.normal {
+                    window = windowTemp
+                    break
+                }
+            }
         }
-        while root?.isKind(of: UINavigationController.self) == true {
-            let nav = root as! UINavigationController
-            root = nav.topViewController
+        let vc = window?.rootViewController
+        if let presentVC = vc?.presentedViewController {
+           return presentVC
+            
+        } else if let tabVC = vc as? UITabBarController,let selectVC = tabVC.selectedViewController {
+            return selectVC
+            
+        } else if let naiVC = vc as? UINavigationController {
+            return naiVC.visibleViewController
         }
-        return root
+        
+        return nil
     }
     
 }
@@ -80,7 +93,11 @@ public var QYScreenHeight: CGFloat {
 }
 ///屏幕比例
 public var QYProportion: CGFloat {
-    return UIScreen.main.bounds.size.width / 375.0
+    let screenWidth = Double(UIScreen.main.bounds.width)
+    let screenHeight = Double(UIScreen.main.bounds.height)
+    let width = min(screenWidth, screenHeight)
+    
+    return CGFloat(width / 375.0)
 }
 ///屏幕比例
 public func QYProportion(_ wid: CGFloat) -> CGFloat {

@@ -255,12 +255,14 @@ public extension UITableView {
         qyDelegate?.heightHeaderSection = height
     }
     ///区头高
+    @discardableResult
     func yi_heightForHeaderInSection(_ block: @escaping (UITableView, Int)->(CGFloat)) -> UITableView {
         delegateInitialize()
         qyDelegate?.heightForHeaderInSection = block
         return self
     }
     ///区头视图
+    @discardableResult
     func yi_viewForHeaderInSection(_ block: @escaping (UITableView, Int)->UIView) -> UITableView {
         delegateInitialize()
         qyDelegate?.viewForHeaderInSection = block
@@ -274,12 +276,14 @@ public extension UITableView {
         qyDelegate?.heightFooterSection = height
     }
     ///区尾高
+    @discardableResult
     func yi_heightForFooterInSection(_ block: @escaping (UITableView, Int)->(CGFloat)) -> UITableView {
         delegateInitialize()
         qyDelegate?.heightForFooterInSection = block
         return self
     }
     ///区尾视图
+    @discardableResult
     func yi_viewForFooterInSection(_ block: @escaping (UITableView, Int)->UIView) -> UITableView {
         delegateInitialize()
         qyDelegate?.viewForFooterInSection = block
@@ -293,6 +297,7 @@ public extension UITableView {
         qyDelegate?.numberSections = number
     }
     ///单元数
+    @discardableResult
     func yi_numberOfRowsInSection(_ block: @escaping (UITableView, Int)->(Int)) -> UITableView {
         delegateInitialize()
         qyDelegate?.numberOfRowsInSection = block
@@ -304,12 +309,14 @@ public extension UITableView {
         qyDelegate?.heightRows = height
     }
     ///单元高
+    @discardableResult
     func yi_heightForRowAtIndexPath(_ block: @escaping (UITableView, IndexPath)->(CGFloat)) -> UITableView {
         delegateInitialize()
         qyDelegate?.heightForRowAtIndexPath = block
         return self
     }
     ///单元
+    @discardableResult
     func yi_cellForRowAtIndexPath(_ block: @escaping (UITableView, IndexPath)-> UITableViewCell) -> UITableView {
         delegateInitialize()
         qyDelegate?.cellForRowAtIndexPath = block

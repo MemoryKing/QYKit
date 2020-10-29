@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   #s.pod_target_xcconfig = {'SWIFT_VERSION' => '5.0'}
   s.swift_versions = '5.0'
   s.platform     = :ios, "10.0"
-  s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','MediaPlayer','CoreTelephony','CoreLocation','AVFoundation','Accelerate'
+  s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','CoreLocation','AVFoundation','Accelerate','CoreTelephony'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'PKHUD'

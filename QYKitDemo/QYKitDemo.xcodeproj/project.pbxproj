@@ -189,14 +189,14 @@
 		045C61D324D815460080FAFF /* QYKit */ = {
 			isa = PBXGroup;
 			children = (
+				049F3D4D2542826D00274A95 /* 集成第三方 */,
 				04824BF7253FE3CC00FEB336 /* Foundation */,
 				04824BF3253FE3B200FEB336 /* UI */,
 				04824BF8253FE41700FEB336 /* 功能 */,
 				045C61FA24D815470080FAFF /* Resource */,
 				045C61FC24D815470080FAFF /* 其它 */,
 			);
-			name = QYKit;
-			path = ../../QYKit;
+			path = QYKit;
 			sourceTree = "<group>";
 		};
 		045C61F224D815460080FAFF /* MBHUD */ = {
@@ -537,7 +537,6 @@
 		04824BF8253FE41700FEB336 /* 功能 */ = {
 			isa = PBXGroup;
 			children = (
-				045C61F224D815460080FAFF /* MBHUD */,
 				04824BDD253FE33C00FEB336 /* 正则表达式 */,
 				04824BE1253FE34800FEB336 /* APP 信息 */,
 				04824BE5253FE35900FEB336 /* 权限 */,
@@ -567,6 +566,14 @@
 				04901FDF249CA2650086A508 /* QYKitDemoUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		049F3D4D2542826D00274A95 /* 集成第三方 */ = {
+			isa = PBXGroup;
+			children = (
+				045C61F224D815460080FAFF /* MBHUD */,
+			);
+			path = "集成第三方";
 			sourceTree = "<group>";
 		};
 		04C6AB1924C7E33B009C348D /* QYKitDemo */ = {

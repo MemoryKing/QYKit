@@ -113,11 +113,30 @@ public extension UILabel {
     
 }
 
-
+//MARK: --- 初始化
 public extension UILabel {
-    static func yi_initGradient(_ frame:CGRect) -> QYGradientLabel {
+    ///渐变色本文
+    static func yi_initGradient(_ frame: CGRect) -> QYGradientLabel {
         let label = QYGradientLabel.shared
         label.frame = frame
         return label
     }
+    static func yi_init(frame: CGRect,text: String,textColor: UIColor? = nil,font: UIFont? = nil) -> UILabel {
+        let label = UILabel()
+        label.frame = frame
+        label.text = text
+        if let color = textColor {
+            label.textColor = color
+        }
+        if let fo = font {
+            label.font = fo
+        }
+        return label
+    }
+}
+//MARK: --- 功能
+public extension UILabel {
+//    override func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float, _ cornerRadius: CGFloat? = nil) {
+//        <#code#>
+//    }
 }
