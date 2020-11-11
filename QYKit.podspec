@@ -20,7 +20,8 @@ Pod::Spec.new do |s|
   s.dependency 'PKHUD'
   s.dependency 'SnapKit'
   s.dependency 'MBProgressHUD'
-  
+  s.dependency 'Alamofire'
+    
   s.resource_bundles = { 'QYResources' => 'QYKit/**/*.xcassets' }
   
   s.source_files = 'QYKit/**/*.swift'
