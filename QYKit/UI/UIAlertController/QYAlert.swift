@@ -21,24 +21,20 @@ open class QYAlert: UIView {
     ///   - handler: 设置action
     ///   - titleArr: 选择数组
     ///   - type: 类型
-    public class func yi_show(title: String? = "",
+    public class func yi_show(title: String = "",
                        message: String,
-                       titleArr: [String],
-                       highlighted: Int? = 1,
-                       handler: ((UIAlertController,UIAlertAction,NSInteger) -> Void)?,
+                       titles: [String],
                        type: UIAlertController.Style = .alert,
-                       complete: @escaping ((NSInteger,String)->(Void))) {
+                       handler: ((UIAlertController,UIAlertAction,NSInteger) -> Void)?,
+                       complete: @escaping ((UIAlertController,NSInteger,String)->(Void))) {
         var mes = message
-        if let tit = title, tit.count != 0 {
+        if title.isEmpty {
             mes = "\n" + mes
         }
         let alert = UIAlertController(title: title, message: mes, preferredStyle: type)
-        for (index,item) in titleArr.enumerated() {
+        for (index,item) in titles.enumerated() {
             let action = UIAlertAction.init(title: item, style: .default, handler: { (action) in
-                complete(index,item)
-                if let high = highlighted, high == index {
-                    alert.preferredAction = action
-                }
+                complete(alert,index,item)
             })
             handler?(alert,action,index)
             alert.addAction(action)
@@ -61,25 +57,21 @@ open class QYAlert: UIView {
     ///   - actionHandler: 设置Alert
     ///   - tfHandler: 设置输入框
     ///   - type: 类型
-    public class func yi_show(title: String? = "",message: String,
+    public class func yi_show(title: String = "",message: String,
                        titleArr: [String],
-                       highlighted: Int? = 1,
                        textFields: [String],
+                       type: UIAlertController.Style = .alert,
                        actionHandler: ((UIAlertController,UIAlertAction,NSInteger) -> Void)?,
                        tfHandler: ((UITextField,NSInteger) -> Void)?,
-                       type: UIAlertController.Style = .alert,
-                       complete: @escaping ((NSInteger,String)->(Void))) {
+                       complete: @escaping ((UIAlertController,NSInteger,String)->(Void))) {
         var mes = message
-        if let tit = title, tit.count != 0 {
+        if title.isEmpty {
             mes = "\n" + mes
         }
         let alert = UIAlertController(title: title, message: mes, preferredStyle: type)
         for (index,item) in titleArr.enumerated() {
             let action = UIAlertAction.init(title: item, style: .default, handler: { (action) in
-                if let high = highlighted, high == index {
-                    alert.preferredAction = action
-                }
-                complete(index,item)
+                complete(alert,index,item)
             })
             actionHandler?(alert,action,index)
             alert.addAction(action)
@@ -97,6 +89,36 @@ open class QYAlert: UIView {
         
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
+    
+    ///默认确认取消
+    public class func yi_show(title: String = "",message: String = "",complete: @escaping (()->())) {
+        yi_show(title: title, message: message, titles: ["取消","确定"], type: .alert, handler: nil) { (alert, integer, string) -> (Void) in
+            if integer == 1 {
+                complete()
+            }
+        }
+    }
+    
+    ///打开相机相册
+    public class func yi_invokeCameraPhotoAlbum (_ blc: ((UIImage)->())?) {
+        let qy = QYSystem.shared
+        qy.photoBlock = blc
+        let alertVC = UIAlertController.init(title: "", message: "请选择图片", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction.init(title: "相机", style: .default) { (action) in
+            qy.yi_invokeSystemCamera()
+        }
+        let photoAction = UIAlertAction.init(title: "相册", style: .default) { (action) in
+            qy.yi_invokeSystemPhoto()
+        }
+        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
+        alertVC.addAction(cameraAction)
+        alertVC.addAction(photoAction)
+        alertVC.addAction(cancelAction)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertVC, animated: true, completion: nil)
+    }
+    
+    
+    
 }
 
 //MARK: --- UIAlertController 属性

@@ -12,11 +12,24 @@ import UIKit
 
 
 struct Presonewe: QYCodable {
+    
     var name: QYStrInt?
     var ss: QYStrDble?
 //    init(from decoder: Decoder) throws {
 //        name = try TStrInt.init(from: decoder)
 //    }
+}
+struct HomeAPI {
+    static let login = "http://192.168.16.198:8011/jjf-api/login"
+    static let img = "http://192.168.16.198:8011/jjf-api/api/common/uploadHeadImage"
+}
+class QYRequest: QYAlamofire {
+
+    override func yi_configureRequestParameters() {
+//        super.yi_configureRequestParameters()
+        self.timeOut = 8
+    }
+    
 }
 
 class ViewController: QYBaseViewController {
@@ -33,34 +46,65 @@ class ViewController: QYBaseViewController {
         // Do any additional setup after loading the view.
         
         view.backgroundColor = .lightGray
+//        var ss = "123133wqer"
+//        let aa = ss.yi_deleteLast()
         
-        var ss = "123133wqer"
-        let aa = ss.yi_deleteLast()
-        
-        QYLog("\(ss) + \(aa)")
+//        QYLog("\(ss) + \(aa)")
         
         let str = "{\"ss\":\"0.003880\",\"name\":null}"
         model = try? Presonewe.yi_init(str.yi_toDictionary())
         
-        QYLog(model?.name?.string ?? "123")
-        QYLog(model?.ss?.string ?? "0.0000000")
-        QYLog(model?.ss?.double ?? 0.0000000)
+//        QYLog(model?.name?.string ?? "123")
+//        QYLog(model?.ss?.string ?? "0.0000000")
+//        QYLog(model?.ss?.double ?? 0.0000000)
         
-        ceshi1()
+        ceshi3()
         
     }
     func ceshi3() {
+        
         let brn = UIButton.init().yi_then({
             $0.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
             $0.frame = self.view.bounds
             view.addSubview($0)
         })
+        
         brn.yi_clickAction = {
-//            QYHUD.shared.locationStatus = .top
-            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
-                QYLog("12333333333333333333")
-                self.yi_push(MyViewController())
+            
+//            "https://beifuqi.sandpay.com.cn/jjf-api/login"
+            var para = [String: Any]()
+            para["username"] = "18250808695"
+            para["password"] = "123456"
+            para["rememberMe"] = "false"
+            QYRequest().post(HomeAPI.login, para) { (model: MyInfo_Data) in
+
+                QYLog(model.id)
+                let image = UIImage.init(named: "WeChat66467de1e87eb0c1de1a8add1099df0b")
+                QYRequest().uploadImage(HomeAPI.img, fileParam: "headImageFile", files: [image!], progressHandler: nil) { (json) in
+                    QYLog(json)
+                } error: { (json) in
+                    QYLog(json)
+                }
+            } error: { (err) in
+                QYLog(err)
             }
+            
+
+//            QYHUD.shared.locationStatus = .top
+//            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
+//                QYLog("12333333333333333333")
+//                self.yi_push(MyViewController())
+//            }
+//            QYSystem.yi_invokeCameraPhoto(nil)
+            
+//            QYAlert.yi_show {
+//                QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
+//                    QYLog("12333333333333333333")
+//                    self.yi_push(MyViewController())
+//                }
+//            }
+            
+            
 //            QYHUD.showProgress()
 //            let cam = QYCameraController()
 //            self.yi_push(cam)
@@ -172,3 +216,61 @@ class ViewController: QYBaseViewController {
     }
 }
 
+
+struct MyInfo_Data: QYCodable {
+    var vipOverTime: Double?
+    var activateTime: String?
+    var creator: String?
+    var recStatus: String?
+    var isTwiceMonthReach: String?
+    var creditCardNo: String?
+    var isVipFirst: QYStrInt?
+    var id: String?
+    var vipOpenTime: String?
+    var password: String?
+    var nextMonthReachTime: String?
+    var merchantCode: String?
+    var unbindTime: String?
+    var twiceMonthReachTime: String?
+    var realName: String?
+    var isNextMonthReach: String?
+    var salt: String?
+    var mobilePhone: String?
+    var modifyTime: String?
+    var merchantStatus: String?
+    var isVip: Bool?
+    var reachTime: String?
+    var bindTime: String?
+    var identityNo: String?
+    var debitCardNo: String?
+    var modifier: String?
+    var merchantName: String?
+    var merchantType : String?
+    var avatar: String?
+    var createTime: String?
+    var authStatus: String?
+    var version  : String?
+    var sumScore : String?
+    
+}
+
+
+func dealWithRequestByParams(params:[String:Any]) -> [String:Any]  {
+    if params.count == 0 {
+        return [:]
+    }
+    var bodyStr:String = ""
+    for key in params.keys {
+        bodyStr += String.init(format: "%@=%@&", key,params[key] as! CVarArg)
+    }
+    
+    let encWithPubKey = RSA.encryptString(bodyStr, publicKey: RSA_PublicKey)
+    var para:[String:Any] = [:]
+    para["data"] = encWithPubKey
+    para["encrypted"] = "Y"
+    para["pos"] = "bpos"
+    return para
+}
+
+var RSA_PrivateKey:String = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIgz14Bw7f1RjJOvcwOJQ/B+zB2GeJPBVwaGzwZSGroGQ9HNkTs1BnUnd3zF7PaUr7bXI+a+HXc4DG+b2UW2nIY1QtbtHWlpyhgrtuwpBPL1g9j9Ltk2zcSixyWLcs9bKgj5C0NuTlpnLyg4nMYKTXmSl3lk4NMzP+4wXSVaz9/nAgMBAAECgYBXdhLYY6wvkwJWg7+zcZ2y/XlNLGCZYPnlMwQV5vtKoWNDgmHUR0SSTnmoIeD8ppX/Lz/amBKLz+4MbWOkJJN1me2bvOvM5SLgSpOjbIPTlZHzOgR2qUyVJnbUxGVweAmMJUTQDSfYQHvnRYdgCLgsjpF4Nk3YDz0Fyj1bQubAwQJBAM+Mc9WkVHqzgxWruJZd5OjkcE38fRVK40nWxYiv1WEKt/WQUiJk1Reih+pUNJm1jl6CuBCqmLJNL4F4n0ALGmkCQQCn/5fBdg2zmN+CfkG1gD6I+cYxi/J+ZGa+KVE4sWED6n1tXlgWpkH7NnFV9NTKf/4LViS6TC+rVBeS0YLd5r3PAkAe/PB6kHuQimbjAG2h/cjkwN7HthAS8sh2yNtbai1ovMn0nyS0P+vVCI5UfVgRLxtfnxLOYjpEPOP/57uXO1EpAkBLZSXSKQ0VIPKOOeN7dUabap1L9yapGp4RkbFl5BVKEJ6hysl1wL+z4kcS8IHfL3nv1IU/JpnuJhs+RNCajcd5AkEAjwnuP5xJVHB4GIE297Ku7b/0bxF69EnytTacnSO4OjmitsUd4UDaSn1A6vfb9TnIWWozeCTrGAHf2FenciopyQ=="
+var RSA_PublicKey:String = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCIM9eAcO39UYyTr3MDiUPwfswdhniTwVcGhs8GUhq6BkPRzZE7NQZ1J3d8xez2lK+21yPmvh13OAxvm9lFtpyGNULW7R1pacoYK7bsKQTy9YPY/S7ZNs3Eoscli3LPWyoI+QtDbk5aZy8oOJzGCk15kpd5ZODTMz/uMF0lWs/f5wIDAQAB"

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044F947E25529142001C53E7 /* QYJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F947D25529142001C53E7 /* QYJSON.swift */; };
 		04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A52DBD24F9026A00A71142 /* MyViewController.swift */; };
 		04C6AB2324C7E33B009C348D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6AB1A24C7E33B009C348D /* ViewController.swift */; };
 		04C6AB2424C7E33B009C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C6AB1B24C7E33B009C348D /* Assets.xcassets */; };
@@ -57,6 +58,9 @@
 		04EBEC0A254AAD4E000B706F /* QYAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBEBFC254AAD4E000B706F /* QYAttributedString.swift */; };
 		04EBEC0B254AAD4E000B706F /* QYObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBEBFE254AAD4E000B706F /* QYObject.swift */; };
 		04EBEC0C254AAD4E000B706F /* QYData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBEC00254AAD4E000B706F /* QYData.swift */; };
+		04EBEC2B254AC22F000B706F /* QYAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBEC2A254AC22F000B706F /* QYAlamofire.swift */; };
+		04F3F3CE255A66BE00733EDC /* WeChat66467de1e87eb0c1de1a8add1099df0b.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F3F3CD255A66BE00733EDC /* WeChat66467de1e87eb0c1de1a8add1099df0b.png */; };
+		04F5BC6925512DEB006DD046 /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F5BC6625512DEA006DD046 /* RSA.m */; };
 		04FA089924C82BED00B695C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089824C82BED00B695C4 /* README.md */; };
 		04FA089B24C82BF600B695C4 /* QYKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089A24C82BF600B695C4 /* QYKit.podspec */; };
 		938CD3D9C3D9A0E933374077 /* Pods_QYKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9D30B75E934813E876663D /* Pods_QYKitDemo.framework */; };
@@ -80,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044F947D25529142001C53E7 /* QYJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYJSON.swift; sourceTree = "<group>"; };
 		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FD4249CA2650086A508 /* QYKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +140,11 @@
 		04EBEBFC254AAD4E000B706F /* QYAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYAttributedString.swift; sourceTree = "<group>"; };
 		04EBEBFE254AAD4E000B706F /* QYObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYObject.swift; sourceTree = "<group>"; };
 		04EBEC00254AAD4E000B706F /* QYData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QYData.swift; sourceTree = "<group>"; };
+		04EBEC2A254AC22F000B706F /* QYAlamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYAlamofire.swift; sourceTree = "<group>"; };
+		04F3F3CD255A66BE00733EDC /* WeChat66467de1e87eb0c1de1a8add1099df0b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WeChat66467de1e87eb0c1de1a8add1099df0b.png; sourceTree = "<group>"; };
+		04F5BC6625512DEA006DD046 /* RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSA.m; sourceTree = "<group>"; };
+		04F5BC6725512DEA006DD046 /* RSA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };
+		04F5BC6825512DEA006DD046 /* QYKit-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QYKit-Bridging-Header.h"; path = "QYKitDemo/QYKit-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		04FA089824C82BED00B695C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		04FA089A24C82BF600B695C4 /* QYKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QYKit.podspec; path = ../../QYKit.podspec; sourceTree = "<group>"; };
 		38518928AD5ACCDA2E21AF37 /* Pods-YJSwiftKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJSwiftKit.debug.xcconfig"; path = "Target Support Files/Pods-YJSwiftKit/Pods-YJSwiftKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,6 +185,9 @@
 		0416421B24CAE183003E19A0 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				04F3F3CD255A66BE00733EDC /* WeChat66467de1e87eb0c1de1a8add1099df0b.png */,
+				04F5BC6525512DEA006DD046 /* RSA */,
+				04F5BC6825512DEA006DD046 /* QYKit-Bridging-Header.h */,
 				04C6AB2024C7E33B009C348D /* NoData.png */,
 				04C6AB2124C7E33B009C348D /* AppDelegate.swift */,
 				04C6AB1A24C7E33B009C348D /* ViewController.swift */,
@@ -400,6 +413,8 @@
 			isa = PBXGroup;
 			children = (
 				04EBEBAA254AACE6000B706F /* MBHUD */,
+				04EBEC32254AC232000B706F /* Alamofire */,
+				044F947D25529142001C53E7 /* QYJSON.swift */,
 			);
 			path = "集成第三方";
 			sourceTree = "<group>";
@@ -416,7 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				04EBEBAD254AACE6000B706F /* 正则表达式 */,
-				04EBEBAF254AACE6000B706F /* 调用系统 */,
+				04EBEBAF254AACE6000B706F /* 系统 */,
 				04EBEBB1254AACE6000B706F /* APP 信息 */,
 				04EBEBB3254AACE6000B706F /* 指纹 */,
 				04EBEBB5254AACE6000B706F /* 定位 */,
@@ -434,12 +449,12 @@
 			path = "正则表达式";
 			sourceTree = "<group>";
 		};
-		04EBEBAF254AACE6000B706F /* 调用系统 */ = {
+		04EBEBAF254AACE6000B706F /* 系统 */ = {
 			isa = PBXGroup;
 			children = (
 				04EBEBB0254AACE6000B706F /* QYSystem.swift */,
 			);
-			path = "调用系统";
+			path = "系统";
 			sourceTree = "<group>";
 		};
 		04EBEBB1254AACE6000B706F /* APP 信息 */ = {
@@ -590,6 +605,24 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		04EBEC32254AC232000B706F /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				04EBEC2A254AC22F000B706F /* QYAlamofire.swift */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		04F5BC6525512DEA006DD046 /* RSA */ = {
+			isa = PBXGroup;
+			children = (
+				04F5BC6625512DEA006DD046 /* RSA.m */,
+				04F5BC6725512DEA006DD046 /* RSA.h */,
+			);
+			name = RSA;
+			path = QYKitDemo/RSA;
+			sourceTree = SOURCE_ROOT;
+		};
 		2C84F23BE2757D374C837F7E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +753,7 @@
 				04C6AB2724C7E33B009C348D /* NoData.png in Resources */,
 				04EBEBDC254AACE7000B706F /* Images.xcassets in Resources */,
 				04EBEBDB254AACE7000B706F /* address-code.json in Resources */,
+				04F3F3CE255A66BE00733EDC /* WeChat66467de1e87eb0c1de1a8add1099df0b.png in Resources */,
 				04C6AB2624C7E33B009C348D /* Main.storyboard in Resources */,
 				04FA089924C82BED00B695C4 /* README.md in Resources */,
 				04FA089B24C82BF600B695C4 /* QYKit.podspec in Resources */,
@@ -813,9 +847,11 @@
 				04EBEBBE254AACE7000B706F /* QYImage.swift in Sources */,
 				04EBEBD8254AACE7000B706F /* QYLocation.swift in Sources */,
 				04EBEC05254AAD4E000B706F /* QYArray.swift in Sources */,
+				044F947E25529142001C53E7 /* QYJSON.swift in Sources */,
 				04EBEBC0254AACE7000B706F /* QYLabel.swift in Sources */,
 				04EBEC0B254AAD4E000B706F /* QYObject.swift in Sources */,
 				04EBEBC3254AACE7000B706F /* QYCountDownButton.swift in Sources */,
+				04EBEC2B254AC22F000B706F /* QYAlamofire.swift in Sources */,
 				04A52DBE24F9026A00A71142 /* MyViewController.swift in Sources */,
 				04EBEBCB254AACE7000B706F /* QYBaseCollectionView.swift in Sources */,
 				04EBEBD6254AACE7000B706F /* QYAppInfo.swift in Sources */,
@@ -832,6 +868,7 @@
 				04EBEBD1254AACE7000B706F /* QYTextField.swift in Sources */,
 				04EBEC01254AAD4E000B706F /* QYThen.swift in Sources */,
 				04EBEBCD254AACE7000B706F /* QYViewController.swift in Sources */,
+				04F5BC6925512DEB006DD046 /* RSA.m in Sources */,
 				04EBEBBF254AACE7000B706F /* QYPageView.swift in Sources */,
 				04EBEC04254AAD4E000B706F /* QYCodable.swift in Sources */,
 				04EBEBC2254AACE7000B706F /* QYButton.swift in Sources */,
@@ -1011,13 +1048,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mk.QYKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/库/QYKit/QYKitDemo/QYKitDemo/QYKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1031,13 +1069,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mk.QYKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/库/QYKit/QYKitDemo/QYKitDemo/QYKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -10,21 +10,21 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 public extension Array {
     /// 转data
-    func yi_toData() -> Data {
+    func yi_toData(_ options: JSONSerialization.WritingOptions = []) -> Data {
         if (!JSONSerialization.isValidJSONObject(self)) {
             QYLog("数组转data")
             return Data()
         }
-        let data = try? JSONSerialization.data(withJSONObject: self, options: [])
+        let data = try? JSONSerialization.data(withJSONObject: self, options: options)
         return data!
     }
     
-    func yi_toJSONString() -> String? {
+    func yi_toJSONString(_ options: JSONSerialization.WritingOptions = []) -> String? {
         if (!JSONSerialization.isValidJSONObject(self)) {
             QYLog("dic转json失败")
             return nil
         }
-        if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: []) {
+        if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: options) {
             let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
             return JSONString as String? ?? nil
         }

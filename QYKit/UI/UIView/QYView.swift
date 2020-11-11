@@ -124,66 +124,47 @@ public extension UIView {
 public extension UIView {
     
     func yi_push(_ vc: UIViewController, animated: Bool = true) {
-        let currentC = yi_currentController()
-        if yi_currentController() == nil {
-            NSLog("current controller is nil")
-        } else {
-            if currentC!.isKind(of: UINavigationController.self) {
+        if let currentC = yi_currentController() {
+            if currentC.isKind(of: UINavigationController.self) {
                 let nav: UINavigationController = currentC as! UINavigationController
                 if nav.viewControllers.count > 0 {
                     vc.hidesBottomBarWhenPushed = true
                 }
                 nav.pushViewController(vc, animated: animated)
             } else {
-                if currentC?.navigationController != nil {
-                    let nav: UINavigationController = currentC!.navigationController!
+                if currentC.navigationController != nil {
+                    let nav: UINavigationController = currentC.navigationController!
                     if nav.viewControllers.count > 0 {
                         vc.hidesBottomBarWhenPushed = true
                     }
-                    currentC!.navigationController!.pushViewController(vc, animated: animated)
+                    currentC.navigationController!.pushViewController(vc, animated: animated)
                 }
             }
         }
     }
     
     func yi_pop(_ animated: Bool = true) {
-        let currentC = yi_currentController()
-        if yi_currentController() == nil {
-            NSLog("current controller is nil")
-        } else {
-            if currentC!.isKind(of: UINavigationController.self) {
+        if let currentC = yi_currentController() {
+            if currentC.isKind(of: UINavigationController.self) {
                 ((currentC as? UINavigationController))?.popViewController(animated: animated)
             } else {
-                currentC!.navigationController?.popViewController(animated: animated)
+                currentC.dismiss(animated: animated, completion: nil)
             }
         }
     }
     
     func yi_popToRootViewController(_ animated: Bool = true) {
-        let currentC = yi_currentController()
-        if yi_currentController() == nil {
-            NSLog("current controller is nil")
-        } else {
-            if currentC!.isKind(of: UINavigationController.self) {
+        if let currentC = yi_currentController() {
+            if currentC.isKind(of: UINavigationController.self) {
                 (currentC as! UINavigationController).popToRootViewController(animated: true)
-            } else {
-                currentC!.navigationController?.popToRootViewController(animated: true)
             }
         }
     }
     func yi_present(_ vc: UIViewController, animated: Bool = true) {
-        if yi_currentController() == nil {
-            NSLog("current controller is nil")
-        } else {
-            yi_currentController()?.present(vc, animated: animated, completion: nil)
-        }
+        yi_currentController()?.present(vc, animated: animated, completion: nil)
     }
     func yi_dismiss(_ animated: Bool = true) {
-        if yi_currentController() == nil {
-            NSLog("current controller is nil")
-        } else {
-            yi_currentController()? .dismiss(animated: animated, completion: nil)
-        }
+        yi_currentController()? .dismiss(animated: animated, completion: nil)
     }
     ///获取父控制器
     func yi_currentController() -> UIViewController? {

@@ -76,12 +76,13 @@ public extension NSObject {
     var yi_datePicker: QYDatePickerViewController {
         return QYDatePickerViewController()
     }
+    
 }
 
 //MARK: --- 宏定义
 /// 比例  -- Parameters: -- num: 长宽 -- proportionWidth: 比例宽(默认375)
-public func QYRatio(_ num: CGFloat,_ proportionWidth: CGFloat? = nil) -> CGFloat {
-    return num * QYProportion(proportionWidth ?? 375.0)
+public func QYRatio(_ num: CGFloat,_ proportionWidth: CGFloat = 375) -> CGFloat {
+    return num * QYProportion(proportionWidth)
 }
 ///屏幕宽
 public var QYScreenWidth: CGFloat {
@@ -92,15 +93,7 @@ public var QYScreenHeight: CGFloat {
     return UIScreen.main.bounds.size.height
 }
 ///屏幕比例
-public var QYProportion: CGFloat {
-    let screenWidth = Double(UIScreen.main.bounds.width)
-    let screenHeight = Double(UIScreen.main.bounds.height)
-    let width = min(screenWidth, screenHeight)
-    
-    return CGFloat(width / 375.0)
-}
-///屏幕比例
-public func QYProportion(_ wid: CGFloat) -> CGFloat {
+public func QYProportion(_ wid: CGFloat = 375) -> CGFloat {
     return UIScreen.main.bounds.size.width / wid
 }
 ///导航高度
@@ -129,11 +122,11 @@ public var QYBottomAndTabBarHeight: CGFloat {
 }
 ///大小
 public func QYFont(_ font: CGFloat) -> UIFont {
-    return UIFont.systemFont(ofSize: font * QYProportion)
+    return UIFont.systemFont(ofSize: font * QYProportion())
 }
 ///加粗
 public func QYBoldFont(_ font: CGFloat) -> UIFont {
-    return UIFont.boldSystemFont(ofSize: font * QYProportion)
+    return UIFont.boldSystemFont(ofSize: font * QYProportion())
 }
 ///斜体
 public func QYItalicSystemFont(_ font: CGFloat) -> UIFont {

@@ -15,41 +15,27 @@ import AVFoundation
 import CoreBluetooth
 
 ///权限
-open class QYPermissionsDetection: NSObject {
+open class QYPermissionsDetection {
     private var bluetoohTools: QYCheckBluetooth?
-    // MARK: - 检测是否开启联网
-    /// 检测是否开启联网
-    public class func yi_openEventServiceWithBolck(action:@escaping ((Bool)->())) {
-        let cellularData = CTCellularData()
-        var isOpen = false
-        cellularData.cellularDataRestrictionDidUpdateNotifier = { (state) in
-            if !(state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted) {
-                isOpen = true
-            }
-        }
-        let state = cellularData.restrictedState
-        if !(state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted) {
-            isOpen = true
-        }
-        DispatchQueue.main.async {
-            action(isOpen)
-        }
-    }
     // MARK: - 检测是否开启定位
     /// 检测是否开启定位
-    public class func yi_openLocationServiceWithBlock(action:@escaping ((Bool)->())) {
-        var isOpen = false
-        if CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() != .denied {
-            isOpen = true
+    public class func yi_isOpenLocationService() -> Bool {
+        var isOpen = true
+        if CLLocationManager.authorizationStatus() == .denied {
+            let mana = CLLocationManager()
+            mana.requestAlwaysAuthorization()
+            mana.requestWhenInUseAuthorization()
+            mana.startUpdatingLocation()
+        } else {
+            isOpen = false
         }
-        DispatchQueue.main.async {
-            action(isOpen)
-        }
+        
+        return isOpen
     }
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
-    public class func yi_openCaptureDeviceServiceWithBlock(action:@escaping ((Bool)->())) {
-        var isOpen = false
+    public class func yi_isOpenCaptureDeviceService() -> Bool {
+        var isOpen = true
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if authStatus == AVAuthorizationStatus.notDetermined {
             AVCaptureDevice.requestAccess(for: AVMediaType.video) { (granted) in
@@ -57,28 +43,33 @@ open class QYPermissionsDetection: NSObject {
             }
         } else if authStatus == AVAuthorizationStatus.restricted || authStatus == AVAuthorizationStatus.denied {
             isOpen = false
-        } else {
-            isOpen = true
         }
-        DispatchQueue.yi_getMainAsync {
-            action(isOpen)
-        }
+        return isOpen
     }
     // MARK: - 检测是否开启相册
     /// 检测是否开启相册
-    public class func yi_openAlbumServiceWithBlock(action:@escaping ((Bool)->())) {
+    public class func yi_isOpenAlbumService() -> Bool {
         var isOpen = true
         let authStatus = PHPhotoLibrary.authorizationStatus()
-        if authStatus == PHAuthorizationStatus.restricted || authStatus == PHAuthorizationStatus.denied {
-            isOpen = false;
+        if authStatus == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                if status == .authorized {
+                    isOpen = true
+                } else if status == .denied || status == .restricted {
+                    isOpen = false
+                } else {
+                    isOpen = false
+                }
+            })
+        } else if authStatus == PHAuthorizationStatus.restricted || authStatus == PHAuthorizationStatus.denied {
+            isOpen = false
         }
-        DispatchQueue.yi_getMainAsync {
-            action(isOpen)
-        }
+        
+        return isOpen
     }
     // MARK: - 检测是否开启麦克风
     /// 检测是否开启麦克风
-    public class func yi_openRecordServiceWithBlock(action:@escaping ((Bool)->())) {
+    public class func yi_openRecordService() -> Bool {
         var isOpen = false
         let permissionStatus = AVAudioSession.sharedInstance().recordPermission
         if permissionStatus == AVAudioSession.RecordPermission.undetermined {
@@ -90,9 +81,7 @@ open class QYPermissionsDetection: NSObject {
         } else {
             isOpen = true
         }
-        DispatchQueue.yi_getMainAsync {
-            action(isOpen)
-        }
+        return isOpen
     }
     // MARK: - 检测是否开启蓝牙
     /// 检测是否开启蓝牙
@@ -105,9 +94,7 @@ open class QYPermissionsDetection: NSObject {
             } else {
                 isOpen = false
             }
-            DispatchQueue.yi_getMainAsync {
-                action(isOpen,state)
-            }
+            action(isOpen,state)
         }
     }
     // MARK: - 跳转系统设置界面

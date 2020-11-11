@@ -15,16 +15,10 @@ import Accelerate
 
 public extension UIImage {
     ///加载url
-    static func yi_url(url: String) -> UIImage? {
+    static func yi_url(urlString: String) -> UIImage? {
         var image: UIImage?
-        let url = URL.init(string: url)
-        do {
-            if let ur = url {
-                let data = try Data(contentsOf: ur)
-                image = UIImage.init(data: data)
-            }
-        } catch let error as NSError {
-            print(error)
+        if let url = URL.init(string: urlString),let data = try? Data(contentsOf: url) {
+            image = UIImage.init(data: data)
         }
         return image
     }
@@ -150,8 +144,8 @@ public extension UIImage {
 }
 //MARK: --- 转换
 public extension UIImage {
-    func yi_quality(_ quality: Float? = nil) -> UIImage? {
-        guard let imageData = self.jpegData(compressionQuality: CGFloat(quality ?? 1)) else { return nil }
+    func yi_quality(_ quality: CGFloat = 1) -> UIImage? {
+        guard let imageData = self.jpegData(compressionQuality: quality) else { return nil }
         return UIImage.init(data: imageData)
     }
     ///image --> base64
@@ -165,6 +159,11 @@ public extension UIImage {
     ///image --> color
     func yi_toColor() -> UIColor? {
         return UIColor.init(patternImage: self)
+    }
+    ///image --> data
+    func yi_toData() -> Data? {
+        self.pngData()
+        return self.jpegData(compressionQuality: 1)
     }
 }
 //MARK: --- 功能
@@ -202,7 +201,7 @@ public extension UIImage {
          return newImage
      }
     ///图片压缩
-    func yi_resetImage(_ maxSizeKB : CGFloat,_ maxImageLenght : CGFloat?) -> UIImage? {
+    func yi_resetImage(_ maxSizeKB : CGFloat,_ maxImageLenght : CGFloat? = nil) -> UIImage? {
         let maxSize = maxSizeKB
         let maxImageSize = maxImageLenght ?? self.size.width
         //先调整分辨率
@@ -247,7 +246,7 @@ public extension UIImage {
     }
     
     ///颜色生成image
-    class func yi_fromColor(_ color:UIColor) -> UIImage {
+    class func yi_fromColor(_ color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size);
         let context = UIGraphicsGetCurrentContext()
@@ -293,7 +292,7 @@ public extension UIImage {
          return UIGraphicsGetImageFromCurrentImageContext()
      }
     ///生成条形码
-    class func generateCode128(_ text:String, _ size:CGSize,_ color:UIColor? = nil ) -> UIImage? {
+    class func generateCode128(_ text: String, _ size: CGSize,_ color: UIColor? = nil) -> UIImage? {
         //给滤镜设置内容
         guard let data = text.data(using: .utf8) else {
             return nil

@@ -40,7 +40,8 @@ public extension String {
     init?(base64: String) {
         let pad = String(repeating: "=", count: base64.length % 4)
         let base64Padded = base64 + pad
-        if let decodedData = Data(base64Encoded: base64Padded, options: NSData.Base64DecodingOptions(rawValue: 0)), let decodedString = NSString(data: decodedData, encoding: String.Encoding.utf8.rawValue) {
+        if let decodedData = Data(base64Encoded: base64Padded, options: NSData.Base64DecodingOptions(rawValue: 0)),
+           let decodedString = NSString(data: decodedData, encoding: String.Encoding.utf8.rawValue) {
             self.init(decodedString)
         } else {
             self.init("")
@@ -50,7 +51,8 @@ public extension String {
     ///时间戳创建时间字符串
     init?(timeInterval: Double,formatter: String) {
         let date = Date.init(timeIntervalSince1970: timeInterval / 1000)
-        let dateStr = date.yi_toString(formatter)
+        let dateStr = date.yi_toString(format: formatter)
+        
         self.init(dateStr)
     }
     
@@ -60,6 +62,8 @@ public extension String {
     //MARK: --- 异或
     ///异或
     func yi_xor (_ pinV: String) -> String {
+        guard !self.isEmpty else { return "" }
+        
         if self.count != pinV.count {
             QYLog("长度不匹配")
             return ""
@@ -74,6 +78,7 @@ public extension String {
         return code
     }
     private func creator (_ pan: String,_ pin: String) -> String {
+        
         var code = ""
         for i in 0 ..< pan.length {
             let pans = charToint(pan.utf8CString[i])
@@ -95,24 +100,23 @@ public extension String {
     //MARK: --- 获取文本高度
     /// 获取文本高度
     func yi_getHeight(_ font : UIFont = UIFont.systemFont(ofSize: 18), fixedWidth : CGFloat) -> CGFloat {
-        
-        guard self.count > 0 && fixedWidth > 0 else {
+        guard !self.isEmpty && fixedWidth > 0 else {
             return 0
         }
+        
         let size = CGSize(width:fixedWidth, height:CGFloat.greatestFiniteMagnitude)
         let text = self as NSString
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [.font : font], context:nil)
         return rect.size.height
     }
     //MARK: --- 获取文本宽度
     /// 获取文本宽度
     func yi_getWidth(_ font : UIFont = UIFont.systemFont(ofSize: 18)) -> CGFloat {
-        guard self.count > 0 else {
-            return 0
-        }
+        guard !self.isEmpty else { return 0 }
+        
         let size = CGSize(width:CGFloat.greatestFiniteMagnitude, height:0)
         let text = self as NSString
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [.font : font], context:nil)
         return rect.size.width
     }
 }
@@ -120,6 +124,8 @@ public extension String {
 public extension String {
     ///开始结束
     func yi_index(_ start: Int ,_ stop: Int) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         let index1 = string.index(string.startIndex, offsetBy: start)
         let index2 = string.index(string.startIndex, offsetBy: stop)
@@ -127,6 +133,8 @@ public extension String {
     }
     ///从哪到之后长度
     func yi_index(_ start: Int ,length: Int) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         let index1 = string.index(string.startIndex, offsetBy: start)
         let index2 = string.index(string.startIndex, offsetBy: start + length)
@@ -134,12 +142,16 @@ public extension String {
     }
     ///开始到i
     func yi_index(to i: Int) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         let index = string.index(startIndex, offsetBy: i)
         return String(string[index])
     }
     ///截取range
     func yi_index(_ range: Range<Int>) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         let start = string.index(startIndex, offsetBy: range.lowerBound)
         let end = string.index(startIndex, offsetBy: range.upperBound)
@@ -147,6 +159,8 @@ public extension String {
     }
     ///截取closedrange
     func yi_index(closedRange: ClosedRange<Int>) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         return string.yi_index(closedRange.lowerBound..<(closedRange.upperBound + 1))
     }
@@ -162,6 +176,8 @@ public extension String {
     ///   - cycle: 是否循环插入替换字符串
     /// - Returns: 新字符串
     mutating func yi_replacing(index:Int,length:Int,replac:String,_ cycle: Bool? = nil) -> String {
+        guard !self.isEmpty else { return "" }
+        
         var string = self
         let count = self.count
         let startIndex = string.index(string.startIndex, offsetBy: index)
@@ -182,6 +198,8 @@ public extension String {
     ///   - option: 可以用来指定一个选项标记（这个标记可以作为替换的条件)
     ///   - range: 指定一个替换的范围
     func yi_replacingOccurrences(_ of: String,_ with: String,option: String.CompareOptions = [],range: Range<Self.Index>? = nil) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         let s = string.replacingOccurrences(of: of, with: with, options: option, range: range)
         return s
@@ -191,28 +209,38 @@ public extension String {
     ///   - range: 范围
     ///   - with: 替换字符串
     func yi_replacingCharacters(_ range: NSRange,_ with: String) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         return (string as NSString).replacingCharacters(in: range, with: with)
     }
     ///删除第一个字符
     mutating func yi_deleteFirst() -> String {
+        guard !self.isEmpty else { return "" }
+        
         var string = self
         string.remove(at: string.index(before: string.startIndex))
         return string
     }
     ///删除最后一个字符
     mutating func yi_deleteLast() -> String {
+        guard !self.isEmpty else { return "" }
+        
         var string = self
         string.remove(at: string.index(before: string.endIndex))
         return string
     }
     /// 删除指定字符串
     mutating func yi_delete(_ string: String) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         return string.replacingOccurrences(of: string, with: "")
     }
     ///字符串的插入
     mutating func yi_insert(_ text: String, index: Int) -> String {
+        guard !self.isEmpty else { return "" }
+        
         var string = self
         let start = string.index(string.startIndex, offsetBy: index)
         string.insert(contentsOf: text, at: start)
@@ -220,11 +248,15 @@ public extension String {
     }
     /// 将字符串通过特定的字符串拆分为字符串数组
     func yi_components(_ string: String) -> [String] {
+        guard !self.isEmpty else { return [] }
+        
         let string = self
         return NSString(string: self).components(separatedBy: string)
     }
     ///去除前后的换行和空格
     func yi_removeSapce() -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         var resultString = string.trimmingCharacters(in: CharacterSet.whitespaces)
         resultString = resultString.trimmingCharacters(in: CharacterSet.newlines)
@@ -232,6 +264,8 @@ public extension String {
     }
     ///获取某个字符串在总字符串的位置
     func yi_positionOf(_ sub: String,_ backwards: Bool = false)->Int {
+        guard !self.isEmpty else { return -1 }
+        
         let string = self
         var pos = -1
         if let range = range(of:sub, options: backwards ? .backwards : .literal ) {
@@ -248,19 +282,32 @@ public extension String {
     //MARK: --- 数据类型
     /// Int
     func yi_toInt() -> Int? {
+        guard !self.isEmpty else { return nil }
         
         return NSDecimalNumber.init(string: String(format: "%@", self)).intValue
     }
+    /// Number
+    func yi_toNumber() -> NSNumber? {
+        guard !self.isEmpty else { return nil }
+        
+        return NSNumber.init(value: NSDecimalNumber.init(string: String(format: "%@", self)).intValue)
+    }
     /// Double
     func yi_toDouble() -> Double? {
+        guard !self.isEmpty else { return nil }
+        
         return NSDecimalNumber.init(string: String(format: "%@", self)).doubleValue
     }
     /// Float
     func yi_toFloat() -> Float? {
+        guard !self.isEmpty else { return nil }
+        
         return NSDecimalNumber.init(string: String(format: "%@", self)).floatValue
     }
     /// Bool
     func yi_toBool() -> Bool? {
+        guard !self.isEmpty else { return nil }
+        
         let trimmedString = self.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         if trimmedString == "true" || trimmedString == "false" {
             return (trimmedString as NSString).boolValue
@@ -269,25 +316,31 @@ public extension String {
     }
     //MARK: --- 时间
     ///string --> date
-    func yi_toDate(from dateFormat: String = "yyyy-MM-dd HH:mm:ss",_ timeZone: TimeZone = NSTimeZone.system) -> Date {
+    func yi_toDate(from dateFormat: String,_ timeZone: TimeZone = NSTimeZone.system) -> Date? {
+        guard !self.isEmpty else { return nil }
+        
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = dateFormat
         formatter.timeZone = timeZone
         let date = formatter.date(from: self)
-        return date!
+        return date
     }
     ///string --> date
-    func yi_toDate(_ dateFormat: QYDateFormatter = .dateModeYMDHMS,_ timeZone: TimeZone = NSTimeZone.system) -> Date {
+    func yi_toDate(_ dateFormat: QYDateFormatter,_ timeZone: TimeZone = NSTimeZone.system) -> Date? {
+        guard !self.isEmpty else { return nil }
+        
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = dateFormat.rawValue
         formatter.timeZone = timeZone
         let date = formatter.date(from: self)
-        return date!
+        return date
     }
     /// 字符串转时间戳
     func yi_toStampTime(_ mode: QYDateFormatter = .dateModeYMDHMS) -> Int {
+        guard !self.isEmpty else { return 0 }
+        
         let dateFormatter = DateFormatter.init()
         dateFormatter.dateFormat = mode.rawValue
         let current = dateFormatter.date(from: self)
@@ -299,6 +352,8 @@ public extension String {
     //MARK: --- json转换
     /// JSONString转换为字典
     func yi_toDictionary() -> [String:Any]? {
+        guard !self.isEmpty else { return nil }
+        
         guard let jsonData:Data = self.data(using: .utf8) else {
             QYLog("json转dict失败")
             return nil
@@ -310,14 +365,18 @@ public extension String {
         return nil
     }
     /// JSONString转换为data
-    func yi_toData() -> Data? {
-        let data = self.data(using: String.Encoding.utf8)
+    func yi_toData(_ using: String.Encoding = .utf8) -> Data? {
+        guard !self.isEmpty else { return nil }
+        
+        let data = self.data(using: using)
         return data
     }
     
     //MARK: --- 进制
     ///十六进制转数字
     func yi_hexToInt() -> Int {
+        guard !self.isEmpty else { return 0 }
+        
         let str = self.uppercased()
         var sum = 0
         for i in str.utf8 {
@@ -332,6 +391,8 @@ public extension String {
     }
     ///十六进制转换为普通字符串
     func yi_hexToString() -> String {
+        guard !self.isEmpty else { return "" }
+        
         var bytes = [UInt8]()
         var dataBStr: String = ""
         for (index, _) in self.enumerated(){
@@ -350,6 +411,8 @@ public extension String {
     }
     ///普通字符串转换为十六进制
     func yi_toHexString() -> String {
+        guard !self.isEmpty else { return "" }
+        
         let strData = self.data(using: String.Encoding.utf8)
         let bytes = [UInt8](strData!)
         var sumString: String = ""
@@ -366,6 +429,8 @@ public extension String {
     //MARK: --- 加密
     /// base64
     func yi_toBase64 (_ options: Data.Base64EncodingOptions? = nil) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let plainData = (self as NSString).data(using: String.Encoding.utf8.rawValue)
         var base64String = ""
         if let data = plainData {
@@ -379,6 +444,8 @@ public extension String {
     }
     ///转成byte数组
     func yi_toBytes() -> [UInt8] {
+        guard !self.isEmpty else { return [] }
+        
         let strData = self.data(using: String.Encoding.utf8)! as NSData
         let count = self.count / MemoryLayout<UInt8>.size
         var bytesArray = [UInt8](repeating: 0, count: count)
@@ -387,6 +454,8 @@ public extension String {
     }
     ///md5 字符串加密
     func yi_md5() -> String {
+        guard !self.isEmpty else { return "" }
+        
         let str = self.cString(using: String.Encoding.utf8)
         let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
@@ -400,7 +469,9 @@ public extension String {
         return String(format: hash as String)
     }
     ///encode
-    func yi_encoded(_ charactersIn: String? = nil) -> String{
+    func yi_encoded(_ charactersIn: String? = nil) -> String {
+        guard !self.isEmpty else { return self }
+        
         var customAllowedSet = NSCharacterSet.alphanumerics
         if let characters = charactersIn {
             ///"!*'();:@&=+$,/?%#[]"
@@ -412,21 +483,21 @@ public extension String {
     
     ///url
     func yi_toUrl() -> URL? {
+        guard !self.isEmpty else { return nil }
+        
         return URL(string: self)
     }
     
     ///图片
     func yi_toUrlImage() -> UIImage? {
+        guard !self.isEmpty else { return nil }
+        
         var image: UIImage?
         if self.length <= 0 {
             return nil
         }
-        let url = URL.init(string: self)
-        do {
-            let data = try Data(contentsOf: url!)
+        if let url = URL.init(string: self),let data = try? Data(contentsOf: url) {
             image = UIImage.init(data: data)
-        }catch let error as NSError {
-            print(error)
         }
         return image
     }
@@ -434,6 +505,7 @@ public extension String {
     
     ///NSAttributedString
     func yi_toAttributed() -> NSAttributedString {
+        
         return NSAttributedString.init(string: self)
     }
 }
@@ -441,18 +513,23 @@ public extension String {
 //MARK: --- 大小写
 public extension String {
     ///转为大写
-    func yi_uppercased(_ locale: Locale?) -> String {
+    func yi_uppercased(_ locale: Locale) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         return string.uppercased(with: locale)
     }
     ///转为小写
-    func yi_lowercased(_ locale: Locale?) -> String {
+    func yi_lowercased(_ locale: Locale) -> String {
+        guard !self.isEmpty else { return "" }
+        
         let string = self
         return string.lowercased(with: locale)
     }
     ///大写字符串的第“计数”字符
     mutating func yi_uppercasePrefix(_ count: Int) -> String {
-        guard self.count > 0 && count > 0 else { return self }
+        guard !self.isEmpty && count > 0 else { return self }
+        
         var string = self
         string.replaceSubrange(startIndex..<string.index(startIndex, offsetBy: min(count, length)),
                              with: String(string[startIndex..<string.index(startIndex, offsetBy: min(count, length))]).uppercased())
@@ -460,50 +537,51 @@ public extension String {
     }
     ///大写首'计数'字符的字符串
     func yi_uppercasedPrefix(_ count: Int) -> String {
-        guard self.count > 0 && count > 0 else { return self }
+        guard !self.isEmpty && count > 0 else { return self }
         var result = self
-        result.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: min(count, length)),
-                               with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).uppercased())
+        result.replaceSubrange(startIndex..<result.index(startIndex, offsetBy: min(count, length)),
+                               with: String(result[startIndex..<result.index(startIndex, offsetBy: min(count, length))]).uppercased())
         return result
     }
     ///字符串的最后“计数”字符，返回一个新字符串
     func yi_uppercasedSuffix(_ count: Int) -> String {
-        guard self.count > 0 && count > 0 else { return self }
+        guard !self.isEmpty && count > 0 else { return self }
         var result = self
-        result.replaceSubrange(self.index(endIndex, offsetBy: -min(count, length))..<endIndex,
-                               with: String(self[self.index(endIndex, offsetBy: -min(count, length))..<endIndex]).uppercased())
+        result.replaceSubrange(result.index(endIndex, offsetBy: -min(count, length))..<endIndex,
+                               with: String(result[result.index(endIndex, offsetBy: -min(count, length))..<endIndex]).uppercased())
         return result
     }
     ///范围内大写
     func yi_uppercased(range: CountableRange<Int>) -> String {
+        guard !self.isEmpty else { return self }
         let from = max(range.lowerBound, 0), to = min(range.upperBound, length)
         guard self.count > 0 && (0..<length).contains(from) else { return self }
         var result = self
-        result.replaceSubrange(self.index(startIndex, offsetBy: from)..<self.index(startIndex, offsetBy: to),
-                               with: String(self[self.index(startIndex, offsetBy: from)..<self.index(startIndex, offsetBy: to)]).uppercased())
+        result.replaceSubrange(result.index(startIndex, offsetBy: from)..<result.index(startIndex, offsetBy: to),
+                               with: String(result[result.index(startIndex, offsetBy: from)..<result.index(startIndex, offsetBy: to)]).uppercased())
         return result
     }
     ///首字母小写
     func yi_lowercasedFirst() -> String {
-        guard self.count > 0 else { return self }
+        guard !self.isEmpty else { return self }
         var result = self
         result.replaceSubrange(startIndex...startIndex, with: String(self[startIndex]).lowercased())
         return result
     }
     ///小写字符串的第一个“计数”字符
     func yi_lowercasedPrefix(_ count: Int) -> String {
-        guard self.count > 0 && count > 0 else { return self }
+        guard !self.isEmpty && count > 0 else { return self }
         var result = self
-        result.replaceSubrange(startIndex..<self.index(startIndex, offsetBy: min(count, length)),
-                               with: String(self[startIndex..<self.index(startIndex, offsetBy: min(count, length))]).lowercased())
+        result.replaceSubrange(startIndex..<result.index(startIndex, offsetBy: min(count, length)),
+                               with: String(result[startIndex..<result.index(startIndex, offsetBy: min(count, length))]).lowercased())
         return result
     }
     ///字符串的最后“计数”字符小写
     func yi_lowercasedSuffix(_ count: Int) -> String {
-        guard self.count > 0 && count > 0 else { return self }
+        guard !self.isEmpty && count > 0 else { return self }
         var result = self
-        result.replaceSubrange(self.index(endIndex, offsetBy: -min(count, length))..<endIndex,
-                               with: String(self[self.index(endIndex, offsetBy: -min(count, length))..<endIndex]).lowercased())
+        result.replaceSubrange(result.index(endIndex, offsetBy: -min(count, length))..<endIndex,
+                               with: String(result[result.index(endIndex, offsetBy: -min(count, length))..<endIndex]).lowercased())
         return result
     }
     
@@ -512,14 +590,20 @@ public extension String {
 public extension String {
     ///是否是手机
     var yi_isPhone: Bool {
+        guard !self.isEmpty else { return false }
+        
         return QYRegular.yi_isPhoneNumber(self)
     }
     ///是否是身份证
     var yi_isIdCard: Bool {
+        guard !self.isEmpty else { return false }
+        
         return QYRegular.yi_isIdCard(self)
     }
     ///是否是纯数字
     var yi_isNumber: Bool {
+        guard !self.isEmpty else { return false }
+        
         return QYRegular.yi_isNumber(self)
     }
 }

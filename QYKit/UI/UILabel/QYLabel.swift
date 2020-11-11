@@ -136,7 +136,6 @@ public extension UILabel {
 }
 //MARK: --- 功能
 public extension UILabel {
-//    override func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float, _ cornerRadius: CGFloat? = nil) {
-//        <#code#>
-//    }
+
+    
 }

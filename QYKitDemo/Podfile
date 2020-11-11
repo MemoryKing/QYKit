@@ -11,4 +11,6 @@ pod 'MJRefresh',:inhibit_warnings => true
 pod 'DZNEmptyDataSet',:inhibit_warnings => true
 pod 'SnapKit',:inhibit_warnings => true
 pod 'MBProgressHUD',:inhibit_warnings => true
+pod 'Alamofire',:inhibit_warnings => true
+
 end

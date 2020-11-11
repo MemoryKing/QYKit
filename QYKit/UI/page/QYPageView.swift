@@ -223,7 +223,7 @@ fileprivate class QYSelectView: UIView {
         clickBlock?(titles.first ?? "",0)
     }
     @objc func allClick(_ sender: UIButton) {
-        var titW = sender.titleLabel?.text!.yi_getWidth(QYFont(14))
+        var titW = sender.titleLabel?.text?.yi_getWidth(QYFont(14))
         guard let titH = sender.titleLabel?.text?.yi_getHeight(QYFont(14), fixedWidth: titW ?? 100) else { return }
         titW = lineWidth ?? titW
         buttons?.forEach({ btn in

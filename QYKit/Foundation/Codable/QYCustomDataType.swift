@@ -30,6 +30,7 @@ public struct QYStrInt: QYCodable {
         }
     }
 }
+
 ///string  double
 public struct QYStrDble: QYCodable {
     var double: Double?

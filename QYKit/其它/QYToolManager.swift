@@ -21,6 +21,7 @@ public typealias Long  = Int64
 //MARK: --- 打印
 ///打印
 public func QYLog<T>(_ message: T, fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
+    
     #if DEBUG
     //获取当前时间
     let now = Date()
@@ -29,7 +30,7 @@ public func QYLog<T>(_ message: T, fileName: String = #file, methodName: String 
     dformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     //要把路径最后的字符串截取出来
     let lastName = ((fileName as NSString).pathComponents.last!)
-    print("debug--\(dformatter.string(from: now)) [\(lastName)][第\(lineNumber)行] -- \(message)")
-    
+    print("\(dformatter.string(from: now)) debug -- [\(lastName)][第\(lineNumber)行] \(message)")
+      
     #endif
 }

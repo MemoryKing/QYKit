@@ -19,19 +19,30 @@ public extension Data {
         return String(data: self, encoding: encoding)
     }
     ///json对象
-    func yi_toJsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
+    func yi_toJsonObject(options: JSONSerialization.ReadingOptions = [.mutableContainers]) throws -> Any {
+        
         return try JSONSerialization.jsonObject(with: self, options: options)
     }
     /// data转数组
-    func yi_toArray() -> Array<Any> {
-        let json = try? JSONSerialization.jsonObject(with: self, options: .mutableContainers)
-        let array = json as! Array<Any>
-        return array
+    func yi_toArray(_ options: JSONSerialization.ReadingOptions = [.mutableContainers]) -> Array<Any>? {
+        if let json = try? JSONSerialization.jsonObject(with: self, options: options) {
+            return json as? Array<Any>
+        }
+        return nil
     }
     /// 转字典
-    func yi_toDictionary() -> Dictionary<String, Any> {
-        let json = try? JSONSerialization.jsonObject(with: self, options: .mutableContainers)
-        let dic = json as! Dictionary<String, Any>
-        return dic
+    func yi_toDictionary(_ options: JSONSerialization.ReadingOptions = [.mutableContainers]) -> Dictionary<String, Any>? {
+        if let json = try? JSONSerialization.jsonObject(with: self, options: options) {
+            return json as? Dictionary<String, Any>
+        }
+        
+        return nil
+    }
+    /// 转string
+    func yi_toJSONString(_ options: JSONSerialization.ReadingOptions = [.mutableContainers]) -> String? {
+        if let json = try? JSONSerialization.jsonObject(with: self, options: options) {
+            return json as? String
+        }
+        return nil
     }
 }

@@ -25,14 +25,19 @@ public enum QYCodableError: Error {
 
 
 public protocol QYCodable: Codable {
-    func yi_modelReplaceKey()
+    init(from decoder: String?) throws
+    init(from decoder: Dictionary<String,Any>?) throws
 }
 public extension QYCodable {
-    func yi_modelReplaceKey() {
-        
+    init(from decoder: String?) throws {
+        self = try Self.yi_init(decoder)
+    }
+    init(from decoder: Dictionary<String,Any>?) throws {
+        self = try Self.yi_init(decoder)
     }
 }
 public extension QYCodable {
+    
     ///模型转字典
     func yi_toDic() -> [String:Any] {
         let mirro = Mirror(reflecting: self)
@@ -55,10 +60,25 @@ public extension QYCodable {
     ///dic 转 model
     static func yi_init<T : QYCodable>(_ dic: Dictionary<String, Any>?) throws -> T {
         
-        guard let JSONString = dic?.yi_toJSON() else {
+        guard let JSONString = dic?.yi_toJSONString() else {
             throw QYCodableError.dicToJsonFail
         }
         guard let jsonData = JSONString.data(using: .utf8) else {
+            throw QYCodableError.jsonToDataFail
+        }
+        let decoder = JSONDecoder()
+        do {
+            let obj = try decoder.decode(T.self, from: jsonData)
+            return obj
+        }catch {
+            QYLog(error)
+        }
+        throw QYCodableError.jsonToModelFail
+    }
+    ///jsonstring 转 model
+    static func yi_init<T : QYCodable>(_ json: String?) throws -> T {
+        
+        guard let jsonData = json?.data(using: .utf8) else {
             throw QYCodableError.jsonToDataFail
         }
         let decoder = JSONDecoder()

@@ -68,19 +68,13 @@ public extension UIViewController {
     }
     ///导航透明
     func yi_navClear() {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-        }
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     ///返回图片
     func yi_backImage (_ img: UIImage?) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            if self.navigationController!.children.count > 1 {
+        if let nav = self.navigationController {
+            if nav.children.count > 1 {
                 self.yi_navLeftImageItem(img) {[weak self] in
                     self?.yi_goBack()
                 }

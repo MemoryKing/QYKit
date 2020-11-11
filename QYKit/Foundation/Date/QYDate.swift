@@ -72,7 +72,7 @@ public class DateFormattersManager {
 public extension Date {
     //MARK: --- 将日期转换为字符串
     ///将日期转换为字符串
-    func yi_toString(_ dateFormat: QYDateFormatter = .dateModeYMDHMS,_ timeZone: TimeZone = NSTimeZone.system) -> String {
+    func yi_toString(format dateFormat: QYDateFormatter = .dateModeYMDHMS,_ timeZone: TimeZone = NSTimeZone.system) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = dateFormat.rawValue
@@ -82,7 +82,7 @@ public extension Date {
     }
     //MARK: --- 将日期转换为字符串
     ///将日期转换为字符串
-    func yi_toString(_ formatstr: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
+    func yi_toString(format formatstr: String,_ timeZone: TimeZone = NSTimeZone.system) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale.init(identifier: "zh_CN")
         formatter.dateFormat = formatstr
@@ -473,8 +473,12 @@ public extension Date {
         }
         dateFormatter.dateFormat = format
         let dataString = dateFormatter.string(from: self)
-        let date = dateFormatter.date(from: dataString)
-        let stamp = date!.timeIntervalSince1970
-        return isMS ? Int(stamp * 1000) : Int(stamp)
+        
+        if let date = dateFormatter.date(from: dataString) {
+            let stamp = date.timeIntervalSince1970
+            return isMS ? Int(stamp * 1000) : Int(stamp)
+        }
+        
+        return 0
     }
 }
