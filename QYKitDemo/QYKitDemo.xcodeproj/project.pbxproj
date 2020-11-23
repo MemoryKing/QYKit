@@ -63,6 +63,9 @@
 		04F5BC6925512DEB006DD046 /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F5BC6625512DEA006DD046 /* RSA.m */; };
 		04FA089924C82BED00B695C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089824C82BED00B695C4 /* README.md */; };
 		04FA089B24C82BF600B695C4 /* QYKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 04FA089A24C82BF600B695C4 /* QYKit.podspec */; };
+		637B5E5A256BAF7E0013C164 /* QYFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B5E59256BAF7E0013C164 /* QYFloat.swift */; };
+		637B5E62256BAFCD0013C164 /* QYDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B5E61256BAFCD0013C164 /* QYDouble.swift */; };
+		637B5E6B256BB07E0013C164 /* QYInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B5E6A256BB07E0013C164 /* QYInt.swift */; };
 		938CD3D9C3D9A0E933374077 /* Pods_QYKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9D30B75E934813E876663D /* Pods_QYKitDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,7 +88,6 @@
 
 /* Begin PBXFileReference section */
 		044F947D25529142001C53E7 /* QYJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYJSON.swift; sourceTree = "<group>"; };
-		048583A724CAE993006D98F8 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		04901FBE249CA25F0086A508 /* QYKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QYKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FD4249CA2650086A508 /* QYKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04901FDF249CA2650086A508 /* QYKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QYKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,9 @@
 		04FA089A24C82BF600B695C4 /* QYKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = QYKit.podspec; path = ../../QYKit.podspec; sourceTree = "<group>"; };
 		38518928AD5ACCDA2E21AF37 /* Pods-YJSwiftKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJSwiftKit.debug.xcconfig"; path = "Target Support Files/Pods-YJSwiftKit/Pods-YJSwiftKit.debug.xcconfig"; sourceTree = "<group>"; };
 		43527D8192BD4580F87ED551 /* Pods-QYKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKit.release.xcconfig"; path = "Target Support Files/Pods-QYKit/Pods-QYKit.release.xcconfig"; sourceTree = "<group>"; };
+		637B5E59256BAF7E0013C164 /* QYFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYFloat.swift; sourceTree = "<group>"; };
+		637B5E61256BAFCD0013C164 /* QYDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYDouble.swift; sourceTree = "<group>"; };
+		637B5E6A256BB07E0013C164 /* QYInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QYInt.swift; sourceTree = "<group>"; };
 		AA48D6AEB9A67077249D2F96 /* Pods-QYKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-QYKitDemo/Pods-QYKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BA9D30B75E934813E876663D /* Pods_QYKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QYKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5365B016AE7E3E115D7980 /* Pods-QYKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QYKit.debug.xcconfig"; path = "Target Support Files/Pods-QYKit/Pods-QYKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				04EBEB81254AACE6000B706F /* QYKit */,
-				048583A724CAE993006D98F8 /* MyPlayground.playground */,
 				04FA089A24C82BF600B695C4 /* QYKit.podspec */,
 				04FA089824C82BED00B695C4 /* README.md */,
 				04C6AB2224C7E33B009C348D /* Info.plist */,
@@ -509,6 +513,8 @@
 		04EBEBEA254AAD4E000B706F /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				637B5E66256BAFD70013C164 /* Double */,
+				637B5E58256BAF660013C164 /* Float */,
 				04EBEBEB254AAD4E000B706F /* then */,
 				04EBEBED254AAD4E000B706F /* DispatchQueue */,
 				04EBEBEF254AAD4E000B706F /* Codable */,
@@ -519,6 +525,7 @@
 				04EBEBFA254AAD4E000B706F /* String */,
 				04EBEBFD254AAD4E000B706F /* NSObject */,
 				04EBEBFF254AAD4E000B706F /* Data */,
+				637B5E72256BB1E30013C164 /* Int */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -629,6 +636,30 @@
 				BA9D30B75E934813E876663D /* Pods_QYKitDemo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		637B5E58256BAF660013C164 /* Float */ = {
+			isa = PBXGroup;
+			children = (
+				637B5E59256BAF7E0013C164 /* QYFloat.swift */,
+			);
+			path = Float;
+			sourceTree = "<group>";
+		};
+		637B5E66256BAFD70013C164 /* Double */ = {
+			isa = PBXGroup;
+			children = (
+				637B5E61256BAFCD0013C164 /* QYDouble.swift */,
+			);
+			path = Double;
+			sourceTree = "<group>";
+		};
+		637B5E72256BB1E30013C164 /* Int */ = {
+			isa = PBXGroup;
+			children = (
+				637B5E6A256BB07E0013C164 /* QYInt.swift */,
+			);
+			path = Int;
 			sourceTree = "<group>";
 		};
 		845C6C5FD91046F093DBF41D /* Pods */ = {
@@ -832,6 +863,7 @@
 				04EBEBCC254AACE7000B706F /* QYBaseViewController.swift in Sources */,
 				04EBEBC8254AACE7000B706F /* QYTextView.swift in Sources */,
 				04EBEC07254AAD4E000B706F /* QYDictionary.swift in Sources */,
+				637B5E6B256BB07E0013C164 /* QYInt.swift in Sources */,
 				04EBEBC7254AACE7000B706F /* QYDatePickerViewController.swift in Sources */,
 				04EBEBD4254AACE7000B706F /* QYRegular.swift in Sources */,
 				04EBEBCE254AACE7000B706F /* QYBaseNavigationController.swift in Sources */,
@@ -845,6 +877,7 @@
 				04EBEC08254AAD4E000B706F /* QYOperation.swift in Sources */,
 				04EBEBC9254AACE7000B706F /* QYBlockGesture.swift in Sources */,
 				04EBEBBE254AACE7000B706F /* QYImage.swift in Sources */,
+				637B5E62256BAFCD0013C164 /* QYDouble.swift in Sources */,
 				04EBEBD8254AACE7000B706F /* QYLocation.swift in Sources */,
 				04EBEC05254AAD4E000B706F /* QYArray.swift in Sources */,
 				044F947E25529142001C53E7 /* QYJSON.swift in Sources */,
@@ -865,6 +898,7 @@
 				04EBEBC6254AACE7000B706F /* QYView.swift in Sources */,
 				04EBEC02254AAD4E000B706F /* QYDispatchQueue.swift in Sources */,
 				04EBEBC4254AACE7000B706F /* QYColor.swift in Sources */,
+				637B5E5A256BAF7E0013C164 /* QYFloat.swift in Sources */,
 				04EBEBD1254AACE7000B706F /* QYTextField.swift in Sources */,
 				04EBEC01254AAD4E000B706F /* QYThen.swift in Sources */,
 				04EBEBCD254AACE7000B706F /* QYViewController.swift in Sources */,
@@ -1048,14 +1082,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mk.QYKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/库/QYKit/QYKitDemo/QYKitDemo/QYKit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/QYKitDemo/QYKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1069,14 +1103,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63X4PDHZJB;
 				INFOPLIST_FILE = "$(SRCROOT)/QYKitDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mk.QYKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Desktop/库/QYKit/QYKitDemo/QYKitDemo/QYKit-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/QYKitDemo/QYKit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

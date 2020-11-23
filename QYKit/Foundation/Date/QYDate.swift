@@ -90,6 +90,9 @@ public extension Date {
         let date = formatter.string(from: self)
         return date
     }
+    
+    
+    
 }
 
 public extension Date {
@@ -166,6 +169,7 @@ public extension Date {
         
         return dateFormatter!
     }
+    
     //MARK: --- 格式化
     /// 格式化
     private func yi_createDateFormatter(for format: String) -> DateFormatter {
@@ -176,28 +180,83 @@ public extension Date {
     }
     
     //MARK: --- 计算
-    //MARK: --- 当前到date经过了多少天
+    ///计算两时间差
+    func yi_calculate(_ formatter: String, startTime: String, endTime: String, timeZone: TimeZone? = nil) -> DateComponents {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = timeZone ?? TimeZone.init(secondsFromGMT: 8)
+        dateFormatter.dateFormat = formatter
+
+        if let date1 = dateFormatter.date(from: startTime),let date2 = dateFormatter.date(from: endTime) {
+            let components = NSCalendar.current.dateComponents([.year,.month,.day], from: date1, to: date2)
+            return components
+        }
+        return DateComponents()
+    }
+    
+    ///计算两时间差多少年
+    func yi_calculateYear(_ formatter: String, startTime: String, endTime: String, timeZone: TimeZone? = nil) -> Int? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = timeZone ?? TimeZone.init(secondsFromGMT: 8)
+        dateFormatter.dateFormat = formatter
+
+        if let date1 = dateFormatter.date(from: startTime),let date2 = dateFormatter.date(from: endTime) {
+            let components = NSCalendar.current.dateComponents([.year], from: date1, to: date2)
+            return components.year
+        }
+        return nil
+    }
+    
+    ///计算两时间差多少月
+    func yi_calculateMonth(_ formatter: String, startTime: String, endTime: String, timeZone: TimeZone? = nil) -> Int? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = timeZone ?? TimeZone.init(secondsFromGMT: 8)
+        dateFormatter.dateFormat = formatter
+
+        if let date1 = dateFormatter.date(from: startTime),let date2 = dateFormatter.date(from: endTime) {
+            let components = NSCalendar.current.dateComponents([.month], from: date1, to: date2)
+            return components.month
+        }
+        return nil
+    }
+    
+    ///计算两时间差多少天
+    func yi_calculateDay(_ formatter: String, startTime: String, endTime: String, timeZone: TimeZone? = nil) -> Int? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = timeZone ?? TimeZone.init(secondsFromGMT: 8)
+        dateFormatter.dateFormat = formatter
+
+        if let date1 = dateFormatter.date(from: startTime),let date2 = dateFormatter.date(from: endTime) {
+            let components = NSCalendar.current.dateComponents([.day], from: date1, to: date2)
+            return components.day
+        }
+        return nil
+    }
+    
     ///  当前到date经过了多少天
     func yi_daysInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_day))
         return diff
     }
-    //MARK: --- 当前到date经过了多少小时
+
     ///  当前到date经过了多少小时
     func yi_hoursInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_hour))
         return diff
     }
-    //MARK: --- 当前到date经过了多少分钟
+
     ///  当前到date经过了多少分钟
     func yi_minutesInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_minute))
         return diff
     }
-    //MARK: --- 当前到date经过了多少秒
+    
     ///  当前到date经过了多少秒
     func yi_secondsInBetweenDate(_ date: Date) -> Double {
         var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970

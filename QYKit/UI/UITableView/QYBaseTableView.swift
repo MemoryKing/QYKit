@@ -45,6 +45,7 @@ open class QYBaseTableView: UITableView {
             return _yi_empty_btn_image
         }
     }
+    
     ///图文间距
     public var yi_empty_spaceHeight             : CGFloat   = QYRatio(10)
     ///偏移
@@ -69,6 +70,7 @@ open class QYBaseTableView: UITableView {
         } else {
             // Fallback on earlier versions
         }
+        
         self.emptyDataSetSource = self
         self.emptyDataSetDelegate = self
         self.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 0)

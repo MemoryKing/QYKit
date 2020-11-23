@@ -70,8 +70,8 @@ public extension String {
         }
         var code = ""
         for i in 0 ..< self.length {
-            let pan = self.yi_index(i, 1)
-            let pin = pinV.yi_index(i, 1)
+            let pan = self.yi_index(i,length: 1)
+            let pin = pinV.yi_index(i,length: 1)
             let codes = self.creator(pan, pin)
             code = code + codes
         }
@@ -131,6 +131,7 @@ public extension String {
         let index2 = string.index(string.startIndex, offsetBy: stop)
         return String(string[index1..<index2])
     }
+    
     ///从哪到之后长度
     func yi_index(_ start: Int ,length: Int) -> String {
         guard !self.isEmpty else { return "" }
@@ -140,6 +141,7 @@ public extension String {
         let index2 = string.index(string.startIndex, offsetBy: start + length)
         return String(string[index1..<index2])
     }
+    
     ///开始到i
     func yi_index(to i: Int) -> String {
         guard !self.isEmpty else { return "" }
@@ -148,6 +150,17 @@ public extension String {
         let index = string.index(startIndex, offsetBy: i)
         return String(string[index])
     }
+    
+    ///从i到结束
+    func yi_index(after i: Int) -> String {
+        guard !self.isEmpty else { return "" }
+        
+        let string = self
+        let index1 = string.index(string.startIndex, offsetBy: i)
+        let index2 = string.index(string.endIndex, offsetBy: 0)
+        return String(string[index1..<index2])
+    }
+    
     ///截取range
     func yi_index(_ range: Range<Int>) -> String {
         guard !self.isEmpty else { return "" }
@@ -157,6 +170,7 @@ public extension String {
         let end = string.index(startIndex, offsetBy: range.upperBound)
         return String(string[start..<end])
     }
+    
     ///截取closedrange
     func yi_index(closedRange: ClosedRange<Int>) -> String {
         guard !self.isEmpty else { return "" }
@@ -164,10 +178,12 @@ public extension String {
         let string = self
         return string.yi_index(closedRange.lowerBound..<(closedRange.upperBound + 1))
     }
+    
     ///count
     private var length: Int {
         return self.count
     }
+    
     ///替换指定范围内的字符串
     /// - Parameters:
     ///   - index: 起点
@@ -231,11 +247,11 @@ public extension String {
         return string
     }
     /// 删除指定字符串
-    mutating func yi_delete(_ string: String) -> String {
+    mutating func yi_delete(_ text: String) -> String {
         guard !self.isEmpty else { return "" }
         
         let string = self
-        return string.replacingOccurrences(of: string, with: "")
+        return string.replacingOccurrences(of: text, with: "")
     }
     ///字符串的插入
     mutating func yi_insert(_ text: String, index: Int) -> String {
@@ -247,11 +263,11 @@ public extension String {
         return string
     }
     /// 将字符串通过特定的字符串拆分为字符串数组
-    func yi_components(_ string: String) -> [String] {
+    func yi_components(_ text: String) -> [String] {
         guard !self.isEmpty else { return [] }
         
         let string = self
-        return NSString(string: self).components(separatedBy: string)
+        return NSString(string: string).components(separatedBy: text)
     }
     ///去除前后的换行和空格
     func yi_removeSapce() -> String {
@@ -504,9 +520,30 @@ public extension String {
     
     
     ///NSAttributedString
-    func yi_toAttributed() -> NSAttributedString {
+    func yi_toAttributedString() -> NSAttributedString {
         
         return NSAttributedString.init(string: self)
+    }
+    
+    // MARK: 5.1、将金额字符串转化为带逗号的金额 按照千分位划分，如  "1234567" => 1,234,567   1234567.56 => 1,234,567.56
+    /// 将金额字符串转化为带逗号的金额 按照千分位划分，如  "1234567" => 1,234,567   1234567.56 => 1,234,567.56
+    func yi_toThousands() -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.roundingMode = .floor
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+        if self.contains(".") {
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 1
+            formatter.minimumIntegerDigits = 1
+        }
+        var num = NSDecimalNumber(string: self)
+        if num.doubleValue.isNaN {
+            num = NSDecimalNumber(string: "0")
+        }
+        let result = formatter.string(from: num)
+        return result
     }
 }
 

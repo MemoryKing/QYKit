@@ -58,8 +58,9 @@ class ViewController: QYBaseViewController {
 //        QYLog(model?.ss?.string ?? "0.0000000")
 //        QYLog(model?.ss?.double ?? 0.0000000)
         
-        ceshi3()
+        QYLog("1234567890".yi_index(after: 3))
         
+        ceshi1()
     }
     func ceshi3() {
         
@@ -71,24 +72,25 @@ class ViewController: QYBaseViewController {
         
         brn.yi_clickAction = {
             
-//            "https://beifuqi.sandpay.com.cn/jjf-api/login"
-            var para = [String: Any]()
-            para["username"] = "18250808695"
-            para["password"] = "123456"
-            para["rememberMe"] = "false"
-            QYRequest().post(HomeAPI.login, para) { (model: MyInfo_Data) in
-
-                QYLog(model.id)
-                let image = UIImage.init(named: "WeChat66467de1e87eb0c1de1a8add1099df0b")
-                QYRequest().uploadImage(HomeAPI.img, fileParam: "headImageFile", files: [image!], progressHandler: nil) { (json) in
-                    QYLog(json)
-                } error: { (json) in
-                    QYLog(json)
-                }
-            } error: { (err) in
-                QYLog(err)
-            }
             
+            
+//            "https://beifuqi.sandpay.com.cn/jjf-api/login"
+//            var para = [String: Any]()
+//            para["username"] = "18250808695"
+//            para["password"] = "123456"
+//            para["rememberMe"] = "false"
+//            QYRequest().post(HomeAPI.login, para) { (model: MyInfo_Data) in
+//
+//                QYLog(model.id)
+//                let image = UIImage.init(named: "WeChat66467de1e87eb0c1de1a8add1099df0b")
+//                QYRequest().uploadImage(HomeAPI.img, fileParam: "headImageFile", files: [image!], progressHandler: nil) { (json) in
+//                    QYLog(json)
+//                } error: { (json) in
+//                    QYLog(json)
+//                }
+//            } error: { (err) in
+//                QYLog(err)
+//            }
 
 //            QYHUD.shared.locationStatus = .top
 //            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {

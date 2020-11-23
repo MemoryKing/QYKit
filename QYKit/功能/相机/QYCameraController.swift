@@ -1,10 +1,10 @@
-//
-//  QYCameraController.swift
-//  QYKitDemo
-//
-//  Created by 祎 on 2020/9/1.
-//  Copyright © 2020 祎. All rights reserved.
-//
+/*******************************************************************************
+Copyright (K), 2020 - ~, ╰莪呮想好好宠Nǐつ
+
+Author:        ╰莪呮想好好宠Nǐつ
+E-mail:        1091676312@qq.com
+GitHub:        https://github.com/MemoryKing
+********************************************************************************/
 
 import UIKit
 import Foundation
@@ -78,6 +78,7 @@ open class QYCameraController: QYBaseViewController {
             $0.addTarget(self, action: #selector(flashOn(btn:)), for: .touchUpInside)
         })
     }()
+    
     private lazy var bottomView: UIView = {
         let b = UIView.init()
         b.backgroundColor = UIColor.init(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)
@@ -131,6 +132,7 @@ open class QYCameraController: QYBaseViewController {
     @objc private func cancleButtonAction(_ btn: UIButton) {
         yi_goBack()
     }
+    
     //MARK: --- UI布局
     ///UI布局
     private func interfaceLayout() {
@@ -158,6 +160,7 @@ open class QYCameraController: QYBaseViewController {
             $0.centerY.equalToSuperview()
         })
     }
+    
     //MARK: --- 设置相机
     ///设置相机
     private func setupCamera() {
@@ -186,6 +189,7 @@ open class QYCameraController: QYBaseViewController {
         view.layer.addSublayer(previewLayer)
         view.addSubview(floatingView)
     }
+    
     private func configuration() {
         let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(focusGesture(gesture:)))
         tapGesture.numberOfTapsRequired = 1
@@ -193,11 +197,13 @@ open class QYCameraController: QYBaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange(notification:)), name: Notification.Name.AVCaptureDeviceSubjectAreaDidChange, object: nil)
     }
+    
     // 点击聚焦
     @objc private func focusGesture(gesture: UITapGestureRecognizer) {
         let point = gesture.location(in: gesture.view)
         focusAtPoint(point: point)
     }
+    
     @objc private func subjectAreaDidChange(notification: Notification) {
         if let device = device,device.isFocusPointOfInterestSupported && device.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) {
             do {
@@ -212,6 +218,7 @@ open class QYCameraController: QYBaseViewController {
             }
         }
     }
+    
     @objc private func focusAtPoint(point: CGPoint) {
         let size = view.bounds.size
         let focusPoint = CGPoint.init(x: point.y/size.height, y: 1-point.x/size.width)
@@ -222,7 +229,7 @@ open class QYCameraController: QYBaseViewController {
                     device.focusPointOfInterest = focusPoint
                     device.focusMode = .autoFocus
                 }
-                if device.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose){
+                if device.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose) {
                     device.exposurePointOfInterest = focusPoint
                     device.exposureMode = .autoExpose
                 }
@@ -264,7 +271,7 @@ open class QYCameraController: QYBaseViewController {
                     print("TorchError  \(error)")
                 }
                 
-            }else{
+            } else {
                 let alert = UIAlertController.init(title: "提示", message: "您的设备没有闪光设备，不能提供手电筒功能，请检查", preferredStyle: UIAlertController.Style.alert)
                 let okAction = UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil)
                 alert.addAction(okAction)
@@ -283,17 +290,20 @@ open class QYCameraController: QYBaseViewController {
         photoButton.isHidden = false
         bottomView.isHidden = true
     }
+    
     // MARK:使用照片
     /// 使用照片
     @objc private func usePhoto() {
+        
         if let cgImg = clipImage?.cgImage { // 修改图片方向
             let newImg = UIImage.init(cgImage: cgImg, scale: 1.0, orientation: UIImage.Orientation.up)
             // (726.0, 462.0)
             print(newImg.size)
             yi_cameraDidFinishShoot?(newImg)
+            yi_goBack()
         }
-        yi_goBack()
     }
+    
     //MARK: --- 权限判断
     ///权限判断
     private func isCanUseCamera() -> Bool {
@@ -307,6 +317,7 @@ open class QYCameraController: QYBaseViewController {
             alert.addAction(cancelAction)
             alert.addAction(okAction)
             let rootVC = UIApplication.shared.keyWindow?.rootViewController
+            rootVC?.modalPresentationStyle = .fullScreen
             rootVC?.present(alert, animated: false, completion: nil)
             return false
             
@@ -326,16 +337,16 @@ extension QYCameraController: AVCapturePhotoCaptureDelegate {
         
         if  let sampleBuffer = photoSampleBuffer,
             let previewBuffer = previewPhotoSampleBuffer,
-            
-            
             let dataImage =  AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer:  sampleBuffer, previewPhotoSampleBuffer: previewBuffer) {
-
-            let dataProvider = CGDataProvider(data: dataImage as CFData)
-            let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
-            let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImage.Orientation.right)
-            guard let clipImg = image.dx_clipImageInRect(rect: self.floatingView.WindowLayer.frame) else{ return }
-            clipImage = clipImg
-            self.session.stopRunning()
+            
+            if let dataProvider = CGDataProvider(data: dataImage as CFData) {
+                let cgImageRef = CGImage(jpegDataProviderSource: dataProvider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)!
+                let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImage.Orientation.right)
+                guard let clipImg = image.dx_clipImageInRect(rect: self.floatingView.WindowLayer.frame) else { return }
+                clipImage = clipImg
+                self.session.stopRunning()
+            }
+            
         } else {
             print("some error here")
         }
@@ -376,6 +387,7 @@ fileprivate class QYFloatingView: UIView {
             $0.contentMode = .scaleAspectFill
         })
     }()
+    
     lazy var reverseImage: UIImageView = {
         return UIImageView().yi_then({
             $0.image = QYFloatingView.bundledImage(named: "Page")
@@ -383,6 +395,7 @@ fileprivate class QYFloatingView: UIView {
             $0.contentMode = .scaleAspectFill
         })
     }()
+    
     internal class func bundledImage(named name: String) -> UIImage {
         let primaryBundle = Bundle(for: QYCameraController.self)
         if let image = UIImage(named: name, in: primaryBundle, compatibleWith: nil) {
@@ -390,13 +403,13 @@ fileprivate class QYFloatingView: UIView {
         } else if
             let subBundleUrl = primaryBundle.url(forResource: "QYResources", withExtension: "bundle"),
             let subBundle = Bundle(url: subBundleUrl),
-            let image = UIImage(named: name, in: subBundle, compatibleWith: nil)
-        {
+            let image = UIImage(named: name, in: subBundle, compatibleWith: nil) {
             return image
         }
 
         return UIImage()
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
@@ -432,7 +445,6 @@ fileprivate class QYFloatingView: UIView {
             $0.width.equalTo(QYRatio(145))
             $0.height.equalTo(QYRatio(130))
         })
-        
     }
     
     required init?(coder: NSCoder) {
@@ -440,7 +452,9 @@ fileprivate class QYFloatingView: UIView {
     }
     
 }
+
 extension UIImage {
+    
     public func dx_clipImageInRect(rect: CGRect) -> UIImage?{
        
         let widthScale: CGFloat = self.size.width / QYScreenWidth
@@ -449,7 +463,6 @@ extension UIImage {
         //其实是横屏的
         let originWidth: CGFloat = rect.size.width
         let originHeight: CGFloat = rect.size.height
-        
         
         let x: CGFloat = (QYScreenHeight - originHeight) * 0.5 * heightScale
         let y: CGFloat = (QYScreenWidth - originWidth) * 0.5 * widthScale

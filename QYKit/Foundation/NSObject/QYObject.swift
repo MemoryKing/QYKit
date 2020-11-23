@@ -12,6 +12,10 @@ import UIKit
 
 //MARK: --- 获取属性和方法
 public extension NSObject {
+    
+    
+    
+    
     //MARK: --- 获取类的属性列表
     /// 获取类的属性列表
     func yi_get_class_copyPropertyList() -> [String] {

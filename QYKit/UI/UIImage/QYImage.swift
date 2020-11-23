@@ -73,7 +73,7 @@ public extension UIImage {
     class func yi_initGradient (size: CGSize,
                                 direction: Direction,
                                 locations: Array<CGFloat> = [0.0,1.0] ,
-                                colors: [UIColor]) -> UIImage {
+                                colors: [UIColor]) -> UIImage? {
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         guard (context != nil) else {
@@ -110,7 +110,7 @@ public extension UIImage {
         context?.drawLinearGradient(gradient, start: start, end: end, options: .drawsBeforeStartLocation)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        return image
     }
     ///放射性渐变
     class func yi_initRadialGradients (size: CGSize,
@@ -149,7 +149,7 @@ public extension UIImage {
         return UIImage.init(data: imageData)
     }
     ///image --> base64
-    func yi_toBase64 (_ options: Data.Base64EncodingOptions = [.endLineWithLineFeed]) -> String {
+    func yi_toBase64 (_ options: Data.Base64EncodingOptions = []) -> String {
         // 将图片转化成Data
         let imageData = self.yi_quality()?.jpegData(compressionQuality: 1)
         // 将Data转化成 base64的字符串
@@ -169,15 +169,21 @@ public extension UIImage {
 //MARK: --- 功能
 public extension UIImage {
      /// 截取指定Image的rect
-     func yi_indexCrop(_ rect: CGRect) -> UIImage {
+     func yi_croping(_ rect: CGRect) -> UIImage {
          guard rect.size.height < size.height && rect.size.height < size.height else { return self }
          guard let image: CGImage = cgImage?.cropping(to: rect) else { return self }
          return UIImage(cgImage: image)
      }
+    
      ///图片质量
-     func yi_compressionQuality(_ quality: CGFloat = 0.5) -> UIImage? {
-        return UIImage.init(data: self.jpegData(compressionQuality: quality)!)
+     func yi_compressionQuality(_ quality: CGFloat) -> UIImage? {
+        
+        if let data = self.jpegData(compressionQuality: quality) {
+            return UIImage.init(data: data)
+        }
+        return nil
      }
+    
      /// 旋转指定角度
      func yi_rotate(_ radians: Float) -> UIImage {
          let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
@@ -200,10 +206,11 @@ public extension UIImage {
          UIGraphicsEndImageContext()
          return newImage
      }
+    
     ///图片压缩
-    func yi_resetImage(_ maxSizeKB : CGFloat,_ maxImageLenght : CGFloat? = nil) -> UIImage? {
+    func yi_reset(_ maxSizeKB : CGFloat,_ maxWidth : CGFloat? = nil) -> UIImage? {
         let maxSize = maxSizeKB
-        let maxImageSize = maxImageLenght ?? self.size.width
+        let maxImageSize = maxWidth ?? self.size.width
         //先调整分辨率
         var newSize = CGSize.init(width: self.size.width, height: self.size.height)
         let tempHeight = newSize.height / maxImageSize
@@ -211,28 +218,29 @@ public extension UIImage {
         if (tempWidth > 1.0 && tempWidth > tempHeight) {
             newSize = CGSize.init(width: self.size.width / tempWidth, height: self.size.height / tempWidth)
         }
-        else if (tempHeight > 1.0 && tempWidth < tempHeight){
+        else if (tempHeight > 1.0 && tempWidth < tempHeight) {
             newSize = CGSize.init(width: self.size.width / tempHeight, height: self.size.height / tempHeight)
         }
         UIGraphicsBeginImageContext(newSize)
         self.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        var imageData = newImage!.jpegData(compressionQuality: 1.0)
-        var sizeOriginKB : CGFloat = CGFloat((imageData?.count)!) / 1024.0
-        //调整大小
-        var resizeRate = 0.9
-        while (sizeOriginKB > maxSize && resizeRate > 0.1) {
-            imageData = newImage!.jpegData(compressionQuality: CGFloat(resizeRate))
-            sizeOriginKB = CGFloat((imageData?.count)!) / 1024.0
-            resizeRate -= 0.1
+        
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            if let imageData = newImage.jpegData(compressionQuality: 1.0) {
+                var sizeOriginKB : CGFloat = CGFloat((imageData.count)) / 1024.0
+                //调整大小
+                var resizeRate = 0.9
+                while (sizeOriginKB > maxSize && resizeRate > 0.1) {
+                    if let data = newImage.jpegData(compressionQuality: CGFloat(resizeRate)) {
+                        sizeOriginKB = CGFloat((data.count)) / 1024.0
+                        resizeRate -= 0.1
+                        QYLog("压缩后图片--大小:\(sizeOriginKB)--size:\(newSize)")
+                        return UIImage.init(data: data)
+                    }
+                }
+            }
         }
-        QYLog("压缩后图片--大小:\(sizeOriginKB)--size:\(newSize)")
-        if let data = imageData {
-            return UIImage.init(data: data)
-        } else {
-            return nil
-        }
+        return nil
     }
     
     ///将图片绘制成制定大小
@@ -246,13 +254,14 @@ public extension UIImage {
     }
     
     ///颜色生成image
-    class func yi_fromColor(_ color: UIColor) -> UIImage {
+    class func yi_fromColor(_ color: UIColor) -> UIImage? {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size);
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(color.cgColor);
-        context!.fill(rect)
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsBeginImageContext(rect.size)
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(rect)
+        }
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return newImage
@@ -260,37 +269,39 @@ public extension UIImage {
     
      /// 根据字符串生成二维码图片
      class func yi_generateQRImage(_ QRCodeString: String,_ logo: UIImage?,_ size: CGSize = CGSize(width: 200, height: 200)) -> UIImage? {
-         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
-             return nil
-         }
-         let imageFilter = CIFilter(name: "CIQRCodeGenerator")
-         imageFilter?.setValue(data, forKey: "inputMessage")
-         imageFilter?.setValue("H", forKey: "inputCorrectionLevel")
-         let ciImage = imageFilter?.outputImage
-         // 创建颜色滤镜
-         let colorFilter = CIFilter(name: "CIFalseColor")
-         colorFilter?.setDefaults()
-         colorFilter?.setValue(ciImage, forKey: "inputImage")
-         colorFilter?.setValue(CIColor(red: 0, green: 0, blue: 0), forKey: "inputColor0")
-         colorFilter?.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: "inputColor1")
-         // 返回二维码图片
-         let qrImage = UIImage(ciImage: (colorFilter?.outputImage)!)
-         let imageRect = size.width > size.height ?
-             CGRect(x: (size.width - size.height) / 2, y: 0, width: size.height, height: size.height) :
-             CGRect(x: 0, y: (size.height - size.width) / 2, width: size.width, height: size.width)
-         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, UIScreen.main.scale)
-         defer {
-             UIGraphicsEndImageContext()
-         }
-         qrImage.draw(in: imageRect)
-         if logo != nil {
-             let logoSize = size.width > size.height ?
-                 CGSize(width: size.height * 0.25, height: size.height * 0.25) :
-                 CGSize(width: size.width * 0.25, height: size.width * 0.25)
-             logo?.draw(in: CGRect(x: (imageRect.size.width - logoSize.width) / 2, y: (imageRect.size.height - logoSize.height) / 2, width: logoSize.width, height: logoSize.height))
-         }
-         return UIGraphicsGetImageFromCurrentImageContext()
+        guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
+            return nil
+        }
+        let imageFilter = CIFilter(name: "CIQRCodeGenerator")
+        imageFilter?.setValue(data, forKey: "inputMessage")
+        imageFilter?.setValue("H", forKey: "inputCorrectionLevel")
+        let ciImage = imageFilter?.outputImage
+        // 创建颜色滤镜
+        let colorFilter = CIFilter(name: "CIFalseColor")
+        colorFilter?.setDefaults()
+        colorFilter?.setValue(ciImage, forKey: "inputImage")
+        colorFilter?.setValue(CIColor(red: 0, green: 0, blue: 0), forKey: "inputColor0")
+        colorFilter?.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: "inputColor1")
+        // 返回二维码图片
+        let qrImage = UIImage(ciImage: (colorFilter?.outputImage)!)
+        let imageRect = size.width > size.height ?
+            CGRect(x: (size.width - size.height) / 2, y: 0, width: size.height, height: size.height) :
+            CGRect(x: 0, y: (size.height - size.width) / 2, width: size.width, height: size.width)
+        UIGraphicsBeginImageContextWithOptions(imageRect.size, false, UIScreen.main.scale)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        qrImage.draw(in: imageRect)
+        
+        if logo != nil {
+            let logoSize = size.width > size.height ?
+                CGSize(width: size.height * 0.25, height: size.height * 0.25) :
+                CGSize(width: size.width * 0.25, height: size.width * 0.25)
+            logo?.draw(in: CGRect(x: (imageRect.size.width - logoSize.width) / 2, y: (imageRect.size.height - logoSize.height) / 2, width: logoSize.width, height: logoSize.height))
+        }
+        return UIGraphicsGetImageFromCurrentImageContext()
      }
+    
     ///生成条形码
     class func generateCode128(_ text: String, _ size: CGSize,_ color: UIColor? = nil) -> UIImage? {
         //给滤镜设置内容
@@ -319,6 +330,7 @@ public extension UIImage {
         }
         return nil
     }
+    
     ///保存到相册
     func yi_savedPhotosAlbum(_ result: ((Bool)->())?) {
         saveBlock = result
@@ -343,7 +355,7 @@ public enum UIImageContentMode {
 public extension UIImage {
     
     /**
-     一个单独的共享NSURL缓存用于URL中的图像
+     共享NSURL缓存用于URL中的图像
      */
     static var shared: NSCache<AnyObject, AnyObject>! {
         struct StaticSharedCache {
@@ -352,7 +364,6 @@ public extension UIImage {
         
         return StaticSharedCache.shared!
     }
-    
     
     // MARK: Image from gradient colors
     /**
@@ -463,9 +474,7 @@ public extension UIImage {
         self.init(cgImage:(UIGraphicsGetImageFromCurrentImageContext()?.cgImage!)!)
         UIGraphicsEndImageContext()
     }
-    
-    // MARK: Image with Radial Gradient
-    // Radial background originally from: http://developer.apple.com/library/ios/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_shadings/dq_shadings.html
+
     /**
      创建一个径向梯度。
      
