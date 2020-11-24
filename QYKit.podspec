@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.2.0'
+  s.version          = '1.2.1'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','CoreLocation','AVFoundation','Accelerate','CoreTelephony'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
-  s.dependency 'PKHUD'
   s.dependency 'SnapKit'
   s.dependency 'MBProgressHUD'
   s.dependency 'Alamofire'

@@ -27,7 +27,7 @@ public extension Int {
 
     /// 转 UInt
     var uInt: UInt { return UInt(self) }
-
+    
     /// 转 range
     var range: CountableRange<Int> { return 0..<self }
 }

@@ -20,17 +20,18 @@ public extension Dictionary {
         }
     }
     ///转json
-    func yi_toJSONString(_ options: JSONSerialization.WritingOptions = []) -> String? {
+    func yi_toJSONString(_ options: JSONSerialization.WritingOptions = []) -> String {
         if (!JSONSerialization.isValidJSONObject(self)) {
             QYLog("dic转json失败")
-            return nil
+            return ""
         }
         if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: options) {
-            let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
-            return JSONString as String? ?? nil
+            if let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue) {
+                return JSONString as String
+            }
         }
         QYLog("dic转json失败")
-        return nil
+        return ""
     }
     
     /// 字典转二进制

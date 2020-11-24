@@ -3,7 +3,6 @@ PODS:
   - DZNEmptyDataSet (1.8.1)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.5.0)
-  - PKHUD (5.3.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -11,7 +10,6 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - MBProgressHUD
   - MJRefresh
-  - PKHUD
   - SnapKit
 
 SPEC REPOS:
@@ -20,7 +18,6 @@ SPEC REPOS:
     - DZNEmptyDataSet
     - MBProgressHUD
     - MJRefresh
-    - PKHUD
     - SnapKit
 
 SPEC CHECKSUMS:
@@ -28,9 +25,8 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
-  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: d71e17a7a121d68e59e79ba1f5b988ca20afa696
+PODFILE CHECKSUM: 92073c709de729ed138b1df6328cee75c82deb84
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
