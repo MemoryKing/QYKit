@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'QYKit'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'QYKit 类扩展,功能集合'
   s.description      = <<-DESC
                             ...
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   #s.pod_target_xcconfig = {'SWIFT_VERSION' => '5.0'}
   s.swift_versions = '5.0'
   s.platform     = :ios, "10.0"
-  s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','CoreLocation','AVFoundation','Accelerate','CoreTelephony'
+  s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','AVFoundation','Accelerate'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'SnapKit'

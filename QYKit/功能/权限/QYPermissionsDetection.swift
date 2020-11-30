@@ -9,29 +9,29 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import Foundation
 import Photos
-import CoreTelephony
-import CoreLocation
+//import CoreTelephony
+//import CoreLocation
 import AVFoundation
-import CoreBluetooth
+//import CoreBluetooth
 
 ///权限
 open class QYPermissionsDetection {
-    private var bluetoohTools: QYCheckBluetooth?
+//    private var bluetoohTools: QYCheckBluetooth?
     // MARK: - 检测是否开启定位
     /// 检测是否开启定位
-    public class func yi_isOpenLocationService() -> Bool {
-        var isOpen = true
-        if CLLocationManager.authorizationStatus() == .denied {
-            let mana = CLLocationManager()
-            mana.requestAlwaysAuthorization()
-            mana.requestWhenInUseAuthorization()
-            mana.startUpdatingLocation()
-        } else {
-            isOpen = false
-        }
-        
-        return isOpen
-    }
+//    public class func yi_isOpenLocationService() -> Bool {
+//        var isOpen = true
+//        if CLLocationManager.authorizationStatus() == .denied {
+//            let mana = CLLocationManager()
+//            mana.requestAlwaysAuthorization()
+//            mana.requestWhenInUseAuthorization()
+//            mana.startUpdatingLocation()
+//        } else {
+//            isOpen = false
+//        }
+//
+//        return isOpen
+//    }
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
     public class func yi_isOpenCaptureDeviceService() -> Bool {
@@ -67,36 +67,6 @@ open class QYPermissionsDetection {
         
         return isOpen
     }
-    // MARK: - 检测是否开启麦克风
-    /// 检测是否开启麦克风
-    public class func yi_openRecordService() -> Bool {
-        var isOpen = false
-        let permissionStatus = AVAudioSession.sharedInstance().recordPermission
-        if permissionStatus == AVAudioSession.RecordPermission.undetermined {
-            AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
-                isOpen = granted
-            }
-        } else if permissionStatus == AVAudioSession.RecordPermission.denied || permissionStatus == AVAudioSession.RecordPermission.undetermined{
-            isOpen = false
-        } else {
-            isOpen = true
-        }
-        return isOpen
-    }
-    // MARK: - 检测是否开启蓝牙
-    /// 检测是否开启蓝牙
-    public class func yi_openBluetoothWithBlock(action:@escaping ((Bool,QYAuthorizationState)->())) {
-        let ble = QYCheckBluetooth()
-        ble.requestBluetoothAuthorization { (state) in
-            var isOpen = false
-            if state == .poweredOn {
-                isOpen = true
-            } else {
-                isOpen = false
-            }
-            action(isOpen,state)
-        }
-    }
     // MARK: - 跳转系统设置界面
     ///跳转系统设置界面
     public class func yi_OpenPermissionsSetting() {
@@ -123,53 +93,90 @@ open class QYPermissionsDetection {
     }
 }
 
+
+// MARK: - 检测是否开启麦克风
+//extension QYPermissionsDetection {
+//    /// 检测是否开启麦克风
+//    public class func yi_openRecordService() -> Bool {
+//        var isOpen = false
+//        let permissionStatus = AVAudioSession.sharedInstance().recordPermission
+//        if permissionStatus == AVAudioSession.RecordPermission.undetermined {
+//            AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
+//                isOpen = granted
+//            }
+//        } else if permissionStatus == AVAudioSession.RecordPermission.denied || permissionStatus == AVAudioSession.RecordPermission.undetermined{
+//            isOpen = false
+//        } else {
+//            isOpen = true
+//        }
+//        return isOpen
+//    }
+//}
+
 //MARK: --- 蓝牙
+//extension QYPermissionsDetection {
+//    // MARK: - 检测是否开启蓝牙
+//    /// 检测是否开启蓝牙
+//    public class func yi_openBluetoothWithBlock(action:@escaping ((Bool,QYAuthorizationState)->())) {
+//        let ble = QYCheckBluetooth()
+//        ble.requestBluetoothAuthorization { (state) in
+//            var isOpen = false
+//            if state == .poweredOn {
+//                isOpen = true
+//            } else {
+//                isOpen = false
+//            }
+//            action(isOpen,state)
+//        }
+//    }
+//}
+
 /// 蓝牙权限状态
-public enum QYAuthorizationState : Int {
-    ///未知状态
-    case unknown = 0
-    ///正在重置，与系统服务暂时丢失
-    case resetting
-    ///不支持蓝牙
-    case unsupported
-    ///未授权
-    case unauthorized
-    ///关闭
-    case poweredOff
-    ///开启并可用
-    case poweredOn
-}
-private class QYCheckBluetooth: NSObject ,CBCentralManagerDelegate {
-    var completionHandler: ((_ state: QYAuthorizationState) -> Void)?
-    var cbcManager: CBCentralManager?
-    var bluetoothQueue: DispatchQueue?
-    /// 获取蓝牙权限
-    func requestBluetoothAuthorization(_ completionHandler: @escaping (_ state: QYAuthorizationState) -> Void) {
-        self.completionHandler = completionHandler
-        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetoothQueue")
-        self.cbcManager = CBCentralManager.init(delegate: self, queue: self.bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
-    }
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if self.completionHandler != nil {
-            if central.state == .resetting {
-                QYLog("正在重置，与系统服务暂时丢失")
-                self.completionHandler!(QYAuthorizationState.resetting)
-            } else if central.state == .unsupported {
-                QYLog("不支持蓝牙")
-                self.completionHandler!(QYAuthorizationState.unsupported)
-            } else if central.state == .unauthorized {
-                QYLog("未授权")
-                self.completionHandler!(QYAuthorizationState.unauthorized)
-            } else if central.state == .poweredOff {
-                QYLog("关闭")
-                self.completionHandler!(QYAuthorizationState.poweredOff)
-            } else if central.state == .poweredOn {
-                QYLog("开启并可用")
-                self.completionHandler!(QYAuthorizationState.poweredOn)
-            } else {
-                QYLog("未知状态")
-                self.completionHandler!(QYAuthorizationState.unknown)
-            }
-        }
-    }
-}
+//public enum QYAuthorizationState : Int {
+//    ///未知状态
+//    case unknown = 0
+//    ///正在重置，与系统服务暂时丢失
+//    case resetting
+//    ///不支持蓝牙
+//    case unsupported
+//    ///未授权
+//    case unauthorized
+//    ///关闭
+//    case poweredOff
+//    ///开启并可用
+//    case poweredOn
+//}
+//private class QYCheckBluetooth: NSObject ,CBCentralManagerDelegate {
+//    var completionHandler: ((_ state: QYAuthorizationState) -> Void)?
+//    var cbcManager: CBCentralManager?
+//    var bluetoothQueue: DispatchQueue?
+//    /// 获取蓝牙权限
+//    func requestBluetoothAuthorization(_ completionHandler: @escaping (_ state: QYAuthorizationState) -> Void) {
+//        self.completionHandler = completionHandler
+//        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetoothQueue")
+//        self.cbcManager = CBCentralManager.init(delegate: self, queue: self.bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
+//    }
+//    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+//        if self.completionHandler != nil {
+//            if central.state == .resetting {
+//                QYLog("正在重置，与系统服务暂时丢失")
+//                self.completionHandler!(QYAuthorizationState.resetting)
+//            } else if central.state == .unsupported {
+//                QYLog("不支持蓝牙")
+//                self.completionHandler!(QYAuthorizationState.unsupported)
+//            } else if central.state == .unauthorized {
+//                QYLog("未授权")
+//                self.completionHandler!(QYAuthorizationState.unauthorized)
+//            } else if central.state == .poweredOff {
+//                QYLog("关闭")
+//                self.completionHandler!(QYAuthorizationState.poweredOff)
+//            } else if central.state == .poweredOn {
+//                QYLog("开启并可用")
+//                self.completionHandler!(QYAuthorizationState.poweredOn)
+//            } else {
+//                QYLog("未知状态")
+//                self.completionHandler!(QYAuthorizationState.unknown)
+//            }
+//        }
+//    }
+//}
