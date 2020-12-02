@@ -141,12 +141,18 @@ public extension QYBaseCollectionView {
 
 //MARK: --- DZNEmptyDataSet  空界面
 extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
+
     //MARK: -- DZNEmptyDataSetSource Methods
     ///标题为空的数据集
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [NSAttributedString.Key.font: self.yi_empty_titleFont,
                           NSAttributedString.Key.foregroundColor: self.yi_empty_titleColor]
-        return (self.yi_empty_title != nil) ? NSAttributedString(string: self.yi_empty_title!, attributes: attributes): nil
+        
+        if let tit = self.yi_empty_title {
+            return NSAttributedString(string: tit, attributes: attributes)
+        }
+        
+        return  nil
     }
     ///描述
     public func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
@@ -157,12 +163,17 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
         let attributes = [NSAttributedString.Key.font: self.yi_empty_descriptionFont,
                           NSAttributedString.Key.foregroundColor: self.yi_empty_descriptionColor,
                           NSAttributedString.Key.paragraphStyle: paragraph]
-        
-        return (self.yi_empty_description != nil) ? NSAttributedString(string: self.yi_empty_description!, attributes: attributes): nil
+        if let des = self.yi_empty_description {
+            return NSAttributedString(string: des, attributes: attributes)
+        }
+        return nil
     }
     ///图片
     public func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return (self.yi_empty_image != nil) ? self.yi_empty_image: nil
+        if let img = self.yi_empty_image {
+            return img
+        }
+        return nil
     }
     ///数据集加载动画
     public func imageAnimation(forEmptyDataSet scrollView: UIScrollView!) -> CAAnimation! {
@@ -178,12 +189,19 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     public func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
         let attributes = [NSAttributedString.Key.font: self.yi_empty_btn_titleFont,
                           NSAttributedString.Key.foregroundColor: self.yi_empty_btn_titleColor]
-        return (self.yi_empty_btn_title != nil) ? NSAttributedString(string: self.yi_empty_btn_title!, attributes: attributes): nil
+        
+        if let tit = self.yi_empty_btn_title {
+            return NSAttributedString(string: tit, attributes: attributes)
+        }
+        return nil
     }
 
     ///重新加载按钮背景图片
     public func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
-        return (self.yi_empty_image != nil) ? self.yi_empty_image: nil
+        if let yi_empty_image = self.yi_empty_image {
+            return yi_empty_image
+        }
+        return nil
        
     }
     ///自定义背景颜色
@@ -219,17 +237,17 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///视图触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
-        if self.emptyClickBlock != nil {
-            self.emptyClickBlock!()
+        
+        if let block = self.emptyClickBlock {
+            block()
         }
     }
     ///按钮触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
-        if self.emptyClickBlock != nil {
-            self.emptyClickBlock!()
+        if let block = self.emptyClickBlock {
+            block()
         }
     }
-
 }
 
 

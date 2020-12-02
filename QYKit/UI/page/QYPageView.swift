@@ -11,6 +11,36 @@ import UIKit
 ///分页控制器
 open class QYPageView: UIView {
     private var currentIndex: Int = 0
+    public var normalColor: UIColor? {
+        willSet {
+            self.selectView.normalColor = newValue ?? QY33Color
+        
+        }
+    }
+    public var selectColor: UIColor? {
+        willSet {
+            self.selectView.selectColor = newValue
+        }
+    }
+    public var font: UIFont? {
+        willSet {
+            self.selectView.font = newValue ?? QYFont(14)
+        }
+    }
+    public var topHeight: CGFloat? {
+        willSet {
+            self.selectView.snp.removeConstraints()
+            self.selectView.snp.makeConstraints({
+                $0.left.right.top.equalToSuperview()
+                $0.height.equalTo(QYRatio(newValue ?? 0))
+            })
+            self.backgroundView.snp.removeConstraints()
+            self.backgroundView.snp.makeConstraints({
+                $0.left.right.bottom.equalToSuperview()
+                $0.top.equalTo(selectView.snp.bottom)
+            })
+        }
+    }
     public var lineColor: UIColor? {
         willSet {
             self.selectView.lineView.backgroundColor = newValue
@@ -26,6 +56,7 @@ open class QYPageView: UIView {
             self.selectView.lineWidth = newValue
         }
     }
+    public var backgroundView: UIView!
     
     fileprivate var selectView: QYSelectView!
     public override init(frame: CGRect) {
@@ -36,40 +67,45 @@ open class QYPageView: UIView {
             $0.left.right.top.equalToSuperview()
             $0.height.equalTo(QYRatio(41))
         })
-        let bg = UIView()
+        self.backgroundView = UIView()
         yi_currentController()?.addChild(pageViewController)
-        bg.addSubview(pageViewController.view)
-        addSubview(bg)
-        bg.snp.makeConstraints({
+        self.backgroundView.addSubview(pageViewController.view)
+        addSubview(self.backgroundView)
+        self.backgroundView.snp.makeConstraints({
             $0.left.right.bottom.equalToSuperview()
             $0.top.equalTo(selectView.snp.bottom)
         })
     }
     
-    public func yi_createPage(_ titles: Array<String>,_ spacing: CGFloat? = nil,_ uniform: CGFloat? = nil,_ block: ((String,Int)->())?) {
-        var uni: CGFloat?
-        if titles.count < 3 && (uniform == nil) {
-            uni = QYScreenWidth / titles.count
+    public func yi_createPage(_ titles: Array<String>,_ spacing: Float? = nil,_ uniform: Bool = true,_ block: ((String,Int,UIViewController)->())?) {
+        var uni: Float?
+        if titles.count < 4 && uniform {
+            uni = Float(QYScreenWidth / titles.count)
         }
-        selectView.create(titles, spacing, uni)
+        selectView.create(titles, spacing ?? 0, uni ?? 0)
         selectView.clickBlock = {[weak self] in
             QYLog($0 + "\($1)")
-            let vc = self?.yi_viewControllers?[$1]
-            
-            if $1 > self?.currentIndex ?? 0 {
-                self?.pageViewController.setViewControllers([vc!], direction: .forward, animated: false, completion: nil)
-            } else {
-                self?.pageViewController.setViewControllers([vc!], direction: .reverse, animated: false, completion: nil)
+            if let vc = self?.yi_viewControllers?[$1] {
+                if $1 > self?.currentIndex ?? 0 {
+                    self?.pageViewController.setViewControllers([vc], direction: .forward, animated: false, completion: nil)
+                } else {
+                    self?.pageViewController.setViewControllers([vc], direction: .reverse, animated: false, completion: nil)
+                }
+                if let bl = block {
+                    bl(titles[$1],$1,vc)
+                }
             }
         }
     }
     
     public var yi_viewControllers: Array<UIViewController>? {
         willSet {
-            let vc = newValue?.first
-            pageViewController.setViewControllers([vc!], direction: .reverse, animated: false, completion: nil)
+            if let vc = newValue?.first {
+                pageViewController.setViewControllers([vc], direction: .reverse, animated: false, completion: nil)
+            }
         }
     }
+    
     ///分页
     lazy var pageViewController: UIPageViewController = {
         let page = UIPageViewController.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewController.OptionsKey.interPageSpacing:0])
@@ -88,52 +124,75 @@ open class QYPageView: UIView {
 extension QYPageView: UIPageViewControllerDelegate,UIPageViewControllerDataSource {
     ///前一页
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let vcs = self.yi_viewControllers! as NSArray
-        var index = vcs.index(of: viewController)
-        if index == 0 || index == NSNotFound {
-            return nil
+        
+        if let vcs = self.yi_viewControllers {
+            let vs = vcs as NSArray
+            var index = vs.index(of: viewController)
+            if index == 0 || index == NSNotFound {
+                return nil
+            }
+            index -= 1
+            return self.yi_viewControllers?[index]
         }
-        index -= 1
-        return self.yi_viewControllers?[index] ?? nil
+        return nil
     }
+    
     ///后一页
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let vcs = self.yi_viewControllers! as NSArray
-        var index = vcs.index(of: viewController)
-        if index == (self.yi_viewControllers?.count ?? 0) - 1 || index == NSNotFound {
-            return nil
+        if let vcs = self.yi_viewControllers {
+            let vs = vcs as NSArray
+            var index = vs.index(of: viewController)
+            if index == vs.count - 1 || index == NSNotFound {
+                return nil
+            }
+            index += 1
+            return self.yi_viewControllers?[index]
         }
-        index += 1
-        return self.yi_viewControllers?[index] ?? nil
+        return nil
+        
     }
+    
     ///将要滑动切换的时候
     public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
-        let vc = pendingViewControllers.first
-        let vcs = self.yi_viewControllers! as NSArray
-        let index = vcs.index(of: vc ?? UIViewController())
-        
-        currentIndex = index
-    }
-    /// 滑动结束后
-    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed {
-            DispatchQueue.yi_getMainAsync {
-                self.selectView.allClick(self.selectView.buttons![self.currentIndex])
+        if let vc = pendingViewControllers.first,let vcs = self.yi_viewControllers {
+            let vs = vcs as NSArray
+            let index = vs.index(of: vc)
+            currentIndex = index
+            if let btns = self.selectView.buttons {
+                self.selectView.allClick(btns[currentIndex])
             }
         }
     }
+    
+    /// 滑动结束后
+    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+    }
 }
 
-fileprivate class QYSelectView: UIView {
-    var lineWidth: CGFloat?
-    var clickBlock: ((String,Int)->())?
-    var buttons: Array<UIButton>?
-    var lineSpacing: CGFloat?
+public class QYSelectView: UIView {
+    public var lineWidth: CGFloat?
+    public var lineSpacing: CGFloat?
+    public var normalColor: UIColor?
+    public var selectColor: UIColor?
+    public var font: UIFont = QYFont(14)
+    public var clickBlock: ((String,Int)->())?
+    public var buttons: Array<UIButton>?
+    public var topHeight: CGFloat? {
+        willSet {
+            self.topScrollView.snp.removeConstraints()
+            self.topScrollView.snp.makeConstraints({
+                $0.left.right.top.equalToSuperview()
+                $0.height.equalTo(QYRatio(newValue ?? 0))
+            })
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         buttons = []
         addSubview(topScrollView)
+        topScrollView.snp.removeConstraints()
         topScrollView.snp.makeConstraints({
             $0.left.right.top.bottom.equalToSuperview()
         })
@@ -144,69 +203,48 @@ fileprivate class QYSelectView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func create(_ titles: Array<String>,_ spacing: CGFloat? = nil,_ uniform: CGFloat? = nil) {
+    public func create(_ titles: Array<String>,_ spacing: Float = 0,_ uniform: Float = 0) {
         topScrollView.subviews.forEach { sub in
             sub.removeFromSuperview()
         }
         buttons?.removeAll()
         
         var oldButotn: UIButton?
-        let initspacing = 10
+
         for (i,string) in titles.enumerated() {
             var titW = string.yi_getWidth(QYFont(14))
             let titH = string.yi_getHeight(QYFont(14), fixedWidth: titW)
             titW = lineWidth ?? titW
             let button = UIButton().yi_then({
                 $0.yi_title = string
-                $0.yi_titleColor = QY33Color
-                $0.yi_titleFont = QYFont(14)
-                $0.yi_selectedColor = .blue
+                $0.yi_titleColor = self.normalColor ?? QY33Color
+                $0.yi_titleFont = font
+                $0.yi_selectedColor = selectColor
                 $0.tag = i
                 $0.addTarget(self, action: #selector(self.allClick(_:)), for: .touchUpInside)
                 topScrollView.addSubview($0)
             })
-            if (uniform != nil) {
-                if i == 0 {
-                    button.isSelected = true
-                    button.snp.makeConstraints({
-                        $0.left.equalTo(spacing ?? 5)
-                        $0.top.bottom.centerY.equalToSuperview()
-                        $0.width.equalTo(uniform ?? 0)
-                    })
-                } else {
-                    if i == titles.count - 1 {
-                        button.snp.makeConstraints({
-                            $0.left.equalTo(oldButotn!.snp.right).offset(spacing ?? initspacing)
-                            $0.right.equalTo((spacing ?? CGFloat(initspacing)) * -1)
-                            $0.top.bottom.centerY.equalToSuperview()
-                        })
-                    } else {
-                        button.snp.makeConstraints({
-                            $0.left.equalTo(oldButotn!.snp.right).offset(spacing ?? initspacing)
-                            $0.top.bottom.centerY.equalToSuperview()
-                        })
-                    }
-                }
+            if i == 0 {
+                button.isSelected = true
+                button.snp.makeConstraints({
+                    $0.left.equalTo(spacing)
+                    $0.top.bottom.centerY.equalToSuperview()
+                    $0.width.equalTo(uniform)
+                })
             } else {
-                if i == 0 {
-                    button.isSelected = true
+                if i == titles.count - 1 {
                     button.snp.makeConstraints({
-                        $0.left.equalTo(spacing ?? 5)
+                        $0.left.equalTo(oldButotn!.snp.right).offset(spacing)
+                        $0.right.equalTo(spacing * -1)
                         $0.top.bottom.centerY.equalToSuperview()
+                        $0.width.equalTo(uniform)
                     })
                 } else {
-                    if i == titles.count - 1 {
-                        button.snp.makeConstraints({
-                            $0.left.equalTo(oldButotn!.snp.right).offset(spacing ?? initspacing)
-                            $0.right.equalTo((spacing ?? CGFloat(initspacing)) * -1)
-                            $0.top.bottom.centerY.equalToSuperview()
-                        })
-                    } else {
-                        button.snp.makeConstraints({
-                            $0.left.equalTo(oldButotn!.snp.right).offset(spacing ?? initspacing)
-                            $0.top.bottom.centerY.equalToSuperview()
-                        })
-                    }
+                    button.snp.makeConstraints({
+                        $0.left.equalTo(oldButotn!.snp.right).offset(spacing)
+                        $0.top.bottom.centerY.equalToSuperview()
+                        $0.width.equalTo(uniform)
+                    })
                 }
             }
             if i == 0 {
@@ -222,6 +260,7 @@ fileprivate class QYSelectView: UIView {
         }
         clickBlock?(titles.first ?? "",0)
     }
+    
     @objc func allClick(_ sender: UIButton) {
         var titW = sender.titleLabel?.text?.yi_getWidth(QYFont(14))
         guard let titH = sender.titleLabel?.text?.yi_getHeight(QYFont(14), fixedWidth: titW ?? 100) else { return }
@@ -247,18 +286,18 @@ fileprivate class QYSelectView: UIView {
         topScrollView.setContentOffset(CGPoint(x: scrollX, y: 0), animated: true)
         clickBlock?(sender.titleLabel?.text ?? "",sender.tag)
     }
+    
     ///标题
-    lazy var topScrollView: UIScrollView = {
+    public lazy var topScrollView: UIScrollView = {
         return UIScrollView().yi_then({
             $0.showsVerticalScrollIndicator = false
             $0.showsHorizontalScrollIndicator = false
             $0.isUserInteractionEnabled = true
-            $0.backgroundColor = .green
-            $0.contentSize = .init(width: QYScreenWidth * 2, height: QYRatio(41))
+            $0.contentSize = .init(width: QYScreenWidth, height: QYRatio(41))
         })
     }()
     
-    lazy var lineView: UIView = {
+    public lazy var lineView: UIView = {
         return UIView().yi_then({
             $0.backgroundColor = .blue
         })

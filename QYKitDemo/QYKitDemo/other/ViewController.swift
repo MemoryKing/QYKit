@@ -135,9 +135,9 @@ class ViewController: QYBaseViewController {
             $0.left.right.equalToSuperview()
             $0.bottom.equalTo(-QYBottomHeight)
         })
-        page.yi_createPage(["都是","无去的啊","无去的","㡒豆捞坊什么","㡒经济法可什么","为福克斯的从自行车"]) { (str, i) in
-            QYLog("\(str)" + "\(i)")
-        }
+//        page.yi_createPage(["都是","无去的啊","无去的","㡒豆捞坊什么","㡒经济法可什么","为福克斯的从自行车"]) { (str, i) in
+//            QYLog("\(str)" + "\(i)")
+//        }
     }
     func ceshi1() {
         

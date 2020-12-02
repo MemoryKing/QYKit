@@ -50,21 +50,23 @@ open class QYTableViewDelegate: NSObject {
 extension QYTableViewDelegate : UITableViewDelegate,UITableViewDataSource {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        if numberOfSections != nil {
-            return numberOfSections!(tableView)
+        if let num = numberOfSections {
+            return num(tableView)
         }
-        if numberSections != nil {
-            return numberSections!
+        
+        if let nums = numberSections {
+            return nums
         }
+        
         return tableView.numberOfSections == 0 ? 1 : tableView.numberOfSections
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if heightForHeaderInSection != nil {
-            return heightForHeaderInSection!(tableView,section)
+        if let hh = heightForHeaderInSection {
+            return hh(tableView,section)
         }
-        if heightHeaderSection != nil {
-            return heightHeaderSection!
+        if let hhs = heightHeaderSection {
+            return hhs
         }
         return tableView.sectionHeaderHeight
     }
@@ -75,28 +77,28 @@ extension QYTableViewDelegate : UITableViewDelegate,UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if numberOfRowsInSection != nil {
-            return numberOfRowsInSection!(tableView,section)
+        if let nri = numberOfRowsInSection {
+            return nri(tableView,section)
         }
-        if numberRows != nil {
-            return numberRows!
+        if let nr = numberRows {
+            return nr
         }
         return 1
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if heightForRowAtIndexPath != nil {
-            return heightForRowAtIndexPath!(tableView,indexPath)
+        if let hr = heightForRowAtIndexPath {
+            return hr(tableView,indexPath)
         }
-        if heightRows != nil {
-            return heightRows!
+        if let h = heightRows {
+            return h
         }
         return UITableView.automaticDimension
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if cellForRowAtIndexPath != nil {
-            return cellForRowAtIndexPath!(tableView,indexPath)
+        if let cr = cellForRowAtIndexPath {
+            return cr(tableView,indexPath)
         }
         return UITableViewCell.init()
     }
@@ -106,11 +108,12 @@ extension QYTableViewDelegate : UITableViewDelegate,UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if heightForFooterInSection != nil {
-            return heightForFooterInSection!(tableView,section)
+        
+        if let hf = heightForFooterInSection {
+            return hf(tableView,section)
         }
-        if heightFooterSection != nil {
-            return heightFooterSection!
+        if let h = heightFooterSection {
+            return h
         }
         return tableView.sectionFooterHeight
     }
