@@ -41,8 +41,8 @@ open class QYDatePickerViewController: UIViewController {
     private var cancelBtn: UIButton!
     private var sureBtn: UIButton!
     private func drawMyView() {
-        self.view.insertSubview(self.backgroundView, at: 0)
-        self.modalPresentationStyle = .custom
+        view.insertSubview(backgroundView, at: 0)
+        modalPresentationStyle = .custom
         cancelBtn = UIButton(frame: CGRect(x: 0, y: 0, width: QYRatio(80), height: QYRatio(40)))
         sureBtn = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - QYRatio(80), y: 0, width: QYRatio(80), height: QYRatio(40)))
         cancelBtn.setTitle("取消", for: .normal)
@@ -51,52 +51,52 @@ open class QYDatePickerViewController: UIViewController {
         sureBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         cancelBtn.setTitleColor(UIColor.init(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1), for: .normal)
         sureBtn.setTitleColor(UIColor.init(red: 28 / 255.0, green: 129 / 255.0, blue: 254 / 255.0, alpha: 1), for: .normal)
-        cancelBtn.addTarget(self, action: #selector(self.onClickcancelBtn), for: .touchUpInside)
-        sureBtn.addTarget(self, action: #selector(self.onClicksureBtn), for: .touchUpInside)
+        cancelBtn.addTarget(self, action: #selector(onClickcancelBtn), for: .touchUpInside)
+        sureBtn.addTarget(self, action: #selector(onClicksureBtn), for: .touchUpInside)
         picker = UIPickerView(frame: CGRect(x: 0, y: QYRatio(40), width: UIScreen.main.bounds.width, height: QYRatio(220)))
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = UIColor.clear
         picker.clipsToBounds = true
-        self.containV.addSubview(cancelBtn)
-        self.containV.addSubview(sureBtn)
-        self.containV.addSubview(picker)
-        self.view.addSubview(self.containV)
+        containV.addSubview(cancelBtn)
+        containV.addSubview(sureBtn)
+        containV.addSubview(picker)
+        view.addSubview(containV)
     }
     // MARK: on cancelBtn Click
     @objc func onClickcancelBtn() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     // MARK: on sureBtn Click
     @objc func onClicksureBtn() {
         var dateString = ""
-        switch self.type {
+        switch type {
         case .year:
             dateString = String(format: "%02ld",
-                                self.picker.selectedRow(inComponent: 0) + startTime)
+                                picker.selectedRow(inComponent: 0) + startTime)
         case .month:
             dateString = String(format: "%02ld-%02ld",
-                                self.picker.selectedRow(inComponent: 0) + startTime,
-                                self.picker.selectedRow(inComponent: 1) + 1)
+                                picker.selectedRow(inComponent: 0) + startTime,
+                                picker.selectedRow(inComponent: 1) + 1)
         case .day:
             dateString = String(format: "%02ld-%02ld-%02ld",
-                                self.picker.selectedRow(inComponent: 0) + startTime,
-                                self.picker.selectedRow(inComponent: 1) + 1,
-                                self.picker.selectedRow(inComponent: 2) + 1)
+                                picker.selectedRow(inComponent: 0) + startTime,
+                                picker.selectedRow(inComponent: 1) + 1,
+                                picker.selectedRow(inComponent: 2) + 1)
         case .none:
             break
         }
-        if self.backDate != nil {
-            self.backDate!(dateString)
+        if backDate != nil {
+            backDate!(dateString)
         }
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     ///点击任意位置view消失
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        let currentPoint = touches.first?.location(in: self.view)
-        if !self.containV.frame.contains(currentPoint ?? CGPoint()) {
-            self.dismiss(animated: true, completion: nil)
+        let currentPoint = touches.first?.location(in: view)
+        if !containV.frame.contains(currentPoint ?? CGPoint()) {
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -113,7 +113,7 @@ open class QYDatePickerViewController: UIViewController {
 // MARK: - PickerViewDelegate
 extension QYDatePickerViewController: UIPickerViewDelegate,UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        switch self.type {
+        switch type {
         case .year:
             return 1
         case .month:
@@ -154,7 +154,7 @@ extension QYDatePickerViewController: UIPickerViewDelegate,UIPickerViewDataSourc
         return 29
     }
     public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        switch self.type {
+        switch type {
         case .year:
             return UIScreen.main.bounds.width
         case .month:
@@ -177,7 +177,7 @@ extension QYDatePickerViewController: UIPickerViewDelegate,UIPickerViewDataSourc
         }
     }
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch self.type {
+        switch type {
         case .year:break
         case .month:
             if component == 0 {

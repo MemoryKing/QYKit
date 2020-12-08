@@ -23,18 +23,18 @@ public extension UITextView {
 public extension UITextView {
     override func draw(_ rect: CGRect) {
         // 如果有文字,就直接返回,不需要画占位文字
-        if self.hasText {
+        if hasText {
             return
         }
         
         // 属性
-        let attrs: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: self.yi_placeholderColor,NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: 16)]
+        let attrs: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: yi_placeholderColor,NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: 16)]
         // 文字
         var rect1 = rect
         rect1.origin.x = 5
         rect1.origin.y = 8
         rect1.size.width = rect1.size.width - 2 * rect1.origin.x
-        ((self.yi_placeholder ?? "") as NSString).draw(in: rect1, withAttributes: attrs)
+        ((yi_placeholder ?? "") as NSString).draw(in: rect1, withAttributes: attrs)
     }
 }
 

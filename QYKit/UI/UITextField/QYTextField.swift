@@ -122,7 +122,17 @@ private extension UITextField {
 public extension UITextField {
     private struct QYRuntimeKey {
         static let maxCount = UnsafeRawPointer.init(bitPattern: "maxCount".hashValue)
+        static let key = UnsafeRawPointer.init(bitPattern: "key".hashValue)
         static let placeholderColor = UnsafeRawPointer.init(bitPattern: "placeholderColor".hashValue)
+    }
+    ///标识
+    var yi_key: String {
+        set {
+            objc_setAssociatedObject(self, QYRuntimeKey.key!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, QYRuntimeKey.key!) as! String
+        }
     }
     ///最大字数
     var yi_maxCount: Int {

@@ -30,8 +30,8 @@ open class QYBaseViewController: UIViewController {
     public var yi_openPopGecognizer: Bool {
         set {
             _openPopGecognizer = newValue
-            self.navigationController?.yi_openPopGecognizer = newValue
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = newValue
+            navigationController?.yi_openPopGecognizer = newValue
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = newValue
         }
         get {
             return _openPopGecognizer ?? false
@@ -44,82 +44,95 @@ open class QYBaseViewController: UIViewController {
     //MARK: --- viewDidLoad
     open override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         //防止自动下移64
-        self.automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = false
         
-        self.extendedLayoutIncludesOpaqueBars = true
+        extendedLayoutIncludesOpaqueBars = true
         
-        self.yi_openPopGecognizer = true
+        yi_openPopGecognizer = true
         
-        self.view.backgroundColor = QYF5Color
-        yi_InterfaceLayout()
+        view.backgroundColor = QYF5Color
+        yi_configureLayout()
     }
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     ///界面布局
-    open func yi_InterfaceLayout() {
+    open func yi_configureLayout() {
         
     }
     
     //MARK: --- 添加表视图
     ///添加表视图
     public func yi_addTableView(_ style: UITableView.Style? = nil, _ block: ((QYBaseTableView) -> Void)? = nil) {
-        if self.mainCollection != nil {
-            self.mainCollection?.removeFromSuperview()
-            self.mainCollection = nil
+        
+        if mainCollection != nil {
+            mainCollection?.removeFromSuperview()
+            mainCollection = nil
         }
         
-        self.mainTableView = QYBaseTableView(frame: .zero, style: style ?? .plain)
-        self.mainTableView!.showsVerticalScrollIndicator = false
-        self.mainTableView!.showsHorizontalScrollIndicator = false
-        self.mainTableView!.backgroundColor = QYF5Color
-        self.mainTableView!.separatorStyle = .none
-        self.mainTableView!.estimatedRowHeight = 44
-        self.mainTableView!.estimatedSectionFooterHeight = 0
-        self.mainTableView!.estimatedSectionHeaderHeight = 0
-        self.view.addSubview(self.mainTableView!)
-        var top: CGFloat
-        var bottom: CGFloat
-        if (self.navigationController != nil) {
-            top = QYStatusAndNavHeight
-        } else {
-            top = QYStatusHeight
+        mainTableView = QYBaseTableView(frame: .zero, style: style ?? .plain)
+        if let tab = mainTableView {
+            tab.showsVerticalScrollIndicator = false
+            tab.showsHorizontalScrollIndicator = false
+            tab.backgroundColor = QYF5Color
+            tab.separatorStyle = .none
+            tab.estimatedRowHeight = 44
+            tab.estimatedSectionFooterHeight = 0
+            tab.estimatedSectionHeaderHeight = 0
+            view.addSubview(tab)
+            var top: CGFloat
+            var bottom: CGFloat
+            if let _ = navigationController {
+                top = QYStatusAndNavHeight
+            } else {
+                top = QYStatusHeight
+            }
+            if let _ = tabBarController {
+                bottom = QYBottomAndTabBarHeight
+            } else {
+                bottom = QYBottomHeight
+            }
+            tab.snp.makeConstraints {
+                $0.top.equalTo(top)
+                $0.left.equalToSuperview()
+                $0.right.equalToSuperview()
+                $0.bottom.equalTo(-bottom)
+            }
+            block?(tab)
         }
-        if self.tabBarController != nil {
-            bottom = QYBottomAndTabBarHeight
-        } else {
-            bottom = QYBottomHeight
-        }
-        self.mainTableView!.snp.makeConstraints {
-            $0.top.equalTo(top)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalTo(-bottom)
-        }
-        block?(self.mainTableView!)
     }
     
     //MARK:-注册表视图cell
     ///注册表视图cell
-    public func yi_registerCell(cells:[AnyClass],cellName:[String]) {
+    public func yi_registerCell(cells: [AnyClass],cellName: [String]) {
         for index in 0..<cells.count {
-            self.mainTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
+            mainTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
         }
     }
     ///注册表视图cell
-    public func yi_registerCell(cell:AnyClass,cellName:String) {
-        self.mainTableView?.register(cell, forCellReuseIdentifier: cellName)
+    public func yi_registerCell(cells: [AnyClass]) {
+        for index in 0..<cells.count {
+            mainTableView?.register(cells[index], forCellReuseIdentifier: NSStringFromClass(cells[index]))
+        }
+    }
+    ///注册表视图cell
+    public func yi_registerCell(cells: AnyClass) {
+        mainTableView?.register(cells, forCellReuseIdentifier: NSStringFromClass(cells))
+    }
+    ///注册表视图cell
+    public func yi_registerCell(cell: AnyClass,cellName: String) {
+        mainTableView?.register(cell, forCellReuseIdentifier: cellName)
     }
     ///注册表视图nib cell
-    public func yi_registerCell(cellNib:String,cellNameNib:String) {
-        self.mainTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
+    public func yi_registerCell(cellNib: String,cellNameNib: String) {
+        mainTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
     }
     ///注册表视图nib cell
     public func yi_registerCell(cellNibs:[String],cellNibName:[String]) {
         for index in 0 ..< cellNibs.count {
-            self.mainTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
+            mainTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
         }
     }
     
@@ -127,52 +140,55 @@ open class QYBaseViewController: UIViewController {
     //MARK: --- 添加集合视图
     ///添加集合视图
     public func yi_addCollectionView(_ block: ((UICollectionViewFlowLayout,QYBaseCollectionView) -> Void)? = nil) {
-        if self.mainTableView != nil {
-            self.mainTableView?.removeFromSuperview()
-            self.mainTableView = nil
+        if mainTableView != nil {
+            mainTableView?.removeFromSuperview()
+            mainTableView = nil
         }
         
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
         layout.estimatedItemSize = CGSize.init(width: 100, height: 100)
-        self.mainCollection = QYBaseCollectionView.init(frame: .init(), collectionViewLayout: layout)
-        self.mainCollection!.showsVerticalScrollIndicator = false
-        self.mainCollection!.showsHorizontalScrollIndicator = false
-        self.mainCollection!.backgroundColor = QYF5Color
-        self.view.addSubview(self.mainCollection!)
-        self.mainCollection!.snp.makeConstraints {
-            $0.top.equalTo(QYStatusAndNavHeight)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalTo(-QYBottomHeight)
+        mainCollection = QYBaseCollectionView.init(frame: .init(), collectionViewLayout: layout)
+        if let col = mainCollection {
+            col.showsVerticalScrollIndicator = false
+            col.showsHorizontalScrollIndicator = false
+            col.backgroundColor = QYF5Color
+            view.addSubview(col)
+            col.snp.makeConstraints {
+                $0.top.equalTo(QYStatusAndNavHeight)
+                $0.left.equalToSuperview()
+                $0.right.equalToSuperview()
+                $0.bottom.equalTo(-QYBottomHeight)
+            }
+            block?(layout,col)
         }
-        block?(layout,self.mainCollection!)
+        
     }
     
     //MARK:-注册集合视图cell
     ///注册集合视图cell
     public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
-        self.mainCollection?.register(cell, forCellWithReuseIdentifier: cellName)
+        mainCollection?.register(cell, forCellWithReuseIdentifier: cellName)
     }
     ///注册集合视图cell
     public func yi_registerCollectionCell(cells:[AnyClass],cellName:[String]) {
         for index in 0..<cells.count {
-            self.mainCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
+            mainCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
         }
     }
     ///注册集合视图nib cell
     public func yi_registerCollectionCell(cellNib:String,cellNameNib:String) {
-        self.mainCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
+        mainCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
     }
     ///注册集合视图nib cell
     public func yi_registerCollectionCell(cellNibs:[String],cellNibName:[String]) {
         for index in 0 ..< cellNibs.count {
-            self.mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
+            mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
         }
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.yi_barStyle
+        return yi_barStyle
     }
 }
 
@@ -188,7 +204,7 @@ extension QYBaseViewController : UIScrollViewDelegate {
              
             //获取是否有默认调整的内边距
             let defaultEdgeTop:CGFloat = navigationController?.navigationBar != nil
-                && self.automaticallyAdjustsScrollViewInsets ? 64 : 0
+                && automaticallyAdjustsScrollViewInsets ? 64 : 0
              
             //上边距相关
             var edgeTop = defaultEdgeTop
@@ -196,7 +212,7 @@ extension QYBaseViewController : UIScrollViewDelegate {
                 scrollView.contentOffset.y <= sectionHeaderHeight - defaultEdgeTop  {
                 edgeTop = -scrollView.contentOffset.y
             }
-            else if (scrollView.contentOffset.y>=sectionHeaderHeight - defaultEdgeTop) {
+            else if (scrollView.contentOffset.y >= sectionHeaderHeight - defaultEdgeTop) {
                 edgeTop = -sectionHeaderHeight + defaultEdgeTop
             }
              

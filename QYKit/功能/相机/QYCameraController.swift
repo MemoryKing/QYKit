@@ -55,7 +55,7 @@ open class QYCameraController: QYBaseViewController {
         return d
     }()
     fileprivate lazy var floatingView: QYFloatingView = {
-        let v = QYFloatingView(frame: self.view.bounds)
+        let v = QYFloatingView(frame: view.bounds)
         v.frame = view.bounds
         v.photoType = yi_photoType
         return v
@@ -126,7 +126,7 @@ open class QYCameraController: QYBaseViewController {
     
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.session.stopRunning()
+        session.stopRunning()
     }
     
     @objc private func cancleButtonAction(_ btn: UIButton) {
@@ -275,7 +275,7 @@ open class QYCameraController: QYBaseViewController {
                 let alert = UIAlertController.init(title: "提示", message: "您的设备没有闪光设备，不能提供手电筒功能，请检查", preferredStyle: UIAlertController.Style.alert)
                 let okAction = UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil)
                 alert.addAction(okAction)
-                self.present(alert, animated: false, completion: nil)
+                present(alert, animated: false, completion: nil)
             }
         }
     }
@@ -342,9 +342,9 @@ extension QYCameraController: AVCapturePhotoCaptureDelegate {
             if let dataProvider = CGDataProvider(data: dataImage as CFData) {
                 let cgImageRef = CGImage(jpegDataProviderSource: dataProvider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)!
                 let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImage.Orientation.right)
-                guard let clipImg = image.dx_clipImageInRect(rect: self.floatingView.WindowLayer.frame) else { return }
+                guard let clipImg = image.dx_clipImageInRect(rect: floatingView.WindowLayer.frame) else { return }
                 clipImage = clipImg
-                self.session.stopRunning()
+                session.stopRunning()
             }
             
         } else {
@@ -373,7 +373,7 @@ fileprivate class QYFloatingView: UIView {
     }
     lazy var WindowLayer: CAShapeLayer = {
         let windowLayer = CAShapeLayer.init()
-        windowLayer.position = self.layer.position
+        windowLayer.position = layer.position
         windowLayer.cornerRadius = 15
         windowLayer.borderColor = UIColor.white.cgColor
         windowLayer.borderWidth = 2
@@ -457,8 +457,8 @@ extension UIImage {
     
     public func dx_clipImageInRect(rect: CGRect) -> UIImage?{
        
-        let widthScale: CGFloat = self.size.width / QYScreenWidth
-        let heightScale: CGFloat = self.size.height / QYScreenHeight
+        let widthScale: CGFloat = size.width / QYScreenWidth
+        let heightScale: CGFloat = size.height / QYScreenHeight
         
         //其实是横屏的
         let originWidth: CGFloat = rect.size.width
@@ -470,7 +470,7 @@ extension UIImage {
         let height: CGFloat = originWidth * widthScale
         
         let r: CGRect = CGRect.init(x: x, y: y, width: width, height: height)
-        if let cgImg = self.cgImage?.cropping(to: r) {
+        if let cgImg = cgImage?.cropping(to: r) {
             return UIImage.init(cgImage: cgImg, scale: 1.0, orientation: UIImage.Orientation.right)
         }
 

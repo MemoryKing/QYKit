@@ -13,6 +13,13 @@ import QuartzCore
 import CoreGraphics
 import Accelerate
 
+// MARK:--- 基本的扩展
+public extension UIImage {
+    
+    
+}
+
+//MARK: --- 图片生成
 public extension UIImage {
     ///加载url
     static func yi_url(urlString: String) -> UIImage? {
@@ -53,204 +60,6 @@ public extension UIImage {
             return
         }
         self.init(cgImage: aCgImage)
-    }
-}
-
-//MARK: --- 渐变
-public extension UIImage {
-    /// 渐变色方向
-    enum Direction {
-        ///垂直
-        case vertical
-        ///水平
-        case level
-        ///左上到右下
-        case leftTop
-        ///左下到右上
-        case leftBottom
-    }
-    ///线性渐变
-    class func yi_initGradient (size: CGSize,
-                                direction: Direction,
-                                locations: Array<CGFloat> = [0.0,1.0] ,
-                                colors: [UIColor]) -> UIImage? {
-        UIGraphicsBeginImageContext(size)
-        let context = UIGraphicsGetCurrentContext()
-        guard (context != nil) else {
-            return UIImage()
-        }
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var cgColors = [CGColor]()
-        colors.forEach { (colo) in
-            cgColors.append(colo.cgColor)
-        }
-        let gradient = CGGradient.init(colorsSpace: colorSpace, colors: cgColors as CFArray, locations: locations)!
-        
-        var start = CGPoint()
-        var end = CGPoint()
-        switch direction {
-        case .vertical:
-            start = CGPoint.init(x: 0, y: 0)
-            end = CGPoint.init(x: 0, y: size.height)
-            break
-        case .level:
-            start = CGPoint.init(x: 0, y: 0)
-            end = CGPoint.init(x: size.width, y: 0)
-            break
-        case .leftTop:
-            start = CGPoint.init(x: 0, y: 0)
-            end = CGPoint.init(x: size.width, y: size.height)
-            break
-        case .leftBottom:
-            start = CGPoint.init(x: size.width, y: 0)
-            end = CGPoint.init(x: 0, y: size.height)
-            break
-        }
-        
-        context?.drawLinearGradient(gradient, start: start, end: end, options: .drawsBeforeStartLocation)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-    ///放射性渐变
-    class func yi_initRadialGradients (size: CGSize,
-                                       locations: Array<CGFloat> = [0.0,1.0],
-                                       colors: [UIColor]) -> UIImage? {
-        UIGraphicsBeginImageContext(size)
-        let context = UIGraphicsGetCurrentContext()
-        guard (context != nil) else {
-            return nil
-        }
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var cgColors = [CGColor]()
-        colors.forEach { (colo) in
-            cgColors.append(colo.cgColor)
-        }
-        let gradient = CGGradient.init(colorsSpace: colorSpace, colors: cgColors as CFArray, locations: locations)!
-        let center = CGPoint(x: size.width / 2, y: size.height / 2)
-        //外圆半径
-        let endRadius = min(size.width, size.height) / 2
-        //内圆半径
-        let startRadius = endRadius / 3
-        //绘制渐变
-        context?.drawRadialGradient(gradient,
-                                   startCenter: center, startRadius: startRadius,
-                                   endCenter: center, endRadius: endRadius,
-                                   options: .drawsBeforeStartLocation)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
-//MARK: --- 转换
-public extension UIImage {
-    func yi_quality(_ quality: CGFloat = 1) -> UIImage? {
-        guard let imageData = self.jpegData(compressionQuality: quality) else { return nil }
-        return UIImage.init(data: imageData)
-    }
-    ///image --> base64
-    func yi_toBase64 (_ options: Data.Base64EncodingOptions = []) -> String {
-        // 将图片转化成Data
-        let imageData = self.yi_quality()?.jpegData(compressionQuality: 1)
-        // 将Data转化成 base64的字符串
-        let imageBase64String = imageData?.base64EncodedString(options: options) ?? ""
-        return imageBase64String
-    }
-    ///image --> color
-    func yi_toColor() -> UIColor? {
-        return UIColor.init(patternImage: self)
-    }
-    ///image --> data
-    func yi_toData() -> Data? {
-        self.pngData()
-        return self.jpegData(compressionQuality: 1)
-    }
-}
-//MARK: --- 功能
-public extension UIImage {
-     /// 截取指定Image的rect
-     func yi_croping(_ rect: CGRect) -> UIImage {
-         guard rect.size.height < size.height && rect.size.height < size.height else { return self }
-         guard let image: CGImage = cgImage?.cropping(to: rect) else { return self }
-         return UIImage(cgImage: image)
-     }
-    
-     ///图片质量
-     func yi_compressionQuality(_ quality: CGFloat) -> UIImage? {
-        
-        if let data = self.jpegData(compressionQuality: quality) {
-            return UIImage.init(data: data)
-        }
-        return nil
-     }
-    
-     /// 旋转指定角度
-     func yi_rotate(_ radians: Float) -> UIImage {
-         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-         let transformation: CGAffineTransform = CGAffineTransform(rotationAngle: CGFloat(radians))
-         rotatedViewBox.transform = transformation
-         let rotatedSize: CGSize = CGSize(width: Int(rotatedViewBox.frame.size.width), height: Int(rotatedViewBox.frame.size.height))
-         UIGraphicsBeginImageContextWithOptions(rotatedSize, false, 0)
-         guard let context: CGContext = UIGraphicsGetCurrentContext() else {
-             UIGraphicsEndImageContext()
-             return self
-         }
-         context.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
-         context.rotate(by: CGFloat(radians))
-         context.scaleBy(x: 1.0, y: -1.0)
-         context.draw(self.cgImage!, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
-         guard let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
-             UIGraphicsEndImageContext()
-             return self
-         }
-         UIGraphicsEndImageContext()
-         return newImage
-     }
-    
-    ///图片压缩
-    func yi_reset(_ maxSizeKB : CGFloat,_ maxWidth : CGFloat? = nil) -> UIImage? {
-        let maxSize = maxSizeKB
-        let maxImageSize = maxWidth ?? self.size.width
-        //先调整分辨率
-        var newSize = CGSize.init(width: self.size.width, height: self.size.height)
-        let tempHeight = newSize.height / maxImageSize
-        let tempWidth = newSize.width / maxImageSize
-        if (tempWidth > 1.0 && tempWidth > tempHeight) {
-            newSize = CGSize.init(width: self.size.width / tempWidth, height: self.size.height / tempWidth)
-        }
-        else if (tempHeight > 1.0 && tempWidth < tempHeight) {
-            newSize = CGSize.init(width: self.size.width / tempHeight, height: self.size.height / tempHeight)
-        }
-        UIGraphicsBeginImageContext(newSize)
-        self.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        
-        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-            UIGraphicsEndImageContext()
-            if let imageData = newImage.jpegData(compressionQuality: 1.0) {
-                var sizeOriginKB : CGFloat = CGFloat((imageData.count)) / 1024.0
-                //调整大小
-                var resizeRate = 0.9
-                while (sizeOriginKB > maxSize && resizeRate > 0.1) {
-                    if let data = newImage.jpegData(compressionQuality: CGFloat(resizeRate)) {
-                        sizeOriginKB = CGFloat((data.count)) / 1024.0
-                        resizeRate -= 0.1
-                        QYLog("压缩后图片--大小:\(sizeOriginKB)--size:\(newSize)")
-                        return UIImage.init(data: data)
-                    }
-                }
-            }
-        }
-        return nil
-    }
-    
-    ///将图片绘制成制定大小
-    func yi_scale(_ w: CGFloat,_ h: CGFloat) -> UIImage? {
-        let newSize = CGSize(width: w, height: h)
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
     }
     
     ///颜色生成image
@@ -346,6 +155,209 @@ public extension UIImage {
             saveBlock?(true)
         }
     }
+}
+
+//MARK: --- 渐变
+public extension UIImage {
+    /// 渐变色方向
+    enum Direction {
+        ///垂直
+        case vertical
+        ///水平
+        case level
+        ///左上到右下
+        case leftTop
+        ///左下到右上
+        case leftBottom
+    }
+    ///线性渐变
+    class func yi_initGradient (size: CGSize,
+                                direction: Direction,
+                                locations: Array<CGFloat> = [0.0,1.0] ,
+                                colors: [UIColor]) -> UIImage? {
+        UIGraphicsBeginImageContext(size)
+        let context = UIGraphicsGetCurrentContext()
+        guard (context != nil) else {
+            return UIImage()
+        }
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        var cgColors = [CGColor]()
+        colors.forEach { (colo) in
+            cgColors.append(colo.cgColor)
+        }
+        let gradient = CGGradient.init(colorsSpace: colorSpace, colors: cgColors as CFArray, locations: locations)!
+        
+        var start = CGPoint()
+        var end = CGPoint()
+        switch direction {
+        case .vertical:
+            start = CGPoint.init(x: 0, y: 0)
+            end = CGPoint.init(x: 0, y: size.height)
+            break
+        case .level:
+            start = CGPoint.init(x: 0, y: 0)
+            end = CGPoint.init(x: size.width, y: 0)
+            break
+        case .leftTop:
+            start = CGPoint.init(x: 0, y: 0)
+            end = CGPoint.init(x: size.width, y: size.height)
+            break
+        case .leftBottom:
+            start = CGPoint.init(x: size.width, y: 0)
+            end = CGPoint.init(x: 0, y: size.height)
+            break
+        }
+        
+        context?.drawLinearGradient(gradient, start: start, end: end, options: .drawsBeforeStartLocation)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    ///放射性渐变
+    class func yi_initRadialGradients (size: CGSize,
+                                       locations: Array<CGFloat> = [0.0,1.0],
+                                       colors: [UIColor]) -> UIImage? {
+        UIGraphicsBeginImageContext(size)
+        let context = UIGraphicsGetCurrentContext()
+        guard (context != nil) else {
+            return nil
+        }
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        var cgColors = [CGColor]()
+        colors.forEach { (colo) in
+            cgColors.append(colo.cgColor)
+        }
+        let gradient = CGGradient.init(colorsSpace: colorSpace, colors: cgColors as CFArray, locations: locations)!
+        let center = CGPoint(x: size.width / 2, y: size.height / 2)
+        //外圆半径
+        let endRadius = min(size.width, size.height) / 2
+        //内圆半径
+        let startRadius = endRadius / 3
+        //绘制渐变
+        context?.drawRadialGradient(gradient,
+                                   startCenter: center, startRadius: startRadius,
+                                   endCenter: center, endRadius: endRadius,
+                                   options: .drawsBeforeStartLocation)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    
+}
+//MARK: --- 转换
+public extension UIImage {
+    func yi_quality(_ quality: CGFloat = 1) -> UIImage? {
+        guard let imageData = self.jpegData(compressionQuality: quality) else { return nil }
+        return UIImage.init(data: imageData)
+    }
+    ///image --> base64
+    func yi_toBase64 (_ options: Data.Base64EncodingOptions = []) -> String {
+        // 将图片转化成Data
+        let imageData = self.yi_quality()?.jpegData(compressionQuality: 1)
+        // 将Data转化成 base64的字符串
+        let imageBase64String = imageData?.base64EncodedString(options: options) ?? ""
+        return imageBase64String
+    }
+    ///image --> color
+    func yi_toColor() -> UIColor? {
+        return UIColor.init(patternImage: self)
+    }
+    ///image --> data
+    func yi_toData() -> Data? {
+        self.pngData()
+        return self.jpegData(compressionQuality: 1)
+    }
+}
+
+//MARK: --- 图片处理
+public extension UIImage {
+     /// 截取指定Image的rect
+     func yi_croping(_ rect: CGRect) -> UIImage {
+         guard rect.size.height < size.height && rect.size.height < size.height else { return self }
+         guard let image: CGImage = cgImage?.cropping(to: rect) else { return self }
+         return UIImage(cgImage: image)
+     }
+    
+     ///图片质量
+     func yi_compressionQuality(_ quality: CGFloat) -> UIImage? {
+        
+        if let data = self.jpegData(compressionQuality: quality) {
+            return UIImage.init(data: data)
+        }
+        return nil
+     }
+    
+     /// 旋转指定角度
+     func yi_rotate(_ radians: Float) -> UIImage {
+         let rotatedViewBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+         let transformation: CGAffineTransform = CGAffineTransform(rotationAngle: CGFloat(radians))
+         rotatedViewBox.transform = transformation
+         let rotatedSize: CGSize = CGSize(width: Int(rotatedViewBox.frame.size.width), height: Int(rotatedViewBox.frame.size.height))
+         UIGraphicsBeginImageContextWithOptions(rotatedSize, false, 0)
+         guard let context: CGContext = UIGraphicsGetCurrentContext() else {
+             UIGraphicsEndImageContext()
+             return self
+         }
+         context.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
+         context.rotate(by: CGFloat(radians))
+         context.scaleBy(x: 1.0, y: -1.0)
+         context.draw(self.cgImage!, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
+         guard let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
+             UIGraphicsEndImageContext()
+             return self
+         }
+         UIGraphicsEndImageContext()
+         return newImage
+     }
+    
+    ///图片压缩
+    func yi_reset(_ maxSizeKB : CGFloat,_ maxWidth : CGFloat? = nil) -> UIImage? {
+        let maxSize = maxSizeKB
+        let maxImageSize = maxWidth ?? self.size.width
+        //先调整分辨率
+        var newSize = CGSize.init(width: self.size.width, height: self.size.height)
+        let tempHeight = newSize.height / maxImageSize
+        let tempWidth = newSize.width / maxImageSize
+        if (tempWidth > 1.0 && tempWidth > tempHeight) {
+            newSize = CGSize.init(width: self.size.width / tempWidth, height: self.size.height / tempWidth)
+        }
+        else if (tempHeight > 1.0 && tempWidth < tempHeight) {
+            newSize = CGSize.init(width: self.size.width / tempHeight, height: self.size.height / tempHeight)
+        }
+        UIGraphicsBeginImageContext(newSize)
+        self.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            UIGraphicsEndImageContext()
+            if let imageData = newImage.jpegData(compressionQuality: 1.0) {
+                var sizeOriginKB : CGFloat = CGFloat((imageData.count)) / 1024.0
+                //调整大小
+                var resizeRate = 0.9
+                while (sizeOriginKB > maxSize && resizeRate > 0.1) {
+                    if let data = newImage.jpegData(compressionQuality: CGFloat(resizeRate)) {
+                        sizeOriginKB = CGFloat((data.count)) / 1024.0
+                        resizeRate -= 0.1
+                        QYLog("压缩后图片--大小:\(sizeOriginKB)--size:\(newSize)")
+                        return UIImage.init(data: data)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    ///将图片绘制成制定大小
+    func yi_scale(_ w: CGFloat,_ h: CGFloat) -> UIImage? {
+        let newSize = CGSize(width: w, height: h)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    
 }
 
 public enum UIImageContentMode {

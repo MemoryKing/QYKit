@@ -372,7 +372,7 @@ static const UInt8 privateKeyIdentifier[] = "com.apple.sample.privatekey111\0";
 - (BOOL)generatePublicKeyByLocal_CER:(NSString*) cerFileName SecPaddingType:(SecPadding) secType
 {
     
-    self.secPaddingType = secType;
+    secPaddingType = secType;
     
     NSString *publicKeyPath = [[NSBundle mainBundle] pathForResource:cerFileName
                                                               ofType:@"cer"];
@@ -407,7 +407,7 @@ static const UInt8 privateKeyIdentifier[] = "com.apple.sample.privatekey111\0";
 #pragma mark - encrypt/decrypt
 
 - (NSData*)rsaEncryptWithData:(NSData*)data usingPublicKey:(BOOL)yes{
-    SecKeyRef key = yes?self.publicKeyRef:self.privateKeyRef;
+    SecKeyRef key = yes?publicKeyRef:privateKeyRef;
     
     size_t cipherBufferSize = SecKeyGetBlockSize(key);
     uint8_t *cipherBuffer = malloc(cipherBufferSize * sizeof(uint8_t));
@@ -424,7 +424,7 @@ static const UInt8 privateKeyIdentifier[] = "com.apple.sample.privatekey111\0";
         NSData *buffer = [plainTextBytes subdataWithRange:NSMakeRange(i * blockSize, bufferSize)];
         //kSecPaddingNone
         OSStatus status = SecKeyEncrypt(key,
-                                        self.secPaddingType,
+                                        secPaddingType,
                                         (const uint8_t *)[buffer bytes],
                                         [buffer length],
                                         cipherBuffer,
@@ -444,20 +444,20 @@ static const UInt8 privateKeyIdentifier[] = "com.apple.sample.privatekey111\0";
     }
     if (cipherBuffer) free(cipherBuffer);
     
-    //self.secPaddingType = kSecPaddingPKCS1;
+    //secPaddingType = kSecPaddingPKCS1;
     return encryptedData;
 }
 
 - (NSData*)rsaDecryptWithData:(NSData*)data usingPublicKey:(BOOL)yes{
     NSData *wrappedSymmetricKey = data;
-    SecKeyRef key = yes?self.publicKeyRef:self.privateKeyRef;
+    SecKeyRef key = yes?publicKeyRef:privateKeyRef;
     
     size_t cipherBufferSize = SecKeyGetBlockSize(key);
     size_t keyBufferSize = [wrappedSymmetricKey length];
     
     NSMutableData *bits = [NSMutableData dataWithLength:keyBufferSize];
     OSStatus sanityCheck = SecKeyDecrypt(key,
-                                         self.secPaddingType,
+                                         secPaddingType,
                                          (const uint8_t *) [wrappedSymmetricKey bytes],
                                          cipherBufferSize,
                                          [bits mutableBytes],

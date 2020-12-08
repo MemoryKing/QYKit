@@ -20,7 +20,7 @@ public extension UIView {
     }
     //MARK: --- 单边边框线
     func yi_addBorder(side: ViewSide, thickness: CGFloat, color: UIColor, leftOffset: CGFloat = 0, rightOffset: CGFloat = 0, topOffset: CGFloat = 0, bottomOffset: CGFloat = 0) {
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         switch side {
         case .top:
             // Add leftOffset to our X to get start X position.
@@ -29,32 +29,32 @@ public extension UIView {
             // Subtract rightoffset from width to set end X and Width.
             let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset,
                                              y: 0 + topOffset,
-                                             width: self.bounds.size.width - leftOffset - rightOffset,
+                                             width: bounds.size.width - leftOffset - rightOffset,
                                              height: thickness), color: color)
-            self.layer.addSublayer(border)
+            layer.addSublayer(border)
         case .right:
             // Subtract the rightOffset from our width + thickness to get our final x position.
             // Add topOffset to our y to get our start y position.
             // Subtract topOffset from our height, so our border doesn't extend past teh view.
             // Subtract bottomOffset from the height to get our end.
-            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: self.frame.size.width-thickness-rightOffset,
+            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: frame.size.width-thickness-rightOffset,
                                              y: 0 + topOffset, width: thickness,
-                                             height: self.bounds.size.height - topOffset - bottomOffset), color: color)
-            self.layer.addSublayer(border)
+                                             height: bounds.size.height - topOffset - bottomOffset), color: color)
+            layer.addSublayer(border)
         case .bottom:
             // Subtract the bottomOffset from the height and the thickness to get our final y position.
             // Add a left offset to our x to get our x position.
             // Minus our rightOffset and negate the leftOffset from the width to get our endpoint for the border.
             let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset,
-                                             y: self.bounds.size.height-thickness-bottomOffset,
-                                             width: self.bounds.size.width - leftOffset - rightOffset, height: thickness), color: color)
-            self.layer.addSublayer(border)
+                                             y: bounds.size.height-thickness-bottomOffset,
+                                             width: bounds.size.width - leftOffset - rightOffset, height: thickness), color: color)
+            layer.addSublayer(border)
         case .left:
             let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset,
                                              y: 0 + topOffset,
                                              width: thickness,
-                                             height: self.bounds.size.height - topOffset - bottomOffset), color: color)
-            self.layer.addSublayer(border)
+                                             height: bounds.size.height - topOffset - bottomOffset), color: color)
+            layer.addSublayer(border)
         }
     }
     fileprivate func _getOneSidedBorder(frame: CGRect, color: UIColor) -> CALayer {
@@ -90,9 +90,9 @@ public extension UIView {
     ///   - locations: 位置
     ///   - colors: 颜色组
     func yi_setGradientLayer (direction: GradientDirection,locations: Array<NSNumber> = [0.0,1.0] ,colors: [UIColor]) {
-        self.layoutIfNeeded()
+        layoutIfNeeded()
         let gradientLayer = CAGradientLayer.init()
-        gradientLayer.frame = self.bounds
+        gradientLayer.frame = bounds
         var cgColors = [CGColor]()
         colors.forEach { (colo) in
             cgColors.append(colo.cgColor)
@@ -117,7 +117,7 @@ public extension UIView {
             gradientLayer.endPoint = CGPoint.init(x: 1.0, y: 0.0)
             break
         }
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 //MARK: --- 跳转
@@ -168,7 +168,7 @@ public extension UIView {
     }
     ///获取父控制器
     func yi_currentController() -> UIViewController? {
-        for view in sequence(first: self.superview, next: { $0?.superview }) {
+        for view in sequence(first: superview, next: { $0?.superview }) {
             if let responder = view?.next {
                 if responder.isKind(of: UINavigationController.self) {
                     let tab = responder as! UINavigationController
@@ -194,86 +194,86 @@ public extension UIView {
     }
     var x: CGFloat {
         get {
-            return self.frame.origin.x
+            return frame.origin.x
         } set(value) {
-            self.frame = CGRect(x: value, y: self.y, width: self.width, height: self.height)
+            frame = CGRect(x: value, y: y, width: width, height: height)
         }
     }
     var y: CGFloat {
         get {
-            return self.frame.origin.y
+            return frame.origin.y
         } set(value) {
-            self.frame = CGRect(x: self.x, y: value, width: self.width, height: self.height)
+            frame = CGRect(x: x, y: value, width: width, height: height)
         }
     }
     var width: CGFloat {
         get {
-            return self.frame.size.width
+            return frame.size.width
         } set(value) {
-            self.frame = CGRect(x: self.x, y: self.y, width: value, height: self.height)
+            frame = CGRect(x: x, y: y, width: value, height: height)
         }
     }
     var height: CGFloat {
         get {
-            return self.frame.size.height
+            return frame.size.height
         } set(value) {
-            self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: value)
+            frame = CGRect(x: x, y: y, width: width, height: value)
         }
     }
     var left: CGFloat {
         get {
-            return self.x
+            return x
         } set(value) {
-            self.x = value
+            x = value
         }
     }
     var right: CGFloat {
         get {
-            return self.x + self.width
+            return x + width
         } set(value) {
-            self.x = value - self.width
+            x = value - width
         }
     }
     var top: CGFloat {
         get {
-            return self.y
+            return y
         } set(value) {
-            self.y = value
+            y = value
         }
     }
     var bottom: CGFloat {
         get {
-            return self.y + self.height
+            return y + height
         } set(value) {
-            self.y = value - self.height
+            y = value - height
         }
     }
     var origin: CGPoint {
         get {
-            return self.frame.origin
+            return frame.origin
         } set(value) {
-            self.frame = CGRect(origin: value, size: self.frame.size)
+            frame = CGRect(origin: value, size: frame.size)
         }
     }
     var centerX: CGFloat {
         get {
-            return self.center.x
+            return center.x
         } set(value) {
-            self.center.x = value
+            center.x = value
         }
     }
     var centerY: CGFloat {
         get {
-            return self.center.y
+            return center.y
         } set(value) {
-            self.center.y = value
+            center.y = value
         }
     }
     var size: CGSize {
         get {
-            return self.frame.size
+            return frame.size
         } set(value) {
-            self.frame = CGRect(origin: self.frame.origin, size: value)
+            frame = CGRect(origin: frame.origin, size: value)
         }
     }
 }
@@ -303,21 +303,21 @@ public extension UIView {
     }
     ///圆角
     func yi_cornerRadius(_ corners: UIRectCorner,_ radii: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
+        let maskPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
         let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
+        maskLayer.frame = bounds
         maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
+        layer.mask = maskLayer
     }
     //MARK: --- 阴影
     ///阴影
     func yi_addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float,_ cornerRadius: CGFloat? = nil) {
-        self.layer.shadowOffset = offset
-        self.layer.shadowRadius = radius
-        self.layer.shadowOpacity = opacity
-        self.layer.shadowColor = color.cgColor
+        layer.shadowOffset = offset
+        layer.shadowRadius = radius
+        layer.shadowOpacity = opacity
+        layer.shadowColor = color.cgColor
         if let r = cornerRadius {
-            self.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: r).cgPath
+            layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: r).cgPath
         }
     }
     //MARK: ------- 边框
@@ -358,24 +358,24 @@ public extension UIView {
     //MARK: --- 绘画
     ///画圆
     func yi_drawCircle(fillColor: UIColor,_ strokeColor: UIColor = .black, strokeWidth: CGFloat) {
-        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.width, height: self.width), cornerRadius: self.width/2)
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: width), cornerRadius: width/2)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = fillColor.cgColor
         shapeLayer.strokeColor = strokeColor.cgColor
         shapeLayer.lineWidth = strokeWidth
-        self.layer.addSublayer(shapeLayer)
+        layer.addSublayer(shapeLayer)
     }
     
     ///画中空圆
     func yi_drawStroke(width: CGFloat,_ color: UIColor = .black) {
-        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.width, height: self.width), cornerRadius: self.width / 2)
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: width), cornerRadius: width / 2)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = color.cgColor
         shapeLayer.lineWidth = width
-        self.layer.addSublayer(shapeLayer)
+        layer.addSublayer(shapeLayer)
     }
     
     ///画虚线
@@ -402,8 +402,8 @@ public extension UIView {
     
     ///移除layer
     func yi_removeLayer() {
-        self.layer.mask = nil
-        self.layer.borderWidth = 0
+        layer.mask = nil
+        layer.borderWidth = 0
     }
 }
 

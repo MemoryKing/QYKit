@@ -33,86 +33,86 @@ open class QYRegular: NSObject {
 
     ///验证邮箱
     public class func yi_isEmail(_ vStr: String) -> Bool {
-        return self.validateText(.Email, vStr)
+        return validateText(.Email, vStr)
     }
 
     ///验证手机号
     public class func yi_isPhoneNumber(_ vStr: String) -> Bool {
-        return self.validateText(.PhoneNumber, vStr)
+        return validateText(.PhoneNumber, vStr)
     }
 
     ///验证纯数字
     public class func yi_isNumber(_ vStr: String) -> Bool {
-        return self.validateText(.Number, vStr)
+        return validateText(.Number, vStr)
     }
 
     ///验证数字个数
     public class func yi_isSpecificNumbers(_ vStr: String,_ num: Int) -> Bool {
-        return self.validateText(.SpecificNumbers, vStr,num)
+        return validateText(.SpecificNumbers, vStr,num)
     }
 
     ///验证是否是中文
     public class func yi_isChinese(_ vStr: String) -> Bool {
-        return self.validateText(.Chinese, vStr)
+        return validateText(.Chinese, vStr)
     }
 
     ///验证是否含有^%&',;=?$\"等字符
     public class func yi_isIllegalCharacter(_ vStr: String) -> Bool {
-        return self.validateText(.IllegalCharacter, vStr)
+        return validateText(.IllegalCharacter, vStr)
     }
 
     ///验证URL
     public class func yi_isURL(_ vStr: String) -> Bool {
-        return self.validateText(.URL, vStr)
+        return validateText(.URL, vStr)
     }
 
     ///验证首尾空白行
     public class func yi_isBlankLines(_ vStr: String) -> Bool {
-        return self.validateText(.BlankLines, vStr)
+        return validateText(.BlankLines, vStr)
     }
 
     ///验证QQ号
     public class func yi_isQQ(_ vStr: String) -> Bool {
-        return self.validateText(.QQ, vStr)
+        return validateText(.QQ, vStr)
     }
 
     ///验证ID地址
     public class func yi_isID(_ vStr: String) -> Bool {
-        return self.validateText(.ID, vStr)
+        return validateText(.ID, vStr)
     }
 
     ///验证MAC地址
     public class func yi_isMAC(_ vStr: String) -> Bool {
-        return self.validateText(.MAC, vStr)
+        return validateText(.MAC, vStr)
     }
 
     ///验证身份证号
     public class func yi_isIdCard(_ vStr: String) -> Bool {
-        return self.validateText(.IdCard, vStr)
+        return validateText(.IdCard, vStr)
     }
 
     ///验证年月日    例子 2013-04-1 2
     public class func yi_isDateInformation(_ vStr: String) -> Bool {
-        return self.validateText(.DateInformation, vStr)
+        return validateText(.DateInformation, vStr)
     }
 
     ///验证帐号是否合法(字母开头，默认允许6-18字节，允许字母数字下划线)
     public class func yi_isAccountLegal(_ vStr: String,
                                  _ num: Int? = nil,
                                  _ num2: Int? = nil) -> Bool {
-        return self.validateText(.AccountLegal, vStr,num,num2)
+        return validateText(.AccountLegal, vStr,num,num2)
     }
     ///验证密码(以字母开头，默认长度在6~18之间，只能包含字母、数字和下划线)
     public class func yi_isPasswordIsValidated(_ vStr: String,
                                         _ num: Int? = nil,
                                         _ num2: Int? = nil) -> Bool {
-        return self.validateText(.Password, vStr)
+        return validateText(.Password, vStr)
     }
     ///验证强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-18之间)
     public class func yi_isStrongPassword(_ vStr: String,
                                    _ num: Int? = nil,
                                    _ num2: Int? = nil) -> Bool {
-        return self.validateText(.StrongPassword, vStr)
+        return validateText(.StrongPassword, vStr)
     }
     ///验证
     private class func validateText(_ type: QYValidatedType,

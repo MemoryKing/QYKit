@@ -238,28 +238,28 @@ public extension Date {
     
     ///  当前到date经过了多少天
     func yi_daysInBetweenDate(_ date: Date) -> Double {
-        var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
+        var diff = timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_day))
         return diff
     }
 
     ///  当前到date经过了多少小时
     func yi_hoursInBetweenDate(_ date: Date) -> Double {
-        var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
+        var diff = timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_hour))
         return diff
     }
 
     ///  当前到date经过了多少分钟
     func yi_minutesInBetweenDate(_ date: Date) -> Double {
-        var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
+        var diff = timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff / Double(QYDate_minute))
         return diff
     }
     
     ///  当前到date经过了多少秒
     func yi_secondsInBetweenDate(_ date: Date) -> Double {
-        var diff = self.timeIntervalSince1970 - date.timeIntervalSince1970
+        var diff = timeIntervalSince1970 - date.timeIntervalSince1970
         diff = fabs(diff)
         return diff
     }
@@ -354,12 +354,12 @@ public extension Date {
     ///  在本月内
     var yi_isThisMonth: Bool {
         let today = Date()
-        return self.yi_month == today.yi_month && self.yi_year == today.yi_year
+        return yi_month == today.yi_month && yi_year == today.yi_year
     }
     //MARK: --- 在本周内
     ///  在本周内
     var yi_isThisWeek: Bool {
-        return self.yi_minutesInBetweenDate(Date()) <= Double(Date.minutesInAWeek)
+        return yi_minutesInBetweenDate(Date()) <= Double(Date.minutesInAWeek)
     }
     //MARK: --- era
     ///  era

@@ -27,7 +27,7 @@ class QYRequest: QYAlamofire {
 
     override func yi_configureRequestParameters() {
 //        super.yi_configureRequestParameters()
-        self.timeOut = 8
+        timeOut = 8
     }
     
 }
@@ -66,7 +66,7 @@ class ViewController: QYBaseViewController {
         
         let brn = UIButton.init().yi_then({
             $0.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-            $0.frame = self.view.bounds
+            $0.frame = view.bounds
             view.addSubview($0)
         })
         
@@ -95,22 +95,22 @@ class ViewController: QYBaseViewController {
 //            QYHUD.shared.locationStatus = .top
 //            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
 //                QYLog("12333333333333333333")
-//                self.yi_push(MyViewController())
+//                yi_push(MyViewController())
 //            }
 //            QYSystem.yi_invokeCameraPhoto(nil)
             
 //            QYAlert.yi_show {
 //                QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
 //                    QYLog("12333333333333333333")
-//                    self.yi_push(MyViewController())
+//                    yi_push(MyViewController())
 //                }
 //            }
             
             
 //            QYHUD.showProgress()
 //            let cam = QYCameraController()
-//            self.yi_push(cam)
-//            self.yi_present(cam.yi_then({
+//            yi_push(cam)
+//            yi_present(cam.yi_then({
 ////                $0.titleText = "213hndnsajif"
 //                $0.modalPresentationStyle = .fullScreen
 ////                $0.photoType = .reverse
@@ -122,19 +122,19 @@ class ViewController: QYBaseViewController {
         }
     }
     func ceshi2() {
-        let page = QYPageView().yi_then({
-            $0.lineColor = .red
-            $0.lineSpacing = 9
-            $0.lineWidth = 20
-            $0.backgroundColor = .blue
-            view.addSubview($0)
-            $0.yi_viewControllers = [MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController()]
-        })
-        page.snp.makeConstraints({
-            $0.top.equalTo(QYStatusHeight)
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(-QYBottomHeight)
-        })
+//        let page = QYPageView().yi_then({
+//            $0.lineColor = .red
+//            $0.lineSpacing = 9
+//            $0.lineWidth = 20
+//            $0.backgroundColor = .blue
+//            view.addSubview($0)
+//            $0.yi_viewControllers = [MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController(),MyViewController()]
+//        })
+//        page.snp.makeConstraints({
+//            $0.top.equalTo(QYStatusHeight)
+//            $0.left.right.equalToSuperview()
+//            $0.bottom.equalTo(-QYBottomHeight)
+//        })
 //        page.yi_createPage(["都是","无去的啊","无去的","㡒豆捞坊什么","㡒经济法可什么","为福克斯的从自行车"]) { (str, i) in
 //            QYLog("\(str)" + "\(i)")
 //        }
@@ -167,15 +167,15 @@ class ViewController: QYBaseViewController {
     
     func ceshi() {
 //        la.frame = .init(x: 0, y: 0, width: 200, height: 200)
-//        la.center = self.view.center
+//        la.center = view.center
 //        la.text = "创建来到测试世界"
-//        self.view.addSubview(la)
+//        view.addSubview(la)
 //
 //        la.yi_setGradientLayer(direction: .leftBottom, colors: [.blue,.red])
 //        la.yi_configRectCorner(radii: .init(width: 30, height: 30))
 //        la.layer.masksToBounds = true
 //        let img = UIImageView().Yi_init {
-//            self.view.addSubview($0)
+//            view.addSubview($0)
 //            $0.backgroundColor = .blue
 //            $0.frame = CGRect.init(x: 100, y: 100, width: 100, height: 100)
 //        }
@@ -183,16 +183,16 @@ class ViewController: QYBaseViewController {
         
 //        img.image = UIImage.initGradient(size: .init(width: 100, height: 100), direction: .leftTop, colors: [.blue,.red])
 //        img.yi_addBorderTop(size: 10, color: .blue)
-        self.view.backgroundColor = .blue
+        view.backgroundColor = .blue
 //        let string = "adcfb425723432".yi_xor("213871248dbcaf")
 //        yPrintLog(string.yi_hexToString())
 //        QYLog("text=text".yi_toURLEncode("="))
         let lab = QYCountDownButton().yi_then {
             $0.frame = .init(x: 100, y: 100, width: 100, height: 100)
             $0.yi_title = "获取验证码"
-            $0.addTarget(self, action: #selector(self.click(_:)), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(click(_:)), for: .touchUpInside)
         }
-        self.view.addSubview(lab)
+        view.addSubview(lab)
         
         _ = CGSize.init(width: 1, height: 1) + CGSize.init(width: 1, height: 1)
     }

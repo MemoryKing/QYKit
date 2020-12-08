@@ -17,7 +17,7 @@ public extension UIViewController {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.interfaceStyleKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
             if #available(iOS 13.0, *) {
-                self.overrideUserInterfaceStyle = newValue
+                overrideUserInterfaceStyle = newValue
             } else {
                 // Fallback on earlier versions
             }
@@ -43,13 +43,12 @@ public extension UIViewController {
     var yi_isHiddenShadow: Bool {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.hiddenShadowKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            if self.navigationController == nil {
-                NSLog("no navigation controller", 1)
-            } else {
+            
+            if let nav = navigationController {
                 if newValue {
-                    self.navigationController?.navigationBar.shadowImage = UIImage()
+                    nav.navigationBar.shadowImage = UIImage()
                 } else {
-                    self.navigationController?.navigationBar.shadowImage = nil
+                    nav.navigationBar.shadowImage = nil
                 }
             }
         }
@@ -68,14 +67,14 @@ public extension UIViewController {
     }
     ///导航透明
     func yi_navClear() {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     ///返回图片
     func yi_backImage (_ img: UIImage?) {
-        if let nav = self.navigationController {
+        if let nav = navigationController {
             if nav.children.count > 1 {
-                self.yi_navLeftImageItem(img) {[weak self] in
+                yi_navLeftImageItem(img) {[weak self] in
                     self?.yi_goBack()
                 }
             }
@@ -83,32 +82,28 @@ public extension UIViewController {
     }
     ///导航背景色
     func yi_navBackground (_ color:UIColor?) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            self.navigationController?.navigationBar.barTintColor = color ?? UIColor.white
-            self.navigationController?.navigationBar.isTranslucent = false
+        if let nav = navigationController {
+            nav.navigationBar.barTintColor = color ?? UIColor.white
+            nav.navigationBar.isTranslucent = false
         }
     }
     ///文本
     func yi_navTitle (_ title: String?,
                       _ color: UIColor? = nil,
                       _ font: CGFloat? = nil) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            self.navigationItem.title = title ?? ""
+        if let nav = navigationController {
+            navigationItem.title = title ?? ""
             let dict:NSDictionary = [NSAttributedString.Key.foregroundColor: color ?? UIColor.black,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font ?? 18)]
-            self.navigationController?.navigationBar.titleTextAttributes = dict as? [NSAttributedString.Key: AnyObject]
+            nav.navigationBar.titleTextAttributes = dict as? [NSAttributedString.Key: AnyObject]
         }
     }
     ///左文本按钮
     func yi_navLeftTitleItem (_ title: String,
+                              _ font: UIFont? = nil,
                               _ color: UIColor? = nil,
                               _ navBlk: @escaping()->()) {
-        let leftItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navLeftItemClick))
-        leftItem.tintColor = color ?? UIColor.black
-        self.navigationItem.leftBarButtonItem = leftItem
+        let item = _customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 14), nil, #selector(navLeftItemClick))
+        navigationItem.leftBarButtonItem = item
         leftNavBlock = navBlk
     }
     
@@ -116,7 +111,7 @@ public extension UIViewController {
     func yi_navLeftImageItem (_ image: UIImage?,
                               _ navBlk: @escaping()->()) {
         let leftItem = UIBarButtonItem(image: image?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navLeftItemClick))
-        self.navigationItem.leftBarButtonItem = leftItem
+        navigationItem.leftBarButtonItem = leftItem
         leftNavBlock = navBlk
     }
     
@@ -126,25 +121,25 @@ public extension UIViewController {
                                       _ font: UIFont? = nil,
                                       _ image: UIImage? = nil,
                                       _ navBlk: @escaping()->()) {
-        let item = self._customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navLeftItemClick))
-        self.navigationItem.leftBarButtonItem = item
+        let item = _customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navLeftItemClick))
+        navigationItem.leftBarButtonItem = item
         leftNavBlock = navBlk
     }
 
     ///右文本按钮
     func yi_navRightTitleItem (_ title: String,
+                               _ font: UIFont? = nil,
                                _ color: UIColor? = nil,
                                _ navBlk: @escaping()->()) {
-        let rightItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(navRightItemClick))
-        rightItem.tintColor = color ?? UIColor.black
-        self.navigationItem.rightBarButtonItem = rightItem
+        let item = _customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 14), nil, #selector(navRightItemClick))
+        navigationItem.rightBarButtonItem = item
         rightNavBlock = navBlk
     }
     
     ///右图片按钮
     func yi_navRightImageItem (_ image: UIImage,_ navBlk: @escaping()->()) {
         let rightItem = UIBarButtonItem(image: image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(navRightItemClick))
-        self.navigationItem.rightBarButtonItem = rightItem
+        navigationItem.rightBarButtonItem = rightItem
         rightNavBlock = navBlk
     }
     
@@ -153,8 +148,8 @@ public extension UIViewController {
                                        _ color: UIColor? = nil,
                                        _ font: UIFont? = nil,
                                        _ image: UIImage? = nil,_ navBlk: @escaping()->()) {
-        let item = self._customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navRightItemClick))
-        self.navigationItem.rightBarButtonItem = item
+        let item = _customBarButtonItem(title, color ?? UIColor.black, font ?? UIFont.systemFont(ofSize: 17), image, #selector(navRightItemClick))
+        navigationItem.rightBarButtonItem = item
         rightNavBlock = navBlk
     }
 }
@@ -177,7 +172,7 @@ public extension UIViewController {
     }
     ///将指定的视图控制器添加为当前视图控制器的子视图控制器
     func yi_addChildViewController(_ vc: UIViewController, toView: UIView) {
-        self.addChild(vc)
+        addChild(vc)
         toView.addSubview(vc.view)
         vc.didMove(toParent: self)
     }
@@ -187,51 +182,45 @@ public extension UIViewController {
 public extension UIViewController {
     ///跳转
     func yi_push(_ viewController: UIViewController,_ animated: Bool = true) {
-        if self.navigationController == nil {
+        if navigationController == nil {
             NSLog("no navigation controller", 1)
         } else {
-            if self.navigationController!.children.count > 0 {
+            if navigationController!.children.count > 0 {
                 viewController.hidesBottomBarWhenPushed = true
             }
-            self.navigationController?.pushViewController(viewController, animated: animated)
+            navigationController?.pushViewController(viewController, animated: animated)
         }
     }
     func yi_present(_ viewController: UIViewController,_ animated: Bool = true, completion: (()->Void)? = nil) {
-        self.present(viewController, animated: animated, completion: completion)
+        present(viewController, animated: animated, completion: completion)
     }
     ///返回
     func yi_goBack (_ ani: Bool = true) {
-        if self.navigationController != nil {
-            if ((self.navigationController?.viewControllers.count)! > 1) {
-                self.navigationController?.popViewController(animated: ani)
+        if let nav = navigationController {
+            if nav.viewControllers.count > 1 {
+                nav.popViewController(animated: ani)
             }
         }
-        if ((self.presentingViewController) != nil) {
-            self.dismiss(animated: ani, completion: nil)
+        if let _ = presentingViewController {
+            dismiss(animated: ani, completion: nil)
         }
     }
 
     ///返回某视图
     func yi_goBackToVC (_ num: Int? = nil,_ ani: Bool? = nil) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            guard let vc = self.navigationController?.viewControllers[num ?? 0] else { return }
-            self.navigationController?.popToViewController(vc, animated: ani ?? true)
+        if let nav = navigationController {
+            let vc = nav.viewControllers[num ?? 0]
+            nav.popToViewController(vc, animated: ani ?? true)
         }
     }
     
     ///返回首页
     func yi_backToRootControlelr (_ ani: Bool = true) {
-        if self.navigationController == nil {
-            NSLog("no navigation controller", 1)
-        } else {
-            if ((self.navigationController?.viewControllers.count)! > 1) {
-                self.navigationController?.popToRootViewController(animated: ani)
-            }
+        if let nav = navigationController, nav.viewControllers.count > 1 {
+            nav.popToRootViewController(animated: ani)
         }
-        if ((self.presentingViewController) != nil) {
-            self.dismiss(animated: ani, completion: nil)
+        if let _ = presentingViewController {
+            dismiss(animated: ani, completion: nil)
         }
     }
 }

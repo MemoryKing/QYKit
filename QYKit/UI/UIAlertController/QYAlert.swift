@@ -128,10 +128,10 @@ public extension UIAlertController {
     var yi_titleColor: UIColor? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.titleColorKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            let titleAtt = NSMutableAttributedString.init(string: self.title ?? "")
-            titleAtt.addAttribute(.foregroundColor, value: newValue ?? UIColor.black, range: .init(location: 0, length: self.title?.count ?? 0))
-            titleAtt.addAttribute(.font, value: self.yi_titleFont ?? QYFont(17), range: .init(location: 0, length: titleAtt.length))
-            self.setValue(titleAtt, forKey: "attributedTitle")
+            let titleAtt = NSMutableAttributedString.init(string: title ?? "")
+            titleAtt.addAttribute(.foregroundColor, value: newValue ?? UIColor.black, range: .init(location: 0, length: title?.count ?? 0))
+            titleAtt.addAttribute(.font, value: yi_titleFont ?? QYFont(17), range: .init(location: 0, length: titleAtt.length))
+            setValue(titleAtt, forKey: "attributedTitle")
         }
         get {
             let color = objc_getAssociatedObject(self, QYRuntimeKey.titleColorKey!) as? UIColor
@@ -144,10 +144,10 @@ public extension UIAlertController {
     var yi_titleFont: UIFont? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.titleFontKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            let titleAtt = NSMutableAttributedString.init(string: self.title ?? "")
-            titleAtt.addAttribute(.foregroundColor, value: self.yi_titleColor ?? UIColor.black, range: .init(location: 0, length: self.title?.count ?? 0))
+            let titleAtt = NSMutableAttributedString.init(string: title ?? "")
+            titleAtt.addAttribute(.foregroundColor, value: yi_titleColor ?? UIColor.black, range: .init(location: 0, length: title?.count ?? 0))
             titleAtt.addAttribute(.font, value: newValue ?? QYFont(17), range: .init(location: 0, length: titleAtt.length))
-            self.setValue(titleAtt, forKey: "attributedTitle")
+            setValue(titleAtt, forKey: "attributedTitle")
         }
         get {
             let font = objc_getAssociatedObject(self, QYRuntimeKey.titleFontKey!) as? UIFont
@@ -160,7 +160,7 @@ public extension UIAlertController {
     var yi_attributedTitle: NSAttributedString? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.attributedTitleKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            self.setValue(newValue, forKey: "attributedTitle")
+            setValue(newValue, forKey: "attributedTitle")
         }
         get {
             let att = objc_getAssociatedObject(self, QYRuntimeKey.attributedTitleKey!) as? NSAttributedString
@@ -173,10 +173,10 @@ public extension UIAlertController {
     var yi_messageColor: UIColor? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.messageColorKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            let titleAtt = NSMutableAttributedString.init(string: self.message ?? "")
-            titleAtt.addAttribute(.foregroundColor, value: newValue ?? UIColor.black, range: .init(location: 0, length: self.message?.count ?? 0))
-            titleAtt.addAttribute(.font, value: self.yi_titleFont ?? QYFont(17), range: .init(location: 0, length: titleAtt.length))
-            self.setValue(titleAtt, forKey: "attributedMessage")
+            let titleAtt = NSMutableAttributedString.init(string: message ?? "")
+            titleAtt.addAttribute(.foregroundColor, value: newValue ?? UIColor.black, range: .init(location: 0, length: message?.count ?? 0))
+            titleAtt.addAttribute(.font, value: yi_titleFont ?? QYFont(17), range: .init(location: 0, length: titleAtt.length))
+            setValue(titleAtt, forKey: "attributedMessage")
         }
         get {
             let color = objc_getAssociatedObject(self, QYRuntimeKey.messageColorKey!) as? UIColor
@@ -189,10 +189,10 @@ public extension UIAlertController {
     var yi_messageFont: UIFont? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.messageFontKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            let titleAtt = NSMutableAttributedString.init(string: self.message ?? "")
-            titleAtt.addAttribute(.foregroundColor, value: self.yi_messageColor ?? UIColor.black, range: .init(location: 0, length: self.message?.count ?? 0))
+            let titleAtt = NSMutableAttributedString.init(string: message ?? "")
+            titleAtt.addAttribute(.foregroundColor, value: yi_messageColor ?? UIColor.black, range: .init(location: 0, length: message?.count ?? 0))
             titleAtt.addAttribute(.font, value: newValue ?? QYFont(15), range: .init(location: 0, length: titleAtt.length))
-            self.setValue(titleAtt, forKey: "attributedMessage")
+            setValue(titleAtt, forKey: "attributedMessage")
         }
         get {
             let font = objc_getAssociatedObject(self, QYRuntimeKey.messageFontKey!) as? UIFont
@@ -205,7 +205,7 @@ public extension UIAlertController {
     var yi_attributedMessage: NSAttributedString? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.attributedMessageKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            self.setValue(newValue, forKey: "attributedMessage")
+            setValue(newValue, forKey: "attributedMessage")
         }
         get {
             let att = objc_getAssociatedObject(self, QYRuntimeKey.attributedMessageKey!) as? NSAttributedString
@@ -230,7 +230,7 @@ public extension UIAlertAction {
     var yi_titleColor: UIColor? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.titleColorKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            self.setValue(newValue, forKey: "titleTextColor")
+            setValue(newValue, forKey: "titleTextColor")
         }
         get {
             let color = objc_getAssociatedObject(self, QYRuntimeKey.titleColorKey!) as? UIColor
@@ -243,7 +243,7 @@ public extension UIAlertAction {
     var yi_image: UIImage? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.imageKey!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            self.setValue(newValue?.withRenderingMode(.alwaysOriginal), forKey: "image")
+            setValue(newValue?.withRenderingMode(.alwaysOriginal), forKey: "image")
         }
         get {
             let img = objc_getAssociatedObject(self, QYRuntimeKey.imageKey!) as? UIImage

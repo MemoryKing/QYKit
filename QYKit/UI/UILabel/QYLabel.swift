@@ -15,25 +15,25 @@ public extension UILabel {
     ///
     /// - Parameter space: space
     func yi_wordSpace(_ space: Float) {
-        let labelText = self.text
+        let labelText = text
         let attStr = NSMutableAttributedString.init(string: labelText!)
         attStr.addAttribute(NSAttributedString.Key.kern, value: (space), range: NSMakeRange(0, (labelText?.count)!))
         attStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: NSMutableParagraphStyle.init(), range: NSMakeRange(0, (labelText?.count)!))
-        self.attributedText = attStr
-        self.sizeToFit()
+        attributedText = attStr
+        sizeToFit()
     }
     
     /// 改变行间距
     ///
     /// - Parameter space: space
     func yi_lineSpace(_ space: Float) {
-        let labelText = self.text
+        let labelText = text
         let attStr = NSMutableAttributedString.init(string: labelText!)
         let paragraphStyle:NSMutableParagraphStyle = NSMutableParagraphStyle.init()
         paragraphStyle.lineSpacing = CGFloat(space)
         attStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, (labelText?.count)!))
-        self.attributedText = attStr
-        self.sizeToFit()
+        attributedText = attStr
+        sizeToFit()
     }
     
     
@@ -43,14 +43,14 @@ public extension UILabel {
     ///   - lineSpace: 行间距
     ///   - wordSpace: 字间距
     func yi_lineSpaceWithWordSpace(_ lineSpace:Float,_ wordSpace:Float) {
-        let labelText = self.text
+        let labelText = text
         let attStr = NSMutableAttributedString.init(string: labelText!)
         let paragraphStyle:NSMutableParagraphStyle = NSMutableParagraphStyle.init()
         paragraphStyle.lineSpacing = CGFloat(lineSpace)
         attStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, (labelText?.count)!))
         attStr.addAttribute(NSAttributedString.Key.kern, value: (wordSpace), range: NSMakeRange(0, (labelText?.count)!))
-        self.attributedText = attStr
-        self.sizeToFit()
+        attributedText = attStr
+        sizeToFit()
     }
 }
 
@@ -67,9 +67,9 @@ public extension UILabel {
         set {
             objc_setAssociatedObject(self, QYRunTimeKey.isCopy!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
             //添加长按手势
-            self.isUserInteractionEnabled = true
+            isUserInteractionEnabled = true
             let LongPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCopyEvent))
-            self.addGestureRecognizer(LongPress)
+            addGestureRecognizer(LongPress)
         }
         get {
             return  objc_getAssociatedObject(self, QYRunTimeKey.isCopy!) as? Bool ?? false
@@ -93,8 +93,8 @@ public extension UILabel {
     }
     
     @objc func copyText() {
-        if self.text != nil {
-            UIPasteboard.general.string = self.text
+        if text != nil {
+            UIPasteboard.general.string = text
         }
     }
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

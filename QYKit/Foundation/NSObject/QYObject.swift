@@ -20,7 +20,7 @@ public extension NSObject {
     /// 获取类的属性列表
     func yi_get_class_copyPropertyList() -> [String] {
         var outCount:UInt32 = 0
-        let propers:UnsafeMutablePointer<objc_property_t>! =  class_copyPropertyList(self.classForCoder, &outCount)
+        let propers:UnsafeMutablePointer<objc_property_t>! =  class_copyPropertyList(classForCoder, &outCount)
         let count:Int = Int(outCount);
         var names:[String] = [String]()
         for i in 0...(count-1) {
@@ -36,7 +36,7 @@ public extension NSObject {
     func yi_get_class_copyMethodList() -> [String] {
         var outCount:UInt32
         outCount = 0
-        let methods:UnsafeMutablePointer<objc_property_t>! =  class_copyMethodList(self.classForCoder, &outCount)
+        let methods:UnsafeMutablePointer<objc_property_t>! =  class_copyMethodList(classForCoder, &outCount)
         let count:Int = Int(outCount);
         var names:[String] = [String]()
         for i in 0...(count-1) {

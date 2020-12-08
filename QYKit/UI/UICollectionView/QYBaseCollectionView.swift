@@ -24,7 +24,7 @@ open class QYBaseCollectionView: UICollectionView {
     public var yi_empty_image             : UIImage? {
         set {
             _yi_empty_image = newValue
-            self.reloadTableView()
+            reloadTableView()
         }
         get {
             return _yi_empty_image
@@ -38,7 +38,7 @@ open class QYBaseCollectionView: UICollectionView {
     public var yi_empty_btn_image         : UIImage? {
         set {
             _yi_empty_btn_image = newValue
-            self.reloadTableView()
+            reloadTableView()
         }
         get {
             return _yi_empty_btn_image
@@ -63,14 +63,14 @@ open class QYBaseCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         if #available(iOS 11.0, *) {
             if #available(iOS 13.0, *) {
-                self.automaticallyAdjustsScrollIndicatorInsets = false
+                automaticallyAdjustsScrollIndicatorInsets = false
             }
-            self.contentInsetAdjustmentBehavior = .never
+            contentInsetAdjustmentBehavior = .never
         } else {
             
         }
-        self.emptyDataSetSource = self
-        self.emptyDataSetDelegate = self
+        emptyDataSetSource = self
+        emptyDataSetDelegate = self
     }
     
     open override func reloadEmptyDataSet() {
@@ -78,7 +78,7 @@ open class QYBaseCollectionView: UICollectionView {
     }
     fileprivate func reloadTableView(){
         reloadEmptyDataSet()
-        self.reloadData()
+        reloadData()
     }
     
     public required init?(coder: NSCoder) {
@@ -86,14 +86,14 @@ open class QYBaseCollectionView: UICollectionView {
     }
     open override func reloadData() {
         super.reloadData()
-        self.isScrollEnabled = yi_isScrollEnabled ?? true
+        isScrollEnabled = yi_isScrollEnabled ?? true
         
-        self.yi_endRefreshing()
-        if (self.mj_footer != nil) {
-            if self.yi_page * self.yi_pageNumber > self.yi_dataCount {
-                self.yi_endRefreshingWithNoMoreData()
+        yi_endRefreshing()
+        if (mj_footer != nil) {
+            if yi_page * yi_pageNumber > yi_dataCount {
+                yi_endRefreshingWithNoMoreData()
             }
-            self.yi_page += 1
+            yi_page += 1
         }
     }
     
@@ -104,37 +104,37 @@ public extension QYBaseCollectionView {
     ///下拉
     func yi_refreshNormakHeader (_ refreshingBlock: @escaping() -> Void) {
         let header = MJRefreshNormalHeader.init(refreshingBlock: refreshingBlock)
-        self.mj_header = header
+        mj_header = header
     }
     
     ///动画下拉
     func yi_refreshGifHeader (_ refreshingBlock: @escaping() -> Void) {
         let header = MJRefreshGifHeader.init(refreshingBlock: refreshingBlock)
-        self.mj_header = header
+        mj_header = header
     }
     
     ///上拉
     func yi_refreshFooter (_ refreshingBlock: @escaping() -> Void) {
         let footer = MJRefreshBackNormalFooter.init(refreshingBlock: refreshingBlock)
-        self.mj_footer = footer
+        mj_footer = footer
     }
     
     ///提示没有更多的数据
     func yi_endRefreshingWithNoMoreData(){
-        self.mj_footer?.endRefreshingWithNoMoreData()
+        mj_footer?.endRefreshingWithNoMoreData()
     }
     
     ///结束刷新状态
     func yi_endRefreshing() {
-        self.mj_header?.endRefreshing()
-        self.mj_footer?.endRefreshing()
+        mj_header?.endRefreshing()
+        mj_footer?.endRefreshing()
     }
     
     func yi_empty_button(title:String , _ bl: (() -> Void)?) {
-        self.yi_empty_title = nil
-        self.yi_empty_btn_title = title
-        self.emptyClickBlock = bl
-        self.reloadTableView()
+        yi_empty_title = nil
+        yi_empty_btn_title = title
+        emptyClickBlock = bl
+        reloadTableView()
     }
     
 }
@@ -145,10 +145,10 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     //MARK: -- DZNEmptyDataSetSource Methods
     ///标题为空的数据集
     public func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let attributes = [NSAttributedString.Key.font: self.yi_empty_titleFont,
-                          NSAttributedString.Key.foregroundColor: self.yi_empty_titleColor]
+        let attributes = [NSAttributedString.Key.font: yi_empty_titleFont,
+                          NSAttributedString.Key.foregroundColor: yi_empty_titleColor]
         
-        if let tit = self.yi_empty_title {
+        if let tit = yi_empty_title {
             return NSAttributedString(string: tit, attributes: attributes)
         }
         
@@ -160,17 +160,17 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
        let paragraph = NSMutableParagraphStyle()
        paragraph.alignment = .center
        paragraph.lineSpacing = CGFloat(NSLineBreakMode.byWordWrapping.rawValue)
-        let attributes = [NSAttributedString.Key.font: self.yi_empty_descriptionFont,
-                          NSAttributedString.Key.foregroundColor: self.yi_empty_descriptionColor,
+        let attributes = [NSAttributedString.Key.font: yi_empty_descriptionFont,
+                          NSAttributedString.Key.foregroundColor: yi_empty_descriptionColor,
                           NSAttributedString.Key.paragraphStyle: paragraph]
-        if let des = self.yi_empty_description {
+        if let des = yi_empty_description {
             return NSAttributedString(string: des, attributes: attributes)
         }
         return nil
     }
     ///图片
     public func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        if let img = self.yi_empty_image {
+        if let img = yi_empty_image {
             return img
         }
         return nil
@@ -187,10 +187,10 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///按钮标题
     public func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> NSAttributedString! {
-        let attributes = [NSAttributedString.Key.font: self.yi_empty_btn_titleFont,
-                          NSAttributedString.Key.foregroundColor: self.yi_empty_btn_titleColor]
+        let attributes = [NSAttributedString.Key.font: yi_empty_btn_titleFont,
+                          NSAttributedString.Key.foregroundColor: yi_empty_btn_titleColor]
         
-        if let tit = self.yi_empty_btn_title {
+        if let tit = yi_empty_btn_title {
             return NSAttributedString(string: tit, attributes: attributes)
         }
         return nil
@@ -198,7 +198,7 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
 
     ///重新加载按钮背景图片
     public func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView!, for state: UIControl.State) -> UIImage! {
-        if let yi_empty_image = self.yi_empty_image {
+        if let yi_empty_image = yi_empty_image {
             return yi_empty_image
         }
         return nil
@@ -206,15 +206,15 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     }
     ///自定义背景颜色
     public func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return self.yi_empty_backgroundColor
+        return yi_empty_backgroundColor
     }
 
     public func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return self.yi_empty_verticalOffset
+        return yi_empty_verticalOffset
     }
 
     public func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
-        return self.yi_empty_spaceHeight
+        return yi_empty_spaceHeight
     }
 
     //MARK: -- DZNEmptyDataSetDelegate
@@ -238,13 +238,13 @@ extension QYBaseCollectionView: DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
     ///视图触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
         
-        if let block = self.emptyClickBlock {
+        if let block = emptyClickBlock {
             block()
         }
     }
     ///按钮触发
     public func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
-        if let block = self.emptyClickBlock {
+        if let block = emptyClickBlock {
             block()
         }
     }

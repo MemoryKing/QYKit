@@ -44,7 +44,7 @@ open class QYSystem: NSObject {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
-        if let isEdi = self.allowsEditing {
+        if let isEdi = allowsEditing {
             imagePickerController.allowsEditing = isEdi
         }
         if #available(iOS 11.0, *) {

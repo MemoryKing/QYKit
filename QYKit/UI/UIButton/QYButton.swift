@@ -12,7 +12,7 @@ import UIKit
 //MARK: --- 属性
 public extension UIButton {
     var yi_title: String? {
-        get { return self.title(for: .normal) }
+        get { return title(for: .normal) }
         set { setTitle(newValue, for: .normal) }
     }
     
@@ -22,12 +22,12 @@ public extension UIButton {
     }
     
     var yi_attributedTitle: NSAttributedString? {
-        get { return self.attributedTitle(for: .normal) }
+        get { return attributedTitle(for: .normal) }
         set { setAttributedTitle(newValue, for: .normal) }
     }
     
     var yi_titleColor: UIColor? {
-        get { return self.titleColor(for: .normal) }
+        get { return titleColor(for: .normal) }
         set {
             setTitleColor(newValue, for: .normal)
             setTitleColor(newValue?.withAlphaComponent(0.5), for: .disabled)
@@ -38,7 +38,7 @@ public extension UIButton {
         }
     }
     var yi_selectedColor: UIColor? {
-        get { return self.titleColor(for: .selected) }
+        get { return titleColor(for: .selected) }
         set {
             setTitleColor(newValue, for: .selected)
             setTitleColor(newValue?.withAlphaComponent(0.5), for: .disabled)
@@ -50,7 +50,7 @@ public extension UIButton {
     }
     
     var yi_titleShadowColor: UIColor? {
-        get { return self.titleShadowColor(for: .normal) }
+        get { return titleShadowColor(for: .normal) }
         set {
             setTitleShadowColor(newValue, for: .normal)
             setTitleShadowColor(newValue?.withAlphaComponent(0.5), for: .disabled)
@@ -59,19 +59,19 @@ public extension UIButton {
     }
     
     var yi_image: UIImage? {
-        get { return self.image(for: .normal) }
+        get { return image(for: .normal) }
         set {
             setImage(newValue?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
     
     var yi_selectedImage: UIImage? {
-        get { return self.image(for: .selected) }
+        get { return image(for: .selected) }
         set { setImage(newValue?.withRenderingMode(.alwaysOriginal), for: .selected) }
     }
     
     var yi_backgroundImage: UIImage? {
-        get { return self.backgroundImage(for: .normal) }
+        get { return backgroundImage(for: .normal) }
         set {
             let image = newValue?.withRenderingMode(.alwaysOriginal)
             setBackgroundImage(image, for: .normal)
@@ -79,12 +79,12 @@ public extension UIButton {
     }
     
     var yi_selectedBackgroundImage: UIImage? {
-        get { return self.backgroundImage(for: .selected) }
+        get { return backgroundImage(for: .selected) }
         set { setBackgroundImage(newValue?.withRenderingMode(.alwaysOriginal), for: .selected) }
     }
     
     var yi_disabledBackgroundImage: UIImage? {
-        get { return self.backgroundImage(for: .disabled) }
+        get { return backgroundImage(for: .disabled) }
         set { setBackgroundImage(newValue?.withRenderingMode(.alwaysOriginal), for: .disabled) }
     }
 }
@@ -107,12 +107,12 @@ public extension UIButton {
         var image: UIImage?
         if imageW != 0 && imageH != 0 && imageW != nil && imageH != nil {
             image = image?.yi_scale(imageW ?? 0.0, imageH ?? 0.0)
-            self.setImage(image, for: .normal)
+            setImage(image, for: .normal)
         }
-        let imageWidth = self.imageView?.image?.size.width ?? 0
-        let imageHeight = self.imageView?.image?.size.height ?? 0
-        let titleWidth = self.titleLabel?.text?.yi_getWidth((self.titleLabel?.font)!) ?? 0
-        let titleHeight = self.titleLabel?.font.pointSize ?? 0
+        let imageWidth = imageView?.image?.size.width ?? 0
+        let imageHeight = imageView?.image?.size.height ?? 0
+        let titleWidth = titleLabel?.text?.yi_getWidth((titleLabel?.font)!) ?? 0
+        let titleHeight = titleLabel?.font.pointSize ?? 0
         let insetAmount = (space ?? 0) / 2
         let imageOffWidth = (imageWidth + titleWidth) / 2 - imageWidth / 2
         let imageOffHeight = imageHeight / 2 + insetAmount
@@ -120,29 +120,29 @@ public extension UIButton {
         let titleOffHeight = titleHeight / 2 + insetAmount
         switch type {
             case .left:
-                self.imageEdgeInsets = .init(top: 0, left: -insetAmount,
+                imageEdgeInsets = .init(top: 0, left: -insetAmount,
                                              bottom: 0, right: insetAmount)
-                self.titleEdgeInsets = .init(top: 0, left: insetAmount,
+                titleEdgeInsets = .init(top: 0, left: insetAmount,
                                              bottom: 0, right: -insetAmount)
-                self.contentHorizontalAlignment = .center
+                contentHorizontalAlignment = .center
             case .right:
-                self.imageEdgeInsets = .init(top: 0, left: titleWidth + insetAmount,
+                imageEdgeInsets = .init(top: 0, left: titleWidth + insetAmount,
                                              bottom: 0, right: -(titleWidth + insetAmount))
-                self.titleEdgeInsets = .init(top: 0, left: -(imageWidth + insetAmount),
+                titleEdgeInsets = .init(top: 0, left: -(imageWidth + insetAmount),
                                              bottom: 0, right: imageWidth + insetAmount)
-                self.contentHorizontalAlignment = .center
+                contentHorizontalAlignment = .center
             case .top:
-                self.imageEdgeInsets = .init(top: -imageOffHeight, left: imageOffWidth,
+                imageEdgeInsets = .init(top: -imageOffHeight, left: imageOffWidth,
                                              bottom: imageOffHeight, right: -imageOffWidth)
-                self.titleEdgeInsets = .init(top: titleOffHeight, left: -titleOffWidth,
+                titleEdgeInsets = .init(top: titleOffHeight, left: -titleOffWidth,
                                              bottom: -titleOffHeight, right: titleOffWidth)
-                self.contentVerticalAlignment = .center
+                contentVerticalAlignment = .center
             case .bottom:
-                self.imageEdgeInsets = .init(top: imageOffHeight, left: imageOffWidth,
+                imageEdgeInsets = .init(top: imageOffHeight, left: imageOffWidth,
                                              bottom: -imageOffHeight, right: -imageOffWidth)
-                self.titleEdgeInsets = .init(top: -titleOffHeight, left: -titleOffWidth,
+                titleEdgeInsets = .init(top: -titleOffHeight, left: -titleOffWidth,
                                              bottom: titleOffHeight, right: titleOffWidth)
-                self.contentVerticalAlignment = .center
+                contentVerticalAlignment = .center
         }
     }
 }
@@ -156,7 +156,7 @@ extension UIButton {
     var yi_clickAction: (()->())? {
         set {
             objc_setAssociatedObject(self, QYRuntimeKey.QYButtonClick!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-            addTarget(self, action: #selector(self.buttonClickAction), for: .touchUpInside)
+            addTarget(self, action: #selector(buttonClickAction), for: .touchUpInside)
         }
         get {
             return objc_getAssociatedObject(self, QYRuntimeKey.QYButtonClick!) as? () -> ()

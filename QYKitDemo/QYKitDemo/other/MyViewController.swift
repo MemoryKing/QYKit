@@ -12,14 +12,14 @@ class MyViewController: QYBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.yi_barStyle = .lightContent
+        yi_barStyle = .lightContent
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .yi_random()
-//        self.yi_addTableView()
-//        self.mainTableView?.yi_cellForRowAtIndexPath({ (tab, inde) -> UITableViewCell in
+        view.backgroundColor = .yi_random()
+//        yi_addTableView()
+//        mainTableView?.yi_cellForRowAtIndexPath({ (tab, inde) -> UITableViewCell in
 //            return UITableViewCell()
 //            }).yi_numberRows(100)
-//        self.mainTableView?.yi_heightRows(50)
+//        mainTableView?.yi_heightRows(50)
         
     }
     

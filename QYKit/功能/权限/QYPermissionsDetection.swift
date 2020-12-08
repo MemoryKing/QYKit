@@ -152,30 +152,30 @@ open class QYPermissionsDetection {
 //    var bluetoothQueue: DispatchQueue?
 //    /// 获取蓝牙权限
 //    func requestBluetoothAuthorization(_ completionHandler: @escaping (_ state: QYAuthorizationState) -> Void) {
-//        self.completionHandler = completionHandler
-//        self.bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetoothQueue")
-//        self.cbcManager = CBCentralManager.init(delegate: self, queue: self.bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
+//        completionHandler = completionHandler
+//        bluetoothQueue = DispatchQueue(label: "ECPrivacyCheckBluetoothQueue")
+//        cbcManager = CBCentralManager.init(delegate: self, queue: bluetoothQueue, options: [CBCentralManagerOptionShowPowerAlertKey: NSNumber(value: true)])
 //    }
 //    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-//        if self.completionHandler != nil {
+//        if completionHandler != nil {
 //            if central.state == .resetting {
 //                QYLog("正在重置，与系统服务暂时丢失")
-//                self.completionHandler!(QYAuthorizationState.resetting)
+//                completionHandler!(QYAuthorizationState.resetting)
 //            } else if central.state == .unsupported {
 //                QYLog("不支持蓝牙")
-//                self.completionHandler!(QYAuthorizationState.unsupported)
+//                completionHandler!(QYAuthorizationState.unsupported)
 //            } else if central.state == .unauthorized {
 //                QYLog("未授权")
-//                self.completionHandler!(QYAuthorizationState.unauthorized)
+//                completionHandler!(QYAuthorizationState.unauthorized)
 //            } else if central.state == .poweredOff {
 //                QYLog("关闭")
-//                self.completionHandler!(QYAuthorizationState.poweredOff)
+//                completionHandler!(QYAuthorizationState.poweredOff)
 //            } else if central.state == .poweredOn {
 //                QYLog("开启并可用")
-//                self.completionHandler!(QYAuthorizationState.poweredOn)
+//                completionHandler!(QYAuthorizationState.poweredOn)
 //            } else {
 //                QYLog("未知状态")
-//                self.completionHandler!(QYAuthorizationState.unknown)
+//                completionHandler!(QYAuthorizationState.unknown)
 //            }
 //        }
 //    }
