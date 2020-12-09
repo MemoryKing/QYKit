@@ -10,26 +10,31 @@ GitHub:        https://github.com/MemoryKing
 import Foundation
 public extension Array {
     /// 转data
-    func yi_toData(_ options: JSONSerialization.WritingOptions = []) -> Data {
-        if (!JSONSerialization.isValidJSONObject(self)) {
-            QYLog("数组转data")
-            return Data()
+    func yi_toData(_ options: JSONSerialization.WritingOptions = []) -> Data? {
+        
+        guard JSONSerialization.isValidJSONObject(self) else {
+            QYLog("数组转data失败")
+            return nil
         }
-        let data = try? JSONSerialization.data(withJSONObject: self, options: options)
-        return data!
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: options) else {
+            QYLog("数组转data失败")
+            return nil
+        }
+        
+        return data
     }
     
     func yi_toJSONString(_ options: JSONSerialization.WritingOptions = []) -> String? {
-        if (!JSONSerialization.isValidJSONObject(self)) {
+        guard JSONSerialization.isValidJSONObject(self) else {
             QYLog("dic转json失败")
             return nil
         }
-        if let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: options) {
-            let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
-            return JSONString as String? ?? nil
+        guard let newData : Data = try? JSONSerialization.data(withJSONObject: self, options: options) else {
+            QYLog("dic转json失败")
+            return nil
         }
-        QYLog("dic转json失败")
-        return nil
+        let JSONString = NSString(data:newData as Data,encoding: String.Encoding.utf8.rawValue)
+        return JSONString as String? ?? nil
     }
     
 }

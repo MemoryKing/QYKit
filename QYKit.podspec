@@ -12,9 +12,9 @@ Pod::Spec.new do |s|
   s.author           = { '╰莪呮想好好宠Nǐつ ' => '1091676312@qq.com' }
   s.source           = { :git => 'https://github.com/MemoryKing/QYKit.git', :tag => s.version.to_s }
   #s.pod_target_xcconfig = {'SWIFT_VERSION' => '5.0'}
-  s.swift_versions = '5.0'
-  s.platform     = :ios, "10.0"
-  s.frameworks = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','AVFoundation','Accelerate'
+  s.swift_versions   = '5.0'
+  s.platform         = :ios, "10.0"
+  s.frameworks       = 'UIKit','Foundation','QuartzCore','CoreGraphics','AssetsLibrary','AVFoundation','Accelerate'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'SnapKit'

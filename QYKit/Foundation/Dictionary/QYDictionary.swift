@@ -12,12 +12,17 @@ import Foundation
 public extension Dictionary {
     ///json 初始化
     init? (json: String) {
-        if let data = (try? JSONSerialization.jsonObject(with: json.data(using: String.Encoding.utf8, allowLossyConversion: true)!, options: JSONSerialization.ReadingOptions.mutableContainers)) as? NSDictionary {
-            self.init(_immutableCocoaDictionary: data)
-        } else {
-            self.init()
+        
+        guard let jsonData = json.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
             return nil
         }
+        guard let dic = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) else {
+            return nil
+        }
+        if let d = dic as? NSDictionary {
+            self.init(_immutableCocoaDictionary: d)
+        }
+        self.init()
     }
     ///转json
     func yi_toJSONString(_ options: JSONSerialization.WritingOptions = []) -> String {

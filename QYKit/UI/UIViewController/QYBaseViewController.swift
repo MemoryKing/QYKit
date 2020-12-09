@@ -11,6 +11,18 @@ import UIKit
 import SnapKit
 
 open class QYBaseViewController: UIViewController {
+    ///分页页数
+    public var yi_page: Int = 1 {
+        willSet {
+            self.mainTableView?.yi_page = newValue
+        }
+    }
+    ///分页每页个数
+    public var yi_pageNumber: Int = 10 {
+        willSet {
+            self.mainTableView?.yi_pageNumber = newValue
+        }
+    }
     //MARK: --- 状态栏
     private var _barStyle: UIStatusBarStyle?
     ///状态栏
@@ -199,6 +211,7 @@ extension QYBaseViewController : UIScrollViewDelegate {
         if isHover ?? false {
             //组头高度
             let sectionHeaderHeight:CGFloat = 30
+            
             //组尾高度
             let sectionFooterHeight:CGFloat = 30
              
