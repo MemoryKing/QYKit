@@ -1,7 +1,7 @@
 /*******************************************************************************
 Copyright (K), 2020 - ~, ╰莪呮想好好宠Nǐつ
 
-Author:        ╰莪呮想好好宠Nǐつ 
+Author:        ╰莪呮想好好宠Nǐつ
 E-mail:        1091676312@qq.com
 GitHub:        https://github.com/MemoryKing
 ********************************************************************************/
@@ -30,7 +30,7 @@ public func QYLog<T>(_ message: T, fileName: String = #file, methodName: String 
     dformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     //要把路径最后的字符串截取出来
     let lastName = ((fileName as NSString).pathComponents.last!)
-    print("---------------🚀----------------\(dformatter.string(from: now)) --- [\(lastName)][第\(lineNumber)行][函数名:\(methodName)]----> \n \(message)\n ---------------🚀----------------")
+    print("\(dformatter.string(from: now))[\(lastName)][第\(lineNumber)行][函数名:\(methodName)]--->\n✈️-------✈️-------✈️\n\(message)\n🚀-------🚀-------🚀\n")
       
     #endif
 }

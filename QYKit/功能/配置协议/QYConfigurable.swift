@@ -15,10 +15,10 @@ import UIKit
 }
 
 extension UITableViewCell: QYConfigurable {
-    public func yi_configure(_ model: Any?) {  }
+    open func yi_configure(_ model: Any?) {  }
 }
 
 extension UICollectionReusableView: QYConfigurable {
-    public func yi_configure(_ model: Any?) {  }
+    open func yi_configure(_ model: Any?) {  }
 }
 

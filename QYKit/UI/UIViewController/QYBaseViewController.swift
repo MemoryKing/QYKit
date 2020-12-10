@@ -65,13 +65,11 @@ open class QYBaseViewController: UIViewController {
         yi_openPopGecognizer = true
         
         view.backgroundColor = QYF5Color
-        yi_configureLayout()
+        yi_configureInterface()
     }
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+
     ///界面布局
-    open func yi_configureLayout() {
+    open func yi_configureInterface() {
         
     }
     
@@ -89,7 +87,6 @@ open class QYBaseViewController: UIViewController {
             tab.showsVerticalScrollIndicator = false
             tab.showsHorizontalScrollIndicator = false
             tab.backgroundColor = QYF5Color
-            tab.separatorStyle = .none
             tab.estimatedRowHeight = 44
             tab.estimatedSectionFooterHeight = 0
             tab.estimatedSectionHeaderHeight = 0
@@ -126,12 +123,12 @@ open class QYBaseViewController: UIViewController {
     ///注册表视图cell
     public func yi_registerCell(cells: [AnyClass]) {
         for index in 0..<cells.count {
-            mainTableView?.register(cells[index], forCellReuseIdentifier: NSStringFromClass(cells[index]))
+            mainTableView?.register(cells[index], forCellReuseIdentifier: "\(cells[index].self)")
         }
     }
     ///注册表视图cell
     public func yi_registerCell(cells: AnyClass) {
-        mainTableView?.register(cells, forCellReuseIdentifier: NSStringFromClass(cells))
+        mainTableView?.register(cells, forCellReuseIdentifier: "\(cells.self)")
     }
     ///注册表视图cell
     public func yi_registerCell(cell: AnyClass,cellName: String) {
