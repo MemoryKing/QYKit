@@ -379,7 +379,7 @@ public extension UIView {
         public var bottomLeft: CGFloat
         public var bottomRight: CGFloat
         
-        public init(radii: CGFloat = 0) {
+        public init(_ radii: CGFloat = 0) {
             self.topLeft = radii
             self.topRight = radii
             self.bottomLeft = radii

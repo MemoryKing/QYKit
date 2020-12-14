@@ -24,7 +24,7 @@ class MyViewController: QYBaseViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        QYHUD.showProgress("oooolplpl")
+        QYHUD.yi_loading("oooolplpl")
     }
     /*
     // MARK: - Navigation

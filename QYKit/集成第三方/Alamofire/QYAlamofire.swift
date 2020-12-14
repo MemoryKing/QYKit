@@ -23,7 +23,7 @@ public enum QYUploadFileWay {
 public typealias ErrorBlock = ((QYJSON)->())?
 ///网络请求
 open class QYAlamofire: NSObject {
-
+    private var isNet = false
     ///是否数据处理,默认false
     public var isDataManage: Bool = false
     ///超时时间,默认30秒
@@ -40,28 +40,58 @@ open class QYAlamofire: NSObject {
     public var data: String = "data"
     ///错误获取参数,默认msg
     public var msg: String = "msg"
-    ///配置请求参数
-    open func yi_configureRequestParameters() {
-
+    
+    override init() {
+        super.init()
+        
     }
+    
+    ///配置请求参数
+    open func yi_configureRequestParameters() { }
+    
+    ///获取当前网络状态
+    func getNerworkingReachability(_ block: ((Bool)->())?) {
+        let manager = NetworkReachabilityManager.init(host: "www.baidu.com")
+        manager?.startListening(onUpdatePerforming: { (status) in
+            switch status {
+            case .notReachable:
+                block?(false)
+            case .unknown:
+                block?(false)
+            case .reachable(.cellular):
+                block?(true)
+            case .reachable(.ethernetOrWiFi):
+                block?(true)
+            }
+        })
+    }
+    
 }
 
 public extension QYAlamofire {
     //MARK: --- get
     ///get
     final func get(_ api: String,_ parameters: [String: Any]? = nil,success: ((QYJSON)->())?,error: ErrorBlock) {
+        
         yi_configureRequestParameters()
         var headers: HTTPHeaders?
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        request(api, method: .get, parameters: parameters, encoding: encoding, headers: headers, interceptor: interceptor) { (result) in
-            let json = QYJSON.init(result)
-            
-            success?(json)
-        } error: { (afError) in
-            self.errorMethod(afError, error)
+        getNerworkingReachability {
+            if $0 {
+                self.request(api, method: .get, parameters: parameters, encoding: self.encoding, headers: headers, interceptor: self.interceptor) { (result) in
+                    let json = QYJSON.init(result)
+                    
+                    success?(json)
+                } error: { (afError,data) in
+                    self.errorMethod(afError, error,data)
+                }
+            } else {
+                self.nerworkingError(error)
+            }
         }
+        
     }
     
     ///get
@@ -71,16 +101,23 @@ public extension QYAlamofire {
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        request(api, method: .get, parameters: parameters, encoding: encoding, headers: headers, interceptor: interceptor) { (result) in
-            let json = QYJSON.init(result)
-            if let model = try? T(from: json[self.data].dictionaryObject) {
-                success?(model)
+        getNerworkingReachability {
+            if $0 {
+                self.request(api, method: .get, parameters: parameters, encoding: self.encoding, headers: headers, interceptor: self.interceptor) { (result) in
+                    let json = QYJSON.init(result)
+                    if let model = try? T(from: json[self.data].dictionaryObject) {
+                        success?(model)
+                    } else {
+                        error?(json)
+                    }
+                } error: { (afError,data) in
+                    self.errorMethod(afError, error,data)
+                }
             } else {
-                error?(json)
+                self.nerworkingError(error)
             }
-        } error: { (afError) in
-            self.errorMethod(afError, error)
         }
+        
     }
     
     //MARK: --- post
@@ -91,12 +128,19 @@ public extension QYAlamofire {
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        request(api, method: .post, parameters: parameters, encoding: encoding, headers: headers, interceptor: interceptor) { (result) in
-            let json = QYJSON.init(result)
-            success?(json)
-        } error: { (afError) in
-            self.errorMethod(afError, error)
+        getNerworkingReachability {
+            if $0 {
+                self.request(api, method: .post, parameters: parameters, encoding: self.encoding, headers: headers, interceptor: self.interceptor) { (result) in
+                    let json = QYJSON.init(result)
+                    success?(json)
+                } error: { (afError,data) in
+                    self.errorMethod(afError, error,data)
+                }
+            } else {
+                self.nerworkingError(error)
+            }
         }
+        
     }
     ///post
     final func post<T:QYCodable>(_ api: String,_ parameters: [String: Any]? = nil,success: ((T)->())?,error: ErrorBlock) {
@@ -105,16 +149,26 @@ public extension QYAlamofire {
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        request(api, method: .post, parameters: parameters, encoding: encoding, headers: headers, interceptor: interceptor) { (result) in
-            let json = QYJSON.init(result)
-            if let model = try? T(from: json[self.data].dictionaryObject) {
-                success?(model)
+        getNerworkingReachability {
+            if $0 {
+                self.request(api, method: .post, parameters: parameters, encoding: self.encoding, headers: headers, interceptor: self.interceptor) { (result) in
+                    let json = QYJSON.init(result)
+                    if let model = try? T(from: json[self.data].dictionaryObject) {
+                        success?(model)
+                    } else {
+                        var dic = [String: Any]()
+                        dic["code"] = -77777
+                        dic[self.msg] = "model转换失败"
+                        error?(QYJSON.init(dic))
+                    }
+                } error: { (afError,data) in
+                    self.errorMethod(afError, error,data)
+                }
             } else {
-                error?(json)
+                self.nerworkingError(error)
             }
-        } error: { (afError) in
-            self.errorMethod(afError, error)
         }
+        
     }
     
     //MARK: --- 上传图片文件
@@ -129,50 +183,57 @@ public extension QYAlamofire {
                            fileParam: String,files: [Any],
                            progressHandler: ((Progress) -> ())? = nil,
                            success: ((QYJSON)->())?,error: ErrorBlock) {
+        
         var headers: HTTPHeaders?
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        AF.upload(multipartFormData: { multipartFormData in
-            for file in files {
-                switch file {
-                    case let image as UIImage:
-                        if let data = image.pngData() {
-                            multipartFormData.append(data, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
+        getNerworkingReachability {
+            if $0 {
+                AF.upload(multipartFormData: { multipartFormData in
+                    for file in files {
+                        switch file {
+                            case let image as UIImage:
+                                if let data = image.pngData() {
+                                    multipartFormData.append(data, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
+                                }
+                            case let data as Data:
+                                multipartFormData.append(data, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
+                            case let path as String:
+                                if let url = URL.init(string: path) {
+                                    multipartFormData.append(url, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
+                                }
+                            default:
+                                break
                         }
-                    case let data as Data:
-                        multipartFormData.append(data, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
-                    case let path as String:
-                        if let url = URL.init(string: path) {
-                            multipartFormData.append(url, withName: fileParam, fileName: Date().yi_toString() + ".jpg", mimeType: "image/jpg/png/jpeg")
+                        
+                    }
+                    if let params = parameters {
+                        for key in params.keys {
+                            if key == fileParam { break }
+                            if let value = params[key] as? String, let data = value.yi_toData() {
+                                multipartFormData.append(data, withName: key)
+                            }
                         }
-                    default:
-                        break
-                }
-                
-            }
-            if let params = parameters {
-                for key in params.keys {
-                    if key == fileParam { break }
-                    if let value = params[key] as? String, let data = value.yi_toData() {
-                        multipartFormData.append(data, withName: key)
+                    }
+                }, to: api, usingThreshold: UInt64.init(), method: .post, headers: headers, interceptor: self.interceptor, fileManager: FileManager()) { (URLRequest) in
+                    ///超时时间
+                    URLRequest.timeoutInterval = self.timeOut
+                }.uploadProgress { (progress) in
+                    if let b = progressHandler {
+                        b(progress)
+                    }
+                }.responseJSON { (response) in
+                    switch response.result {
+                        case .success(let result):
+                            let json = QYJSON.init(result)
+                            success?(json)
+                        case .failure(let err):
+                            self.errorMethod(err, error,response.data)
                     }
                 }
-            }
-        }, to: api, usingThreshold: UInt64.init(), method: .post, headers: headers, interceptor: interceptor, fileManager: FileManager()) { (URLRequest) in
-            ///超时时间
-            URLRequest.timeoutInterval = self.timeOut
-        }.uploadProgress { (progress) in
-            if let b = progressHandler {
-                b(progress)
-            }
-        }.responseJSON { (response) in
-            switch response.result {
-                case .success(let result):
-                    let json = QYJSON.init(result)
-                    success?(json)
-                case .failure(let err):
-                    self.errorMethod(err, error)
+            } else {
+                self.nerworkingError(error)
             }
         }
     }
@@ -186,26 +247,34 @@ public extension QYAlamofire {
                            multipartFormData:@escaping ((MultipartFormData)->()),
                            progressHandler: ((Progress) -> ())? = nil,
                            success: ((QYJSON)->())?,error: ErrorBlock) {
+        
         var headers: HTTPHeaders?
         if let h = header {
             headers = HTTPHeaders(h)
         }
-        AF.upload(multipartFormData: multipartFormData, to: api, usingThreshold: UInt64.init(), method: .post, headers: headers, interceptor: interceptor, fileManager: FileManager()) { (URLRequest) in
-            ///超时时间
-            URLRequest.timeoutInterval = self.timeOut
-        }.uploadProgress { (progress) in
-            if let b = progressHandler {
-                b(progress)
+        
+        getNerworkingReachability({
+            if $0 {
+                AF.upload(multipartFormData: multipartFormData, to: api, usingThreshold: UInt64.init(), method: .post, headers: headers, interceptor: self.interceptor, fileManager: FileManager()) { (URLRequest) in
+                    ///超时时间
+                    URLRequest.timeoutInterval = self.timeOut
+                }.uploadProgress { (progress) in
+                    if let b = progressHandler {
+                        b(progress)
+                    }
+                }.responseJSON { (response) in
+                    switch response.result {
+                        case .success(let result):
+                            let json = QYJSON.init(result)
+                            success?(json)
+                        case .failure(let err):
+                            self.errorMethod(err, error,response.data)
+                    }
+                }
+            } else {
+                self.nerworkingError(error)
             }
-        }.responseJSON { (response) in
-            switch response.result {
-                case .success(let result):
-                    let json = QYJSON.init(result)
-                    success?(json)
-                case .failure(let err):
-                    self.errorMethod(err, error)
-            }
-        }
+        })
     }
     
     /// 通用请求
@@ -225,7 +294,7 @@ public extension QYAlamofire {
                        headers: HTTPHeaders? = nil,
                        interceptor: RequestInterceptor? = nil,
                        success: ((Any)->())?,
-                       error: ((AFError)->())?) {
+                       error: ((AFError,Data?)->())?) {
         
         AF.request(convertible, method: method, parameters: parameters, encoding: encoding, headers: headers, interceptor: interceptor) { (URLRequest) in
             ///超时时间
@@ -238,24 +307,31 @@ public extension QYAlamofire {
                     success?(result)
                     
                 case .failure(let err):
-                    error?(err)
+                    error?(err,response.data)
             }
         }
     }
     
     //MARK: --- 错误处理
-    ///错误处理
-    func errorMethod(_ afError: AFError,_ errorB: ErrorBlock) {
+    ///返回错误处理
+    func errorMethod(_ afError: AFError,_ errorB: ErrorBlock,_ data:Data?) {
         var dec : String?
         switch afError._code {
-            case 13: dec = "请求超时"
-                
-            default:
-                dec = afError.errorDescription
+        case 13: dec = "请求超时"
+        case -1009: dec = "网络异常,请检查网络后重试"
+        default:
+            dec = data?.yi_toEncodingString()
         }
         var dic = [String: Any]()
         dic["code"] = afError._code
         dic[self.msg] = dec
+        errorB?(QYJSON.init(dic))
+    }
+    ///网络错误处理
+    func nerworkingError(_ errorB: ErrorBlock) {
+        var dic = [String: Any]()
+        dic["code"] = -99999
+        dic[self.msg] = "网络异常,请检查网络后重试"
         errorB?(QYJSON.init(dic))
     }
 }

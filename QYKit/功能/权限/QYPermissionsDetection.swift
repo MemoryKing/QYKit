@@ -9,7 +9,7 @@ GitHub:        https://github.com/MemoryKing
 import UIKit
 import Foundation
 import Photos
-//import CoreTelephony
+import CoreTelephony
 //import CoreLocation
 import AVFoundation
 //import CoreBluetooth
@@ -17,21 +17,25 @@ import AVFoundation
 ///权限
 open class QYPermissionsDetection {
 //    private var bluetoohTools: QYCheckBluetooth?
-    // MARK: - 检测是否开启定位
-    /// 检测是否开启定位
-//    public class func yi_isOpenLocationService() -> Bool {
-//        var isOpen = true
-//        if CLLocationManager.authorizationStatus() == .denied {
-//            let mana = CLLocationManager()
-//            mana.requestAlwaysAuthorization()
-//            mana.requestWhenInUseAuthorization()
-//            mana.startUpdatingLocation()
-//        } else {
-//            isOpen = false
-//        }
-//
-//        return isOpen
-//    }
+    
+    /// 检测是否开启联网
+    public class func yi_openEventServiceWithBolck(_ action :@escaping ((Bool)->())) {
+        let cellularData = CTCellularData()
+        cellularData.cellularDataRestrictionDidUpdateNotifier = { (state) in
+            if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+                action(false)
+            } else {
+                action(true)
+            }
+        }
+        let state = cellularData.restrictedState
+        if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+            action(false)
+        } else {
+            action(true)
+        }
+    }
+
     // MARK: - 检测是否开启摄像头
     /// 检测是否开启摄像头 (可用)
     public class func yi_isOpenCaptureDeviceService() -> Bool {
@@ -46,6 +50,7 @@ open class QYPermissionsDetection {
         }
         return isOpen
     }
+    
     // MARK: - 检测是否开启相册
     /// 检测是否开启相册
     public class func yi_isOpenAlbumService() -> Bool {
@@ -67,6 +72,7 @@ open class QYPermissionsDetection {
         
         return isOpen
     }
+    
     // MARK: - 跳转系统设置界面
     ///跳转系统设置界面
     public class func yi_OpenPermissionsSetting() {
@@ -92,7 +98,23 @@ open class QYPermissionsDetection {
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
 }
-
+//extension QYPermissionsDetection {
+    // MARK: - 检测是否开启定位
+    /// 检测是否开启定位
+//    public class func yi_isOpenLocationService() -> Bool {
+//        var isOpen = true
+//        if CLLocationManager.authorizationStatus() == .denied {
+//            let mana = CLLocationManager()
+//            mana.requestAlwaysAuthorization()
+//            mana.requestWhenInUseAuthorization()
+//            mana.startUpdatingLocation()
+//        } else {
+//            isOpen = false
+//        }
+//
+//        return isOpen
+//    }
+//}
 
 // MARK: - 检测是否开启麦克风
 //extension QYPermissionsDetection {

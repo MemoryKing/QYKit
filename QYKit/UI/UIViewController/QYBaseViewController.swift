@@ -67,21 +67,78 @@ open class QYBaseViewController: UIViewController {
         view.backgroundColor = QYF5Color
         yi_configureInterface()
     }
-
+    
+    ///侧滑开始
+    open func willMode() { }
+    ///侧滑结束
+    open func didMove() { }
     ///界面布局
-    open func yi_configureInterface() {
-        
+    open func yi_configureInterface() { }
+}
+
+//MARK: --- 添加视图  --> tableView & collectionView
+extension QYBaseViewController {
+    //MARK:-注册tableView cell
+    ///注册tableView cell
+    public func yi_registerCell(cells: [AnyClass],cellName: [String]) {
+        for index in 0..<cells.count {
+            mainTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
+        }
+    }
+    ///注册表视图cell
+    public func yi_registerCell(cells: [AnyClass]) {
+        for index in 0..<cells.count {
+            mainTableView?.register(cells[index], forCellReuseIdentifier: "\(cells[index].self)")
+        }
+    }
+    ///注册表视图cell
+    public func yi_registerCell(cells: AnyClass) {
+        mainTableView?.register(cells, forCellReuseIdentifier: "\(cells.self)")
+    }
+    ///注册表视图cell
+    public func yi_registerCell(cell: AnyClass,cellName: String) {
+        mainTableView?.register(cell, forCellReuseIdentifier: cellName)
+    }
+    ///注册表视图nib cell
+    public func yi_registerCell(cellNib: String,cellNameNib: String) {
+        mainTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
+    }
+    ///注册表视图nib cell
+    public func yi_registerCell(cellNibs:[String],cellNibName:[String]) {
+        for index in 0 ..< cellNibs.count {
+            mainTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
+        }
+    }
+    //MARK:-注册CollectionView cell
+    ///注册CollectionView cell
+    public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
+        mainCollection?.register(cell, forCellWithReuseIdentifier: cellName)
+    }
+    ///注册CollectionView cell
+    public func yi_registerCollectionCell(cells:[AnyClass],cellName:[String]) {
+        for index in 0..<cells.count {
+            mainCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
+        }
+    }
+    ///注册CollectionView nib cell
+    public func yi_registerCollectionCell(cellNib:String,cellNameNib:String) {
+        mainCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
+    }
+    ///注册CollectionView nib cell
+    public func yi_registerCollectionCell(cellNibs:[String],cellNibName:[String]) {
+        for index in 0 ..< cellNibs.count {
+            mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
+        }
     }
     
-    //MARK: --- 添加表视图
-    ///添加表视图
+    //MARK: --- 添加tableView
+    ///添加tableView
     public func yi_addTableView(_ style: UITableView.Style? = nil, _ block: ((QYBaseTableView) -> Void)? = nil) {
         
-        if mainCollection != nil {
-            mainCollection?.removeFromSuperview()
+        if let collec = mainCollection {
+            collec.removeFromSuperview()
             mainCollection = nil
         }
-        
         mainTableView = QYBaseTableView(frame: .zero, style: style ?? .plain)
         if let tab = mainTableView {
             tab.showsVerticalScrollIndicator = false
@@ -113,44 +170,11 @@ open class QYBaseViewController: UIViewController {
         }
     }
     
-    //MARK:-注册表视图cell
-    ///注册表视图cell
-    public func yi_registerCell(cells: [AnyClass],cellName: [String]) {
-        for index in 0..<cells.count {
-            mainTableView?.register(cells[index], forCellReuseIdentifier: cellName[index])
-        }
-    }
-    ///注册表视图cell
-    public func yi_registerCell(cells: [AnyClass]) {
-        for index in 0..<cells.count {
-            mainTableView?.register(cells[index], forCellReuseIdentifier: "\(cells[index].self)")
-        }
-    }
-    ///注册表视图cell
-    public func yi_registerCell(cells: AnyClass) {
-        mainTableView?.register(cells, forCellReuseIdentifier: "\(cells.self)")
-    }
-    ///注册表视图cell
-    public func yi_registerCell(cell: AnyClass,cellName: String) {
-        mainTableView?.register(cell, forCellReuseIdentifier: cellName)
-    }
-    ///注册表视图nib cell
-    public func yi_registerCell(cellNib: String,cellNameNib: String) {
-        mainTableView?.register(UINib.init(nibName: cellNib, bundle: nil), forCellReuseIdentifier: cellNameNib)
-    }
-    ///注册表视图nib cell
-    public func yi_registerCell(cellNibs:[String],cellNibName:[String]) {
-        for index in 0 ..< cellNibs.count {
-            mainTableView?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellReuseIdentifier: cellNibName[index])
-        }
-    }
-    
-    
-    //MARK: --- 添加集合视图
-    ///添加集合视图
+    //MARK: --- 添加CollectionView
+    ///添加CollectionView
     public func yi_addCollectionView(_ block: ((UICollectionViewFlowLayout,QYBaseCollectionView) -> Void)? = nil) {
-        if mainTableView != nil {
-            mainTableView?.removeFromSuperview()
+        if let table = mainTableView {
+            table.removeFromSuperview()
             mainTableView = nil
         }
         
@@ -171,39 +195,12 @@ open class QYBaseViewController: UIViewController {
             }
             block?(layout,col)
         }
-        
-    }
-    
-    //MARK:-注册集合视图cell
-    ///注册集合视图cell
-    public func yi_registerCollectionCell(cell:AnyClass,cellName:String) {
-        mainCollection?.register(cell, forCellWithReuseIdentifier: cellName)
-    }
-    ///注册集合视图cell
-    public func yi_registerCollectionCell(cells:[AnyClass],cellName:[String]) {
-        for index in 0..<cells.count {
-            mainCollection?.register(cells[index], forCellWithReuseIdentifier: cellName[index])
-        }
-    }
-    ///注册集合视图nib cell
-    public func yi_registerCollectionCell(cellNib:String,cellNameNib:String) {
-        mainCollection?.register(UINib.init(nibName: cellNib, bundle: nil), forCellWithReuseIdentifier: cellNameNib)
-    }
-    ///注册集合视图nib cell
-    public func yi_registerCollectionCell(cellNibs:[String],cellNibName:[String]) {
-        for index in 0 ..< cellNibs.count {
-            mainCollection?.register(UINib.init(nibName: cellNibs[index], bundle: nil), forCellWithReuseIdentifier: cellNibName[index])
-        }
-    }
-    
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return yi_barStyle
     }
 }
 
+//MARK: --- header、footer悬停
 extension QYBaseViewController : UIScrollViewDelegate {
-    //MARK: --- header、footer均不悬停
-    //header、footer均不悬停
+    //header、footer悬停
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if isHover ?? false {
             //组头高度
@@ -239,6 +236,28 @@ extension QYBaseViewController : UIScrollViewDelegate {
              
             //设置内边距
             scrollView.contentInset = UIEdgeInsets(top: edgeTop, left: 0, bottom: edgeBottom, right: 0)
+        }
+    }
+}
+//MARK: --- 系统方法重写
+extension QYBaseViewController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return yi_barStyle
+    }
+    
+    open override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        guard let _ = parent else {
+            willMode()
+            return
+        }
+    }
+    
+    open override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        guard let _ = parent else {
+            didMove()
+            return
         }
     }
 }

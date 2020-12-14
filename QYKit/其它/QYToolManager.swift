@@ -29,8 +29,8 @@ public func QYLog<T>(_ message: T, fileName: String = #file, methodName: String 
     let dformatter = DateFormatter()
     dformatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     //要把路径最后的字符串截取出来
-    let lastName = ((fileName as NSString).pathComponents.last!)
-    print("\(dformatter.string(from: now))[\(lastName)][第\(lineNumber)行][函数名:\(methodName)]--->\n✈️-------✈️-------✈️\n\(message)\n🚀-------🚀-------🚀\n")
+    let lastName = ((fileName as NSString).pathComponents.last) ?? ""
+    print("\(dformatter.string(from: now)) [\(lastName)][第\(lineNumber)行][函数名:\(methodName)] --->\n✈️---QYKit---✈️\n\n\(message)\n\n🚀---QYKit---🚀\n")
       
     #endif
 }

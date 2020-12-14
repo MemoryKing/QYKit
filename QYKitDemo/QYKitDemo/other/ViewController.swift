@@ -20,14 +20,15 @@ struct Presonewe: QYCodable {
 //    }
 }
 struct HomeAPI {
-    static let login = "http://192.168.16.198:8011/jjf-api/login"
-    static let img = "http://192.168.16.198:8011/jjf-api/api/common/uploadHeadImage"
+    static let login = "http://192.168.16.98:8011/jjf-api/login"
+    static let img = "http://192.168.16.98:8011/jjf-api/api/common/uploadHeadImage"
 }
+
 class QYRequest: QYAlamofire {
 
     override func yi_configureRequestParameters() {
 //        super.yi_configureRequestParameters()
-        timeOut = 8
+        timeOut = 30
     }
     
 }
@@ -39,6 +40,9 @@ class ViewController: QYBaseViewController {
     var model : Presonewe?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        
     }
     
     override func viewDidLoad() {
@@ -60,10 +64,11 @@ class ViewController: QYBaseViewController {
         
         QYLog("1234567890".yi_index(after: 3))
         
-        ceshi1()
+        eq = QYRequest()
+        ceshi3()
     }
+    var eq : QYRequest!
     func ceshi3() {
-        
         let brn = UIButton.init().yi_then({
             $0.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
             $0.frame = view.bounds
@@ -71,26 +76,21 @@ class ViewController: QYBaseViewController {
         })
         
         brn.yi_clickAction = {
-            
-            
-            
 //            "https://beifuqi.sandpay.com.cn/jjf-api/login"
-//            var para = [String: Any]()
-//            para["username"] = "18250808695"
-//            para["password"] = "123456"
-//            para["rememberMe"] = "false"
-//            QYRequest().post(HomeAPI.login, para) { (model: MyInfo_Data) in
-//
-//                QYLog(model.id)
-//                let image = UIImage.init(named: "WeChat66467de1e87eb0c1de1a8add1099df0b")
-//                QYRequest().uploadImage(HomeAPI.img, fileParam: "headImageFile", files: [image!], progressHandler: nil) { (json) in
-//                    QYLog(json)
-//                } error: { (json) in
-//                    QYLog(json)
-//                }
-//            } error: { (err) in
-//                QYLog(err)
-//            }
+            var para = [String: Any]()
+            para["username"] = "18250808695"
+            para["password"] = "123456"
+            para["rememberMe"] = "false"
+            self.eq.post(HomeAPI.login, para) { (model: MyInfo_Data) in
+
+                QYLog(model.id)
+                QYHUD.yi_show(model.id) {
+                    self.yi_push(MyViewController())
+                }
+                
+            } error: { (err) in
+                QYLog(err)
+            }
 
 //            QYHUD.shared.locationStatus = .top
 //            QYHUD.yi_show("这下吧发是这下吧发是这下吧发是这下吧发是") {
@@ -220,36 +220,36 @@ class ViewController: QYBaseViewController {
 
 
 struct MyInfo_Data: QYCodable {
-    var vipOverTime: Double?
-    var activateTime: String?
+    var vipOverTime: QYStrDble?
+    var activateTime: QYStrDble?
     var creator: String?
     var recStatus: String?
     var isTwiceMonthReach: String?
     var creditCardNo: String?
     var isVipFirst: QYStrInt?
     var id: String?
-    var vipOpenTime: String?
+    var vipOpenTime: QYStrDble?
     var password: String?
-    var nextMonthReachTime: String?
+    var nextMonthReachTime: QYStrDble?
     var merchantCode: String?
-    var unbindTime: String?
-    var twiceMonthReachTime: String?
+    var unbindTime: QYStrDble?
+    var twiceMonthReachTime: QYStrDble?
     var realName: String?
     var isNextMonthReach: String?
     var salt: String?
     var mobilePhone: String?
-    var modifyTime: String?
+    var modifyTime: QYStrDble?
     var merchantStatus: String?
     var isVip: Bool?
-    var reachTime: String?
-    var bindTime: String?
+    var reachTime: QYStrDble?
+    var bindTime: QYStrDble
     var identityNo: String?
     var debitCardNo: String?
     var modifier: String?
     var merchantName: String?
     var merchantType : String?
     var avatar: String?
-    var createTime: String?
+    var createTime: QYStrDble?
     var authStatus: String?
     var version  : String?
     var sumScore : String?
